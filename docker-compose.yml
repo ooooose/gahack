@@ -25,7 +25,6 @@ services:
       - 'mysql_data:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: root
     ports:
       - '3306:3306'
   front:
