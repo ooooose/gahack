@@ -25,7 +25,6 @@ services:
       - 'mysql_data:/var/lib/mysql'
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: root
     ports:
       - '3306:3306'
   front:
@@ -34,6 +33,8 @@ services:
       dockerfile: Dockerfile
     volumes:
       - './front:/user/src/app'
+    environment:
+      - WDS_SOCKET_PORT=0
     command: sh -c "yarn start"
     ports:
       - '8000:3000'

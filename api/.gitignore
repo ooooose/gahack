@@ -29,3 +29,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# 環境変数の管理を無視
+/.env

@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# バージョン管理ツール
+.tool-versions
+
+# 環境変数管理ファイル
+.env
