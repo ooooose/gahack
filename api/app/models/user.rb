@@ -1,6 +1,6 @@
-class User < ApplicationRecord::Base
+class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
   include DeviseTokenAuth::Concerns::User
 
   validates :name, presence: true, length: { maximum: 30 }
