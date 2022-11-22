@@ -1,8 +1,18 @@
-import Cookies from "js-cookie";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signIn } from "../api/auth";
-import { AuthContext } from "../App";
+import Cookies from "js-cookie";
+
+import { makeStyels, Theme } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+
+
+import { signIn } from "../../lib/api/auth";
+import { AuthContext } from "../../App";
 
 export const SignIn = () => {
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);

@@ -1,10 +1,11 @@
-import React from "react";
-import { createContext, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { getCurrentUser } from "./api/auth";
-import Home from "./components/Home";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
+import React, { useState, useEffect, createContext } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { getCurrentUser } from "./lib/api/auth";
+
+// import CommonLayout from "./components/layouts/CommonLayout";
+import Home from "./components/pages/Home";
+import SignIn from "./components/pages/SignIn";
+import SignUp from "./components/pages/SignUp";
 
 export const AuthContext = createContext();
 
@@ -58,13 +59,13 @@ function App() {
         setCurrentUser,
       }}
     >
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/" element={<Home />} />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </AuthContext.Provider>
   );
 }
