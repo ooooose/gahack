@@ -37,7 +37,8 @@ Rails.application.configure do
 
   config.action_mailer.default_options = { from: ENV['EMAIL_ADDRESS'] }
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.action_mailer.delivery_method = :smtp
+  # letter_openerに設定
+  config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
