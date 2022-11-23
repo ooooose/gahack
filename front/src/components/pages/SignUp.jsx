@@ -14,6 +14,7 @@ import Box from "@material-ui/core/Box";
 
 import { signUp } from "../../lib/api/auth";
 import { AuthContext } from "../../App";
+import AlertMessage from "../utils/AlertMessage";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -48,6 +49,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [alertMessageOpen, setAlertMessageOpen] = useState(false);
   const confirmSuccessUrl = "http://localhost:3000";
 
   const generateParams = () => {
@@ -70,6 +72,7 @@ const SignUp = () => {
       alert("confirm email");
     } catch (e) {
       console.log(e);
+      setAlertMessageOpen(true);
     }
   };
   return (
@@ -141,6 +144,12 @@ const SignUp = () => {
           </CardContent>
         </Card>
       </form>
+      <AlertMessage
+        open={alertMessageOpen}
+        setOpen={setAlertMessageOpen}
+        severity="error"
+        message="Emailもしくはパスワードが無効です"
+      />
     </>
   );
 };

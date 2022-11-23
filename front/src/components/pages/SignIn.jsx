@@ -13,6 +13,7 @@ import Box from "@material-ui/core/Box";
 
 import { signIn } from "../../lib/api/auth";
 import { AuthContext } from "../../App";
+import AlertMessage from "../utils/AlertMessage";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -45,6 +46,7 @@ export const SignIn = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [alertMessageOpen, setAlertMessageOpen] = useState(false);
 
   const generateParams = () => {
     const signInParams = {
@@ -73,6 +75,7 @@ export const SignIn = () => {
       }
     } catch (e) {
       console.log(e);
+      setAlertMessageOpen(true);
     }
   };
   return (
@@ -125,6 +128,12 @@ export const SignIn = () => {
           </CardContent>
         </Card>
       </form>
+      <AlertMessage
+        open={alertMessageOpen}
+        setOpen={setAlertMessageOpen}
+        severity="error"
+        message="Emailもしくはパスワードが無効です"
+      />
     </>
   );
 };
