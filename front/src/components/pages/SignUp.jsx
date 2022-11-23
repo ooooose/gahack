@@ -1,10 +1,47 @@
-import Cookies from "js-cookie";
-import { useContext, useState } from "react";
+// import Cookies from "js-cookie";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+
+
 import { signUp } from "../../lib/api/auth";
 import { AuthContext } from "../../App";
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: theme.spacing(6)
+  },
+  submitBtn: {
+    marginTop: theme.spacing(2),
+    flexGrow: 1,
+    textTransform: "none"
+  },
+  header: {
+    textAlign: "center"
+  },
+  card: {
+    padding: theme.spacing(2),
+    maxWidth: 400
+  },
+  box: {
+    marginTop: "2rem"
+  },
+  link: {
+    textDecoration: "none"
+  }
+}));
+
 const SignUp = () => {
+  const classes = useStyles();
+
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
 
   const [name, setName] = useState("");
@@ -37,61 +74,73 @@ const SignUp = () => {
   };
   return (
     <>
-      <h1>サインアップページです</h1>
-      <form>
-        <div>
-          <label htmlFor="name">名前</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">メールアドレス</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">パスワード</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password_confirmation">パスワード確認</label>
-          <input
-            type="password"
-            id="password_confirmation"
-            name="password_confirmation"
-            value={passwordConfirmation}
-            onChange={(e) => setPasswordConfirmation(e.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            type="hidden"
-            id="confirm_success_url"
-            name="confirm_success_url"
-            value={confirmSuccessUrl}
-          />
-        </div>
-        <button type="submit" onClick={(e) => handleSignUpSubmit(e)}>
-          Submit
-        </button>
+      <form noValidate autoComplete="off" style={{display:"inline-block"}}>
+        <Card className={classes.card}>
+          <CardHeader className={classes.header} title="サインアップ画面" />
+          <CardContent>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Name"
+              value={name}
+              margin="dense"
+              onChange={(event) => setName(event.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Email"
+              value={email}
+              margin="dense"
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Password"
+              type="password"
+              value={password}
+              margin="dense"
+              autoComplete="current-password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Password Confirmation"
+              type="password"
+              value={passwordConfirmation}
+              margin="dense"
+              autoComplete="current-password"
+              onChange={(event) => setPasswordConfirmation(event.target.value)}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              fullWidth
+              color="default"
+              disabled={!name || !email || !password || !passwordConfirmation ? true : false}
+              className={classes.submitBtn}
+              onClick={handleSignUpSubmit}
+            >
+              Submit
+            </Button>
+            <Box textAlign="center" className={classes.box}>
+              <Typography>
+                既にアカウントをお持ちの方は &nbsp;
+                <Link to="/signin" className={classes.link}>
+                  こちら
+                </Link>
+              </Typography>
+            </Box>
+          </CardContent>
+        </Card>
       </form>
-      <Link to="/signin">サインインへ</Link>
     </>
   );
 };

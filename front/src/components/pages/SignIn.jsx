@@ -2,24 +2,49 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-import { makeStyels, Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
-
 
 import { signIn } from "../../lib/api/auth";
 import { AuthContext } from "../../App";
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: theme.spacing(6)
+  },
+  submitBtn: {
+    marginTop: theme.spacing(2),
+    flexGrow: 1,
+    textTransform: "none"
+  },
+  header: {
+    textAlign: "center"
+  },
+  card: {
+    padding: theme.spacing(2),
+    maxWidth: 400
+  },
+  box: {
+    marginTop: "2rem"
+  },
+  link: {
+    textDecoration: "none"
+  }
+}));
+
 export const SignIn = () => {
+  const classes = useStyles();
+  const navigate = useNavigate();
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigation = useNavigate();
 
   const generateParams = () => {
     const signInParams = {
@@ -43,7 +68,8 @@ export const SignIn = () => {
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
 
-        navigation.push("/");
+        navigate("/");
+        console.log("Signed in successfully!");
       }
     } catch (e) {
       console.log(e);
@@ -51,33 +77,54 @@ export const SignIn = () => {
   };
   return (
     <>
-      <p>サインインページです</p>
-      <form>
-        <div>
-          <label htmlFor="email">メールアドレス</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">パスワード</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit" onClick={(e) => handleSignInSubmit(e)}>
-          Submit
-        </button>
+      <form noValidate autoComplete="off" style={{display:"inline-block"}}>
+        <Card className={classes.card}>
+          <CardHeader className={classes.header} title="ログイン画面" />
+          <CardContent>
+
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Email"
+              value={email}
+              margin="dense"
+              onChange={event => setEmail(event.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Password"
+              type="password"
+              placeholder="At least 6 characters"
+              value={password}
+              margin="dense"
+              autoComplete="current-password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              fullWidth
+              color="default"
+              disabled={!email || !password ? true : false}
+              onClick={handleSignInSubmit}
+            >
+              ログイン
+            </Button>
+            <Box textAlign="center" className={classes.box}>
+              <Typography variant="body2">
+                アカウントをお持ちですか? &nbsp;
+                <Link to="/signup" className={classes.link}>
+                  ユーザー登録はこちら!
+                </Link>
+              </Typography>
+            </Box>
+          </CardContent>
+        </Card>
       </form>
-      <Link to="/signup">サインアップへ</Link>
     </>
   );
 };
