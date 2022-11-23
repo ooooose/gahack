@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getCurrentUser } from "./lib/api/auth";
 
-// import CommonLayout from "./components/layouts/CommonLayout";
+import CommonLayout from "./components/layouts/CommonLayout";
 import Home from "./components/pages/Home";
 import SignIn from "./components/pages/SignIn";
 import SignUp from "./components/pages/SignUp";
@@ -36,11 +36,12 @@ function App() {
   }, [setCurrentUser]);
 
   // const Private = ({ children }) => {
+  //   const navigate = useNavigate();
   //   if (!loading) {
   //     if (isSignedIn) {
   //       return children;
   //     } else {
-  //       return <Navigate to="signin" />;
+  //       return navigate("/signin");
   //     }
   //   } else {
   //     return <></>;
@@ -60,11 +61,13 @@ function App() {
       }}
     >
       <Router>
-        <Routes>
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/" element={<Home />} />
-        </Routes>
+        <CommonLayout>
+          <Routes>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </CommonLayout>
       </Router>
     </AuthContext.Provider>
   );
