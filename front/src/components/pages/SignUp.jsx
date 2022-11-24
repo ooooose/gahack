@@ -8,13 +8,13 @@ import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
 
 import { signUp } from "../../lib/api/auth";
 import { AuthContext } from "../../App";
 import AlertMessage from "../utils/AlertMessage";
+import { SignUpButton } from "../atoms/buttons/SignUpButton";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -121,18 +121,15 @@ const SignUp = () => {
               autoComplete="current-password"
               onChange={(event) => setPasswordConfirmation(event.target.value)}
             />
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              color="default"
-              disabled={!name || !email || !password || !passwordConfirmation ? true : false}
-              className={classes.submitBtn}
-              onClick={handleSignUpSubmit}
+            <SignUpButton
+              name={name}
+              email={email}
+              password={password}
+              passwordConfirmation={passwordConfirmation}
+              handleSubmit={handleSignUpSubmit}
             >
-              Submit
-            </Button>
+              登録する
+            </SignUpButton>
             <Box textAlign="center" className={classes.box}>
               <Typography>
                 既にアカウントをお持ちの方は &nbsp;

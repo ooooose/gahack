@@ -8,12 +8,12 @@ import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
 import { signIn } from "../../lib/api/auth";
 import { AuthContext } from "../../App";
 import AlertMessage from "../utils/AlertMessage";
+import { LoginButton } from "../atoms/buttons/LoginButton";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -106,17 +106,13 @@ export const SignIn = () => {
               autoComplete="current-password"
               onChange={(event) => setPassword(event.target.value)}
             />
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              color="default"
-              disabled={!email || !password ? true : false}
-              onClick={handleSignInSubmit}
+            <LoginButton
+              email={email}
+              password={password}
+              handleSubmit={handleSignInSubmit}
             >
-              ログイン
-            </Button>
+              ログインする
+            </LoginButton>
             <Box textAlign="center" className={classes.box}>
               <Typography variant="body2">
                 アカウントをお持ちですか? &nbsp;
