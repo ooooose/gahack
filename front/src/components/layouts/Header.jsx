@@ -63,6 +63,7 @@ const Header = () => {
         return (
           <LinkButton
             onClick={handleSignOut}
+            color={"inherit"}
           >
             サインアウト
           </LinkButton>

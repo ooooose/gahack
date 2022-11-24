@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -15,6 +14,7 @@ import { signUp } from "../../lib/api/auth";
 import { AuthContext } from "../../App";
 import AlertMessage from "../utils/AlertMessage";
 import { SignUpButton } from "../atoms/buttons/SignUpButton";
+import { Form } from "../atoms/forms/Form";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -81,44 +81,28 @@ const SignUp = () => {
         <Card className={classes.card}>
           <CardHeader className={classes.header} title="サインアップ画面" />
           <CardContent>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Name"
+            <Form
+              label={"Name"}
               value={name}
-              margin="dense"
               onChange={(event) => setName(event.target.value)}
             />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Email"
+            <Form
+              label={"Email"}
               value={email}
-              margin="dense"
               onChange={(event) => setEmail(event.target.value)}
             />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Password"
-              type="password"
+            <Form
+              label={"Password"}
+              type={"password"}
               value={password}
-              margin="dense"
-              autoComplete="current-password"
+              autoComplete={"current-password"}
               onChange={(event) => setPassword(event.target.value)}
             />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Password Confirmation"
-              type="password"
+            <Form
+              label={"Password Confirmation"}
+              type={"password"}
               value={passwordConfirmation}
-              margin="dense"
-              autoComplete="current-password"
+              autoComplete={"current-password"}
               onChange={(event) => setPasswordConfirmation(event.target.value)}
             />
             <SignUpButton
