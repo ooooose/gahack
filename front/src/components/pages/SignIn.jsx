@@ -4,16 +4,16 @@ import Cookies from "js-cookie";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
 import { signIn } from "../../lib/api/auth";
 import { AuthContext } from "../../App";
 import AlertMessage from "../utils/AlertMessage";
+import { LoginButton } from "../atoms/buttons/LoginButton";
+import { Form } from "../atoms/forms/Form";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -84,39 +84,26 @@ export const SignIn = () => {
         <Card className={classes.card}>
           <CardHeader className={classes.header} title="ログイン画面" />
           <CardContent>
-
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Email"
+            <Form
+              label={"Email"}
               value={email}
-              margin="dense"
               onChange={event => setEmail(event.target.value)}
             />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Password"
-              type="password"
-              placeholder="At least 6 characters"
+            <Form
+              label={"password"}
+              type={"password"}
+              placeholder={"At least 6 characters"}
               value={password}
-              margin="dense"
-              autoComplete="current-password"
+              autoComplete={"current-password"}
               onChange={(event) => setPassword(event.target.value)}
             />
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              color="default"
-              disabled={!email || !password ? true : false}
-              onClick={handleSignInSubmit}
+            <LoginButton
+              email={email}
+              password={password}
+              handleSubmit={handleSignInSubmit}
             >
-              ログイン
-            </Button>
+              ログインする
+            </LoginButton>
             <Box textAlign="center" className={classes.box}>
               <Typography variant="body2">
                 アカウントをお持ちですか? &nbsp;
