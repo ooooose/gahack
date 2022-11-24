@@ -7,12 +7,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu"
+import MenuIcon from "@material-ui/icons/Menu";
 
 
 import { signOut } from "../../lib/api/auth";
+import { LinkButton } from "../atoms/buttons/LinkButton";
 
 import { AuthContext } from "../../App";
 
@@ -25,9 +25,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textDecoration: "none",
     color: "inherit"
-  },
-  linkButton: {
-    textTransform: "none"
   }
 }))
 
@@ -64,33 +61,27 @@ const Header = () => {
     if (!loading) {
       if (isSignedIn) {
         return (
-          <Button
-            color="inherit"
-            className={classes.linkBtn}
+          <LinkButton
             onClick={handleSignOut}
           >
-            Sign out
-          </Button>
+            サインアウト
+          </LinkButton>
         )
       } else {
         return (
           <>
-            <Button
-              component={Link}
-              to="/signin"
-              color="inherit"
-              className={classes.linkBtn}
+            <LinkButton
+              to={"/signin"}
+              color={"inherit"}
             >
               ログイン
-            </Button>
-            <Button
-              component={Link}
-              to="/signup"
-              color="inherit"
-              className={classes.linkBtn}
+            </LinkButton>
+            <LinkButton
+              to={"/signup"}
+              color={"inherit"}
             >
               サインアップ
-            </Button>
+            </LinkButton>
           </>
         )
       }
