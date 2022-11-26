@@ -6,6 +6,7 @@ import CommonLayout from "./components/layouts/CommonLayout";
 import Home from "./components/pages/Home";
 import SignIn from "./components/pages/SignIn";
 import SignUp from "./components/pages/SignUp";
+import Canvas from "./components/pages/Canvas";
 
 export const AuthContext = createContext();
 
@@ -66,6 +67,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/" element={<Home />} />
+            <Route path="/picture" element={<Canvas />} />
           </Routes>
         </CommonLayout>
       </Router>
