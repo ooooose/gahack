@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Theme, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'テーマ作成' do
+    @theme = create(:theme)
+    expect(@theme).to be_valid
+  end
 end
