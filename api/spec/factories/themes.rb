@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :theme do
-    title { "MyString" }
+    sequence(:title) { |n| "title#{n}" }
   end
 end

@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :picture do
-    user { nil }
-    theme { nil }
+    sequence(:image) { |n| "#{n}_image.png" }
+    user
+    theme
   end
 end
