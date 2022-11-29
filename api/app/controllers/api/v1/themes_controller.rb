@@ -1,8 +1,8 @@
 class Api::V1::ThemesController < ApplicationController
-  before_action :set_theme, only: %i[show]
+  before_action :set_theme, only: %i[show destroy]
 
   def index
-    @themes = Theme.all.includes(:pictures)
+    @themes = Theme.all
     render json: @themes.as_json
   end
 
@@ -19,6 +19,13 @@ class Api::V1::ThemesController < ApplicationController
     render json: @theme.as_json
   end
 
+  def destroy
+    if @theme.destroy
+      render json: @theme
+    else
+      render json: { status: 400 }
+    end
+  end
 
   private
 
