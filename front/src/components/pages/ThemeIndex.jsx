@@ -31,9 +31,9 @@ const ThemeIndex = () => {
     <>
       <Grid container spacing={3}>
         {
-          themes.map((theme, index) => (
-            <Grid item xs={4}>
-              <ThemeCard key={index} title={theme.title} />
+          themes.map((theme) => (
+            <Grid item xs={4} key={theme.id}>
+              <ThemeCard title={theme.title} />
             </Grid>
           ))
         }
