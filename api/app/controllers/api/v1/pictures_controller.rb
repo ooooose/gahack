@@ -37,6 +37,6 @@ class Api::V1::PicturesController < ApplicationController
   end
 
   def picture_params
-    params.require(:pictures).permit(:image, :theme_id)
+    params.require(:picture).permit(:image, :theme_id)
   end
 end
