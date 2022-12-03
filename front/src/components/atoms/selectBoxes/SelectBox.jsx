@@ -1,20 +1,17 @@
 import { FormControl, Select, InputLabel, MenuItem } from '@material-ui/core';
-import { useState } from 'react';
 
 export const SelectBox = (props) => {
-  const [theme, setTheme] = useState();
-  const handleChange = (e) => {
-    setTheme(e.target.value);
+  const onChange = (e) => {
+    props.setTheme(e.target.value);
   }
-
   return (
     <>
       <FormControl fullWidth>
         <InputLabel>テーマを選んでください</InputLabel>
         <Select
           displayEmpty
-          onChange={handleChange}
-          value={theme || ''}
+          onChange={onChange}
+          value={props.theme || ''}
         >
           <MenuItem value="" disabled></MenuItem>
           {
