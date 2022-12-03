@@ -61,12 +61,22 @@ const Header = () => {
     if (!loading) {
       if (isSignedIn) {
         return (
-          <LinkButton
-            onClick={handleSignOut}
-            color={"inherit"}
-          >
-            サインアウト
-          </LinkButton>
+          <>
+            <LinkButton
+              to={"/picture"}
+              color={"inherit"}
+            >キャンバス</LinkButton>
+            <LinkButton
+              to={"/themes"}
+              color={"inherit"}
+            >テーマ一覧</LinkButton>
+            <LinkButton
+              onClick={handleSignOut}
+              color={"inherit"}
+            >
+              サインアウト
+            </LinkButton>
+          </>
         )
       } else {
         return (
@@ -108,7 +118,7 @@ const Header = () => {
             variant="h6"
             className={classes.title}
           >
-            画伯（仮）
+            画伯かもしれん。
           </Typography>
           <AuthButtons />
         </Toolbar>
