@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2022_11_28_101711) do
   create_table "pictures", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "theme_id", null: false
-    t.string "image", null: false
+    t.text "image", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["theme_id"], name: "index_pictures_on_theme_id"
