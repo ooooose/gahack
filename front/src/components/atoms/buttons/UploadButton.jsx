@@ -20,7 +20,7 @@ export const UploadButton = (props) => {
         variant="contained"
         size="large"
         color="default"
-        // disabled={!props.email || !props.password ? true : false}
+        disabled={!props.theme ? true : false}
         className={classes.submitBtn}
         onClick={props.uploadCanvas}
       >
