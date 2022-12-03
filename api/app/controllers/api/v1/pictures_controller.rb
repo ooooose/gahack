@@ -12,8 +12,7 @@ class Api::V1::PicturesController < ApplicationController
   end
 
   def create
-    # user_idとの紐付けはどのようにして行うべきか要検討
-    picture = Picture.new(picture_params)
+    picture = current_api_v1_user.pictures.build(picture_params)
     if picture.save
       render json: picture
     else
@@ -38,6 +37,6 @@ class Api::V1::PicturesController < ApplicationController
   end
 
   def picture_params
-    params.require(:pictures).permit(:image, :user_id, :theme_id)
+    params.require(:pictures).permit(:image, :theme_id)
   end
 end
