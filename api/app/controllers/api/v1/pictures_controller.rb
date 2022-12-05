@@ -13,7 +13,7 @@ class Api::V1::PicturesController < ApplicationController
 
   def create
     picture = current_api_v1_user.pictures.build(picture_params)
-    if picture.save
+    if picture.save!
       render json: picture
     else
       # status400をすることでビューにどう表示するかを検討（エラーハンドリング）

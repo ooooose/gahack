@@ -1,16 +1,25 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
 // import { RouteComponentProps, Link } from "react-router-dom";
 
 import Grid from "@material-ui/core/Grid";
 
+import { makeStyles } from "@material-ui/styles";
 import ThemeCard from "../atoms/cards/ThemeCard";
 import { getThemes } from "../../lib/api/themes";
 import { useEffect } from "react";
 
-const ThemeIndex = () => {
-  const [themes, setThemes] = useState([]);
+const useStyles = makeStyles((theme) => ({
+  link: {
+    textDecoration: "none"
+  }
+}));
 
+
+const ThemeIndex = () => {
+  const classes = useStyles();
+  const [themes, setThemes] = useState([]);
   const handleGetThemes = async () => {
     try {
       const res = await getThemes();
@@ -33,7 +42,16 @@ const ThemeIndex = () => {
         {
           themes.map((theme) => (
             <Grid item xs={4} key={theme.id}>
-              <ThemeCard title={theme.title} />
+              <Link to={{
+                pathname: "/themes/" + theme.id,
+                state: {id: theme.id}
+                
+              }}
+              id={theme.id}
+              className = {classes.link}
+              >
+                <ThemeCard title={theme.title} />
+              </Link>
             </Grid>
           ))
         }
