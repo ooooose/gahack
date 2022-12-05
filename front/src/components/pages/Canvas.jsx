@@ -131,9 +131,9 @@ const Canvas = () => {
         reader.readAsDataURL(blob);
 
         reader.onload = async (e) => {
-          e.preventDefault();
           let dataUrlBase64 = reader.result;
-          const base64 = dataUrlBase64.replace(/data:.*\/.*;base64,/, '');
+          let base64 = dataUrlBase64.replace(/data:.*\/.*;base64,/, '');
+          // console.log(base64);
           // paramsにしっかり値が入っていない！！（重要！）
           const params = generateParams(base64);
           console.log(params);
@@ -143,7 +143,6 @@ const Canvas = () => {
           try {
             const res = await createPicture(params);
             // 確認用コンソール出力です。実装できたら消してください。
-            console.log("ここだ！");
             if (res.status === 200) {
               // ページ遷移するようにする
               window.alert("登録されてるかもね。");
