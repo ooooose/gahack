@@ -16,7 +16,8 @@ class Api::V1::ThemesController < ApplicationController
   end
 
   def show
-    render json: @theme.as_json
+    @pictures = @theme.pictures
+    render json: { theme: @theme.as_json, pictures: @pictures.as_json }
   end
 
   def destroy
