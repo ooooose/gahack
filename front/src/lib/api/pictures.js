@@ -16,3 +16,11 @@ export const createPicture = (params) => {
 export const deletePicture = (id) => {
   return client.delete(`/picture/${id}`);
 }
+
+export const showPicture = (id) => {
+  return client.get(`/pictures/${id}`,{ headers: {
+    "access-token": Cookies.get("_access_token"),
+    "client": Cookies.get("_client"),
+    "uid": Cookies.get("_uid"),
+  }});
+}
