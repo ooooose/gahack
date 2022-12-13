@@ -19,6 +19,9 @@ gem 'devise_token_auth'
 # 画像アップロード機能を実装
 gem 'carrierwave', '~> 2.0'
 
+# シリアライザー（JSON整形用gem）
+gem 'active_model_serializers'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-rails'
