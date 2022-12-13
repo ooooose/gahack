@@ -2,8 +2,14 @@ class Api::V1::ThemesController < ApplicationController
   before_action :set_theme, only: %i[show destroy]
 
   def index
-    @themes = Theme.all
-    render json: @themes.as_json
+    themes = Theme.all
+    render_json = ActiveModelSerializers::SerializableResource.new(
+      themes,
+      includes: '**',
+      each_serializer: ThemeSerializer,
+      current_api_v1_user: current_api_v1_user
+    ).as_json
+    render json: render_json
   end
 
   def create
@@ -16,8 +22,13 @@ class Api::V1::ThemesController < ApplicationController
   end
 
   def show
-    @pictures = @theme.pictures
-    render json: { theme: @theme.as_json, pictures: @pictures.as_json }
+    render_json = ActiveModelSerializers::SerializableResource.new(
+      @theme,
+      include: :pictures,
+      serializer: ThemeSerializer,
+      current_api_v1_user: current_api_v1_user
+    )
+    render json: render_json.as_json
   end
 
   def destroy
