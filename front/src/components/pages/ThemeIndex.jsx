@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 
-// import { RouteComponentProps, Link } from "react-router-dom";
-
 import Grid from "@material-ui/core/Grid";
 
 import { makeStyles } from "@material-ui/styles";
-import ThemeCard from "../atoms/cards/ThemeCard";
 import { getThemes } from "../../lib/api/themes";
 import { useEffect } from "react";
+import ThemeCard from "../atoms/cards/ThemeCard";
 
 const useStyles = makeStyles((theme) => ({
   link: {
-    textDecoration: "none"
+    textDecoration: "none",
   }
 }));
 
@@ -31,9 +29,9 @@ const ThemeIndex = () => {
       console.log(e);
     }
   }
-
   useEffect(() => {
     handleGetThemes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -45,12 +43,11 @@ const ThemeIndex = () => {
               <Link to={{
                 pathname: "/themes/" + theme.id,
                 state: {id: theme.id}
-                
               }}
               id={theme.id}
               className = {classes.link}
               >
-                <ThemeCard title={theme.title} />
+                <ThemeCard theme={theme} title={theme.title} />
               </Link>
             </Grid>
           ))

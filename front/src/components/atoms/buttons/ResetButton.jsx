@@ -20,7 +20,6 @@ export const ResetButton = (props) => {
         variant="contained"
         size="large"
         color="default"
-        // disabled={!props.email || !props.password ? true : false}
         className={classes.submitBtn}
         onClick={props.resetCanvas}
       >

@@ -14,6 +14,6 @@ export const Picture = (props) => {
   let image_src = "data:image/png;base64," + props.image;
 
   return (
-    <img src={image_src} alt={props.theme.name} className={classes.imageScales} />
+    <img src={image_src} alt={props.theme} className={classes.imageScales} />
   )
 }

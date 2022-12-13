@@ -21,7 +21,7 @@ RSpec.describe Theme, type: :request do
     it 'テーマの詳細が表示されること' do
       get "/api/v1/themes/#{@theme.id}"
       expect(response.status).to eq(200)
-      expect(json['title']).to eq(@theme.title)
+      expect(json['theme']['title']).to eq(@theme.title)
     end
   end
 

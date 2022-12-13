@@ -3,12 +3,22 @@ class Api::V1::PicturesController < ApplicationController
 
   def index
     pictures = Picture.all.includes(:user, :theme)
-    render json: pictures.as_json(include: [{ user: { only: %i[id name] }},
-                                            { theme: { only: %i[id title] } }])
+    render_json = ActiveModelSerializers::new(
+      pictures,
+      includes: "**",
+      each_serializer: PictureSerializer,
+      current_api_v1_user: current_api_v1_user
+    )
+    render json: render_json.as_json
   end
 
   def show
-    render json: @picture
+    render_json = ActiveModelSerializers::SerializableResource.new(
+      picture,
+      serializer: PictureSerializer,
+      current_api_v1_user: current_api_v1_user
+    )
+    render json: render_json.as_json, status: 200
   end
 
   def create

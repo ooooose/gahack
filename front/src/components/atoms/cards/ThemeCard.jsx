@@ -10,13 +10,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const ThemeCard = (props) => {
+const ThemeCard = ({theme, title}) => {
   const classes = useStyles();
   return (
     <>
       <Card
         className={classes.card}
-      >{props.title}</Card>
+      >{title}</Card>
     </>
   )
 }

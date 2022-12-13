@@ -64,4 +64,5 @@ RSpec.configure do |config|
   # 新規追加
   config.include FactoryBot::Syntax::Methods
   config.include Requests::JsonHelpers, type: :request
+  config.include Devise::Test::IntegrationHelpers, type: :request
 end

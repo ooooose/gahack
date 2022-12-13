@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :themes, only: %i[index create show destroy]
       # picturesはupdateを今後実装予定だが、一旦はパス
       resources :pictures, only: %i[index create show destroy]
+      resources :likes, only: %i[create destroy]
       resources :test, only: %i[index]
 
       mount_devise_token_auth_for "User", at: "auth", controllers: {
