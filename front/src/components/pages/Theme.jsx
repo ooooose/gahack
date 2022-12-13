@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 import PictureCard from "../atoms/cards/PictureCard";
 
 import { Grid } from "@material-ui/core";
-import { showTheme } from "../../lib/api/themes";
 
+import { useParams } from "react-router-dom";
+import { showTheme } from "../../lib/api/themes";
 
 const Theme = () => {
   const { id } = useParams();
-  const [theme, setTheme] = useState("");
   const [pictures, setPictures] = useState([]);
   const handleShowTheme = async () => {
     try {
-      // showTheme()にidを指定する必要がある。
       const res = await showTheme(id);
       if (res.status === 200) {
         const data = res.data;
-        setTheme(data.theme);
         setPictures(data.pictures);
       }
     } catch (e) {
@@ -27,7 +24,8 @@ const Theme = () => {
 
   useEffect(() => {
     handleShowTheme();
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -35,7 +33,15 @@ const Theme = () => {
         {
           pictures.map((picture) => (
             <Grid item xs={4} key={picture.id}>
-              <PictureCard image={picture.image} theme={theme} />
+              {/* <Link to={{
+                pathname: "/themes/" + theme.id,
+                state: {id: theme.id}
+              }}
+              id={theme.id}
+              className = {classes.link}
+              > */}
+                <PictureCard picture={picture} pictureId={picture.id} />
+              {/* </Link> */}
             </Grid>
           ))
         }
