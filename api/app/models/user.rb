@@ -8,4 +8,16 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :email, presence: true, uniqueness: { case_sensitive: true }
+
+  def like(picture)
+    liked_pictures << picture
+  end
+
+  def unlike(picture)
+    liked_pictures.delete(picture)
+  end
+
+  def like?(picture)
+    picture.liked_users.include?(self)
+  end
 end
