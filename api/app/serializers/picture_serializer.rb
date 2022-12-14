@@ -17,4 +17,8 @@ class PictureSerializer < ActiveModel::Serializer
   attribute :likes do
     object.likes.count
   end
+
+  attribute :theme do
+    object.theme
+  end
 end

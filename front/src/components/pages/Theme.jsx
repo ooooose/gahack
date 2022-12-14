@@ -33,15 +33,7 @@ const Theme = () => {
         {
           pictures.map((picture) => (
             <Grid item xs={4} key={picture.id}>
-              {/* <Link to={{
-                pathname: "/themes/" + theme.id,
-                state: {id: theme.id}
-              }}
-              id={theme.id}
-              className = {classes.link}
-              > */}
-                <PictureCard picture={picture} pictureId={picture.id} />
-              {/* </Link> */}
+              <PictureCard picture={picture} pictureId={picture.id} />
             </Grid>
           ))
         }

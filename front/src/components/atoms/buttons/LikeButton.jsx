@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UnlikeButton = ({params, likeState, setLikeState, likes, setLikes}) => {
+const LikeButton = ({params, likeState, setLikeState, likes, setLikes}) => {
   const classes = useStyles();
   const handleCreateLike = async () => {
     try {
@@ -42,4 +42,4 @@ const UnlikeButton = ({params, likeState, setLikeState, likes, setLikes}) => {
   )
 };
 
-export default UnlikeButton;
+export default LikeButton;

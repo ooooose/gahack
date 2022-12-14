@@ -9,6 +9,7 @@ import SignUp from "./components/pages/SignUp";
 import Canvas from "./components/pages/Canvas";
 import ThemeIndex from "./components/pages/ThemeIndex";
 import Theme from "./components/pages/Theme";
+import ShowPicture from "./components/pages/ShowPicture";
 
 export const AuthContext = createContext();
 
@@ -71,6 +72,7 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/" element={<Home />} />
             <Route path="/picture" element={<Canvas />} />
+            <Route path="/pictures/:id" element={<ShowPicture />} />
             <Route path="/themes" element={<ThemeIndex />} />
             <Route path="/themes/:id" element={<Theme />} />
           </Routes>
