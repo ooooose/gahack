@@ -16,7 +16,7 @@ const ThemeCard = ({theme, title}) => {
     <>
       <Card
         className={classes.card}
-      >{title}</Card>
+      ><strong>{title}</strong>の部屋</Card>
     </>
   )
 }
