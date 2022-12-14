@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-import { Picture } from "../picture/Picture";
+import Picture from "../picture/Picture";
+import { Link } from "react-router-dom";
+
 import LikeButton from "../buttons/LikeButton";
 import UnLikeButton from "../buttons/UnlikeButton";
 
@@ -11,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2),
     maxWidth: 300,
+    margin: 'auto'
   }
 }))
 
@@ -31,7 +34,18 @@ const PictureCard = ({picture, pictureId }) => {
       <Card
         className={classes.card}
       >
-        <Picture image={picture.image} />
+        <Link to={{
+            pathname: "/pictures/" + picture.id,
+            state: {id: picture.id}
+          }}
+          id={picture.id}
+          className = {classes.link}
+        >
+          <Picture picture={picture} 
+            theme={picture.theme} 
+            image={picture.image}
+            />          
+        </Link>
         { likeState ? (
           <UnLikeButton 
             params={generateParams()} 
