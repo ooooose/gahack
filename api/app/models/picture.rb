@@ -9,6 +9,7 @@ class Picture < ApplicationRecord
   validates :user_id, presence: true
   validates :theme_id, presence: true
 
+
   def liked_by(user)
     likes.find{ |f| f.user_id == user.id }
   end

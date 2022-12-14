@@ -14,7 +14,7 @@ class Api::V1::PicturesController < ApplicationController
 
   def show
     render_json = ActiveModelSerializers::SerializableResource.new(
-      picture,
+      @picture,
       serializer: PictureSerializer,
       current_api_v1_user: current_api_v1_user
     )
