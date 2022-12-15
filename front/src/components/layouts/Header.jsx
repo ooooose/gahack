@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Header = () => {
-  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
+  const { loading, isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -62,6 +62,12 @@ const Header = () => {
       if (isSignedIn) {
         return (
           <>
+            <LinkButton
+              to={`/users/${currentUser?.id}`}
+              color={"inherit"}
+            >
+              プロフィール
+            </LinkButton>
             <LinkButton
               to={"/picture"}
               color={"inherit"}

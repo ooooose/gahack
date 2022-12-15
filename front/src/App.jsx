@@ -10,6 +10,7 @@ import Canvas from "./components/pages/Canvas";
 import ThemeIndex from "./components/pages/ThemeIndex";
 import Theme from "./components/pages/Theme";
 import ShowPicture from "./components/pages/ShowPicture";
+import ShowUser from "./components/pages/ShowUser";
 
 export const AuthContext = createContext();
 
@@ -75,6 +76,7 @@ function App() {
             <Route path="/pictures/:id" element={<ShowPicture />} />
             <Route path="/themes" element={<ThemeIndex />} />
             <Route path="/themes/:id" element={<Theme />} />
+            <Route path="/users/:id" element={<ShowUser />} />
           </Routes>
         </CommonLayout>
       </Router>
