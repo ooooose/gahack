@@ -1,5 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name
+  has_many :pictures
 
   def initialize(object, **option)
     @current_api_v1_user = option[:current_api_v1_user]
