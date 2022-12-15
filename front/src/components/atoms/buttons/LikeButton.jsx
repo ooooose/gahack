@@ -20,7 +20,7 @@ const LikeButton = ({params, likeState, setLikeState, likes, setLikes}) => {
       if (res.status === 200) {
         setLikeState(true);
         // 記載方法は疑義あり。
-        setLikes(likes + 1);
+        setLikes(prev => ++prev);
         console.log('いいね！');
       }
     } catch (e) {

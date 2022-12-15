@@ -20,7 +20,7 @@ const UnLikeButton = ({params, likeState, setLikeState, likeId, likes, setLikes}
       if (res.status === 200) {
         setLikeState(false);
         // 記載方法は疑義あり。
-        setLikes(likes - 1);
+        setLikes(prev => --prev);
         console.log('いいね解除');
       }
     } catch (e) {
