@@ -1,22 +1,22 @@
 import { FormControl, Select, InputLabel, MenuItem } from '@material-ui/core';
 
-export const SelectBox = (props) => {
+export const SelectBox = ({placeholder, option, options, setOption}) => {
   const onChange = (e) => {
-    props.setTheme(e.target.value);
+    setOption(e.target.value);
   }
   return (
     <>
       <FormControl fullWidth>
-        <InputLabel>テーマを選んでください</InputLabel>
+        <InputLabel>{placeholder}</InputLabel>
         <Select
           displayEmpty
           onChange={onChange}
-          value={props.theme || ''}
+          value={option || ''}
         >
           <MenuItem value="" disabled></MenuItem>
           {
-            props.themes.map((theme) => (
-              <MenuItem value={theme.id} key={theme.id}>{theme.title}</MenuItem>
+            options.map((opt) => (
+              <MenuItem value={opt} key={opt}>{opt.title}</MenuItem>
             ))
           }
         </Select>

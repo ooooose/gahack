@@ -20,6 +20,7 @@ export const UploadButton = (props) => {
         variant="contained"
         size="large"
         color="default"
+        fullWidth
         disabled={!props.theme ? true : false}
         className={classes.submitBtn}
         onClick={props.uploadCanvas}

@@ -3,7 +3,7 @@ class Api::V1::PicturesController < ApplicationController
 
   def index
     pictures = Picture.all.includes(:user, :theme)
-    render_json = ActiveModelSerializers::new(
+    render_json = ActiveModelSerializers::SerializableResource.new(
       pictures,
       includes: "**",
       each_serializer: PictureSerializer,
@@ -23,7 +23,7 @@ class Api::V1::PicturesController < ApplicationController
 
   def create
     picture = current_api_v1_user.pictures.build(picture_params)
-    if picture.save!
+    if picture.save
       render json: picture
     else
       # status400をすることでビューにどう表示するかを検討（エラーハンドリング）

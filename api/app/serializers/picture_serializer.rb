@@ -7,11 +7,15 @@ class PictureSerializer < ActiveModel::Serializer
   end
 
   attribute :liked do
-    @current_api_v1_user.like?(object)
+    if @current_api_v1_user
+      @current_api_v1_user.like?(object)
+    end
   end
 
   attribute :like_id do
-    object.likes.find_by(user_id: @current_api_v1_user.id)&.id
+    if @current_user_v1_user
+      object.likes.find_by(user_id: @current_api_v1_user.id)&.id
+    end
   end
 
   attribute :likes do

@@ -20,6 +20,7 @@ export const ResetButton = (props) => {
         variant="contained"
         size="large"
         color="default"
+        fullWidth
         className={classes.submitBtn}
         onClick={props.resetCanvas}
       >

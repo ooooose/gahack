@@ -1,5 +1,5 @@
 // import Cookies from "js-cookie";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,7 +11,7 @@ import Box from "@material-ui/core/Box";
 
 
 import { signUp } from "../../lib/api/auth";
-import { AuthContext } from "../../App";
+// import { AuthContext } from "../../App";
 import AlertMessage from "../utils/AlertMessage";
 import { SignUpButton } from "../atoms/buttons/SignUpButton";
 import { Form } from "../atoms/forms/Form";
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = () => {
   const classes = useStyles();
 
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+  // const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

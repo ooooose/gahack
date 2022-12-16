@@ -2,35 +2,49 @@ import React, { useEffect, useState } from "react";
 import { createPicture } from "../../lib/api/pictures";
 import { ResetButton } from "../atoms/buttons/ResetButton";
 
-import { Grid } from "@material-ui/core";
+import { Grid, makeStyles, Button, Slider } from "@material-ui/core";
 import { UploadButton } from "../atoms/buttons/UploadButton";
 import { SelectBox } from "../atoms/selectBoxes/SelectBox";
 
 import { getThemes } from "../../lib/api/themes";
 
+const useStyles = makeStyles((theme) => ({
+  submitBtn: {
+    marginTop: theme.spacing(2),
+    flexGrow: 1,
+    textTransform: "none",
+  },
+}));
+
 const Canvas = () => {
+  const classes = useStyles();
   const [drawFlag, setDrawFlag] = useState(0);
   const [theme, setTheme] = useState();
   const [themes, setThemes] = useState([]);
+  const [eraser, setEraser] = useState(false);
+  const [lineWidth, setLineWidth] = useState(2);
+  const [color, setColor] = useState("black");
   
+  console.log(lineWidth);
   const bgColor = 'rgb(255,255,255)';
+  const line_color = document.getElementById("line_color");
   let canvas;
   let ctx;
   let Xpoint, Ypoint;
-  let x = "red";
-  let y = 2;
+  let eraser_x = 'white';
+  let eraser_y = 12;
 
   const generateParams = (base64) => {
     const pictureParams = {
       image: base64,
-      theme_id: theme,
+      theme_id: theme.id,
     };
     return pictureParams;
   };
   
   useEffect(() => {
-    canvas = document.getElementById("canvas");
-    ctx = canvas.getContext("2d");
+    canvas = document.getElementById("canvas"); // eslint-disable-line
+    ctx = canvas.getContext("2d"); // eslint-disable-line
     canvas.addEventListener('mousedown', startPoint, false);
     canvas.addEventListener("mousemove", movePoint, false);
     canvas.addEventListener("mouseup", endPoint, false);
@@ -56,12 +70,12 @@ const Canvas = () => {
       setDrawFlag(1);
       ctx.lineTo(Xpoint, Ypoint);
       ctx.lineCap = "round";
-      ctx.strokeStyle = x;
-      ctx.lineWidth = y;
+      ctx.strokeStyle = eraser ? eraser_x : color;
+      ctx.lineWidth = lineWidth;
       ctx.stroke();
     }
   }
-  
+
   const endPoint = (e) => {
     if (drawFlag === 0) {
       ctx.lineTo(Xpoint-1, Ypoint-1);
@@ -100,10 +114,24 @@ const Canvas = () => {
   }
 
   const resetCanvas = () => {
-    if (window.confirm('本当にリセットしますか？')) {
+    if (window.confirm('リセットしますか？')) {
       ctx.fillStyle = bgColor;
       ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
     }
+  }
+  
+  const changeEraser = () => {
+    setEraser(!eraser)
+  };
+
+  const changeColor = () => {
+    setColor(prev => line_color.value);
+    ctx.strokeStyle = eraser ? eraser_x : color;
+  };
+
+  const handleLineWidth = (e, newVal) => {
+    setLineWidth(prev => newVal);
+    ctx.lineWidth = eraser ? eraser_y : lineWidth;
   }
 
   const handleGetThemes = async () => {
@@ -126,23 +154,13 @@ const Canvas = () => {
     if (window.confirm("保存して良いですか？") === true) {
       canvas.toBlob((blob) => {
         let reader = new FileReader();
-        // CSRFトークンを発行（おそらくここの取得はできていない。一旦コメントアウト）
-        // const token = document.getElementsByName("csrf-token")[0].content;
         reader.readAsDataURL(blob);
-
         reader.onload = async (e) => {
           let dataUrlBase64 = reader.result;
           let base64 = dataUrlBase64.replace(/data:.*\/.*;base64,/, '');
-          // console.log(base64);
-          // paramsにしっかり値が入っていない！！（重要！）
           const params = generateParams(base64);
-          console.log(params);
-          // console.log(image);
-          // console.log(base64.class);
-          // エラー回避のメソッドを実行。適切に実行されるかを確認する。
           try {
             const res = await createPicture(params);
-            // 確認用コンソール出力です。実装できたら消してください。
             if (res.status === 200) {
               // ページ遷移するようにする
               window.alert("登録されてるかもね。");
@@ -176,12 +194,44 @@ const Canvas = () => {
           <canvas id="canvas" width="700" height="500" style={style}></canvas>
         </Grid>
         <Grid item xs={3}>
-          <SelectBox themes={themes} theme={theme} setTheme={setTheme} />
+          <SelectBox 
+            placeholder={'テーマを選んでください'} 
+            option={theme} 
+            options={themes} 
+            setOption={setTheme} 
+            />
+          <Button
+            className={classes.submitBtn}
+            onChange={changeColor}
+          >
+            <input type="color" id="line_color" />
+          </Button>
+          <Button
+            type='submit'
+            id='erase'
+            className={classes.submitBtn}
+            color="default"
+            onClick={changeEraser}
+          >
+            {eraser ? (
+              <p>Eraserモード</p>
+            ) : (
+              <p>Penモード</p>
+            )}
+          </Button>
+          <Slider
+            value={lineWidth}
+            defaultValue={2}
+            onChange={handleLineWidth}
+            min={1}
+            max={12}
+            valueLabelDisplay="on"
+          />
           <ResetButton resetCanvas={resetCanvas}>キャンバスをリセット</ResetButton>
           <UploadButton uploadCanvas={uploadPicture} 
                         theme={theme}>
-                          アップロードする
-                        </UploadButton>
+            アップロードする
+          </UploadButton>
         </Grid>
       </Grid>
     </>
