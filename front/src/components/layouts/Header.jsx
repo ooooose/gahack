@@ -1,14 +1,16 @@
 import React, { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import clsx from 'clsx';
+
 
 import { makeStyles } from "@material-ui/core/styles";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-// import IconButton from "@material-ui/core/IconButton";
-// import MenuIcon from "@material-ui/icons/Menu";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 
 
 import { signOut } from "../../lib/api/auth";
@@ -16,20 +18,39 @@ import { LinkButton } from "../atoms/buttons/LinkButton";
 
 import { AuthContext } from "../../App";
 
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  iconButton: {
-    marginRight: theme.spacing(2),
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   title: {
     flexGrow: 1,
     textDecoration: "none",
     color: "inherit"
-  }
+  },
+  menuButton: {
+    marginRight: 36,
+  },
+  menuButtonHidden: {
+    display: "none",
+  },
 }))
 
 
-const Header = () => {
+const Header = ({open, handleDrawerOpen}) => {
   const { loading, isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
   const classes = useStyles();
   const navigate = useNavigate();
@@ -55,7 +76,7 @@ const Header = () => {
     }
   }
 
-  const AuthButtons = () => {
+  const AuthButtons = ({handleDrawerOpen}) => {
     // 認証完了後はサインアウト用のボタンを表示
     // 未認証時は認証用のボタンを表示
     if (!loading) {
@@ -109,15 +130,23 @@ const Header = () => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar
+        className={clsx(classes.appBar, open && classes.appBarShift)}  
+        position="fixed"
+      >
         <Toolbar>
-          {/* <IconButton
+          <IconButton
             edge="start"
-            className={classes.iconButton}
             color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            className={clsx(
+              classes.menuButton,
+              open && classes.menuButtonHidden
+            )}
           >
             <MenuIcon />
-          </IconButton> */}
+          </IconButton>
           <Typography
             component={Link}
             to="/"
