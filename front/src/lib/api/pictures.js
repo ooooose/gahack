@@ -15,10 +15,15 @@ export const createPicture = (params) => {
     "client": Cookies.get("_client"),
     "uid": Cookies.get("_uid"),
   }});
-}
+};
 
 export const deletePicture = (id) => {
-  return client.delete(`/picture/${id}`);
+  return client.delete(`/pictures/${id}`,
+  { headers: {
+    "access-token": Cookies.get("_access_token"),
+    "client": Cookies.get("_client"),
+    "uid": Cookies.get("_uid"),
+  }})
 }
 
 export const showPicture = (id) => {
