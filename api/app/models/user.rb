@@ -2,7 +2,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
   include DeviseTokenAuth::Concerns::User
-  has_many :pictures
+  has_many :pictures, dependent: :destroy
   has_many :likes
   has_many :liked_pictures, through: :likes, source: :picture
 
