@@ -21,7 +21,7 @@ const DrawerCloseButton = ({handleDrawerClose}) => {
     <>
       <IconButton
         edge="start"
-        color="white"
+        color="inherit"
         onClick={handleDrawerClose}
         className={classes.menuButton}
       >

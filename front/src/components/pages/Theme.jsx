@@ -3,13 +3,25 @@ import React, { useState, useEffect } from "react";
 import PictureCard from "../atoms/cards/PictureCard";
 
 import { Grid } from "@material-ui/core";
-
 import { useParams } from "react-router-dom";
 import { showTheme } from "../../lib/api/themes";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  animation: {
+    transition: '1s',
+    opacity: '1',
+  },
+  before: {
+    opacity: '0',
+  }
+}));
 
 const Theme = () => {
+  const classes = useStyles();
   const { id } = useParams();
-  const [pictures, setPictures] = useState([]);
+  const [ pictures, setPictures ] = useState([]);
+  const [ isOpen, setIsOpen ] = useState(false);
   const handleShowTheme = async () => {
     try {
       const res = await showTheme(id);
@@ -21,6 +33,7 @@ const Theme = () => {
       console.log(e);
     }
   }
+  setTimeout(() => { setIsOpen(true) }, 100)
 
   useEffect(() => {
     handleShowTheme();
@@ -29,15 +42,22 @@ const Theme = () => {
 
   return (
     <>
-      <Grid container spacing={3}>
-        {
-          pictures.map((picture) => (
-            <Grid item xs={4} key={picture.id}>
-              <PictureCard picture={picture} pictureId={picture.id} />
-            </Grid>
-          ))
-        }
-      </Grid>
+      <div className={isOpen ? classes.animation : classes.before}>
+        <Grid container spacing={3}>
+          {
+            pictures.map((picture) => (
+              <Grid item xs={4} key={picture.id}>
+                <PictureCard
+                  picture={picture} 
+                  pictureId={picture.id}
+                  pictures={pictures}
+                  setPictures={setPictures}
+                />
+              </Grid>
+            ))
+          }
+        </Grid>
+      </div>
     </>
   )
 }

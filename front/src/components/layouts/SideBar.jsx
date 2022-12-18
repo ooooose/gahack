@@ -23,6 +23,12 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 8px",
     ...theme.mixins.toolbar,
   },
+  paper: {
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column",
+  },
   drawerPaper: {
     position: "fixed",
     height: '100%',

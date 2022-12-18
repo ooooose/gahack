@@ -21,7 +21,7 @@ const DrawerOpenButton = ({handleDrawerOpen}) => {
     <>
       <IconButton
         edge="start"
-        color="white"
+        color="inherit"
         aria-label="open drawer"
         onClick={handleDrawerOpen}
         className={classes.menuButton}
