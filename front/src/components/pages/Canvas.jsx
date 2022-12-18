@@ -176,7 +176,6 @@ const Canvas = () => {
     };
   };
   
-  
   const style = {
     minWidth: 64,
     lineHeight: "32px",
@@ -190,10 +189,10 @@ const Canvas = () => {
   return (
     <>
       <Grid container spacing={3}>
-        <Grid item  xs={9}>
-          <canvas id="canvas" width="700" height="500" style={style}></canvas>
+        <Grid item  xs={8}>
+          <canvas id="canvas" width="550" height="450" style={style}></canvas>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <SelectBox 
             placeholder={'テーマを選んでください'} 
             option={theme} 
