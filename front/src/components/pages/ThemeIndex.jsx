@@ -11,12 +11,20 @@ import ThemeCard from "../atoms/cards/ThemeCard";
 const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: "none",
+  },
+  animation: {
+    transition: '1s',
+    opacity: '1',
+  },
+  before: {
+    opacity: '0',
   }
 }));
 
 
 const ThemeIndex = () => {
   const classes = useStyles();
+  const [isOpen, setIsOpen] = useState(false);
   const [themes, setThemes] = useState([]);
   const handleGetThemes = async () => {
     try {
@@ -34,25 +42,29 @@ const ThemeIndex = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  setTimeout(() => { setIsOpen(true) }, 100)
+
   return (
     <>
-      <Grid container spacing={3}>
-        {
-          themes.map((theme) => (
-            <Grid item xs={4} key={theme.id}>
-              <Link to={{
-                pathname: "/themes/" + theme.id,
-                state: {id: theme.id}
-              }}
-              id={theme.id}
-              className = {classes.link}
-              >
-                <ThemeCard theme={theme} title={theme.title} />
-              </Link>
-            </Grid>
-          ))
-        }
-      </Grid>
+      <div className={isOpen ? classes.animation : classes.before}>
+        <Grid container spacing={3}>
+          {
+            themes.map((theme) => (
+              <Grid item xs={4} key={theme.id}>
+                <Link to={{
+                  pathname: "/themes/" + theme.id,
+                  state: {id: theme.id}
+                }}
+                id={theme.id}
+                className = {classes.link}
+                >
+                  <ThemeCard theme={theme} title={theme.title} />
+                </Link>
+              </Grid>
+            ))
+          }
+        </Grid>
+      </div>
     </>
   )
 }

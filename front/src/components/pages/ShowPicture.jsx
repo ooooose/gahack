@@ -12,10 +12,15 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     maxWidth: 300,
     margin: 'auto'
-  }
+  },
+  animation: {
+    transition: '1s',
+    opacity: '1',
+  },
+  before: {
+    opacity: '0',
+  },
 }));
-
-
 
 const ShowPicture = () => {
   const classes = useStyles();
@@ -23,6 +28,7 @@ const ShowPicture = () => {
   const [picture, setPicture] = useState([]);
   const [likeState, setLikeState] = useState(false);
   const [likes, setLikes] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   
   const handleShowPicture = async () => {
     try {
@@ -39,6 +45,8 @@ const ShowPicture = () => {
     }
   }
 
+  setTimeout(() => { setIsOpen(true) }, 200)
+
   const generateParams = () => {
     const likeParams = {
       picture_id: id,
@@ -53,37 +61,39 @@ const ShowPicture = () => {
 
   return (
     <>
-      <Grid container spacing={10}>
-        <Grid item xs={12}>
-        <Card
-            className={classes.card}
-          >
-            <Picture picture={picture} 
-              theme={picture.theme} 
-              image={picture.image}
-              />          
-            { likeState ? (
-              <UnLikeButton 
-                params={generateParams()} 
-                likeState={picture.liked}
-                setLikeState={setLikeState}
-                likeId={picture.like_id}
-                likes={likes}
-                setLikes={setLikes}
-              />
-            ) : (
-              <LikeButton 
-                params={generateParams()} 
-                likeState={picture.liked}
-                setLikeState={setLikeState}
-                likes={likes}
-                setLikes={setLikes}
-              />
-            )}
-          </Card>
-          <h1>アホ！！！！</h1>
+      <div className={isOpen ? classes.animation : classes.before}>
+        <Grid container spacing={10}>
+          <Grid item xs={12}>
+          <Card
+              className={classes.card}
+            >
+              <Picture picture={picture} 
+                theme={picture.theme} 
+                image={picture.image}
+                />          
+              { likeState ? (
+                <UnLikeButton 
+                  params={generateParams()} 
+                  likeState={picture.liked}
+                  setLikeState={setLikeState}
+                  likeId={picture.like_id}
+                  likes={likes}
+                  setLikes={setLikes}
+                />
+              ) : (
+                <LikeButton 
+                  params={generateParams()} 
+                  likeState={picture.liked}
+                  setLikeState={setLikeState}
+                  likes={likes}
+                  setLikes={setLikes}
+                />
+              )}
+            </Card>
+            <h1>アホ！！！！</h1>
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     </>
   )
 };
