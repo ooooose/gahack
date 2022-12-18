@@ -32,11 +32,8 @@ class Api::V1::PicturesController < ApplicationController
   end
 
   def destroy
-    if @picture.destroy
-      render json: @picture
-    else
-      render json: { status: 400 }
-    end
+    @picture.destroy
+    render json: @picture
   end
 
   # プライベートメソッド
