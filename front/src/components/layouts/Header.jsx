@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Header = ({open, handleDrawerOpen}) => {
-  const { loading, isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
+  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -83,20 +83,6 @@ const Header = ({open, handleDrawerOpen}) => {
       if (isSignedIn) {
         return (
           <>
-            <LinkButton
-              to={`/users/${currentUser?.id}`}
-              color={"inherit"}
-            >
-              プロフィール
-            </LinkButton>
-            <LinkButton
-              to={"/picture"}
-              color={"inherit"}
-            >キャンバス</LinkButton>
-            <LinkButton
-              to={"/themes"}
-              color={"inherit"}
-            >テーマ一覧</LinkButton>
             <LinkButton
               onClick={handleSignOut}
               color={"inherit"}
