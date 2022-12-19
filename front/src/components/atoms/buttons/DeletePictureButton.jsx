@@ -6,14 +6,17 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const useStyles = makeStyles(() => ({
   deleteButton: {
     cursor: "pointer",
+    marginLeft: '8px',
   },
 }))
 
-const DeletePicutreButton = ({pictureId, handleDeletePicture}) => {
+const DeletePicutreButton = ({handleDeletePicture}) => {
   const classes = useStyles();
 
   return (
-    <DeleteIcon className={classes.deleteButton} onClick={handleDeletePicture} />
+    <>
+      <DeleteIcon className={classes.deleteButton} onClick={handleDeletePicture} /> 
+    </>
   )
 };
 

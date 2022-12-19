@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { showPicture } from '../../lib/api/pictures';
-import { Grid, Card } from "@material-ui/core";
-import UnLikeButton from '../atoms/buttons/UnlikeButton';
-import LikeButton from '../atoms/buttons/LikeButton';
+import { Grid, Typography } from "@material-ui/core";
 import Picture from '../atoms/picture/Picture';
 import { makeStyles } from "@material-ui/core/styles";
+import styles from "../../css/components/Frames.module.css";
+import LikeButton from '../atoms/buttons/LikeButton';
+import UnLikeButton from '../atoms/buttons/UnlikeButton';
 
 const useStyles = makeStyles((theme) => ({
-  card: {
-    padding: theme.spacing(2),
-    maxWidth: 300,
-    margin: 'auto'
-  },
   animation: {
     transition: '1s',
     opacity: '1',
@@ -36,9 +32,8 @@ const ShowPicture = () => {
       if (res.status === 200) {
         const data = res.data;
         setPicture(data);
-        console.log(data);
         setLikeState(data.liked);
-        setLikes(data.likes)
+        setLikes(data.likes);
       }
     } catch (e) {
       console.log(e);
@@ -64,33 +59,35 @@ const ShowPicture = () => {
       <div className={isOpen ? classes.animation : classes.before}>
         <Grid container spacing={10}>
           <Grid item xs={12}>
-          <Card
-              className={classes.card}
-            >
+            <div className={`${styles.parent}`}>
               <Picture picture={picture} 
                 theme={picture.theme} 
                 image={picture.image}
-                />          
-              { likeState ? (
-                <UnLikeButton 
-                  params={generateParams()} 
-                  likeState={picture.liked}
-                  setLikeState={setLikeState}
-                  likeId={picture.like_id}
-                  likes={likes}
-                  setLikes={setLikes}
                 />
-              ) : (
-                <LikeButton 
-                  params={generateParams()} 
-                  likeState={picture.liked}
-                  setLikeState={setLikeState}
-                  likes={likes}
-                  setLikes={setLikes}
-                />
-              )}
-            </Card>
-            <h1>アホ！！！！</h1>
+              <div className={`${styles.likes}`}>
+                <Typography variant="body2">
+                  おんせさん作
+                </Typography>
+                { likeState ? (
+                  <UnLikeButton 
+                    params={generateParams()} 
+                    likeState={picture.liked}
+                    setLikeState={setLikeState}
+                    likeId={picture.like_id}
+                    likes={likes}
+                    setLikes={setLikes}
+                  />
+                ) : (
+                  <LikeButton 
+                    params={generateParams()} 
+                    likeState={picture.liked}
+                    setLikeState={setLikeState}
+                    likes={likes}
+                    setLikes={setLikes}
+                  />
+                )}
+              </div>      
+            </div>
           </Grid>
         </Grid>
       </div>

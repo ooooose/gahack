@@ -6,6 +6,7 @@ import { Grid } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { showTheme } from "../../lib/api/themes";
 import { makeStyles } from "@material-ui/core";
+import styles from "../../css/components/Frames.module.css";
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -47,12 +48,14 @@ const Theme = () => {
           {
             pictures.map((picture) => (
               <Grid item xs={4} key={picture.id}>
-                <PictureCard
-                  picture={picture} 
-                  pictureId={picture.id}
-                  pictures={pictures}
-                  setPictures={setPictures}
-                />
+                <div className={`${styles.parent}`}>
+                  <PictureCard
+                    picture={picture} 
+                    pictureId={picture.id}
+                    pictures={pictures}
+                    setPictures={setPictures}
+                  />
+                </div>
               </Grid>
             ))
           }

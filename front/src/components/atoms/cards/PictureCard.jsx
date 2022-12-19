@@ -3,11 +3,9 @@ import React from "react";
 import Picture from "../picture/Picture";
 import { Link } from "react-router-dom";
 
-import Likes from "../../molecules/Likes";
+import PictureTitle from "../../molecules/PictureTitle";
 import { deletePicture } from "../../../lib/api/pictures";
 
-import DeletePicutreButton from "../buttons/DeletePictureButton";
-import Card from "@material-ui/core/Card";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -15,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     maxWidth: 300,
     margin: 'auto'
-  }
+  },
 }))
 
 const PictureCard = ({picture, pictureId, pictures, setPictures}) => {
@@ -37,24 +35,23 @@ const PictureCard = ({picture, pictureId, pictures, setPictures}) => {
 
   return (
     <>
-      <Card
-        className={classes.card}
+      <Link to={{
+          pathname: "/pictures/" + picture.id,
+          state: {id: picture.id}
+        }}
+        id={picture.id}
+        className = {classes.link}
       >
-        <Link to={{
-            pathname: "/pictures/" + picture.id,
-            state: {id: picture.id}
-          }}
-          id={picture.id}
-          className = {classes.link}
-        >
-          <Picture picture={picture} 
-            theme={picture.theme} 
-            image={picture.image}
-            />          
-        </Link>
-        <Likes picture={picture} pictureId={pictureId} />
-        <DeletePicutreButton pictureId={pictureId} handleDeletePicture={handleDeletePicture} />
-      </Card>
+        <Picture picture={picture} 
+          theme={picture.theme} 
+          image={picture.image}
+          />          
+      </Link>
+      <PictureTitle 
+        picture={picture} 
+        pictureId={pictureId} 
+        handleDeletePicture={handleDeletePicture} 
+      />
     </>
   )
 }
