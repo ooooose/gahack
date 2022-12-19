@@ -5,6 +5,7 @@ import { Grid, makeStyles } from "@material-ui/core";
 
 import PictureCard from "../atoms/cards/PictureCard";
 import { useParams } from "react-router-dom";
+import styles from "../../css/components/Frames.module.css"
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -52,7 +53,14 @@ const ShowUser = () => {
           {
             pictures.map((picture) => (
               <Grid item xs={4} key={picture.id}>
-                <PictureCard picture={picture} pictureId={picture.id} />
+                <div className={`${styles.parent}`}>
+                  <PictureCard 
+                    picture={picture} 
+                    pictureId={picture.id}
+                    pictures={pictures}
+                    setPictures={setPictures}
+                    />
+                </div>
               </Grid>
             ))
           }
