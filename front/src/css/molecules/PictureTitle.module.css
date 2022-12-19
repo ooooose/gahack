@@ -1,0 +1,10 @@
+.pictureTitle {
+  max-width: 300px;
+  display: flex;
+  z-index: 2;
+  position: absolute;
+  left: 50%;
+  bottom: -10%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
