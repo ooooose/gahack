@@ -1,15 +1,22 @@
 import React from 'react';
 
-import { Button, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import { deleteLike } from "../../../lib/api/likes";
 
 const useStyles = makeStyles((theme) => ({
   submitBtn: {
     marginTop: theme.spacing(2),
     flexGrow: 1,
-    textTransform: "none"
+    textTransform: "none",
+    color: 'red',
+    borderRadius: '50%',
   },
+  likeButton: {
+    cursor: 'pointer',
+    color: 'red',
+  }
 }));
 
 const UnLikeButton = ({params, likeState, setLikeState, likeId, likes, setLikes}) => {
@@ -19,7 +26,6 @@ const UnLikeButton = ({params, likeState, setLikeState, likeId, likes, setLikes}
       const res = await deleteLike(likeId, params);
       if (res.status === 200) {
         setLikeState(false);
-        // 記載方法は疑義あり。
         setLikes(prev => --prev);
         console.log('いいね解除');
       }
@@ -30,14 +36,7 @@ const UnLikeButton = ({params, likeState, setLikeState, likeId, likes, setLikes}
 
   return (
     <>
-      <Button
-        type='submit'
-        className={classes.submitBtn}
-        color="default"
-        onClick={handleDeleteLike}
-      >
-        ★ {likes}
-      </Button>
+      <FavoriteIcon className={classes.likeButton} onClick={handleDeleteLike} /> {likes}
     </>
   )
 };

@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { Button, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
 import { createLike } from "../../../lib/api/likes";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 const useStyles = makeStyles((theme) => ({
-  submitBtn: {
-    marginTop: theme.spacing(2),
-    flexGrow: 1,
-    textTransform: "none"
+  UnlikeButton: {
+    cursor: 'pointer'
   },
 }));
 
@@ -19,7 +18,6 @@ const LikeButton = ({params, likeState, setLikeState, likes, setLikes}) => {
       const res = await createLike(params);
       if (res.status === 200) {
         setLikeState(true);
-        // 記載方法は疑義あり。
         setLikes(prev => ++prev);
         console.log('いいね！');
       }
@@ -30,14 +28,7 @@ const LikeButton = ({params, likeState, setLikeState, likes, setLikes}) => {
 
   return (
     <>
-      <Button
-        type='submit'
-        className={classes.submitBtn}
-        color="default"
-        onClick={handleCreateLike}
-      >
-        ♡ {likes}
-      </Button>
+      <FavoriteBorderIcon className={classes.UnlikeButton} onClick={handleCreateLike} /> {likes}
     </>
   )
 };
