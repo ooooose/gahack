@@ -2,13 +2,9 @@ FROM ruby:2.7.4
 ENV TZ Asia/Tokyo
 
 # 必要なパッケージをインストール
-RUN apt-get update 
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
     build-essential \
-    libpq-dev \
-    nodejs \
-    default-mysql-client \
-    yarn
+    default-mysql-client
 
 # 作業ディレクトリを指定
 WORKDIR /myapp
