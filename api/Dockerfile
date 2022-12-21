@@ -4,6 +4,7 @@ ENV TZ Asia/Tokyo
 # 必要なパッケージをインストール
 RUN apt-get update && apt-get install -y \
     build-essential \
+    libpq-dev \
     default-mysql-client
 
 # 作業ディレクトリを指定
