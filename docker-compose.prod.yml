@@ -1,38 +1,33 @@
 version: '3'
 
-volumes:
-  mysql_data:
-    driver: local
-  public-data:
-  tmp-data:
-  log-data:
-  db-data:
 services:
-  db:
-    platform: linux/x86_64
-    image: mysql:5.7
-    volumes:
-      - 'mysql_data:/var/lib/mysql'
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-    ports:
-      - '3306:3306'
   prod:
     build: 
       context: ./api/
       dockerfile: Dockerfile.prod
+    command: bundle exec puma -C config/puma.rb
     volumes:
-      - './api:/myapp'
-      - 'public-data:/docker_rails/public'
-      - 'tmp-data:/docker_rails/tmp'
-      - 'log-data:/docker_rails/log'
+      - ./api:/myapp
+      - public-data:/myapp/public
+      - tmp-data:/myapp/tmp
+      - log-data:/myapp/log
     ports:
       - '3000:3000'
     depends_on:
       - db
-    tty: true
     stdin_open: true
-    command: bundle exec puma -C config/puma.rb
+    tty: true
+  db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    volumes:
+      - db-data:/var/lib/mysql
+    command: mysqld --innodb_use_native_aio=0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      TZ: "Asia/Tokyo"
+    ports:
+      - '3306:3306'
   web:
     build:
       context: ./nginx
@@ -41,6 +36,11 @@ services:
       - public-data:/myapp/public
       - tmp-data:/myapp/tmp
     ports:
-      - 80:80
+      - '80:80'
     depends_on:
       - prod
+volumes:
+  public-data:
+  tmp-data:
+  log-data:
+  db-data:

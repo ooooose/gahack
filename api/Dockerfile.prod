@@ -7,6 +7,9 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     default-mysql-client
 
+# 本番用環境変数の設定
+ENV RAILS_ENV=production
+
 # 作業ディレクトリを指定
 WORKDIR /myapp
 
@@ -15,9 +18,15 @@ COPY Gemfile Gemfile.lock /myapp/
 RUN bundle install
 COPY . /myapp
 
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+COPY entrypoint.prod.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.prod.sh
+ENTRYPOINT ["entrypoint.prod.sh"]
+
+RUN mkdir -p tmp/sockets
+RUN mkdir -p tmp/pids
+
+VOLUME /myapp/public
+VOLUME /myapp/tmp
 EXPOSE 3000
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
