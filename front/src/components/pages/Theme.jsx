@@ -47,7 +47,7 @@ const Theme = () => {
         <Grid container spacing={3}>
           {
             pictures.map((picture) => (
-              <Grid item xs={4} key={picture.id}>
+              <Grid item xs={12} sm={6} md={4} key={picture.id}>
                 <div className={`${styles.parent}`}>
                   <PictureCard
                     picture={picture} 

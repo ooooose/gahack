@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
+// import Cookies from "js-cookie";
 import clsx from 'clsx';
 
 
@@ -13,7 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
 
-import { signOut } from "../../lib/api/auth";
+// import { signOut } from "../../lib/api/auth";
 import { LinkButton } from "../atoms/buttons/LinkButton";
 
 import { AuthContext } from "../../App";
@@ -51,30 +51,30 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Header = ({open, handleDrawerOpen}) => {
-  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
+  const { loading, isSignedIn } = useContext(AuthContext);
   const classes = useStyles();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleSignOut = async (e) => {
-    try {
-      const res = await signOut();
+  // const handleSignOut = async (e) => {
+  //   try {
+  //     const res = await signOut();
 
-      if (res.data.success === true) {
-        Cookies.remove("_access_token")
-        Cookies.remove("_client")
-        Cookies.remove("_uid")
+  //     if (res.data.success === true) {
+  //       Cookies.remove("_access_token")
+  //       Cookies.remove("_client")
+  //       Cookies.remove("_uid")
 
-        setIsSignedIn(false)
-        navigate("/signin");
+  //       setIsSignedIn(false)
+  //       navigate("/signin");
 
-        console.log("Succeeded in sign out");
-      } else {
-        console.log("Failed in sign out");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  //       console.log("Succeeded in sign out");
+  //     } else {
+  //       console.log("Failed in sign out");
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
 
   const AuthButtons = ({handleDrawerOpen}) => {
     // 認証完了後はサインアウト用のボタンを表示
@@ -83,12 +83,12 @@ const Header = ({open, handleDrawerOpen}) => {
       if (isSignedIn) {
         return (
           <>
-            <LinkButton
+            {/* <LinkButton
               onClick={handleSignOut}
               color={"inherit"}
             >
               サインアウト
-            </LinkButton>
+            </LinkButton> */}
           </>
         )
       } else {
@@ -139,7 +139,7 @@ const Header = ({open, handleDrawerOpen}) => {
             variant="h6"
             className={classes.title}
           >
-            画伯かもしれん。
+            画HACK
           </Typography>
           <AuthButtons />
         </Toolbar>

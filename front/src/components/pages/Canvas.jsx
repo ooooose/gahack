@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textTransform: "none",
   },
+  drawSet:{
+    margin: '0 auto',
+  },
 }));
 
 const Canvas = () => {
@@ -32,7 +35,7 @@ const Canvas = () => {
   let ctx;
   let Xpoint, Ypoint;
   let eraser_x = 'white';
-  let eraser_y = 12;
+  // let eraser_y = 12;
 
   const generateParams = (base64) => {
     const pictureParams = {
@@ -88,9 +91,11 @@ const Canvas = () => {
   const touchStartPoint = (e) => {
     e.preventDefault();
     ctx.beginPath();
-    Xpoint = e.layerX;
-    Ypoint = e.layerY;
+    let rect = e.target.getBoundingClientRect();
+    Xpoint = e.clientX - rect.left;
+    Ypoint = e.clientY - rect.top;
     ctx.moveTo(Xpoint, Ypoint);
+    console.log(Xpoint)
   }
 
   const touchEndPoint = (e) => {
@@ -104,8 +109,9 @@ const Canvas = () => {
 
   const touchMovePoint = (e) => {
     if (e.buttons === 1 || e.witch === 1 || e.type === 'touchmove') {
-      Xpoint = e.layerX;
-      Ypoint = e.layerY;
+      let rect = e.target.getBoundingClientRect();
+      Xpoint = e.clientX - rect.left;
+      Ypoint = e.clientY - rect.top;
       setDrawFlag(1);
       ctx.lineTo(Xpoint, Ypoint);
       ctx.lineCap = "round";
@@ -131,7 +137,8 @@ const Canvas = () => {
 
   const handleLineWidth = (e, newVal) => {
     setLineWidth(prev => newVal);
-    ctx.lineWidth = eraser ? eraser_y : lineWidth;
+    // ctx.lineWidth = eraser ? eraser_y : lineWidth;
+    // ctx.stroke();
   }
 
   const handleGetThemes = async () => {
@@ -189,10 +196,10 @@ const Canvas = () => {
   return (
     <>
       <Grid container spacing={3}>
-        <Grid item  xs={8}>
+        <Grid item xs={12} md={9}>
           <canvas id="canvas" width="550" height="450" style={style}></canvas>
         </Grid>
-        <Grid item xs={4}>
+        <Grid className={classes.drawSet} item xs={10} md={3}>
           <SelectBox 
             placeholder={'テーマを選んでください'} 
             option={theme} 

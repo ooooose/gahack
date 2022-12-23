@@ -23,6 +23,7 @@ const ShowUser = () => {
   const [user, setUesr] = useState([]);
   const [pictures, setPictures] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  console.log(user.image);
 
   const handleShowUser = async () => {
     try {
@@ -37,7 +38,7 @@ const ShowUser = () => {
     }
   }
 
-  setTimeout(() => { setIsOpen(true) }, 300)
+  setTimeout(() => { setIsOpen(true) }, 500)
 
   useEffect(() => {
     handleShowUser();
@@ -49,10 +50,11 @@ const ShowUser = () => {
     <>
       <div className={isOpen ? classes.animation : classes.before}>
         <h1>{user.name}さんの作品一覧</h1>
+        {/* <img src={user.image.url} alt={user} /> */}
         <Grid container spacing={3}>
           {
             pictures.map((picture) => (
-              <Grid item xs={4} key={picture.id}>
+              <Grid item xs={12} sm={6} md={4} key={picture.id}>
                 <div className={`${styles.parent}`}>
                   <PictureCard 
                     picture={picture} 

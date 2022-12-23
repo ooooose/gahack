@@ -50,7 +50,7 @@ const ThemeIndex = () => {
         <Grid container spacing={3}>
           {
             themes.map((theme) => (
-              <Grid item xs={4} key={theme.id}>
+              <Grid item xs={12} sm={6} md={4} key={theme.id}>
                 <Link to={{
                   pathname: "/themes/" + theme.id,
                   state: {id: theme.id}
