@@ -32,3 +32,6 @@
 
 # 環境変数の管理を無視
 /.env
+
+# uploader用
+/public/uploads/

@@ -9,8 +9,8 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     backgroundColor: 'blue',
     position: 'fixed',
-    right: '70px',
-    bottom: '70px',
+    right: '50px',
+    bottom: '50px',
   },
 }))
 

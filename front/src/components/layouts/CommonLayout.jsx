@@ -7,9 +7,6 @@ import Header from "./Header";
 import SideBar from "./SideBar";
 import DrawerOpenButton from "../atoms/buttons/DrawerOpenButton";
 import DrawerCloseButton from "../atoms/buttons/DrawerCloseButton";
-import clsx from 'clsx';
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,14 +24,6 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  mainShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
     }),
   },
 }));
@@ -56,7 +45,7 @@ const CommonLayout = (props) => {
           handleDrawerOpen={handleDrawerOpen}  
         />
         <SideBar open={open} handleDrawerClose={handleDrawerClose} />
-        <main className={clsx(classes.main, open && classes.mainShift)}>
+        <main className={classes.main}>
           <Container maxWidth='lg' >
             <Grid sytle={{justify:"center"}}>
               <Grid item>

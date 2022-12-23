@@ -7,10 +7,13 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import GestureIcon from '@material-ui/icons/Gesture';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 
-import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { signOut } from "../../lib/api/auth";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../App";
 import Person from "@material-ui/icons/Person";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 
 const drawerWidth = 240;
 
@@ -59,7 +62,28 @@ const useStyles = makeStyles((theme) => ({
 
 const SideBar = ({open, handleDrawerClose}) => {
   const classes = useStyles();
-  const { isSignedIn, currentUser } = useContext(AuthContext);
+  const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleSignOut = async (e) => {
+    try {
+      const res = await signOut();
+
+      if (res.data.success === true) {
+        Cookies.remove("_access_token")
+        Cookies.remove("_client")
+        Cookies.remove("_uid")
+
+        setIsSignedIn(false)
+        navigate("/signin");
+
+        console.log("Succeeded in sign out");
+      } else {
+        console.log("Failed in sign out");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
   return (
     <>
       <Drawer 
@@ -101,6 +125,14 @@ const SideBar = ({open, handleDrawerClose}) => {
                       <GestureIcon />
                     </ListItemIcon>
                     <ListItemText primary="キャンバス" />
+                  </ListItem>
+                </Link>
+                <Link onClick={handleSignOut} className={classes.link}>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <DirectionsRunIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="ログアウト" />
                   </ListItem>
                 </Link>
               </List>
