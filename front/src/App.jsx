@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getCurrentUser } from "./lib/api/auth";
 
 import CommonLayout from "./components/layouts/CommonLayout";
-import Home from "./components/pages/Home";
+import TopPage from "./components/pages/TopPage";
 import SignIn from "./components/pages/SignIn";
 import SignUp from "./components/pages/SignUp";
 import Canvas from "./components/pages/Canvas";
@@ -71,7 +71,7 @@ function App() {
           <Routes>
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<TopPage />} />
             <Route path="/picture" element={<Canvas />} />
             <Route path="/pictures/:id" element={<ShowPicture />} />
             <Route path="/themes" element={<ThemeIndex />} />

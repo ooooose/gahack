@@ -11,9 +11,11 @@ const useStyles = makeStyles((theme) => ({
   animation: {
     transition: '1s',
     opacity: '1',
+    padding: '0 45px',
   },
   before: {
     opacity: '0',
+    padding: '0 45px',
   },
 }));
 

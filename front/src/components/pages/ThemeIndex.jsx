@@ -15,9 +15,13 @@ const useStyles = makeStyles((theme) => ({
   animation: {
     transition: '1s',
     opacity: '1',
+    padding: '0 70px',
+    margin: '24px auto',
   },
   before: {
     opacity: '0',
+    padding: '0 70px',
+    margin: '12px auto',
   }
 }));
 
@@ -50,7 +54,7 @@ const ThemeIndex = () => {
         <Grid container spacing={3}>
           {
             themes.map((theme) => (
-              <Grid item xs={12} sm={6} md={4} key={theme.id}>
+              <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={theme.id}>
                 <Link to={{
                   pathname: "/themes/" + theme.id,
                   state: {id: theme.id}

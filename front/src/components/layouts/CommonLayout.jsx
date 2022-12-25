@@ -13,14 +13,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   container: {
-    marginTop: '6rem',
-    textAlign: "center"
+    textAlign: "center",
   },
   main: {
     width: '100%',
     textAlign: 'center',
-    paddingLeft: '60px',
-    padding: '90px 0',
+    paddingTop: '60px',
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -46,7 +44,7 @@ const CommonLayout = (props) => {
         />
         <SideBar open={open} handleDrawerClose={handleDrawerClose} />
         <main className={classes.main}>
-          <Container maxWidth='lg' >
+          <Container disableGutters={true} className={classes.container} maxWidth='lg' >
             <Grid sytle={{justify:"center"}}>
               <Grid item>
                 {props.children}

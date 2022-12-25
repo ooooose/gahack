@@ -14,7 +14,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 
 // import { signOut } from "../../lib/api/auth";
-import { LinkButton } from "../atoms/buttons/LinkButton";
+// import { LinkButton } from "../atoms/buttons/LinkButton";
 
 import { AuthContext } from "../../App";
 
@@ -94,7 +94,7 @@ const Header = ({open, handleDrawerOpen}) => {
       } else {
         return (
           <>
-            <LinkButton
+            {/* <LinkButton
               to={"/signin"}
               color={"inherit"}
             >
@@ -105,7 +105,7 @@ const Header = ({open, handleDrawerOpen}) => {
               color={"inherit"}
             >
               サインアップ
-            </LinkButton>
+            </LinkButton> */}
           </>
         )
       }
@@ -136,7 +136,7 @@ const Header = ({open, handleDrawerOpen}) => {
           <Typography
             component={Link}
             to="/"
-            variant="h6"
+            variant="h5"
             className={classes.title}
           >
             画HACK

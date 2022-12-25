@@ -107,103 +107,105 @@ const SignUp = () => {
 
   return (
     <>
-      <form noValidate autoComplete="off" style={{display:"inline-block"}}>
-        <Card className={classes.card}>
-          <CardHeader className={classes.header} title="サインアップ画面" />
-          <CardContent>
-            <Form
-              label={"Name"}
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-            />
-            <Form
-              label={"Email"}
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <Form
-              label={"Password"}
-              type={"password"}
-              value={password}
-              autoComplete={"current-password"}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <Form
-              label={"Password Confirmation"}
-              type={"password"}
-              value={passwordConfirmation}
-              autoComplete={"current-password"}
-              onChange={(event) => setPasswordConfirmation(event.target.value)}
-            />
-            <div className={classes.imageUploadBtn}>
-              <input 
-                accept="image/*"
-                className={classes.input}
-                id="icon-button-file"
-                type="file"
-                onChange={(e) => {
-                  uploadImage(e)
-                  previewImage(e)
-                }}
+     <div className={classes.container}>
+        <form noValidate autoComplete="off" style={{display:"inline-block"}}>
+          <Card className={classes.card}>
+            <CardHeader className={classes.header} title="サインアップ画面" />
+            <CardContent>
+              <Form
+                label={"Name"}
+                value={name}
+                onChange={(event) => setName(event.target.value)}
               />
-              <label htmlFor="icon-button-file">
-                <IconButton 
-                  color='primary'
-                  aria-label="upload picture"
-                  component="span"
-                >
-                  <PhotoCamera />
-                </IconButton>
-              </label>
-            </div>
-            {
-              preview ? (
-                <>
-                  <Box
-                    className={classes.box}
+              <Form
+                label={"Email"}
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <Form
+                label={"Password"}
+                type={"password"}
+                value={password}
+                autoComplete={"current-password"}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <Form
+                label={"Password Confirmation"}
+                type={"password"}
+                value={passwordConfirmation}
+                autoComplete={"current-password"}
+                onChange={(event) => setPasswordConfirmation(event.target.value)}
+              />
+              <div className={classes.imageUploadBtn}>
+                <input 
+                  accept="image/*"
+                  className={classes.input}
+                  id="icon-button-file"
+                  type="file"
+                  onChange={(e) => {
+                    uploadImage(e)
+                    previewImage(e)
+                  }}
+                />
+                <label htmlFor="icon-button-file">
+                  <IconButton 
+                    color='primary'
+                    aria-label="upload picture"
+                    component="span"
                   >
-                    <IconButton
-                      color="inherit"
-                      onClick={() => setPreview("")}>
-                      <CancelIcon />
-                    </IconButton>
-                    <img
-                      src={preview}
-                      alt="preview img"
-                      className={classes.preview}
-                    />
-                  </Box>
-                </>
-              ) : (
-                <></>
-              )
-            }
-            <SignUpButton
-              name={name}
-              email={email}
-              password={password}
-              passwordConfirmation={passwordConfirmation}
-              handleSubmit={handleSignUpSubmit}
-            >
-              登録する
-            </SignUpButton>
-            <Box textAlign="center" className={classes.box}>
-              <Typography>
-                既にアカウントをお持ちの方は &nbsp;
-                <Link to="/signin" className={classes.link}>
-                  こちら
-                </Link>
-              </Typography>
-            </Box>
-          </CardContent>
-        </Card>
-      </form>
-      <AlertMessage
-        open={alertMessageOpen}
-        setOpen={setAlertMessageOpen}
-        severity="error"
-        message="Emailもしくはパスワードが無効です"
-      />
+                    <PhotoCamera />
+                  </IconButton>
+                </label>
+              </div>
+              {
+                preview ? (
+                  <>
+                    <Box
+                      className={classes.box}
+                    >
+                      <IconButton
+                        color="inherit"
+                        onClick={() => setPreview("")}>
+                        <CancelIcon />
+                      </IconButton>
+                      <img
+                        src={preview}
+                        alt="preview img"
+                        className={classes.preview}
+                      />
+                    </Box>
+                  </>
+                ) : (
+                  <></>
+                )
+              }
+              <SignUpButton
+                name={name}
+                email={email}
+                password={password}
+                passwordConfirmation={passwordConfirmation}
+                handleSubmit={handleSignUpSubmit}
+              >
+                登録する
+              </SignUpButton>
+              <Box textAlign="center" className={classes.box}>
+                <Typography>
+                  既にアカウントをお持ちの方は &nbsp;
+                  <Link to="/signin" className={classes.link}>
+                    こちら
+                  </Link>
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </form>
+        <AlertMessage
+          open={alertMessageOpen}
+          setOpen={setAlertMessageOpen}
+          severity="error"
+          message="Emailもしくはパスワードが無効です"
+        />
+      </div>
     </>
   );
 };
