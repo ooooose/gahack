@@ -8,7 +8,12 @@ import { SelectBox } from "../atoms/selectBoxes/SelectBox";
 
 import { getThemes } from "../../lib/api/themes";
 
+
 const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: '60px',
+    padding: '0 60px',
+  },
   submitBtn: {
     marginTop: theme.spacing(2),
     flexGrow: 1,
@@ -17,6 +22,12 @@ const useStyles = makeStyles((theme) => ({
   drawSet:{
     margin: '0 auto',
   },
+  canvas: {
+    background: "white",
+    width: '80%',
+    height: '55vh',
+    border: "1px solid black",
+  }
 }));
 
 const Canvas = () => {
@@ -35,7 +46,8 @@ const Canvas = () => {
   let ctx;
   let Xpoint, Ypoint;
   let eraser_x = 'white';
-  // let eraser_y = 12;
+  let eraser_y = 12;
+ 
 
   const generateParams = (base64) => {
     const pictureParams = {
@@ -48,6 +60,14 @@ const Canvas = () => {
   useEffect(() => {
     canvas = document.getElementById("canvas"); // eslint-disable-line
     ctx = canvas.getContext("2d"); // eslint-disable-line
+    window.addEventListener('load', function (event) {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+    });
+    window.addEventListener('resize', function (event) {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+    });
     canvas.addEventListener('mousedown', startPoint, false);
     canvas.addEventListener("mousemove", movePoint, false);
     canvas.addEventListener("mouseup", endPoint, false);
@@ -74,7 +94,7 @@ const Canvas = () => {
       ctx.lineTo(Xpoint, Ypoint);
       ctx.lineCap = "round";
       ctx.strokeStyle = eraser ? eraser_x : color;
-      ctx.lineWidth = lineWidth;
+      ctx.lineWidth = eraser ? eraser_y : lineWidth;
       ctx.stroke();
     }
   }
@@ -137,8 +157,6 @@ const Canvas = () => {
 
   const handleLineWidth = (e, newVal) => {
     setLineWidth(prev => newVal);
-    // ctx.lineWidth = eraser ? eraser_y : lineWidth;
-    // ctx.stroke();
   }
 
   const handleGetThemes = async () => {
@@ -183,23 +201,18 @@ const Canvas = () => {
     };
   };
   
-  const style = {
-    minWidth: 64,
-    lineHeight: "32px",
-    borderRadius: 4,
-    border: "1px solid black",
-    padding: "0 16px",
-    color: "black",
-    background: "white",
-  };
-
   return (
     <>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={9}>
-          <canvas id="canvas" width="550" height="450" style={style}></canvas>
+      <Grid className={classes.container} container spacing={3}>
+        <Grid item xs={12} md={8}>
+          <div id="canvasParent">
+            <canvas 
+              id="canvas"
+              className={classes.canvas} 
+            ></canvas>
+          </div>
         </Grid>
-        <Grid className={classes.drawSet} item xs={10} md={3}>
+        <Grid className={classes.drawSet} item xs={10} md={4}>
           <SelectBox 
             placeholder={'テーマを選んでください'} 
             option={theme} 
