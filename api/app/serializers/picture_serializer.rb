@@ -25,4 +25,8 @@ class PictureSerializer < ActiveModel::Serializer
   attribute :theme do
     object.theme
   end
+
+  attribute :user do
+    object.user
+  end
 end
