@@ -5,6 +5,9 @@ class Picture < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
 
+  # 描かれた絵を作成順に並び替える
+  scope :by_recently_created, -> { order(created_at: :desc) }
+
   validates :image, presence: true
   validates :user_id, presence: true
   validates :theme_id, presence: true

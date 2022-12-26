@@ -2,14 +2,14 @@ class Api::V1::PicturesController < ApplicationController
   before_action :set_picture, only: %i[show destroy]
 
   def index
-    pictures = Picture.all.includes(:user, :theme)
+    pictures = Picture.all.by_recently_created.includes(:user, :theme)
     render_json = ActiveModelSerializers::SerializableResource.new(
       pictures,
       includes: "**",
       each_serializer: PictureSerializer,
       current_api_v1_user: current_api_v1_user
-    )
-    render json: render_json.as_json
+    ).as_json
+    render json: render_json
   end
 
   def show
@@ -17,8 +17,8 @@ class Api::V1::PicturesController < ApplicationController
       @picture,
       serializer: PictureSerializer,
       current_api_v1_user: current_api_v1_user
-    )
-    render json: render_json.as_json, status: 200
+    ).as_json
+    render json: render_json, status: 200
   end
 
   def create

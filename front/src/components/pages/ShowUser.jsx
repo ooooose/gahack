@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { showUser } from "../../lib/api/users";
 
-import { Grid, makeStyles } from "@material-ui/core";
+import { Grid, makeStyles, Typography } from "@material-ui/core";
 
 import PictureCard from "../atoms/cards/PictureCard";
 import { useParams } from "react-router-dom";
@@ -11,10 +11,17 @@ const useStyles = makeStyles((theme) => ({
   animation: {
     transition: '1s',
     opacity: '1',
+    padding: '0 60px',
+    margin: '12px auto',
   },
   before: {
     opacity: '0',
+    padding: '0 60px',
+    margin: '0 auto',
   },
+  header: {
+    paddingTop: '30px'
+  }
 }));
 
 const ShowUser = () => {
@@ -44,13 +51,11 @@ const ShowUser = () => {
     handleShowUser();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   
   return (
     <>
       <div className={isOpen ? classes.animation : classes.before}>
-        <h1>{user.name}さんの作品一覧</h1>
-        {/* <img src={user.image.url} alt={user} /> */}
+        <Typography className={classes.header} variant="h4">{user.name}さんの作品一覧</Typography> 
         <Grid container spacing={3}>
           {
             pictures.map((picture) => (

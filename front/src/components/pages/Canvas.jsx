@@ -7,19 +7,34 @@ import { UploadButton } from "../atoms/buttons/UploadButton";
 import { SelectBox } from "../atoms/selectBoxes/SelectBox";
 
 import { getThemes } from "../../lib/api/themes";
+import styles from "../../css/pages/Canvas.module.css";
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: '60px',
+  },
   submitBtn: {
     marginTop: theme.spacing(2),
     flexGrow: 1,
     textTransform: "none",
   },
-  drawSet:{
+  item: {
     margin: '0 auto',
   },
+  drawSet:{
+    paddingRight: '20px',
+    paddingLeft: '20px',
+  },
+  canvas: {
+    background: "white",
+    width: '550px',
+    height: '400px',
+    border: "1px solid black",
+  }
 }));
 
 const Canvas = () => {
+  const [load, setLoad] = useState(true);
   const classes = useStyles();
   const [drawFlag, setDrawFlag] = useState(0);
   const [theme, setTheme] = useState();
@@ -27,15 +42,16 @@ const Canvas = () => {
   const [eraser, setEraser] = useState(false);
   const [lineWidth, setLineWidth] = useState(2);
   const [color, setColor] = useState("black");
+  setTimeout(() => { setLoad(false) }, 20);
   
-  console.log(lineWidth);
   const bgColor = 'rgb(255,255,255)';
   const line_color = document.getElementById("line_color");
   let canvas;
   let ctx;
   let Xpoint, Ypoint;
   let eraser_x = 'white';
-  // let eraser_y = 12;
+  let eraser_y = 12;
+  
 
   const generateParams = (base64) => {
     const pictureParams = {
@@ -48,6 +64,10 @@ const Canvas = () => {
   useEffect(() => {
     canvas = document.getElementById("canvas"); // eslint-disable-line
     ctx = canvas.getContext("2d"); // eslint-disable-line
+    if (load) {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+    }
     canvas.addEventListener('mousedown', startPoint, false);
     canvas.addEventListener("mousemove", movePoint, false);
     canvas.addEventListener("mouseup", endPoint, false);
@@ -74,7 +94,7 @@ const Canvas = () => {
       ctx.lineTo(Xpoint, Ypoint);
       ctx.lineCap = "round";
       ctx.strokeStyle = eraser ? eraser_x : color;
-      ctx.lineWidth = lineWidth;
+      ctx.lineWidth = eraser ? eraser_y : lineWidth;
       ctx.stroke();
     }
   }
@@ -95,18 +115,8 @@ const Canvas = () => {
     Xpoint = e.clientX - rect.left;
     Ypoint = e.clientY - rect.top;
     ctx.moveTo(Xpoint, Ypoint);
-    console.log(Xpoint)
   }
-
-  const touchEndPoint = (e) => {
-    if (drawFlag === 0) {
-      ctx.lineTo(Xpoint-1, Ypoint-1);
-      ctx.lineCap = "round";
-      ctx.stroke();
-    }
-    setDrawFlag(0);
-  }
-
+  
   const touchMovePoint = (e) => {
     if (e.buttons === 1 || e.witch === 1 || e.type === 'touchmove') {
       let rect = e.target.getBoundingClientRect();
@@ -115,8 +125,19 @@ const Canvas = () => {
       setDrawFlag(1);
       ctx.lineTo(Xpoint, Ypoint);
       ctx.lineCap = "round";
+      ctx.strokeStyle = eraser ? eraser_x : color;
+      ctx.lineWidth = eraser ? eraser_y : lineWidth;
       ctx.stroke();
     }
+  }
+  
+  const touchEndPoint = (e) => {
+    if (drawFlag === 0) {
+      ctx.lineTo(Xpoint-1, Ypoint-1);
+      ctx.lineCap = "round";
+      ctx.stroke();
+    }
+    setDrawFlag(0);
   }
 
   const resetCanvas = () => {
@@ -137,8 +158,6 @@ const Canvas = () => {
 
   const handleLineWidth = (e, newVal) => {
     setLineWidth(prev => newVal);
-    // ctx.lineWidth = eraser ? eraser_y : lineWidth;
-    // ctx.stroke();
   }
 
   const handleGetThemes = async () => {
@@ -183,61 +202,58 @@ const Canvas = () => {
     };
   };
   
-  const style = {
-    minWidth: 64,
-    lineHeight: "32px",
-    borderRadius: 4,
-    border: "1px solid black",
-    padding: "0 16px",
-    color: "black",
-    background: "white",
-  };
-
   return (
     <>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={9}>
-          <canvas id="canvas" width="550" height="450" style={style}></canvas>
+      <Grid className={classes.container} container spacing={3}>
+        <Grid item xs={12} md={7}>
+          <div className={`${styles.canvasParent}`} id="canvasParent">
+            <canvas 
+              id="canvas"
+              className={`${styles.canvas}`} 
+            ></canvas>
+          </div>
         </Grid>
-        <Grid className={classes.drawSet} item xs={10} md={3}>
-          <SelectBox 
-            placeholder={'テーマを選んでください'} 
-            option={theme} 
-            options={themes} 
-            setOption={setTheme} 
+        <Grid item className={classes.item} xs={10} md={5}>
+          <div className={classes.drawSet}>
+            <SelectBox 
+              placeholder={'テーマを選んでください'} 
+              option={theme} 
+              options={themes} 
+              setOption={setTheme} 
+              />
+            <Button
+              className={classes.submitBtn}
+              onChange={changeColor}
+            >
+              <input type="color" id="line_color" />
+            </Button>
+            <Button
+              type='submit'
+              id='erase'
+              className={classes.submitBtn}
+              color="default"
+              onClick={changeEraser}
+            >
+              {eraser ? (
+                <p>Eraserモード</p>
+              ) : (
+                <p>Penモード</p>
+              )}
+            </Button>
+            <Slider
+              value={lineWidth}
+              defaultValue={2}
+              onChange={handleLineWidth}
+              min={1}
+              max={12}
+              valueLabelDisplay="on"
             />
-          <Button
-            className={classes.submitBtn}
-            onChange={changeColor}
-          >
-            <input type="color" id="line_color" />
-          </Button>
-          <Button
-            type='submit'
-            id='erase'
-            className={classes.submitBtn}
-            color="default"
-            onClick={changeEraser}
-          >
-            {eraser ? (
-              <p>Eraserモード</p>
-            ) : (
-              <p>Penモード</p>
-            )}
-          </Button>
-          <Slider
-            value={lineWidth}
-            defaultValue={2}
-            onChange={handleLineWidth}
-            min={1}
-            max={12}
-            valueLabelDisplay="on"
-          />
-          <ResetButton resetCanvas={resetCanvas}>キャンバスをリセット</ResetButton>
-          <UploadButton uploadCanvas={uploadPicture} 
-                        theme={theme}>
-            アップロードする
-          </UploadButton>
+            <ResetButton resetCanvas={resetCanvas}>キャンバスをリセット</ResetButton>
+            <UploadButton uploadCanvas={uploadPicture} 
+                          theme={theme}>
+              アップロードする
+            </UploadButton>
+          </div>
         </Grid>
       </Grid>
     </>

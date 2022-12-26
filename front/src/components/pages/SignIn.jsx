@@ -17,7 +17,7 @@ import { Form } from "../atoms/forms/Form";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(6)
+    marginTop: theme.spacing(6),
   },
   submitBtn: {
     marginTop: theme.spacing(2),
@@ -81,47 +81,49 @@ export const SignIn = () => {
   };
   return (
     <>
-      <form noValidate autoComplete="off" style={{display:"inline-block"}}>
-        <Card className={classes.card}>
-          <CardHeader className={classes.header} title="ログイン画面" />
-          <CardContent>
-            <Form
-              label={"Email"}
-              value={email}
-              onChange={event => setEmail(event.target.value)}
-            />
-            <Form
-              label={"password"}
-              type={"password"}
-              placeholder={"At least 6 characters"}
-              value={password}
-              autoComplete={"current-password"}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <LoginButton
-              email={email}
-              password={password}
-              handleSubmit={handleSignInSubmit}
-            >
-              ログインする
-            </LoginButton>
-            <Box textAlign="center" className={classes.box}>
-              <Typography variant="body2">
-                アカウントをお持ちですか? &nbsp;
-                <Link to="/signup" className={classes.link}>
-                  ユーザー登録はこちら!
-                </Link>
-              </Typography>
-            </Box>
-          </CardContent>
-        </Card>
-      </form>
-      <AlertMessage
-        open={alertMessageOpen}
-        setOpen={setAlertMessageOpen}
-        severity="error"
-        message="Emailもしくはパスワードが無効です"
-      />
+      <div className={classes.container}>
+        <form noValidate autoComplete="off" style={{display:"inline-block"}}>
+          <Card className={classes.card}>
+            <CardHeader className={classes.header} title="ログイン画面" />
+            <CardContent>
+              <Form
+                label={"Email"}
+                value={email}
+                onChange={event => setEmail(event.target.value)}
+              />
+              <Form
+                label={"password"}
+                type={"password"}
+                placeholder={"At least 6 characters"}
+                value={password}
+                autoComplete={"current-password"}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <LoginButton
+                email={email}
+                password={password}
+                handleSubmit={handleSignInSubmit}
+              >
+                ログインする
+              </LoginButton>
+              <Box textAlign="center" className={classes.box}>
+                <Typography variant="body2">
+                  アカウントをお持ちですか? &nbsp;
+                  <Link to="/signup" className={classes.link}>
+                    ユーザー登録はこちら!
+                  </Link>
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </form>
+        <AlertMessage
+          open={alertMessageOpen}
+          setOpen={setAlertMessageOpen}
+          severity="error"
+          message="Emailもしくはパスワードが無効です"
+        />
+      </div>
     </>
   );
 };

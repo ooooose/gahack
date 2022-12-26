@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     witdh: '60px',
     color: 'white',
-    backgroundColor: 'blue',
+    backgroundColor: '#3f51b5',
     position: 'fixed',
     right: '50px',
     bottom: '50px',
