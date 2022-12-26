@@ -21,12 +21,11 @@ const PictureCard = ({picture, pictureId, pictures, setPictures}) => {
   const handleDeletePicture = async () => {
     try {
       const res = await deletePicture(pictureId);
-      if (res.status === 200) {
+      if (res.status === 200 && window.confirm('削除しますか？')) {
         const newPictures = pictures.filter((picture) => {
           return picture.id !== pictureId;
         });
         setPictures(newPictures);
-        window.alert('削除しました！');
       }
     } catch (e) {
       console.log(e);

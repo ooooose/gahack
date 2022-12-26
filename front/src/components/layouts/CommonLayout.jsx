@@ -36,7 +36,7 @@ const CommonLayout = (props) => {
     setOpen(false);
   };
   return (
-    <>
+    <>/
       <div className={classes.root}>
         <Header
           open={open}

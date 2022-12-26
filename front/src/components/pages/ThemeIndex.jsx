@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 
-import Grid from "@material-ui/core/Grid";
+import { Grid, Typography } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/styles";
 import { getThemes } from "../../lib/api/themes";
@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
     opacity: '0',
     padding: '0 70px',
     margin: '12px auto',
+  },
+  header: {
+    paddingTop: '20px',
+    paddingBottom: '20px',
   }
 }));
 
@@ -51,6 +55,7 @@ const ThemeIndex = () => {
   return (
     <>
       <div className={isOpen ? classes.animation : classes.before}>
+        <Typography className={classes.header} variant="h4">テーマ一覧</Typography> 
         <Grid container spacing={3}>
           {
             themes.map((theme) => (

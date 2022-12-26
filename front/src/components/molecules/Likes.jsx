@@ -8,7 +8,6 @@ import UnLikeButton from "../atoms/buttons/UnlikeButton";
 const Likes = ({picture, pictureId}) => {
   const [likeState, setLikeState] = useState(picture.liked);
   const [likes, setLikes] = useState(picture.likes);
-  console.log(picture);
 
   const generateParams = () => {
     const likeParams = {

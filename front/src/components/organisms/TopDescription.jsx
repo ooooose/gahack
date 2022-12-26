@@ -10,7 +10,7 @@ import thirdImage from '../../assets/img/thirdTopIcon.png';
 const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
-    padding: '30px 30px 20px 40px',
+    padding: '30px 0px 20px',
     backgroundColor: '#ffffff',
     margin: '0 auto',
   },
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '20px 0'
   },
   item: {
-    paddingTop: '30px'
+    paddingTop: '50px'
   },
   leftDescription: {
     textAlign: 'left',
@@ -67,7 +67,7 @@ const TopDescription = () => {
           </Grid>
         </Grid>
         <Grid className={classes.item} container >
-          <Grid item xs={6}> 
+          <Grid item sm={12} md={6}> 
             <Card
               className={classes.card}
             ><strong>お題に沿って絵を描こう！！</strong></Card>
@@ -75,16 +75,16 @@ const TopDescription = () => {
                 お絵かき機能を活用してお題に沿った絵を描きましょう。<br/>
                 お題は定期的に更新追加をしていく予定です！</p>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item sm={12} md={6}>
             <img className={classes.image} src={firstImage} alt="firstImage" />
           </Grid>
         </Grid>
         <Grid className={classes.item} container >
-          <Grid item xs={6}>
+          <Grid item sm={12} md={6}>
             <img className={classes.image} src={secondImage} alt="secondImage" />
             
           </Grid>
-          <Grid item xs={6}>    
+          <Grid item sm={12} md={6}> 
             <Card
               className={classes.rightCard}
             ><strong>Twitterでシェアしよう！！</strong></Card>
@@ -94,7 +94,7 @@ const TopDescription = () => {
           </Grid>
         </Grid>
         <Grid className={classes.item}  container >
-          <Grid item xs={6}>  
+          <Grid item sm={12} md={6}>  
             <Card
               className={classes.card}
             ><strong>たくさん「いいね」しよう！！</strong></Card>  
@@ -102,7 +102,7 @@ const TopDescription = () => {
               今後月間MVPとして「ベスト・オブ・画伯」賞を贈呈する予定です。<br/>
               光る画才を見つけたら迷わず「いいね」しましょう！</p>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item sm={12} md={6}>
             <img className={classes.image} src={thirdImage} alt="thirdImage" />
           </Grid>
         </Grid>
