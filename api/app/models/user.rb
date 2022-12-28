@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
+         :recoverable, :rememberable, :validatable, :confirmable,
+         :omniauthable, omniauth_providers: [:twitter]
   include DeviseTokenAuth::Concerns::User
   mount_uploader :image, ImageUploader
   has_many :pictures, dependent: :destroy
