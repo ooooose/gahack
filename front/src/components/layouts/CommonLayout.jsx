@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Container, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Header from "./Header";
@@ -12,13 +12,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
-  container: {
-    textAlign: "center",
-  },
   main: {
     width: '100%',
     textAlign: 'center',
-    paddingTop: '60px',
+    paddingTop: '50px',
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -36,7 +33,7 @@ const CommonLayout = (props) => {
     setOpen(false);
   };
   return (
-    <>/
+    <>
       <div className={classes.root}>
         <Header
           open={open}
@@ -44,13 +41,11 @@ const CommonLayout = (props) => {
         />
         <SideBar open={open} handleDrawerClose={handleDrawerClose} />
         <main className={classes.main}>
-          <Container disableGutters={true} className={classes.container} maxWidth='lg' >
-            <Grid sytle={{justify:"center"}}>
-              <Grid item>
-                {props.children}
-              </Grid>
+          <Grid >
+            <Grid item>
+              {props.children}
             </Grid>
-          </Container>
+          </Grid>
           { open ? (
             <DrawerCloseButton handleDrawerClose={handleDrawerClose} />
           ) : (

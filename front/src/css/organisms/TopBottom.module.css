@@ -1,0 +1,21 @@
+.title{
+  padding-bottom: 2rem;
+}
+
+.footerContent{
+  margin: 70px auto 10px;
+  display: flex;
+  gap: 30px;
+}
+
+
+@media (max-width: 600px) {
+  .title{
+    font-size: 18px;
+  }
+
+  .footerContent {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
