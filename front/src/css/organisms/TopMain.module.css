@@ -1,0 +1,10 @@
+.topImage{
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .topImage{
+    width: 80%;
+  }
+}
