@@ -6,6 +6,7 @@ import TopImage from "../../assets/img/TopImage.png";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Button, Box } from "@material-ui/core";
 
+import styles from "../../css/organisms/TopMain.module.css";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -36,7 +37,7 @@ const TopMain = () => {
   return (
     <>
       <div className={classes.container}>
-        <img className={classes.topImage} src={TopImage} alt="TopImage" /><br/>
+        <img className={`${styles.topImage}`} src={TopImage} alt="TopImage" /><br/>
         <Button className={classes.button} variant="contained">
           <Link to="/signin" className={classes.link}>
             ログインする

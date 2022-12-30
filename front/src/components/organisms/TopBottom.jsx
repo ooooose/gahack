@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Button, Divider, Box } from "@material-ui/core";
 
+import styles from "../../css/organisms/TopBottom.module.css"
+
 const useStyles = makeStyles((theme) => ({
   container: {
-    height: '300px',
     paddingTop: '30px',
     paddingBottom: '20px',
     backgroundColor: '#F2F2F2',
@@ -44,7 +45,7 @@ const TopBottom = () => {
   return (
     <>
       <div className={classes.container}>
-        <Typography className={classes.header} variant="h5">さぁ、あなたらしい絵を描こう！</Typography> 
+        <Typography className={`${styles.title}`} variant="h5">さぁ、あなたらしい絵を描こう！</Typography> 
         <Button className={classes.button} variant="contained">
           <Link to="/signin" className={classes.link}>
             ログインして始める
@@ -59,7 +60,7 @@ const TopBottom = () => {
           </Typography>
         </Box>
         <footer className={classes.footer}>
-          <div className={classes.footerContent}>
+          <div className={`${styles.footerContent}`}>
             <Typography>
               <Link to="#" className={classes.link}>
                 利用規約
