@@ -62,7 +62,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
-  const confirmSuccessUrl = "http://localhost:8000";
+  const confirmSuccessUrl = "http://localhost:8000/signin";
 
   const generateParams = () => {
     const signUpParams = {
@@ -86,7 +86,7 @@ const SignUp = () => {
     try {
       const res = await signUp(params);
       console.log(res);
-      alert("confirm email");
+      window.alert("メールを送信しましたので、ご確認ください。");
     } catch (e) {
       console.log(e);
       setAlertMessageOpen(true);

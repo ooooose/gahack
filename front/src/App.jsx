@@ -40,17 +40,7 @@ function App() {
   useEffect(() => {
     handleGetCurrentUser();
   }, [setCurrentUser]);
-
-  // const Private = ({ children }) => {
-  //   const navigate = useNavigate();
-  //   if (isSignedIn) {
-  //     return children;
-  //   } else {
-  //     return navigate("/signin");
-  //   }
-  // };
-
-
+  
   return (
     <AuthContext.Provider
       value={{
