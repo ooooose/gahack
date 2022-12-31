@@ -12,6 +12,7 @@ import Theme from "./components/pages/Theme";
 import ShowPicture from "./components/pages/ShowPicture";
 import ShowUser from "./components/pages/ShowUser";
 
+import PrivateRoute from "./routes/PrivateRoute";
 export const AuthContext = createContext();
 
 function App() {
@@ -40,17 +41,12 @@ function App() {
     handleGetCurrentUser();
   }, [setCurrentUser]);
 
-  // 認証していなかった場合にルーティングを修正するメソッド（一旦コメントアウト）
   // const Private = ({ children }) => {
   //   const navigate = useNavigate();
-  //   if (!loading) {
-  //     if (isSignedIn) {
-  //       return children;
-  //     } else {
-  //       return navigate("/signin");
-  //     }
+  //   if (isSignedIn) {
+  //     return children;
   //   } else {
-  //     return <></>;
+  //     return navigate("/signin");
   //   }
   // };
 
@@ -72,11 +68,13 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/" element={<TopPage />} />
-            <Route path="/picture" element={<Canvas />} />
-            <Route path="/pictures/:id" element={<ShowPicture />} />
-            <Route path="/themes" element={<ThemeIndex />} />
-            <Route path="/themes/:id" element={<Theme />} />
-            <Route path="/users/:id" element={<ShowUser />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/picture" element={<Canvas />} />
+              <Route path="/pictures/:id" element={<ShowPicture />} />
+              <Route path="/themes" element={<ThemeIndex />} />
+              <Route path="/themes/:id" element={<Theme />} />
+              <Route path="/users/:id" element={<ShowUser />} />
+            </Route>
           </Routes>
         </CommonLayout>
       </Router>
