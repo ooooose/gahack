@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { showUser } from "../../lib/api/users";
 
 import { Grid, makeStyles, Typography } from "@material-ui/core";
 
 import PictureCard from "../atoms/cards/PictureCard";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
+import { AuthContext } from "../../App";
 import styles from "../../css/components/Frames.module.css"
 
 const useStyles = makeStyles((theme) => ({
@@ -26,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
 
 const ShowUser = () => {
   const { id } = useParams();
+  const { isSignedIn } = useContext(AuthContext);
   const classes = useStyles();
   const [user, setUesr] = useState([]);
   const [pictures, setPictures] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  console.log(user.image);
 
   const handleShowUser = async () => {
     try {
@@ -54,25 +55,31 @@ const ShowUser = () => {
   
   return (
     <>
-      <div className={isOpen ? classes.animation : classes.before}>
-        <Typography className={classes.header} variant="h4">{user.name}さんの作品一覧</Typography> 
-        <Grid container spacing={3}>
-          {
-            pictures.map((picture) => (
-              <Grid item xs={12} sm={6} md={4} key={picture.id}>
-                <div className={`${styles.parent}`}>
-                  <PictureCard 
-                    picture={picture} 
-                    pictureId={picture.id}
-                    pictures={pictures}
-                    setPictures={setPictures}
-                    />
-                </div>
-              </Grid>
-            ))
-          }
-        </Grid>
-      </div>
+      {
+        isSignedIn ? (
+          <div className={isOpen ? classes.animation : classes.before}>
+            <Typography className={classes.header} variant="h4">{user.name}さんの作品一覧</Typography> 
+            <Grid container spacing={3}>
+              {
+                pictures.map((picture) => (
+                  <Grid item xs={12} sm={6} md={4} key={picture.id}>
+                    <div className={`${styles.parent}`}>
+                      <PictureCard 
+                        picture={picture} 
+                        pictureId={picture.id}
+                        pictures={pictures}
+                        setPictures={setPictures}
+                        />
+                    </div>
+                  </Grid>
+                ))
+              }
+            </Grid>
+          </div>
+        ) : (
+          <Navigate to="/signin" />
+        )
+      }
     </>
   )
 };

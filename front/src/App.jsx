@@ -12,7 +12,6 @@ import Theme from "./components/pages/Theme";
 import ShowPicture from "./components/pages/ShowPicture";
 import ShowUser from "./components/pages/ShowUser";
 
-import PrivateRoute from "./routes/PrivateRoute";
 export const AuthContext = createContext();
 
 function App() {
@@ -40,7 +39,7 @@ function App() {
   useEffect(() => {
     handleGetCurrentUser();
   }, [setCurrentUser]);
-  
+
   return (
     <AuthContext.Provider
       value={{
@@ -58,13 +57,11 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/" element={<TopPage />} />
-            <Route element={<PrivateRoute />}>
-              <Route path="/picture" element={<Canvas />} />
-              <Route path="/pictures/:id" element={<ShowPicture />} />
-              <Route path="/themes" element={<ThemeIndex />} />
-              <Route path="/themes/:id" element={<Theme />} />
-              <Route path="/users/:id" element={<ShowUser />} />
-            </Route>
+            <Route path="/picture" element={<Canvas />} />
+            <Route path="/pictures/:id" element={<ShowPicture />} />
+            <Route path="/themes" element={<ThemeIndex />} />
+            <Route path="/themes/:id" element={<Theme />} />
+            <Route path="/users/:id" element={<ShowUser />} />
           </Routes>
         </CommonLayout>
       </Router>

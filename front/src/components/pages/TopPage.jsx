@@ -14,9 +14,7 @@ const TopPage = () => {
       {
         isSignedIn && currentUser ? (
           <>
-            <h1>Signed in successfully!!!</h1>
-            <h2>Email: {currentUser?.email}</h2>
-            <h2>Name: {currentUser?.name}</h2>
+            <h1>こんにちは、{currentUser?.name}さん！</h1>
           </>
         ) : (
           <>

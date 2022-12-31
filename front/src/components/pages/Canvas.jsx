@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { createPicture } from "../../lib/api/pictures";
 import { ResetButton } from "../atoms/buttons/ResetButton";
 
@@ -8,6 +8,8 @@ import { SelectBox } from "../atoms/selectBoxes/SelectBox";
 
 import { getThemes } from "../../lib/api/themes";
 import styles from "../../css/pages/Canvas.module.css";
+import { AuthContext } from "../../App";
+import { Navigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -34,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Canvas = () => {
+  const { isSignedIn } = useContext(AuthContext);
   const [load, setLoad] = useState(true);
   const classes = useStyles();
   const [drawFlag, setDrawFlag] = useState(0);
@@ -62,18 +65,20 @@ const Canvas = () => {
   };
   
   useEffect(() => {
-    canvas = document.getElementById("canvas"); // eslint-disable-line
-    ctx = canvas.getContext("2d"); // eslint-disable-line
-    if (load) {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
+    if (isSignedIn) {
+      canvas = document.getElementById("canvas"); // eslint-disable-line
+      ctx = canvas.getContext("2d"); // eslint-disable-line
+      if (load) {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+      }
+      canvas.addEventListener('mousedown', startPoint, false);
+      canvas.addEventListener("mousemove", movePoint, false);
+      canvas.addEventListener("mouseup", endPoint, false);
+      canvas.addEventListener("touchstart", touchStartPoint, false);
+      canvas.addEventListener("touchmove", touchMovePoint, false);
+      canvas.addEventListener("touchend", touchEndPoint, false);
     }
-    canvas.addEventListener('mousedown', startPoint, false);
-    canvas.addEventListener("mousemove", movePoint, false);
-    canvas.addEventListener("mouseup", endPoint, false);
-    canvas.addEventListener("touchstart", touchStartPoint, false);
-    canvas.addEventListener("touchmove", touchMovePoint, false);
-    canvas.addEventListener("touchend", touchEndPoint, false);
   });
 
   const startPoint = (e) => {
@@ -204,58 +209,62 @@ const Canvas = () => {
   
   return (
     <>
-      <Grid className={classes.container} container spacing={3}>
-        <Grid item xs={12} md={7}>
-          <div className={`${styles.canvasParent}`} id="canvasParent">
-            <canvas 
-              id="canvas"
-              className={`${styles.canvas}`} 
-            ></canvas>
-          </div>
-        </Grid>
-        <Grid item className={classes.item} xs={10} md={5}>
-          <div className={classes.drawSet}>
-            <SelectBox 
-              placeholder={'テーマを選んでください'} 
-              option={theme} 
-              options={themes} 
-              setOption={setTheme} 
+      { isSignedIn ? (
+        <Grid className={classes.container} container spacing={3}>
+          <Grid item xs={12} md={7}>
+            <div className={`${styles.canvasParent}`} id="canvasParent">
+              <canvas 
+                id="canvas"
+                className={`${styles.canvas}`} 
+              ></canvas>
+            </div>
+          </Grid>
+          <Grid item className={classes.item} xs={10} md={5}>
+            <div className={classes.drawSet}>
+              <SelectBox 
+                placeholder={'テーマを選んでください'} 
+                option={theme} 
+                options={themes} 
+                setOption={setTheme} 
+                />
+              <Button
+                className={classes.submitBtn}
+                onChange={changeColor}
+              >
+                <input type="color" id="line_color" />
+              </Button>
+              <Button
+                type='submit'
+                id='erase'
+                className={classes.submitBtn}
+                color="default"
+                onClick={changeEraser}
+              >
+                {eraser ? (
+                  <p>Eraserモード</p>
+                ) : (
+                  <p>Penモード</p>
+                )}
+              </Button>
+              <Slider
+                value={lineWidth}
+                defaultValue={2}
+                onChange={handleLineWidth}
+                min={1}
+                max={12}
+                valueLabelDisplay="on"
               />
-            <Button
-              className={classes.submitBtn}
-              onChange={changeColor}
-            >
-              <input type="color" id="line_color" />
-            </Button>
-            <Button
-              type='submit'
-              id='erase'
-              className={classes.submitBtn}
-              color="default"
-              onClick={changeEraser}
-            >
-              {eraser ? (
-                <p>Eraserモード</p>
-              ) : (
-                <p>Penモード</p>
-              )}
-            </Button>
-            <Slider
-              value={lineWidth}
-              defaultValue={2}
-              onChange={handleLineWidth}
-              min={1}
-              max={12}
-              valueLabelDisplay="on"
-            />
-            <ResetButton resetCanvas={resetCanvas}>キャンバスをリセット</ResetButton>
-            <UploadButton uploadCanvas={uploadPicture} 
-                          theme={theme}>
-              アップロードする
-            </UploadButton>
-          </div>
-        </Grid>
-      </Grid>
+              <ResetButton resetCanvas={resetCanvas}>キャンバスをリセット</ResetButton>
+              <UploadButton uploadCanvas={uploadPicture} 
+                            theme={theme}>
+                アップロードする
+              </UploadButton>
+            </div>
+          </Grid>
+        </Grid> 
+      ) : (
+        <Navigate to="/signin" />
+      )}
     </>
   )
 }
