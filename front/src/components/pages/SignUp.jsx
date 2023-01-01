@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { IconButton, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Box from "@material-ui/core/Box";
-import PhotoCamera from "@material-ui/icons/PhotoCamera"
-import CancelIcon from '@material-ui/icons/Cancel';
+// import PhotoCamera from "@material-ui/icons/PhotoCamera";
+// import CancelIcon from '@material-ui/icons/Cancel';
 
 import { signUp } from "../../lib/api/auth";
 // import { AuthContext } from "../../App";
@@ -57,8 +57,8 @@ const SignUp = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [image, setImage] = useState("");
-  const [preview, setPreview] = useState("");
+  // const [image, setImage] = useState("");
+  // const [preview, setPreview] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
@@ -70,13 +70,11 @@ const SignUp = () => {
       email: email,
       password: password,
       passwordConfirmation: passwordConfirmation,
-      image: image,
+      // image: image,
       confirmSuccessUrl: confirmSuccessUrl,
     };
     return signUpParams;
   };
-
-  console.log(image);
 
   const handleSignUpSubmit = async (e) => {
     e.preventDefault();
@@ -92,17 +90,16 @@ const SignUp = () => {
       setAlertMessageOpen(true);
     }
   };
-  console.log(image);
 
-  const uploadImage = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-  }
+  // const uploadImage = (e) => {
+  //   const file = e.target.files[0];
+  //   setImage(file);
+  // }
 
-  const previewImage = (e) => {
-    const file = e.target.files[0];
-    setPreview(window.URL.createObjectURL(file));
-  }
+  // const previewImage = (e) => {
+  //   const file = e.target.files[0];
+  //   setPreview(window.URL.createObjectURL(file));
+  // }
 
 
   return (
@@ -136,7 +133,7 @@ const SignUp = () => {
                 autoComplete={"current-password"}
                 onChange={(event) => setPasswordConfirmation(event.target.value)}
               />
-              <div className={classes.imageUploadBtn}>
+              {/* <div className={classes.imageUploadBtn}>
                 <input 
                   accept="image/*"
                   className={classes.input}
@@ -178,7 +175,7 @@ const SignUp = () => {
                 ) : (
                   <></>
                 )
-              }
+              } */}
               <SignUpButton
                 name={name}
                 email={email}

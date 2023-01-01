@@ -46,7 +46,7 @@ const ShowUser = () => {
     }
   }
 
-  setTimeout(() => { setIsOpen(true) }, 500)
+  setTimeout(() => { setIsOpen(true) }, 500);
 
   useEffect(() => {
     handleShowUser();
