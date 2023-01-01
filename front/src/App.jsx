@@ -40,21 +40,6 @@ function App() {
     handleGetCurrentUser();
   }, [setCurrentUser]);
 
-  // 認証していなかった場合にルーティングを修正するメソッド（一旦コメントアウト）
-  // const Private = ({ children }) => {
-  //   const navigate = useNavigate();
-  //   if (!loading) {
-  //     if (isSignedIn) {
-  //       return children;
-  //     } else {
-  //       return navigate("/signin");
-  //     }
-  //   } else {
-  //     return <></>;
-  //   }
-  // };
-
-
   return (
     <AuthContext.Provider
       value={{

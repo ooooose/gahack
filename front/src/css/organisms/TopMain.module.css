@@ -1,6 +1,7 @@
 .topImage{
   margin-top: 5px;
   margin-bottom: 20px;
+  box-shadow: 0 0 24px hsla(0, 0%, 0%, 0.2);
 }
 
 @media (max-width: 600px) {

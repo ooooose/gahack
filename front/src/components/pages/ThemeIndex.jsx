@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import { Link, Navigate } from 'react-router-dom';
 
 import { Grid, Typography } from "@material-ui/core";
 
@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/styles";
 import { getThemes } from "../../lib/api/themes";
 import { useEffect } from "react";
 import ThemeCard from "../atoms/cards/ThemeCard";
+import { AuthContext } from "../../App";
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ThemeIndex = () => {
   const classes = useStyles();
+  const { isSignedIn } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const [themes, setThemes] = useState([]);
   const handleGetThemes = async () => {
@@ -54,26 +56,31 @@ const ThemeIndex = () => {
 
   return (
     <>
-      <div className={isOpen ? classes.animation : classes.before}>
-        <Typography className={classes.header} variant="h4">テーマ一覧</Typography> 
-        <Grid container spacing={3}>
-          {
-            themes.map((theme) => (
-              <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={theme.id}>
-                <Link to={{
-                  pathname: "/themes/" + theme.id,
-                  state: {id: theme.id}
-                }}
-                id={theme.id}
-                className = {classes.link}
-                >
-                  <ThemeCard theme={theme} title={theme.title} />
-                </Link>
-              </Grid>
-            ))
-          }
-        </Grid>
-      </div>
+      { isSignedIn ? (
+        <div className={isOpen ? classes.animation : classes.before}>
+          <Typography className={classes.header} variant="h4">テーマ一覧</Typography> 
+          <Grid container spacing={3}>
+            {
+              themes.map((theme) => (
+                <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={theme.id}>
+                  <Link to={{
+                    pathname: "/themes/" + theme.id,
+                    state: {id: theme.id}
+                  }}
+                  id={theme.id}
+                  className = {classes.link}
+                  >
+                    <ThemeCard theme={theme} title={theme.title} />
+                  </Link>
+                </Grid>
+              ))
+            }
+          </Grid>
+        </div>
+      ) : (
+        <Navigate to="/signin" />
+      ) }
+      
     </>
   )
 }
