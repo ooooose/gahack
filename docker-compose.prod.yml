@@ -1,11 +1,12 @@
-version: '3'
+version: "3"
 
 services:
   prod:
-    build: 
+    build:
       context: ./api/
       dockerfile: Dockerfile.prod
-    command: bundle exec puma -C config/puma.rb
+    platform: linux/amd64
+    command: "bundle exec pumactl start"
     volumes:
       - ./api:/myapp
       - public-data:/myapp/public
@@ -15,19 +16,19 @@ services:
       - '3000:3000'
     depends_on:
       - db
-    stdin_open: true
     tty: true
+    stdin_open: true
   db:
-    platform: linux/x86_64
     image: mysql:5.7
-    volumes:
-      - db-data:/var/lib/mysql
+    platform: linux/amd64
     command: mysqld --innodb_use_native_aio=0
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      TZ: "Asia/Tokyo"
+      TZ: Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
     ports:
       - '3306:3306'
+    volumes:
+      - db-data:/var/lib/mysql
   web:
     build:
       context: ./nginx
@@ -36,11 +37,22 @@ services:
       - public-data:/myapp/public
       - tmp-data:/myapp/tmp
     ports:
-      - '80:80'
+      - 80:80
     depends_on:
       - prod
+  front:
+    build:
+      context: ./front/
+      dockerfile: Dockerfile
+    volumes:
+      - './front:/user/src/app'
+    environment:
+      - WDS_SOCKET_PORT=0
+    command: sh -c "yarn start"
+    ports:
+      - '8000:3000'
 volumes:
+  db-data:
   public-data:
   tmp-data:
   log-data:
-  db-data:

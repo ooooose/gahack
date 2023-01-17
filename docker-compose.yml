@@ -4,7 +4,7 @@ volumes:
   mysql_data:
 services:
   api:
-    build: 
+    build:
       context: ./api/
       dockerfile: Dockerfile
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -19,12 +19,13 @@ services:
     depends_on:
       - db
   db:
-    platform: linux/x86_64
     image: mysql:5.7
+    platform: linux/amd64
+    command: mysqld --innodb_use_native_aio=0
     volumes:
       - 'mysql_data:/var/lib/mysql'
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
     ports:
       - '3306:3306'
   front:
