@@ -16,10 +16,7 @@ test:
 
 production:
   <<: *default
-  database: production_gahack_db
-  adapter: mysql2
-  encoding: utf8mb4
-  charset: utf8mb4
-  host: <%= ENV['DB_HOST'] %>
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
+  database: cld0v2gnc00339tryar3y96r9
+  username: cld0v2gnc00339tryar3y96r9
+  password: <%= ENV['GAHACK_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
