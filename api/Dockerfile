@@ -29,12 +29,12 @@ RUN apt-get update -qq && apt-get install -y build-essential
 
 RUN gem install bundler:$BUNDLER_VERSION
 
-COPY Gemfile /$APP_NAME/Gemfile
-COPY Gemfile.lock /$APP_NAME/Gemfile.lock
+COPY ../Gemfile /$APP_NAME/Gemfile
+COPY ../Gemfile.lock /$APP_NAME/Gemfile.lock
 
 RUN bundle install
 
-COPY . /$APP_NAME/
+COPY ../ /$APP_NAME/
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh

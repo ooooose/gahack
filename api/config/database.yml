@@ -1,18 +1,21 @@
 default: &default
   adapter: mysql2
+  encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  usernme: root
-  password: password
-  host: db
-  timeout: 5000
 
 development:
   <<: *default
   database: development_gahack_db
+  username: root
+  password: password
+  host: db
 
 test:
   <<: *default
   database: test_gahack_db
+  username: root
+  password: password
+  host: db
 
 production:
   <<: *default

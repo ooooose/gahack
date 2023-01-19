@@ -1,5 +1,6 @@
 FROM ruby:2.7.4
 ENV TZ Asia/Tokyo
+ENV RAILS_ENV=development
 
 # 必要なパッケージをインストール
 RUN apt-get update && apt-get install -y \
