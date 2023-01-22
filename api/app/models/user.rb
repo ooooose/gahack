@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :pictures, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_pictures, through: :likes, source: :picture
+  has_many :comments, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :email, presence: true, uniqueness: { case_sensitive: true }
