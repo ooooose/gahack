@@ -4,11 +4,9 @@ class Api::V1::UsersController < ApplicationController
   def show
     render_json = ActiveModelSerializers::SerializableResource.new(
       @user,
-      include: "**",
       serializer: UserSerializer,
-      current_api_v1_user: current_api_v1_user,
     ).as_json
-    render json: render_json
+    render json: render_json, status: 200
   end
 
   def update
