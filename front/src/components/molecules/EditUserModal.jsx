@@ -36,15 +36,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const EditUserModal = ({open, setOpen}) => {
+const EditUserModal = ({ open, setOpen, setUser, setAvatar }) => {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
-  const [name, setName] = useState("");
+  const [editName, setEditName] = useState("");
   const [image, setImage] = useState("");
   const [preview, setPreview] = useState("");
   const generateParams = () => {
     const formData = new FormData();
-    if (name) formData.append("name", name)
+    if (editName) formData.append("name", editName)
     if (image) formData.append("image", image)
     return formData;
   };
@@ -55,8 +55,11 @@ const EditUserModal = ({open, setOpen}) => {
     const id = currentUser?.id
     try {
       const res = await editUser(id, params);
-      console.log(res);
       setOpen(false);
+      const new_user = res.data.user;
+      const new_avatar = res.data.user.image;
+      setUser(new_user);
+      setAvatar(new_avatar);
     } catch (e) {
       console.log(e);
     }
@@ -101,7 +104,7 @@ const EditUserModal = ({open, setOpen}) => {
       <Form
         label={"名前"}
         defaultValue={currentUser?.name}
-        onChange={(event) => setName(event.target.value)}
+        onChange={(event) => setEditName(event.target.value)}
       />
       <div className={classes.buttons}>
         <Button 
@@ -111,6 +114,7 @@ const EditUserModal = ({open, setOpen}) => {
         <Button 
           variant="contained" 
           color="primary"
+          disabled={editName.length === 0 ? true : false}
           onClick={handleEditUserSubmit}>更新</Button>
       </div>
     </div>

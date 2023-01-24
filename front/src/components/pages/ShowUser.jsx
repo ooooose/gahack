@@ -11,8 +11,8 @@ import {Grid,
         Container } from "@material-ui/core";
 
 import PropTypes from 'prop-types';
-import PictureCard from "../atoms/cards/PictureCard";
-import { useParams } from "react-router-dom";
+import Picture from "../atoms/picture/Picture";
+import { useParams, Link } from "react-router-dom";
 import styles from "../../css/components/Frames.module.css"
 import { useContext } from "react";
 import { AuthContext } from "../../App";
@@ -86,7 +86,7 @@ const ShowUser = () => {
   const { id } = useParams();
   const classes = useStyles();
   const [user, setUser] = useState([]);
-  const [image, setImage] = useState([]);
+  const [avatar, setAvatar] = useState([]);
   const [pictures, setPictures] = useState([]);
   const [open, setOpen] = useState(false);
   const [likedPictures, setLikedPictures] = useState([]);
@@ -105,7 +105,7 @@ const ShowUser = () => {
       if (res.status === 200) {
         const data = res.data;
         setUser(data);
-        setImage(data.image);
+        setAvatar(data.image);
         setPictures(data.pictures);
         setLikedPictures(data.likedPictures);
       }
@@ -113,7 +113,7 @@ const ShowUser = () => {
       console.log(e);
     }
   }
-
+  
   const handleOpen = () => {
     setOpen(true);
   };
@@ -130,7 +130,7 @@ const ShowUser = () => {
       <div className={isOpen ? classes.animation : classes.before}>
         <Avatar
           alt="avatar"
-          src={image.url}
+          src={avatar.url}
           className={classes.avatar}
           />
         <Typography className={classes.header} variant="h5">
@@ -142,7 +142,7 @@ const ShowUser = () => {
             )
           }
         </Typography>
-        <EditUserModal open={open} setOpen={setOpen} />
+        <EditUserModal open={open} setOpen={setOpen} setUser={setUser} setAvatar={setAvatar} />
         <Box sx={{ width: '100%' }}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '50%' }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
@@ -153,43 +153,55 @@ const ShowUser = () => {
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
-            {
-              pictures.map((picture) => (
-                <Grid item xs={12} sm={6} md={4} key={picture.id}>
-                  <div className={`${styles.parent}`}>
-                    <PictureCard 
-                      picture={picture} 
-                      pictureId={picture.id}
-                      pictures={pictures}
-                      setPictures={setPictures}
-                      />
-                  </div>
-                </Grid>
-              ))
-            }
+            <Grid container spacing={2}>
+              {
+                pictures.map((picture) => (
+                  <Grid item xs={12} sm={6} md={4} key={picture.id}>
+                    <div className={`${styles.parent}`}>
+                      <Link to={{
+                          pathname: "/pictures/" + picture.id,
+                          state: {id: picture.id}
+                        }}
+                        id={picture.id}
+                        >
+                        <Picture picture={picture} 
+                          theme={picture.theme} 
+                          image={picture.image}
+                          />          
+                      </Link>
+                    </div>
+                  </Grid>
+                ))
+              }
+            </Grid>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            { likedPictures.length > 0 ? (
-              // likedPictures.map((picture) => (
-              //   <Grid item xs={12} sm={6} md={4} key={picture.id}>
-              //     <div className={`${styles.parent}`}>
-              //       <PictureCard 
-              //         picture={picture} 
-              //         pictureId={picture.id}
-              //         pictures={pictures}
-              //         setPictures={setPictures}
-              //         />
-              //     </div>
-              //   </Grid>
-              // ))
-              <h3>実装中です。</h3>
-            ) : (
-              <>
-                <h3>いいねした絵はまだありません！</h3>
-              </>
-            )
-
-            }
+            <Grid container spacing={2}>
+              { likedPictures.length > 0 ? (
+                likedPictures.map((picture) => (
+                  <Grid item xs={12} sm={6} md={4} key={picture.id}>
+                    <div className={`${styles.parent}`}>
+                      <Link to={{
+                          pathname: "/pictures/" + picture.id,
+                          state: {id: picture.id}
+                        }}
+                        id={picture.id}
+                        >
+                        <Picture picture={picture} 
+                          theme={picture.theme} 
+                          image={picture.image}
+                          />          
+                      </Link>
+                    </div>
+                  </Grid>
+                ))
+              ) : (
+                <>
+                  <h3>いいねした絵はまだありません！</h3>
+                </>
+              )
+              }
+            </Grid>
           </TabPanel>
           {/* <TabPanel value={value} index={2}>
             未実装です。

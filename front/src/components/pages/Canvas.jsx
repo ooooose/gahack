@@ -9,7 +9,6 @@ import { SelectBox } from "../atoms/selectBoxes/SelectBox";
 import { getThemes } from "../../lib/api/themes";
 import styles from "../../css/pages/Canvas.module.css";
 import { AuthContext } from "../../App";
-import { Navigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -209,62 +208,58 @@ const Canvas = () => {
   
   return (
     <>
-      { isSignedIn ? (
-        <Grid className={classes.container} container spacing={3}>
-          <Grid item xs={12} md={7}>
-            <div className={`${styles.canvasParent}`} id="canvasParent">
-              <canvas 
-                id="canvas"
-                className={`${styles.canvas}`} 
-              ></canvas>
-            </div>
-          </Grid>
-          <Grid item className={classes.item} xs={10} md={5}>
-            <div className={classes.drawSet}>
-              <SelectBox 
-                placeholder={'テーマを選んでください'} 
-                option={theme} 
-                options={themes} 
-                setOption={setTheme} 
-                />
-              <Button
-                className={classes.submitBtn}
-                onChange={changeColor}
-              >
-                <input type="color" id="line_color" />
-              </Button>
-              <Button
-                type='submit'
-                id='erase'
-                className={classes.submitBtn}
-                color="default"
-                onClick={changeEraser}
-              >
-                {eraser ? (
-                  <p>Eraserモード</p>
-                ) : (
-                  <p>Penモード</p>
-                )}
-              </Button>
-              <Slider
-                value={lineWidth}
-                defaultValue={2}
-                onChange={handleLineWidth}
-                min={1}
-                max={12}
-                valueLabelDisplay="on"
+      <Grid className={classes.container} container spacing={3}>
+        <Grid item xs={12} md={7}>
+          <div className={`${styles.canvasParent}`} id="canvasParent">
+            <canvas 
+              id="canvas"
+              className={`${styles.canvas}`} 
+            ></canvas>
+          </div>
+        </Grid>
+        <Grid item className={classes.item} xs={10} md={5}>
+          <div className={classes.drawSet}>
+            <SelectBox 
+              placeholder={'テーマを選んでください'} 
+              option={theme} 
+              options={themes} 
+              setOption={setTheme} 
               />
-              <ResetButton resetCanvas={resetCanvas}>キャンバスをリセット</ResetButton>
-              <UploadButton uploadCanvas={uploadPicture} 
-                            theme={theme}>
-                アップロードする
-              </UploadButton>
-            </div>
-          </Grid>
-        </Grid> 
-      ) : (
-        <Navigate to="/signin" />
-      )}
+            <Button
+              className={classes.submitBtn}
+              onChange={changeColor}
+            >
+              <input type="color" id="line_color" />
+            </Button>
+            <Button
+              type='submit'
+              id='erase'
+              className={classes.submitBtn}
+              color="default"
+              onClick={changeEraser}
+            >
+              {eraser ? (
+                <p>Eraserモード</p>
+              ) : (
+                <p>Penモード</p>
+              )}
+            </Button>
+            <Slider
+              value={lineWidth}
+              defaultValue={2}
+              onChange={handleLineWidth}
+              min={1}
+              max={12}
+              valueLabelDisplay="on"
+            />
+            <ResetButton resetCanvas={resetCanvas}>キャンバスをリセット</ResetButton>
+            <UploadButton uploadCanvas={uploadPicture} 
+                          theme={theme}>
+              アップロードする
+            </UploadButton>
+          </div>
+        </Grid>
+      </Grid> 
     </>
   )
 }
