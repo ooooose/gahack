@@ -1,6 +1,8 @@
 class PictureSerializer < ActiveModel::Serializer
   attributes %i[id image created_at]
 
+  has_many :comments, serializer: CommentSerializer
+
   def initialize(object, **option)
     @current_api_v1_user = option[:current_api_v1_user]
     super
@@ -13,7 +15,7 @@ class PictureSerializer < ActiveModel::Serializer
   end
 
   attribute :like_id do
-    if @current_user_v1_user
+    if @current_api_v1_user
       object.likes.find_by(user_id: @current_api_v1_user.id)&.id
     end
   end
