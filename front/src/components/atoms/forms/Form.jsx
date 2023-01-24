@@ -13,6 +13,7 @@ export const Form = (props) => {
         type={props.type}
         placeholder={props.placeholder}
         value={props.value}
+        defaultValue={props.defaultValue===undefined? "" : props.defaultValue}
         margin="dense"
         autoComplete={props.autoComplete}
         onChange={props.onChange}

@@ -4,6 +4,7 @@ class Picture < ApplicationRecord
   # いいね機能
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
+  has_many :comments, dependent: :destroy
 
   # 描かれた絵を作成順に並び替える
   scope :by_recently_created, -> { order(created_at: :desc) }

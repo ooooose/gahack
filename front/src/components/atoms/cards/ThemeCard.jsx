@@ -16,13 +16,19 @@ const useStyles = makeStyles((theme) => ({
 
 const ThemeCard = ({theme, title}) => {
   const classes = useStyles();
-  const image_src = "data:image/png;base64," + theme.bestPicture.image;
+  const image_src = theme.bestPicture ? "data:image/png;base64," + theme.bestPicture.image : null;
   return (
     <>
       <Card
         className={classes.card}
-      >
-        <img src={image_src} alt={theme} className={classes.imageScales} /><br/>
+      > { image_src ? (
+        <>
+          <img src={image_src} alt={theme} className={classes.imageScales} /><br/>
+        </>
+      ) : (
+        <h3>まだ投稿はありません。</h3>
+      )
+      }
         <strong>{title}</strong>の部屋
       </Card>
     </>

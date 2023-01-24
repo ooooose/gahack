@@ -4,16 +4,17 @@ class Api::V1::UsersController < ApplicationController
   def show
     render_json = ActiveModelSerializers::SerializableResource.new(
       @user,
-      include: "**",
       serializer: UserSerializer,
-      current_api_v1_user: current_api_v1_user,
     ).as_json
-    render json: render_json
+    render json: render_json, status: 200
   end
 
   def update
-    @user.update!(user_parasm)
-    render json: @user
+    if @user.update(user_params)
+      render json: { status: 200, user: @user, message: "更新しました" }
+    else
+      render json: { status: 500, message: "更新に失敗しました" }
+    end
   end
 
   private
@@ -23,6 +24,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :image)
+    params.permit(:name, :image)
   end
 end

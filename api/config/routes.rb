@@ -4,10 +4,12 @@ Rails.application.routes.draw do
   namespace :api, format: 'json' do
     namespace :v1 do
       # usersはまだindexしか用意していない。
-      resources :users, only: %i[index show]
+      resources :users, only: %i[show update]
       resources :themes, only: %i[index create show destroy]
       # picturesはupdateを今後実装予定だが、一旦はパス
-      resources :pictures, only: %i[index create show destroy]
+      resources :pictures, only: %i[index create show destroy] do
+        resources :comments, only: %i[create destroy]
+      end
       resources :likes, only: %i[create destroy]
       resources :test, only: %i[index]
 

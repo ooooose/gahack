@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 
 import PictureCard from "../atoms/cards/PictureCard";
 
 import { Grid } from "@material-ui/core";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { showTheme } from "../../lib/api/themes";
 import { makeStyles } from "@material-ui/core";
 import styles from "../../css/components/Frames.module.css";
-import { AuthContext } from "../../App";
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -20,13 +19,16 @@ const useStyles = makeStyles((theme) => ({
     opacity: '0',
     padding: '0 60px',
     margin: '0px auto',
+  },
+  noImage: {
+    textAlign: 'center',
+    margin: '200px auto'
   }
 }));
 
 const Theme = () => {
   const classes = useStyles();
   const { id } = useParams();
-  const { isSignedIn } = useContext(AuthContext);
   const [ pictures, setPictures ] = useState([]);
   const [ isOpen, setIsOpen ] = useState(false);
   const handleShowTheme = async () => {
@@ -49,29 +51,27 @@ const Theme = () => {
 
   return (
     <>
-      { isSignedIn ? (
-        <div className={isOpen ? classes.animation : classes.before}>
-          <Grid container spacing={3}>
-            {
-              pictures.map((picture) => (
-                <Grid item xs={12} sm={6} md={4} key={picture.id}>
-                  <div className={`${styles.parent}`}>
-                    <PictureCard
-                      picture={picture} 
-                      pictureId={picture.id}
-                      pictures={pictures}
-                      setPictures={setPictures}
-                    />
-                  </div>
-                </Grid>
-              ))
-            }
-          </Grid>
-        </div>
-      ) : (
-        <Navigate to="/signin" />
-      ) }
-      
+      <div className={isOpen ? classes.animation : classes.before}>
+        <Grid container spacing={3}>
+          { pictures.length > 0 ? (
+            pictures.map((picture) => (
+              <Grid item xs={12} sm={6} md={4} key={picture.id}>
+                <div className={`${styles.parent}`}>
+                  <PictureCard
+                    picture={picture} 
+                    pictureId={picture.id}
+                    pictures={pictures}
+                    setPictures={setPictures}
+                  />
+                </div>
+              </Grid>
+            ))
+          ) : (
+            <h1 className={classes.noImage}>まだ投稿がありません！</h1>
+          )
+          }
+        </Grid>
+      </div>
     </>
   )
 }

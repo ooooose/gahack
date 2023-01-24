@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Drawer, makeStyles } from "@material-ui/core";
 
 import clsx from 'clsx';
-import { IconButton, Divider, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { IconButton, Divider, List, ListItem, ListItemIcon, ListItemText, Tooltip } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import GestureIcon from '@material-ui/icons/Gesture';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
@@ -104,17 +104,21 @@ const SideBar = ({open, handleDrawerClose}) => {
             <>
               <List>
                 <Link to={`/users/${currentUser?.id}`} className={classes.link}>
-                  <ListItem button>
-                    <ListItemIcon>
-                      <Person />
-                    </ListItemIcon>
-                    <ListItemText primary="プロフィール" />
-                  </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <Tooltip title="プロフィール">
+                          <Person />
+                        </Tooltip>
+                      </ListItemIcon>
+                      <ListItemText primary="プロフィール" />
+                    </ListItem>
                 </Link>
                 <Link to="/themes" className={classes.link}>
                   <ListItem button>
                     <ListItemIcon>
-                      <PhotoLibraryIcon />
+                      <Tooltip title="テーマ一覧">
+                        <PhotoLibraryIcon />
+                      </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary="テーマ一覧" />
                   </ListItem>
@@ -122,7 +126,9 @@ const SideBar = ({open, handleDrawerClose}) => {
                 <Link to="/picture" className={classes.link}>
                   <ListItem button>
                     <ListItemIcon>
-                      <GestureIcon />
+                      <Tooltip title="キャンバス">
+                        <GestureIcon />
+                      </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary="キャンバス" />
                   </ListItem>
@@ -130,7 +136,9 @@ const SideBar = ({open, handleDrawerClose}) => {
                 <Link onClick={handleSignOut} className={classes.link}>
                   <ListItem button>
                     <ListItemIcon>
-                      <DirectionsRunIcon />
+                      <Tooltip title="ログアウト">
+                        <DirectionsRunIcon />
+                      </Tooltip>
                     </ListItemIcon>
                     <ListItemText primary="ログアウト" />
                   </ListItem>
@@ -145,7 +153,9 @@ const SideBar = ({open, handleDrawerClose}) => {
             >
               <ListItem button>
                 <ListItemIcon>
-                  <ExitToAppIcon />
+                  <Tooltip title="ログイン">
+                    <ExitToAppIcon />
+                  </Tooltip>
                 </ListItemIcon>
                 <ListItemText primary="ログイン" />
               </ListItem>
@@ -156,9 +166,11 @@ const SideBar = ({open, handleDrawerClose}) => {
             >
               <ListItem button>
                 <ListItemIcon>
-                  <Person />
+                  <Tooltip title="ユーザー登録">
+                    <Person />
+                  </Tooltip>
                 </ListItemIcon>
-                <ListItemText primary="サインアップ" />
+                <ListItemText primary="ユーザー登録" />
               </ListItem>
             </Link>
           </>

@@ -6,18 +6,7 @@ import { Link } from "react-router-dom";
 import PictureTitle from "../../molecules/PictureTitle";
 import { deletePicture } from "../../../lib/api/pictures";
 
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-  card: {
-    padding: theme.spacing(2),
-    maxWidth: 300,
-    margin: 'auto'
-  },
-}))
-
-const PictureCard = ({picture, pictureId, pictures, setPictures}) => {
-  const classes = useStyles();
+const PictureCard = ({picture, pictureId, pictures, setPictures, setLikedPictures}) => {
   const handleDeletePicture = async () => {
     try {
       const res = await deletePicture(pictureId);
@@ -31,6 +20,7 @@ const PictureCard = ({picture, pictureId, pictures, setPictures}) => {
       console.log(e);
     }
   }
+  console.log(picture);
 
   return (
     <>
@@ -39,8 +29,7 @@ const PictureCard = ({picture, pictureId, pictures, setPictures}) => {
           state: {id: picture.id}
         }}
         id={picture.id}
-        className = {classes.link}
-      >
+        >
         <Picture picture={picture} 
           theme={picture.theme} 
           image={picture.image}
@@ -49,7 +38,8 @@ const PictureCard = ({picture, pictureId, pictures, setPictures}) => {
       <PictureTitle 
         picture={picture} 
         pictureId={pictureId} 
-        handleDeletePicture={handleDeletePicture} 
+        handleDeletePicture={handleDeletePicture}
+        setLikedPictures={setLikedPictures}
       />
     </>
   )

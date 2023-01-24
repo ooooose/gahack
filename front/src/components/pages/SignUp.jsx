@@ -1,4 +1,3 @@
-// import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -8,11 +7,8 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Box from "@material-ui/core/Box";
-// import PhotoCamera from "@material-ui/icons/PhotoCamera";
-// import CancelIcon from '@material-ui/icons/Cancel';
 
 import { signUp } from "../../lib/api/auth";
-// import { AuthContext } from "../../App";
 import AlertMessage from "../utils/AlertMessage";
 import { SignUpButton } from "../atoms/buttons/SignUpButton";
 import { Form } from "../atoms/forms/Form";
@@ -53,12 +49,8 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = () => {
   const classes = useStyles();
 
-  // const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  // const [image, setImage] = useState("");
-  // const [preview, setPreview] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
@@ -70,7 +62,6 @@ const SignUp = () => {
       email: email,
       password: password,
       passwordConfirmation: passwordConfirmation,
-      // image: image,
       confirmSuccessUrl: confirmSuccessUrl,
     };
     return signUpParams;
@@ -90,18 +81,6 @@ const SignUp = () => {
       setAlertMessageOpen(true);
     }
   };
-
-  // const uploadImage = (e) => {
-  //   const file = e.target.files[0];
-  //   setImage(file);
-  // }
-
-  // const previewImage = (e) => {
-  //   const file = e.target.files[0];
-  //   setPreview(window.URL.createObjectURL(file));
-  // }
-
-
   return (
     <>
      <div className={classes.container}>
@@ -133,49 +112,6 @@ const SignUp = () => {
                 autoComplete={"current-password"}
                 onChange={(event) => setPasswordConfirmation(event.target.value)}
               />
-              {/* <div className={classes.imageUploadBtn}>
-                <input 
-                  accept="image/*"
-                  className={classes.input}
-                  id="icon-button-file"
-                  type="file"
-                  onChange={(e) => {
-                    uploadImage(e)
-                    previewImage(e)
-                  }}
-                />
-                <label htmlFor="icon-button-file">
-                  <IconButton 
-                    color='primary'
-                    aria-label="upload picture"
-                    component="span"
-                  >
-                    <PhotoCamera />
-                  </IconButton>
-                </label>
-              </div>
-              {
-                preview ? (
-                  <>
-                    <Box
-                      className={classes.box}
-                    >
-                      <IconButton
-                        color="inherit"
-                        onClick={() => setPreview("")}>
-                        <CancelIcon />
-                      </IconButton>
-                      <img
-                        src={preview}
-                        alt="preview img"
-                        className={classes.preview}
-                      />
-                    </Box>
-                  </>
-                ) : (
-                  <></>
-                )
-              } */}
               <SignUpButton
                 name={name}
                 email={email}

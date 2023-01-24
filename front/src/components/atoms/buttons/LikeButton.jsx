@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LikeButton = ({params, likeState, setLikeState, likes, setLikes}) => {
+const LikeButton = ({params, setLikeState, likes, setLikes}) => {
   const classes = useStyles();
   const handleCreateLike = async () => {
     try {
@@ -19,7 +19,6 @@ const LikeButton = ({params, likeState, setLikeState, likes, setLikes}) => {
       if (res.status === 200) {
         setLikeState(true);
         setLikes(prev => ++prev);
-        console.log('いいね！');
       }
     } catch (e) {
       console.log(e);
@@ -28,7 +27,9 @@ const LikeButton = ({params, likeState, setLikeState, likes, setLikes}) => {
 
   return (
     <>
-      <FavoriteBorderIcon className={classes.UnlikeButton} onClick={handleCreateLike} /> {likes}
+      <FavoriteBorderIcon 
+        className={classes.UnlikeButton} 
+        onClick={handleCreateLike} /> {likes}
     </>
   )
 };

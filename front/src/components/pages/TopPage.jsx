@@ -6,7 +6,6 @@ import TopDescription from '../organisms/TopDescription';
 import TopBottom from '../organisms/TopBottom';
 import { makeStyles } from "@material-ui/core";
 
-
 const useStyles = makeStyles((theme) => ({
   animation: {
     transition: '1s',
@@ -30,7 +29,7 @@ const TopPage = () => {
         {
           isSignedIn && currentUser ? (
             <>
-              <h1>こんにちは、{currentUser?.name}さん！</h1>
+              <h1>こんにちは！！</h1>
             </>
           ) : (
             <>
