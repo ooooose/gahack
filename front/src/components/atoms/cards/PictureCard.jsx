@@ -20,7 +20,6 @@ const PictureCard = ({picture, pictureId, pictures, setPictures, setLikedPicture
       console.log(e);
     }
   }
-  console.log(picture);
 
   return (
     <>

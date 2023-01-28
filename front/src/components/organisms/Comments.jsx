@@ -13,12 +13,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '5px',
   },
   commentsBox: {
-    height: '80vh',
+    height: '70vh',
     overflow: 'auto',
   }
 }));
 
-const Comments = ({comments}) => {
+const Comments = ({comments, setComments}) => {
   const classes = useStyles();
   return (
     <>
@@ -34,7 +34,13 @@ const Comments = ({comments}) => {
         <div className={classes.commentsBox}>
           {comments.map((comment) => (
             <div key={comment.id}>
-              <Comment comment={comment} user={comment.user} />
+              <Comment
+                comments={comments}
+                comment={comment} 
+                commentId={comment.id}
+                user={comment.user}
+                picture={comment.picture}
+                setComments={setComments} />
             </div>
           ))}
         </div>

@@ -64,7 +64,6 @@ const ShowPicture = () => {
       console.log(e);
     }
   };
-  console.log(picture);
 
   const generateCommentParams = () => {
     const createCommentParams = {
@@ -107,7 +106,7 @@ const ShowPicture = () => {
         <Grid container spacing={3}>
           <Grid item xs={4}>
             {comments.length > 0 ? (
-              <Comments comments={comments} />
+              <Comments comments={comments} setComments={setComments} />
             ) : (
               <h3>まだコメントはありません</h3>
             ) }
