@@ -11,6 +11,7 @@ import ThemeIndex from "./components/pages/ThemeIndex";
 import Theme from "./components/pages/Theme";
 import ShowPicture from "./components/pages/ShowPicture";
 import ShowUser from "./components/pages/ShowUser";
+import './css/fonts/style.css';
 
 export const AuthContext = createContext();
 
