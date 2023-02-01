@@ -79,7 +79,7 @@ const ShowPicture = () => {
     try {
       const res = await createComment(params, id);
       console.log(res);
-      setComments([...comments, res.data])
+      setComments([res.data, ...comments])
       setComment("");
     } catch (e) {
       console.log(e);
