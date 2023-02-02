@@ -1,19 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import TopBackImage from "../../assets/img/TopBackImage.png";
 import TopImage from "../../assets/img/TopImage.png";
-
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Button, Box } from "@material-ui/core";
-
 import styles from "../../css/organisms/TopMain.module.css";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    paddingTop: '30px',
-    paddingBottom: '20px',
-    backgroundColor: 'rgba(190,184,245,0.5)',
-    margin: '0 auto',
+    backgroundImage: `url(${TopBackImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '100%',
+    margin: '10px auto',
   },
   topImage: {
     marginBottom: '20px',
@@ -27,8 +26,12 @@ const useStyles = makeStyles((theme) => ({
   box: {
     marginTop: "1rem"
   },
+  buttonLink: {
+    textDecoration: "none",
+    color: 'white'
+  },
   link: {
-    textDecoration: "none"
+    textDecoration: "none",
   },
 }));
 
@@ -36,21 +39,23 @@ const TopMain = () => {
   const classes = useStyles();
   return (
     <>
-      <div className={classes.container}>
-        <img className={`${styles.topImage}`} src={TopImage} alt="TopImage" /><br/>
-        <Button className={classes.button} variant="contained">
-          <Link to="/signin" className={classes.link}>
-            ログインする
-          </Link>
-        </Button>
-        <Box textAlign="center" className={classes.box}>
-          <Typography>
-            新規登録は &nbsp;
-            <Link to="/signup" className={classes.link}>
-              こちら
+      <div className={classes.root}>
+        <div className={classes.container}>
+          <img className={`${styles.topImage}`} src={TopImage} alt="TopImage" /><br/>
+          <Button className={classes.button} color="primary" variant="contained">
+            <Link to="/signin" className={classes.buttonLink}>
+              ログインする
             </Link>
-          </Typography>
-        </Box>
+          </Button>
+          <Box textAlign="center" className={classes.box}>
+            <Typography>
+              新規登録は &nbsp;
+              <Link to="/signup" className={classes.link}>
+                こちら
+              </Link>
+            </Typography>
+          </Box>
+        </div>
       </div>
     </>
   )

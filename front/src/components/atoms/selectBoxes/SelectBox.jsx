@@ -16,7 +16,7 @@ export const SelectBox = ({placeholder, option, options, setOption}) => {
           <MenuItem value="" disabled></MenuItem>
           {
             options.map((opt) => (
-              <MenuItem value={opt} key={opt}>{opt.title}</MenuItem>
+              <MenuItem value={opt} key={opt.id}>{opt.title}</MenuItem>
             ))
           }
         </Select>

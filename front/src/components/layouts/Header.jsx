@@ -22,6 +22,7 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
+    backgroundColor: '#2196f3',
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -135,8 +136,8 @@ const Header = ({open, handleDrawerOpen}) => {
           </IconButton>
           <Typography
             component={Link}
-            to="/"
             variant="h5"
+            to="/"
             className={classes.title}
           >
             画HACK
