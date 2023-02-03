@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   namespace :api, format: 'json' do
     namespace :v1 do
       # usersはまだindexしか用意していない。
-      resources :users, only: %i[show update]
+      resources :users, only: %i[show update] do
+        resources :relationships, only: %i[create destroy]
+      end
       resources :themes, only: %i[index create show destroy]
       # picturesはupdateを今後実装予定だが、一旦はパス
       resources :pictures, only: %i[index create show destroy] do
