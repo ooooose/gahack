@@ -8,6 +8,7 @@ import { getThemes } from "../../lib/api/themes";
 import { useEffect } from "react";
 import ThemeCard from "../atoms/cards/ThemeCard";
 import { Pagination } from "@material-ui/lab";
+import Loader from "./Loader";
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -42,6 +43,8 @@ const ThemeIndex = () => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
   const [themes, setThemes] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const handleGetThemes = async () => {
     try {
       const res = await getThemes();
@@ -52,47 +55,51 @@ const ThemeIndex = () => {
     } catch (e) {
       console.log(e);
     }
+    setLoading(false);
+    setTimeout(() => { setIsOpen(true) }, 100);
   }
   useEffect(() => {
     handleGetThemes();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  setTimeout(() => { setIsOpen(true) }, 100);
-
   return (
     <>
-      <div className={isOpen ? classes.animation : classes.before}>
-        <Typography className={classes.header} variant="h4">テーマ一覧</Typography> 
-        <Grid container spacing={3}>
-          {
-            themes.map((theme,i) => (
-              Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={theme.id}>
-                <Link to={{
-                  pathname: "/themes/" + theme.id,
-                  state: {id: theme.id}
-                }}
-                id={theme.id}
-                className = {classes.link}
-                >
-                  <ThemeCard theme={theme} title={theme.title} />
-                </Link>
-              </Grid>
-            ))
-          }
-        </Grid>
-        <div className={classes.pageWrapper}>
-          { themes.lenght > 6 && (
-            <Pagination 
-              count={Math.ceil(themes.length / 6)}
-              page={page}
-              onChange={(e, page) => setPage(page)}
-              color="primary"
-              className={classes.Pagination}
-            />
-          )}
+      {!loading ? (
+        <div className={isOpen ? classes.animation : classes.before}>
+          <Typography className={classes.header} variant="h4">テーマ一覧</Typography> 
+          <Grid container spacing={3}>
+            {
+              themes.map((theme,i) => (
+                Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={theme.id}>
+                  <Link to={{
+                    pathname: "/themes/" + theme.id,
+                    state: {id: theme.id}
+                  }}
+                  id={theme.id}
+                  className = {classes.link}
+                  >
+                    <ThemeCard theme={theme} title={theme.title} />
+                  </Link>
+                </Grid>
+              ))
+            }
+          </Grid>
+          <div className={classes.pageWrapper}>
+            { themes.lenght > 6 && (
+              <Pagination 
+                count={Math.ceil(themes.length / 6)}
+                page={page}
+                onChange={(e, page) => setPage(page)}
+                color="primary"
+                className={classes.Pagination}
+              />
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <Loader />
+      )}
     </>
   )
 }

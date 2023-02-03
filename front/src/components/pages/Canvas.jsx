@@ -163,10 +163,6 @@ const Canvas = () => {
     ctx.strokeStyle = eraser ? eraser_x : color;
   };
 
-  // const handleLineWidth = (e, newVal) => {
-  //   setLineWidth(prev => newVal);
-  // }
-
   const handleGetThemes = async () => {
     try {
       const res = await getThemes();

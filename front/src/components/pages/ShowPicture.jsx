@@ -9,6 +9,7 @@ import LikeButton from '../atoms/buttons/LikeButton';
 import UnLikeButton from '../atoms/buttons/UnlikeButton';
 import { createComment } from '../../lib/api/comments';
 import Comments from '../organisms/Comments';
+import Loader from './Loader';
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -48,6 +49,7 @@ const ShowPicture = () => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   
   const handleShowPicture = async () => {
     try {
@@ -63,6 +65,8 @@ const ShowPicture = () => {
     } catch (e) {
       console.log(e);
     }
+    setLoading(false);
+    setTimeout(() => { setIsOpen(true) }, 200)
   };
 
   const generateCommentParams = () => {
@@ -86,7 +90,6 @@ const ShowPicture = () => {
     }
   };
 
-  setTimeout(() => { setIsOpen(true) }, 200)
 
   const generateParams = () => {
     const likeParams = {
@@ -102,72 +105,76 @@ const ShowPicture = () => {
 
   return (
     <>
-      <div className={isOpen ? classes.animation : classes.before}>
-        <Grid container spacing={3}>
-          <Grid item xs={4}>
-            {comments.length > 0 ? (
-              <Comments comments={comments} setComments={setComments} />
-            ) : (
-              <h3>まだコメントはありません</h3>
-            ) }
-          </Grid>
-          <Grid item xs={4}>
-            <div className={`${styles.parent}`}>
-              <Picture picture={picture} 
-                theme={picture.theme} 
-                image={picture.image}
-                />
-              <div className={`${styles.likes}`}>
-                <Typography variant="body2">
-                  {user.name}さん作
-                </Typography>
-                { likeState ? (
-                  <UnLikeButton 
-                    params={generateParams()} 
-                    likeState={picture.liked}
-                    setLikeState={setLikeState}
-                    likeId={picture.like_id}
-                    likes={likes}
-                    setLikes={setLikes}
+      {!loading ? (
+        <div className={isOpen ? classes.animation : classes.before}>
+          <Grid container spacing={3}>
+            <Grid item xs={4}>
+              {comments.length > 0 ? (
+                <Comments comments={comments} setComments={setComments} />
+              ) : (
+                <h3>まだコメントはありません</h3>
+              ) }
+            </Grid>
+            <Grid item xs={4}>
+              <div className={`${styles.parent}`}>
+                <Picture picture={picture} 
+                  theme={picture.theme} 
+                  image={picture.image}
                   />
-                ) : (
-                  <LikeButton 
-                    params={generateParams()} 
-                    likeState={picture.liked}
-                    setLikeState={setLikeState}
-                    likes={likes}
-                    setLikes={setLikes}
-                  />
-                )}
-              </div>      
-            </div>
-            <div className={classes.textField}>
-              <TextField
-                label="コメント"
-                type="text"
-                name="body"
-                margin="normal"
-                fullWidth
-                multiline
-                onChange={(event) => setComment(event.target.value)}
-                value={comment}
-              />
-              <div className={classes.buttons}>
-                <Button 
-                  className={classes.button}
-                  variant="contained" 
-                  color="primary"
-                  onClick={handleCommentSubmit}
-                  disabled={!comment ? true : false}
-                  >投稿する</Button>
+                <div className={`${styles.likes}`}>
+                  <Typography variant="body2">
+                    {user.name}さん作
+                  </Typography>
+                  { likeState ? (
+                    <UnLikeButton 
+                      params={generateParams()} 
+                      likeState={picture.liked}
+                      setLikeState={setLikeState}
+                      likeId={picture.like_id}
+                      likes={likes}
+                      setLikes={setLikes}
+                    />
+                  ) : (
+                    <LikeButton 
+                      params={generateParams()} 
+                      likeState={picture.liked}
+                      setLikeState={setLikeState}
+                      likes={likes}
+                      setLikes={setLikes}
+                    />
+                  )}
+                </div>      
               </div>
-            </div>
+              <div className={classes.textField}>
+                <TextField
+                  label="コメント"
+                  type="text"
+                  name="body"
+                  margin="normal"
+                  fullWidth
+                  multiline
+                  onChange={(event) => setComment(event.target.value)}
+                  value={comment}
+                />
+                <div className={classes.buttons}>
+                  <Button 
+                    className={classes.button}
+                    variant="contained" 
+                    color="primary"
+                    onClick={handleCommentSubmit}
+                    disabled={!comment ? true : false}
+                    >投稿する</Button>
+                </div>
+              </div>
+            </Grid>
+            <Grid item xs={4}>
+              
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            
-          </Grid>
-        </Grid>
-      </div>
+        </div>
+      ) : (
+        <Loader />
+      )}
     </>
   )
 };

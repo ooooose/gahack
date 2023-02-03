@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { showTheme } from "../../lib/api/themes";
 import styles from "../../css/components/Frames.module.css";
 import { Pagination } from "@material-ui/lab";
-
+import Loader from "./Loader";
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -39,6 +39,7 @@ const Theme = () => {
   const { id } = useParams();
   const [pictures, setPictures] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleShowTheme = async () => {
     try {
@@ -50,6 +51,7 @@ const Theme = () => {
     } catch (e) {
       console.log(e);
     }
+    setLoading(false);
   }
 
   const animation = () => {
@@ -67,43 +69,47 @@ const Theme = () => {
 
   return (
     <>
-      <div className={isOpen ? classes.animation : classes.before}>
-        <Grid container spacing={3}>
-          { pictures.length > 0 ? (
-            pictures.map(
-              (picture, i) =>
-                Math.floor(i / 6 + 1) === page && (
-                  <Grid item xs={12} sm={6} md={4} key={picture.id}>
-                    <div className={`${styles.parent}`}>
-                      <PictureCard
-                        picture={picture} 
-                        pictureId={picture.id}
-                        pictures={pictures}
-                        setPictures={setPictures}
-                      />
-                    </div>
-                  </Grid>
-            ))
-          ) : (
-            <h1 className={classes.noImage}>まだ投稿がありません！</h1>
-          )
-          }
-        </Grid>
-        <div className={classes.pageWrapper}>
-          { pictures.length > 6 && (
-            <Pagination
-              className={classes.pagination}
-              count={Math.ceil(pictures.length / 6)}
-              color="primary"
-              page={page}
-              onChange={(e, page) => {
-                setPage(page);
-                setIsOpen(false);
-              }}
-            />
-          )}
+      {!loading ? (
+        <div className={isOpen ? classes.animation : classes.before}>
+          <Grid container spacing={3}>
+            { pictures.length > 0 ? (
+              pictures.map(
+                (picture, i) =>
+                  Math.floor(i / 6 + 1) === page && (
+                    <Grid item xs={12} sm={6} md={4} key={picture.id}>
+                      <div className={`${styles.parent}`}>
+                        <PictureCard
+                          picture={picture} 
+                          pictureId={picture.id}
+                          pictures={pictures}
+                          setPictures={setPictures}
+                        />
+                      </div>
+                    </Grid>
+              ))
+            ) : (
+              <h1 className={classes.noImage}>まだ投稿がありません！</h1>
+            )
+            }
+          </Grid>
+          <div className={classes.pageWrapper}>
+            { pictures.length > 6 && (
+              <Pagination
+                className={classes.pagination}
+                count={Math.ceil(pictures.length / 6)}
+                color="primary"
+                page={page}
+                onChange={(e, page) => {
+                  setPage(page);
+                  setIsOpen(false);
+                }}
+              />
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <Loader />
+      )}
     </>
   )
 }
