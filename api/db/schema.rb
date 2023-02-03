@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_02_074234) do
+ActiveRecord::Schema.define(version: 2023_02_03_231916) do
 
   create_table "comments", charset: "utf8mb4", force: :cascade do |t|
     t.string "body", null: false
@@ -20,6 +20,12 @@ ActiveRecord::Schema.define(version: 2023_02_02_074234) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["picture_id"], name: "index_comments_on_picture_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "frames", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "likes", charset: "utf8mb4", force: :cascade do |t|
@@ -37,6 +43,8 @@ ActiveRecord::Schema.define(version: 2023_02_02_074234) do
     t.text "image", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "frame_id"
+    t.index ["frame_id"], name: "index_pictures_on_frame_id"
     t.index ["theme_id"], name: "index_pictures_on_theme_id"
     t.index ["user_id"], name: "index_pictures_on_user_id"
   end
@@ -86,6 +94,7 @@ ActiveRecord::Schema.define(version: 2023_02_02_074234) do
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "pictures"
   add_foreign_key "likes", "users"
+  add_foreign_key "pictures", "frames"
   add_foreign_key "pictures", "themes"
   add_foreign_key "pictures", "users"
   add_foreign_key "relationships", "users"

@@ -1,6 +1,7 @@
 class Picture < ApplicationRecord
   belongs_to :user
   belongs_to :theme
+  belongs_to :frame
   # いいね機能
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
