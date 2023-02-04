@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { showPicture } from '../../lib/api/pictures';
 import { Grid, Typography, TextField, Button } from "@material-ui/core";
@@ -11,6 +11,7 @@ import { createComment } from '../../lib/api/comments';
 import Comments from '../organisms/Comments';
 import Loader from './Loader';
 import EditFrameModal from '../molecules/EditFrameModal';
+import { AuthContext } from '../../App';
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ShowPicture = () => {
+  const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
   const { id } = useParams();
   const [picture, setPicture] = useState([]);
@@ -80,7 +82,6 @@ const ShowPicture = () => {
   };
 
   const handleCommentSubmit = async (e) => {
-    e.preventDefault();
     const params = generateCommentParams();
     try {
       const res = await createComment(params, id);
@@ -175,18 +176,23 @@ const ShowPicture = () => {
             </Grid>
             <Grid item xs={4}>
               <div>
-                <Button
-                  variant='contained'
-                  color="primary"
-                  onClick={handleOpen}>
-                    額縁を変更する
-                </Button>
-                <EditFrameModal 
-                  open={open} 
-                  setOpen={setOpen} 
-                  picture={picture} 
-                  setPicture={setPicture} 
-                  image={picture.image} />
+                
+                { currentUser.id === user.id ? (
+                  <Button
+                    variant='contained'
+                    color="primary"
+                    onClick={handleOpen}>
+                      額縁を変更する
+                  </Button>
+                ) : (
+                  <></>
+                  ) }
+              <EditFrameModal 
+                open={open} 
+                setOpen={setOpen} 
+                picture={picture} 
+                setPicture={setPicture} 
+                image={picture.image} />
               </div>
             </Grid>
           </Grid>

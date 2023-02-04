@@ -86,7 +86,7 @@ const Comment = ({ comments, comment, commentId, user, picture, setComments }) =
                 />
             </Grid>
             <Grid item xs={2}>
-              { currentUser ? (
+              { currentUser.id === user.id ? (
                 <DeleteCommentButton handleDeleteComment={handleDeleteComment} />
                 ) : (
                   <></>
