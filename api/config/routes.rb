@@ -3,13 +3,11 @@ Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   namespace :api, format: 'json' do
     namespace :v1 do
-      # usersはまだindexしか用意していない。
       resources :users, only: %i[show update] do
         resources :relationships, only: %i[create destroy]
       end
       resources :themes, only: %i[index create show destroy]
-      # picturesはupdateを今後実装予定だが、一旦はパス
-      resources :pictures, only: %i[index create show destroy] do
+      resources :pictures, only: %i[index create show destroy update] do
         resources :comments, only: %i[create destroy]
       end
       resources :likes, only: %i[create destroy]

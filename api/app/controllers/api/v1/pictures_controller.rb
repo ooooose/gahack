@@ -1,5 +1,5 @@
 class Api::V1::PicturesController < ApplicationController
-  before_action :set_picture, only: %i[show destroy]
+  before_action :set_picture, only: %i[show update destroy]
 
   def index
     pictures = Picture.all.by_recently_created.includes(:user, :theme)
@@ -36,6 +36,14 @@ class Api::V1::PicturesController < ApplicationController
     render json: @picture
   end
 
+  def update
+    if @picture.update(frame_params)
+      render json: { status: 200, picture: @picture, message: '更新しました' }
+    else
+      render json: { status: 500, message: '更新に失敗しました' }
+    end
+  end
+
   # プライベートメソッド
   private
 
@@ -45,5 +53,9 @@ class Api::V1::PicturesController < ApplicationController
 
   def picture_params
     params.require(:picture).permit(:image, :theme_id)
+  end
+
+  def frame_params
+    params.require(:picture).permit(:frame_id)
   end
 end
