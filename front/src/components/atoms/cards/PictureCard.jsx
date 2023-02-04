@@ -29,7 +29,8 @@ const PictureCard = ({picture, pictureId, pictures, setPictures, setLikedPicture
         }}
         id={picture.id}
         >
-        <Picture picture={picture} 
+        <Picture 
+          picture={picture} 
           theme={picture.theme} 
           image={picture.image}
           />          

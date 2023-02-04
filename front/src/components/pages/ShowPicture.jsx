@@ -10,6 +10,7 @@ import UnLikeButton from '../atoms/buttons/UnlikeButton';
 import { createComment } from '../../lib/api/comments';
 import Comments from '../organisms/Comments';
 import Loader from './Loader';
+import EditFrameModal from '../molecules/EditFrameModal';
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -50,6 +51,7 @@ const ShowPicture = () => {
   const [comments, setComments] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
   
   const handleShowPicture = async () => {
     try {
@@ -89,7 +91,11 @@ const ShowPicture = () => {
       console.log(e);
     }
   };
+  console.log(picture);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   const generateParams = () => {
     const likeParams = {
@@ -168,7 +174,20 @@ const ShowPicture = () => {
               </div>
             </Grid>
             <Grid item xs={4}>
-              
+              <div>
+                <Button
+                  variant='contained'
+                  color="primary"
+                  onClick={handleOpen}>
+                    額縁を変更する
+                </Button>
+                <EditFrameModal 
+                  open={open} 
+                  setOpen={setOpen} 
+                  picture={picture} 
+                  setPicture={setPicture} 
+                  image={picture.image} />
+              </div>
             </Grid>
           </Grid>
         </div>

@@ -99,8 +99,8 @@ const EditUserModal = ({ open, setOpen, setUser, setAvatar }) => {
           id="icon-button-file"
           type="file"
           onChange={(e) => {
-            uploadImage(e)
-            previewImage(e)
+            uploadImage(e);
+            previewImage(e);
           }}
         />
       </div>
