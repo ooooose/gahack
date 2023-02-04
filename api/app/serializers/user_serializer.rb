@@ -20,6 +20,8 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   attribute :following do
-    @current_api_v1_user.following?(object)
+    if @current_api_v1_user
+      @current_api_v1_user.following?(object)
+    end
   end
 end
