@@ -43,8 +43,7 @@ ActiveRecord::Schema.define(version: 2023_02_03_231916) do
     t.text "image", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "frame_id"
-    t.index ["frame_id"], name: "index_pictures_on_frame_id"
+    t.integer "frame_id"
     t.index ["theme_id"], name: "index_pictures_on_theme_id"
     t.index ["user_id"], name: "index_pictures_on_user_id"
   end
@@ -94,7 +93,6 @@ ActiveRecord::Schema.define(version: 2023_02_03_231916) do
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "pictures"
   add_foreign_key "likes", "users"
-  add_foreign_key "pictures", "frames"
   add_foreign_key "pictures", "themes"
   add_foreign_key "pictures", "users"
   add_foreign_key "relationships", "users"
