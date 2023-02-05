@@ -146,17 +146,17 @@ const ShowUser = () => {
   const handleOpen = () => {
     setOpen(true);
   };
-
+  
   const pageAnimation = () => {
     setTimeout(() => { setPageOpen(true) }, 300);
   };
-
-
+  
+  
   useEffect(() => {
     handleShowUser();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+  
   useEffect(() => {
     pageAnimation();
   }, [pageOpen]);
