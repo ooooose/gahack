@@ -7,7 +7,8 @@ import {Grid,
         Avatar, 
         Tab, 
         Tabs, 
-        Box, 
+        Box,
+        Button,
         Container } from "@material-ui/core";
 
 import PropTypes from 'prop-types';
@@ -16,7 +17,6 @@ import { useParams, Link } from "react-router-dom";
 import styles from "../../css/components/Frames.module.css"
 import { useContext } from "react";
 import { AuthContext } from "../../App";
-import SettingsIcon from '@material-ui/icons/Settings';
 import EditUserModal from "../molecules/EditUserModal";
 import { Pagination } from "@material-ui/lab";
 import Relationships from "../molecules/Relationships";
@@ -36,20 +36,37 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 60px',
     margin: '0 auto',
   },
+  topContent: {
+    display: 'flex',
+    margin: '0 auto',
+    maxWidth: '250px',
+    marginBottom: '20px'
+  },
   header: {
     paddingTop: '30px',
-    paddingBottom: '20px'
+    lineHeight: '1',
+    textAlign: 'left'
   },
   avatar: {
+    margin: 'auto',
     marginTop: '40px',
     width: '80px',
     height: '80px',
-    textAlign: 'center',
-    margin: '0 auto',
+    marginRight: '15px'
+  },
+  userInfo: {
+    display: 'flex',
+    flexFlow: 'column',
+    paddingTop: '15px',
+    marginBottom: '0px',
   },
   setting: {
     cursor: "pointer",
-    color: 'gray'
+    color: 'gray',
+    marginTop: theme.spacing(2),
+    flexGrow: 1,
+    textTransform: "none",
+    color: 'white',
   },
   pagination: {
     display: 'inline-block',
@@ -77,7 +94,7 @@ function TabPanel(props) {
         {value === index && (
           <Container>
               <Box>
-                  {children}
+                {children}
               </Box>
           </Container>
         )}
@@ -122,7 +139,6 @@ const ShowUser = () => {
     setValue(newValue);
     setPageOpen(false);
   };
-  console.log(user);
 
   const handleShowUser = async () => {
     try {
@@ -166,29 +182,33 @@ const ShowUser = () => {
       {!loading ? (
         <>
           <div className={isOpen ? classes.animation : classes.before}>
-            <Avatar
-              alt="avatar"
-              src={avatar.url}
-              className={classes.avatar}
-              />
-            { currentUser.id !== user.id ? (
-              <Relationships 
-                user={user}
-                userId={user.id} 
+            <div className={classes.topContent}>
+              <Avatar
+                alt="avatar"
+                src={avatar.url}
+                className={classes.avatar}
                 />
-            ) : (
-              <></>
-            ) }
-            <Typography className={classes.header} variant="h5">
-              {user.name}さんのプロフィール
-              { currentUser.id === user.id ? (
-                  <SettingsIcon onClick={handleOpen} className={classes.setting} />
+              <div className={classes.userInfo}>
+                <Typography className={classes.header} variant="h6" color="secondary">
+                  {user.name}
+                </Typography>
+                { currentUser.id !== user.id ? (
+                  <Relationships 
+                    user={user}
+                    userId={user.id} 
+                    />
                 ) : (
-                  <></>
-                )
-              }
-            </Typography>
-            <EditUserModal open={open} setOpen={setOpen} setUser={setUser} setAvatar={setAvatar} />
+                  <Button
+                    variant="contained"
+                    color="primary" 
+                    onClick={handleOpen} 
+                    className={classes.setting} >
+                    プロフィール編集
+                  </Button>
+                ) }
+                <EditUserModal open={open} setOpen={setOpen} setUser={setUser} setAvatar={setAvatar} />
+              </div>
+            </div>
             <Box sx={{ width: '100%' }}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '50%' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>

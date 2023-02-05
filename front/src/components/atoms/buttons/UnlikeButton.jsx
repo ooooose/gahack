@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UnLikeButton = ({params, setLikeState, likeId, likes, setLikes}) => {
+const UnLikeButton = ({params, setLikeState, likeId, likes, setLikes, children}) => {
   const classes = useStyles();
   const handleDeleteLike = async () => {
     try {
@@ -38,7 +38,7 @@ const UnLikeButton = ({params, setLikeState, likeId, likes, setLikes}) => {
     <>
       <FavoriteIcon 
         className={classes.likeButton} 
-        onClick={handleDeleteLike} /> {likes}
+        onClick={handleDeleteLike} />{children}
     </>
   )
 };

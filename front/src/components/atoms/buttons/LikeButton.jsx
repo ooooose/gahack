@@ -7,11 +7,12 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 const useStyles = makeStyles((theme) => ({
   UnlikeButton: {
-    cursor: 'pointer'
+    cursor: 'pointer',
+    opacity: '0.5'
   },
 }));
 
-const LikeButton = ({params, setLikeState, likes, setLikes}) => {
+const LikeButton = ({params, setLikeState, likes, setLikes, children}) => {
   const classes = useStyles();
   const handleCreateLike = async () => {
     try {
@@ -29,7 +30,7 @@ const LikeButton = ({params, setLikeState, likes, setLikes}) => {
     <>
       <FavoriteBorderIcon 
         className={classes.UnlikeButton} 
-        onClick={handleCreateLike} /> {likes}
+        onClick={handleCreateLike} /> {children}
     </>
   )
 };

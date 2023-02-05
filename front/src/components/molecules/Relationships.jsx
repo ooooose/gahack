@@ -12,7 +12,6 @@ const Relationships = ({ user, userId }) => {
     };
     return relationshipParams;
   };
-  console.log(followState);
 
   return (
     <>
