@@ -8,16 +8,18 @@ import { deletePicture } from "../../../lib/api/pictures";
 
 const PictureCard = ({picture, pictureId, pictures, setPictures, setLikedPictures}) => {
   const handleDeletePicture = async () => {
-    try {
-      const res = await deletePicture(pictureId);
-      if (res.status === 200 && window.confirm('削除しますか？')) {
-        const newPictures = pictures.filter((picture) => {
-          return picture.id !== pictureId;
-        });
-        setPictures(newPictures);
+    if (window.confirm('削除しますか？')){
+      try {
+        const res = await deletePicture(pictureId);
+        if (res.status === 200) {
+          const newPictures = pictures.filter((picture) => {
+            return picture.id !== pictureId;
+          });
+          setPictures(newPictures);
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
     }
   }
 
