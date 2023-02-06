@@ -66,7 +66,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     flexGrow: 1,
     textTransform: "none",
-    color: 'white',
   },
   pagination: {
     display: 'inline-block',

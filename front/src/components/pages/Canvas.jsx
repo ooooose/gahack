@@ -58,16 +58,15 @@ const Canvas = () => {
   let Xpoint, Ypoint;
   let eraser_x = 'white';
   let eraser_y = 12;
-  
 
-  const generateParams = (base64) => {
+  const generateParams = (base64, dataUrlBase64) => {
     const pictureParams = {
       image: base64,
       theme_id: theme.id,
     };
     return pictureParams;
   };
-  
+
   useEffect(() => {
     canvas = document.getElementById("canvas"); // eslint-disable-line
     ctx = canvas.getContext("2d"); // eslint-disable-line
@@ -123,7 +122,7 @@ const Canvas = () => {
     Ypoint = e.clientY - rect.top;
     ctx.moveTo(Xpoint, Ypoint);
   }
-  
+
   const touchMovePoint = (e) => {
     if (e.buttons === 1 || e.witch === 1 || e.type === 'touchmove') {
       let rect = e.target.getBoundingClientRect();
@@ -153,7 +152,7 @@ const Canvas = () => {
       ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
     }
   }
-  
+
   const changeEraser = () => {
     setEraser(!eraser)
   };
@@ -187,7 +186,7 @@ const Canvas = () => {
         reader.onload = async (e) => {
           let dataUrlBase64 = reader.result;
           let base64 = dataUrlBase64.replace(/data:.*\/.*;base64,/, '');
-          const params = generateParams(base64);
+          const params = generateParams(base64, dataUrlBase64);
           try {
             const res = await createPicture(params);
             if (res.status === 200) {

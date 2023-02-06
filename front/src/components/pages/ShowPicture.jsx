@@ -59,6 +59,7 @@ const ShowPicture = () => {
   const classes = useStyles();
   const { id } = useParams();
   const [picture, setPicture] = useState([]);
+  const [theme, setTheme] = useState([]);
   const [user, setUser] = useState([]);
   const [avatar, setAvatar] = useState([]);
   const [likeState, setLikeState] = useState(false);
@@ -79,6 +80,7 @@ const ShowPicture = () => {
         setLikeState(data.liked);
         setLikes(data.likes);
         setComments(data.comments);
+        setTheme(data.theme);
         setAvatar(data.user.image);
       }
     } catch (e) {
@@ -139,7 +141,7 @@ const ShowPicture = () => {
             <Grid item xs={4}>
               <div className={`${styles.parent}`}>
                 <Picture picture={picture} 
-                  theme={picture.theme} 
+                  theme={theme} 
                   image={picture.image}
                   />
               </div>
@@ -158,7 +160,8 @@ const ShowPicture = () => {
                     setOpen={setOpen} 
                     picture={picture} 
                     setPicture={setPicture} 
-                    image={picture.image} />     
+                    image={picture.image}
+                    setTheme={setTheme} />     
               </div>
               <div className={classes.textField}>
                 <TextField
@@ -187,6 +190,7 @@ const ShowPicture = () => {
                 <UserCard 
                   user={user}
                   picture={picture}
+                  theme={theme}
                   avatar={avatar}
                   likes={likes}
                   likeState={likeState}

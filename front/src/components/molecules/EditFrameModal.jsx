@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditFrameModal = ({ open, setOpen, picture, setPicture ,image }) => {
+const EditFrameModal = ({ open, setOpen, picture, setPicture ,image, setTheme }) => {
   const classes = useStyles();
   const [frame, setFrame] = useState(1);
   const image_src = "data:image/png;base64," + image;
@@ -54,15 +54,16 @@ const EditFrameModal = ({ open, setOpen, picture, setPicture ,image }) => {
     return frameParams;
   };
 
-  const handleEditPictureSubmit = async (e) => {
-    e.preventDefault();
+  const handleEditPictureSubmit = async () => {
     const params = generateParams();
-    console.log(params);
     const id = picture.id
     try {
       const res = await editPicture(id, params);
-      const new_picture = res.data.picture;
+      const new_picture = res.data;
+      console.log(res.data);
+      const new_theme = res.data.theme;
       setPicture(new_picture);
+      setTheme(new_theme);
       setOpen(false);
     } catch (e) {
       console.log(e);

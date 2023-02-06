@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   }
 });
 
-const UserCard = ({user, avatar ,picture, likes, likeState, params, setLikeState, setLikes}) => {
+const UserCard = ({user, avatar ,picture, theme, likes, likeState, params, setLikeState, setLikes}) => {
   const classes = useStyles();
 
   return (
@@ -55,7 +55,7 @@ const UserCard = ({user, avatar ,picture, likes, likeState, params, setLikeState
         </Typography>
         <Typography variant="body2" component="p">
           本作品のテーマは
-          <strong>{`${picture.theme.title}`}</strong>
+          <strong>{`${theme.title}`}</strong>
           です。<br/>
           現在いいねの数は<strong>{`${likes}`}</strong>です。
         </Typography>
