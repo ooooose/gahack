@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_03_231916) do
+ActiveRecord::Schema.define(version: 2023_02_05_203310) do
 
   create_table "comments", charset: "utf8mb4", force: :cascade do |t|
     t.string "body", null: false
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2023_02_03_231916) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "frame_id"
+    t.string "twitter_card"
     t.index ["theme_id"], name: "index_pictures_on_theme_id"
     t.index ["user_id"], name: "index_pictures_on_user_id"
   end
