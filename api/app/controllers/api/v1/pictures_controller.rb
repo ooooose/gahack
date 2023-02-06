@@ -39,7 +39,7 @@ class Api::V1::PicturesController < ApplicationController
 
   def update
     if @picture.update(frame_params)
-      render json: { status: 200, picture: @picture, message: '更新しました' }
+      render json: @picture, serializer: PictureSerializer
     else
       render json: { status: 500, message: '更新に失敗しました' }
     end
