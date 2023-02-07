@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { showPicture } from '../../lib/api/pictures';
-import { Grid, TextField, Button, Tooltip } from "@material-ui/core";
+import { Grid, TextField, Button, Tooltip, IconButton } from "@material-ui/core";
 import Picture from '../atoms/picture/Picture';
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "../../css/components/Frames.module.css";
@@ -12,6 +12,7 @@ import EditFrameModal from '../molecules/EditFrameModal';
 import { AuthContext } from '../../App';
 import UserCard from '../molecules/UserCard';
 import SettingsIcon from '@material-ui/icons/Settings';
+import { ImTwitter } from 'react-icons/im';
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -50,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
   setting: {
     cursor: "pointer",
     color: 'gray',
-    marginTop: '10px',
   },
 }));
 
@@ -136,18 +136,29 @@ const ShowPicture = () => {
             </Grid>
             <Grid item xs={4}>
               <div className={`${styles.parent}`}>
-                <Picture picture={picture} 
+                <Picture 
+                  picture={picture} 
                   theme={theme} 
                   image={picture.image}
                   />
               </div>
               <div className={classes.editFrame}>
                 { currentUser.id === user.id ? (
-                  <Tooltip title="フレーム変更">
-                    <SettingsIcon
-                      className={classes.setting}
-                      onClick={handleOpen} />
-                  </Tooltip>
+                  <>
+                    <Tooltip title="Twitterシェア">
+                      <IconButton aria-label="twitter">
+                      <Link to={`/pictures/${id}/twitter`} className={classes.link}>
+                        <ImTwitter />
+                      </Link>
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="フレーム変更">
+                      <IconButton aria-label="setting" onClick={handleOpen}>
+                        <SettingsIcon
+                          className={classes.setting} />
+                      </IconButton>
+                    </Tooltip>
+                  </>
                 ) : (
                   <></>
                   ) }
