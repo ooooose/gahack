@@ -54,7 +54,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
-  const confirmSuccessUrl = "http://localhost:8000/signin";
+  const confirmSuccessUrl = process.env.REACT_APP_API + "/signin";
 
   const generateParams = () => {
     const signUpParams = {

@@ -7,8 +7,7 @@ const options = {
 
 const client = applyCaseMiddleware(
   axios.create({
-    baseURL: 'http://localhost:3000/api/v1'
-    // baseURL: 'https://gahack.magia.runteq.jp'
+    baseURL: process.env.REACT_APP_API
   }),
   options
 );
