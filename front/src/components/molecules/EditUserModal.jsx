@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '5px',
     float: 'right',
   },
+  submitButton: {
+    backgroundColor: '#4791db'
+  },
   cancelButton: {
     marginRight: '5px',
   }
@@ -96,8 +99,8 @@ const EditUserModal = ({ open, setOpen, setUser, setAvatar }) => {
           id="icon-button-file"
           type="file"
           onChange={(e) => {
-            uploadImage(e)
-            previewImage(e)
+            uploadImage(e);
+            previewImage(e);
           }}
         />
       </div>
@@ -114,6 +117,7 @@ const EditUserModal = ({ open, setOpen, setUser, setAvatar }) => {
         <Button 
           variant="contained" 
           color="primary"
+          className={classes.submitButton}
           disabled={editName.length === 0 ? true : false}
           onClick={handleEditUserSubmit}>更新</Button>
       </div>

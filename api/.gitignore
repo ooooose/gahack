@@ -32,6 +32,8 @@
 
 # 環境変数の管理を無視
 /.env
+/.env.development
+/.env.production
 
 # uploader用
 /public/uploads/

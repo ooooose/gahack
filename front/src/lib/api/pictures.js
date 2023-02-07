@@ -33,3 +33,11 @@ export const showPicture = (id) => {
     "uid": Cookies.get("_uid"),
   }});
 }
+
+export const editPicture = (id, params) => {
+  return client.patch(`/pictures/${id}`, params, { headers: {
+    "access-token": Cookies.get("_access_token"),
+    "client": Cookies.get("_client"),
+    "uid": Cookies.get("_uid"),
+    }});
+}

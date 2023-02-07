@@ -37,7 +37,11 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     width: '90%',
     margin: '0 auto 10px',
-  }
+  },
+  buttonLink: {
+    textDecoration: "none",
+    color: 'white'
+  },
 }));
 
 const TopBottom = () => {
@@ -46,8 +50,8 @@ const TopBottom = () => {
     <>
       <div className={classes.container}>
         <Typography className={`${styles.title}`} variant="h5">さぁ、あなたらしい絵を描こう！</Typography> 
-        <Button className={classes.button} variant="contained">
-          <Link to="/signin" className={classes.link}>
+        <Button className={classes.button} color="primary" variant="contained">
+          <Link to="/signin" className={classes.buttonLink}>
             ログインして始める
           </Link>
         </Button>

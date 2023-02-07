@@ -22,6 +22,18 @@ export const signOut = () => {
   });
 };
 
+export const passwordReset = (data) => {
+  return client.post("auth/password", data);
+};
+
+export const editPassword = (data, params) => {
+  return client.put("auth/password", data, { headers: {
+    "access-token": params.get("access-token"),
+    "client": params.get("client"),
+    "uid": params.get("uid"),
+  }});
+};
+
 // 認証済みユーザーの取得
 export const getCurrentUser = () => {
   if (

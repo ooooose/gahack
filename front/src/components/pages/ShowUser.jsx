@@ -7,7 +7,8 @@ import {Grid,
         Avatar, 
         Tab, 
         Tabs, 
-        Box, 
+        Box,
+        Button,
         Container } from "@material-ui/core";
 
 import PropTypes from 'prop-types';
@@ -16,8 +17,12 @@ import { useParams, Link } from "react-router-dom";
 import styles from "../../css/components/Frames.module.css"
 import { useContext } from "react";
 import { AuthContext } from "../../App";
-import SettingsIcon from '@material-ui/icons/Settings';
 import EditUserModal from "../molecules/EditUserModal";
+import { Pagination } from "@material-ui/lab";
+import Relationships from "../molecules/Relationships";
+import Loader from "./Loader";
+import Following from "../molecules/Following";
+import Follower from "../molecules/Follower";
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -31,19 +36,46 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 60px',
     margin: '0 auto',
   },
+  topContent: {
+    display: 'flex',
+    margin: '0 auto',
+    maxWidth: '250px',
+    marginBottom: '20px'
+  },
   header: {
     paddingTop: '30px',
-    paddingBottom: '20px'
+    lineHeight: '1',
+    textAlign: 'left'
   },
   avatar: {
+    margin: 'auto',
     marginTop: '40px',
     width: '80px',
     height: '80px',
-    textAlign: 'center',
-    margin: '0 auto',
+    marginRight: '15px'
+  },
+  userInfo: {
+    display: 'flex',
+    flexFlow: 'column',
+    paddingTop: '15px',
+    marginBottom: '0px',
   },
   setting: {
     cursor: "pointer",
+    color: 'white',
+    marginTop: theme.spacing(2),
+    flexGrow: 1,
+    textTransform: "none",
+  },
+  pagination: {
+    display: 'inline-block',
+  },
+  pageWrapper: {
+    marginTop: '80px',
+  },
+  relationships: {
+    maxWidth: '50%',
+    margin: "0 auto"
   }
 }));
 
@@ -59,11 +91,11 @@ function TabPanel(props) {
         {...other}
     >
         {value === index && (
-            <Container>
-                <Box>
-                    {children}
-                </Box>
-            </Container>
+          <Container>
+              <Box>
+                {children}
+              </Box>
+          </Container>
         )}
     </div>
   );
@@ -92,12 +124,20 @@ const ShowUser = () => {
   const [likedPictures, setLikedPictures] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const { currentUser } = useContext(AuthContext);
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [page, setPage] = useState(1);
+  const [likesPage, setLikesPage] = useState(1);
+  const [pageOpen, setPageOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [followings, setFollowings] = useState([]);
+  const [followingsPage, setFollowingsPage] = useState(1);
+  const [followers, setFollowers] = useState([]);
+  const [followersPage, setFollowersPage] = useState(1);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    setPageOpen(false);
   };
-
 
   const handleShowUser = async () => {
     try {
@@ -108,109 +148,230 @@ const ShowUser = () => {
         setAvatar(data.image);
         setPictures(data.pictures);
         setLikedPictures(data.likedPictures);
+        setFollowings(data.followings);
+        setFollowers(data.followers);
       }
     } catch (e) {
       console.log(e);
     }
+    setLoading(false);
+    setTimeout(() => { setIsOpen(true) }, 400);
   }
   
   const handleOpen = () => {
     setOpen(true);
   };
-  setTimeout(() => { setIsOpen(true) }, 500);
-
+  
+  const pageAnimation = () => {
+    setTimeout(() => { setPageOpen(true) }, 300);
+  };
+  
+  
   useEffect(() => {
     handleShowUser();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+  
+  useEffect(() => {
+    pageAnimation();
+  }, [pageOpen]);
   
   return (
     <>
-      <div className={isOpen ? classes.animation : classes.before}>
-        <Avatar
-          alt="avatar"
-          src={avatar.url}
-          className={classes.avatar}
-          />
-        <Typography className={classes.header} variant="h5">
-          {user.name}さんのプロフィール
-          { currentUser ? (
-              <SettingsIcon onClick={handleOpen} className={classes.setting} />
-            ) : (
-              <></>
-            )
-          }
-        </Typography>
-        <EditUserModal open={open} setOpen={setOpen} setUser={setUser} setAvatar={setAvatar} />
-        <Box sx={{ width: '100%' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '50%' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
-              <Tab label="作品一覧" {...a11yProps(0)} />
-              <Tab label="いいね一覧" {...a11yProps(1)} />
-              {/* <Tab label="フォロー" {...a11yProps(2)} />
-              <Tab label="フォロワー" {...a11yProps(3)} /> */}
-            </Tabs>
-          </Box>
-          <TabPanel value={value} index={0}>
-            <Grid container spacing={2}>
-              {
-                pictures.map((picture) => (
-                  <Grid item xs={12} sm={6} md={4} key={picture.id}>
-                    <div className={`${styles.parent}`}>
-                      <Link to={{
-                          pathname: "/pictures/" + picture.id,
-                          state: {id: picture.id}
+      {!loading ? (
+        <>
+          <div className={isOpen ? classes.animation : classes.before}>
+            <div className={classes.topContent}>
+              <Avatar
+                alt="avatar"
+                src={avatar.url}
+                className={classes.avatar}
+                />
+              <div className={classes.userInfo}>
+                <Typography className={classes.header} variant="h6">
+                  {user.name}
+                </Typography>
+                { currentUser.id !== user.id ? (
+                  <Relationships 
+                    user={user}
+                    userId={user.id} 
+                    />
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="primary" 
+                    onClick={handleOpen} 
+                    className={classes.setting} >
+                    プロフィール編集
+                  </Button>
+                ) }
+                <EditUserModal open={open} setOpen={setOpen} setUser={setUser} setAvatar={setAvatar} />
+              </div>
+            </div>
+            <Box sx={{ width: '100%' }}>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '50%' }}>
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
+                  <Tab label="作品一覧" {...a11yProps(0)} />
+                  <Tab label="いいね一覧" {...a11yProps(1)} />
+                  <Tab label="フォロー" {...a11yProps(2)} />
+                  <Tab label="フォロワー" {...a11yProps(3)} />
+                </Tabs>
+              </Box>
+              <TabPanel value={value} index={0}>
+                <div className={pageOpen ? classes.animation : classes.before}>
+                  { pictures.length > 0 ? (
+                    <Grid container spacing={2}>
+                      {
+                        pictures.map((picture, i) => (
+                          Math.floor(i / 6 + 1) === page && <Grid item xs={12} sm={6} md={4} key={picture.id}>
+                            <div className={`${styles.parent}`}>
+                              <Link to={{
+                                  pathname: "/pictures/" + picture.id,
+                                  state: {id: picture.id}
+                                }}
+                                id={picture.id}
+                                >
+                                <Picture picture={picture} 
+                                  theme={picture.theme} 
+                                  image={picture.image}
+                                  />          
+                              </Link>
+                            </div>
+                          </Grid>
+                        ))
+                      }
+                    </Grid>
+                  ) : (
+                    <h2>描いた絵はまだありません</h2>
+                  )}
+                </div>
+                <div className={classes.pageWrapper}>
+                  {
+                    pictures.length > 6 && (
+                      <Pagination 
+                        count={Math.ceil(pictures.length / 6)}
+                        page={page}
+                        onChange={(e, page) => {
+                          setPage(page);
+                          setPageOpen(false);
                         }}
-                        id={picture.id}
-                        >
-                        <Picture picture={picture} 
-                          theme={picture.theme} 
-                          image={picture.image}
-                          />          
-                      </Link>
-                    </div>
+                        color="primary"
+                        className={classes.pagination}
+                      />
+                    )
+                  }
+                </div>
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                <div className={pageOpen ? classes.animation : classes.before}>
+                  <Grid container spacing={2}>
+                    { likedPictures.length > 0 ? (
+                      likedPictures.map((picture, i) => (
+                        Math.floor(i / 6 + 1) === likesPage && <Grid item xs={12} sm={6} md={4} key={picture.id}>
+                          <div className={`${styles.parent}`}>
+                            <Link to={{
+                                pathname: "/pictures/" + picture.id,
+                                state: {id: picture.id}
+                              }}
+                              id={picture.id}
+                              >
+                              <Picture picture={picture} 
+                                theme={picture.theme} 
+                                image={picture.image}
+                                />          
+                            </Link>
+                          </div>
+                        </Grid>
+                      ))
+                    ) : (
+                      <>
+                        <h2>いいねした絵はまだありません</h2>
+                      </>
+                    )
+                    }
                   </Grid>
-                ))
-              }
-            </Grid>
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <Grid container spacing={2}>
-              { likedPictures.length > 0 ? (
-                likedPictures.map((picture) => (
-                  <Grid item xs={12} sm={6} md={4} key={picture.id}>
-                    <div className={`${styles.parent}`}>
-                      <Link to={{
-                          pathname: "/pictures/" + picture.id,
-                          state: {id: picture.id}
+                </div>
+                <div className={classes.pageWrapper}>
+                  {
+                    likedPictures.length > 6 && (
+                      <Pagination 
+                        count={Math.ceil(likedPictures.length / 6)}
+                        page={likesPage}
+                        onChange={(e, likesPage) => {
+                          setLikesPage(likesPage);
+                          setPageOpen(false);
                         }}
-                        id={picture.id}
-                        >
-                        <Picture picture={picture} 
-                          theme={picture.theme} 
-                          image={picture.image}
-                          />          
-                      </Link>
-                    </div>
-                  </Grid>
-                ))
-              ) : (
-                <>
-                  <h3>いいねした絵はまだありません！</h3>
-                </>
-              )
-              }
-            </Grid>
-          </TabPanel>
-          {/* <TabPanel value={value} index={2}>
-            未実装です。
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-            未実装です。
-          </TabPanel> */}
-        </Box>
-      </div>
+                        color="primary"
+                        className={classes.pagination}
+                      />
+                    )
+                  }
+                </div>
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <div className={pageOpen ? classes.animation : classes.before}>
+                  { followings.length > 0 ? (
+                    followings.map((following, i) => (
+                      Math.floor(i / 6 + 1) === followingsPage && 
+                      <div className={classes.relationships} key={following.id}>
+                        <Following following={following} handleShowUser={handleShowUser} />
+                      </div>
+                    ))
+                  ) : (
+                    <h2>フォローしている人はいません</h2>
+                  )}
+                </div>
+                <div className={classes.pageWrapper}>
+                  {
+                    followings.length > 6 && (
+                      <Pagination
+                        count={Math.ceil(followings.length / 6)}
+                        page={followingsPage}
+                        onChange={(e, followingsPage) => {
+                          setFollowingsPage(followingsPage);
+                          setPageOpen(false);
+                        }}
+                        color="primary"
+                        className={classes.pagination}
+                      />
+                    )}
+                </div>
+              </TabPanel>
+              <TabPanel value={value} index={3}>
+                <div className={pageOpen ? classes.animation : classes.before}>
+                  { followers.length > 0 ? (
+                    followers.map((follower, i) => (
+                      Math.floor(i / 6 + 1) === followersPage && 
+                      <div className={classes.relationships} key={follower.id}>
+                        <Follower follower={follower} handleShowUser={handleShowUser} />
+                      </div>
+                    ))
+                  ) : (
+                    <h2>フォローしている人はいません</h2>
+                  )}
+                </div>
+                <div className={classes.pageWrapper}>
+                  {
+                    followers.length > 6 && (
+                      <Pagination
+                        count={Math.ceil(followings.length / 6)}
+                        page={followersPage}
+                        onChange={(e, followersPage) => {
+                          setFollowersPage(followersPage);
+                          setPageOpen(false);
+                        }}
+                        color="primary"
+                        className={classes.pagination}
+                      />
+                    )}
+                </div>
+              </TabPanel>
+            </Box>
+          </div>
+        </>
+      ) : (
+        <Loader />
+      ) }
     </>
   )
 };

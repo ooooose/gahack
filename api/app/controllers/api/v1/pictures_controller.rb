@@ -1,5 +1,6 @@
 class Api::V1::PicturesController < ApplicationController
-  before_action :set_picture, only: %i[show destroy]
+  before_action :set_picture, only: %i[show update destroy]
+  include CarrierwaveBase64Uploader
 
   def index
     pictures = Picture.all.by_recently_created.includes(:user, :theme)
@@ -23,10 +24,10 @@ class Api::V1::PicturesController < ApplicationController
 
   def create
     picture = current_api_v1_user.pictures.build(picture_params)
+    picture.twitter_card = base64_conversion(picture_params[:image])
     if picture.save
       render json: picture
     else
-      # status400をすることでビューにどう表示するかを検討（エラーハンドリング）
       render json: { status: 400 }
     end
   end
@@ -34,6 +35,14 @@ class Api::V1::PicturesController < ApplicationController
   def destroy
     @picture.destroy
     render json: @picture
+  end
+
+  def update
+    if @picture.update(frame_params)
+      render json: @picture, serializer: PictureSerializer
+    else
+      render json: { status: 500, message: '更新に失敗しました' }
+    end
   end
 
   # プライベートメソッド
@@ -46,4 +55,9 @@ class Api::V1::PicturesController < ApplicationController
   def picture_params
     params.require(:picture).permit(:image, :theme_id)
   end
+
+  def frame_params
+    params.require(:picture).permit(:frame_id)
+  end
+
 end

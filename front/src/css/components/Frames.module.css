@@ -68,6 +68,56 @@
   vertical-align: top;
 }
 
+/* ２つ目の額縁 */
+.second {
+  border:solid 4vmin #eee;
+  border-bottom-color:#fff;
+  border-left-color:#eee;
+  border-radius:2px;
+  border-right-color:#eee;
+  border-top-color:#ddd;
+  box-shadow:0 0 5px 0 rgba(0,0,0,.25) inset, 0 5px 10px 5px rgba(0,0,0,.25);
+  box-sizing:border-box;
+  display:inline-block;
+  height: 20em;
+  left: 50%;
+  margin: -9.875em -13em;
+  position: absolute;
+  top: 50%;
+  width: 25em;
+}
+
+.second:before {
+  border-radius:2px;
+  bottom:-2vmin;
+  box-shadow:0 2px 5px 0 rgba(0,0,0,.25) inset;
+  content:"";
+  left:-2vmin;
+  position:absolute;
+  right:-2vmin;
+  top:-2vmin;
+}
+
+.second:after {
+  border-radius:2px;
+  bottom:-2.5vmin;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.25);
+  content:"";
+  left:-2.5vmin;
+  position:absolute;
+  right:-2.5vmin;
+  top:-2.5vmin;
+}
+
+.second img {
+  border-bottom-color:#ffe;
+  border-left-color:#eed;
+  border-right-color:#eed;
+  border-top-color:#ccb;
+  max-width:100%;
+}
+
+
 /* 関連ボタンのcss */
 .likes {
   max-width: 300px;

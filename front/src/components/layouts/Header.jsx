@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-// import Cookies from "js-cookie";
 import clsx from 'clsx';
 
 
@@ -12,16 +11,11 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
-
-// import { signOut } from "../../lib/api/auth";
-// import { LinkButton } from "../atoms/buttons/LinkButton";
-
-import { AuthContext } from "../../App";
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
+    backgroundColor: '#2196f3',
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -51,68 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Header = ({open, handleDrawerOpen}) => {
-  const { loading, isSignedIn } = useContext(AuthContext);
   const classes = useStyles();
-  // const navigate = useNavigate();
-
-  // const handleSignOut = async (e) => {
-  //   try {
-  //     const res = await signOut();
-
-  //     if (res.data.success === true) {
-  //       Cookies.remove("_access_token")
-  //       Cookies.remove("_client")
-  //       Cookies.remove("_uid")
-
-  //       setIsSignedIn(false)
-  //       navigate("/signin");
-
-  //       console.log("Succeeded in sign out");
-  //     } else {
-  //       console.log("Failed in sign out");
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
-
-  const AuthButtons = ({handleDrawerOpen}) => {
-    // 認証完了後はサインアウト用のボタンを表示
-    // 未認証時は認証用のボタンを表示
-    if (!loading) {
-      if (isSignedIn) {
-        return (
-          <>
-            {/* <LinkButton
-              onClick={handleSignOut}
-              color={"inherit"}
-            >
-              サインアウト
-            </LinkButton> */}
-          </>
-        )
-      } else {
-        return (
-          <>
-            {/* <LinkButton
-              to={"/signin"}
-              color={"inherit"}
-            >
-              ログイン
-            </LinkButton>
-            <LinkButton
-              to={"/signup"}
-              color={"inherit"}
-            >
-              サインアップ
-            </LinkButton> */}
-          </>
-        )
-      }
-    } else {
-      return <></>
-    }
-  }
 
   return (
     <>
@@ -135,13 +68,12 @@ const Header = ({open, handleDrawerOpen}) => {
           </IconButton>
           <Typography
             component={Link}
-            to="/"
             variant="h5"
+            to="/"
             className={classes.title}
           >
             画HACK
           </Typography>
-          <AuthButtons />
         </Toolbar>
       </AppBar>
     </>

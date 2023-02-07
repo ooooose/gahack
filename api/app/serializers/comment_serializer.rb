@@ -7,4 +7,8 @@ class CommentSerializer < ActiveModel::Serializer
   attribute :user do
     object.user
   end
+
+  attribute :picture do
+    object.picture
+  end
 end

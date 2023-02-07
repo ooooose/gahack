@@ -5,8 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Header from "./Header";
 import SideBar from "./SideBar";
-import DrawerOpenButton from "../atoms/buttons/DrawerOpenButton";
-import DrawerCloseButton from "../atoms/buttons/DrawerCloseButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,12 +24,15 @@ const useStyles = makeStyles((theme) => ({
 const CommonLayout = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  
   return (
     <>
       <div className={classes.root}>
@@ -46,11 +47,6 @@ const CommonLayout = (props) => {
               {props.children}
             </Grid>
           </Grid>
-          { open ? (
-            <DrawerCloseButton handleDrawerClose={handleDrawerClose} />
-          ) : (
-            <DrawerOpenButton handleDrawerOpen={handleDrawerOpen} />
-          )}
         </main>
       </div>
     </>

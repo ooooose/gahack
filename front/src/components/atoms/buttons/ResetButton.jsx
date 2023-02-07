@@ -1,7 +1,7 @@
 import React from "react";
 
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Tooltip } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   submitBtn: {
@@ -16,16 +16,16 @@ export const ResetButton = (props) => {
   
   return (
     <>
-      <Button
-        variant="contained"
-        size="large"
-        color="default"
-        fullWidth
-        className={classes.submitBtn}
-        onClick={props.resetCanvas}
-      >
-        {props.children}
-      </Button>
+      <Tooltip title="リセット" >
+        <Button
+          size="large"
+          color="default"
+          className={classes.submitBtn}
+          onClick={props.resetCanvas}
+        >
+          {props.children}
+        </Button>
+      </Tooltip>
     </>
   )
 };

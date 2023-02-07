@@ -11,7 +11,11 @@ import ThemeIndex from "./components/pages/ThemeIndex";
 import Theme from "./components/pages/Theme";
 import ShowPicture from "./components/pages/ShowPicture";
 import ShowUser from "./components/pages/ShowUser";
-
+import './css/fonts/style.css';
+import NotFound from "./components/pages/NotFound";
+import RouteAuthGuard from "./provider/RouteAuthGuard";
+import PasswordReset from "./components/pages/PasswordReset";
+import EditPassword from "./components/pages/EditPassword";
 export const AuthContext = createContext();
 
 function App() {
@@ -57,11 +61,14 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/" element={<TopPage />} />
-            <Route path="/picture" element={<Canvas />} />
-            <Route path="/pictures/:id" element={<ShowPicture />} />
-            <Route path="/themes" element={<ThemeIndex />} />
-            <Route path="/themes/:id" element={<Theme />} />
-            <Route path="/users/:id" element={<ShowUser />} />
+            <Route path="/password" element={<PasswordReset />} />
+            <Route path="/password/reset" element={<EditPassword />} />
+            <Route path="/picture" element={<RouteAuthGuard component={<Canvas />} redirect={"/signin"} />} />
+            <Route path="/pictures/:id" element={<RouteAuthGuard component={<ShowPicture />} redirect={"/signin"} />} />
+            <Route path="/themes" element={<RouteAuthGuard component={<ThemeIndex />} redirect={"/signin"} />} />
+            <Route path="/themes/:id" element={<RouteAuthGuard component={<Theme />} redirect={"/signin"} />} />
+            <Route path="/users/:id" element={<RouteAuthGuard component={<ShowUser />} redirect={"/signin"} />} />
+            <Route path="*" element={<NotFound /> } />
           </Routes>
         </CommonLayout>
       </Router>

@@ -71,7 +71,7 @@ export const SignIn = () => {
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
 
-        navigate("/");
+        navigate("/themes");
         console.log("Signed in successfully!");
       }
     } catch (e) {
@@ -94,11 +94,18 @@ export const SignIn = () => {
               <Form
                 label={"password"}
                 type={"password"}
-                placeholder={"At least 6 characters"}
                 value={password}
                 autoComplete={"current-password"}
                 onChange={(event) => setPassword(event.target.value)}
               />
+              <Box style={{textAlign: 'right'}}>
+                <Typography variant="body2" >
+                  パスワードをお忘れの方は
+                  <Link to="/password" className={classes.link} >
+                    こちら
+                  </Link>
+                </Typography>
+              </Box>
               <LoginButton
                 email={email}
                 password={password}

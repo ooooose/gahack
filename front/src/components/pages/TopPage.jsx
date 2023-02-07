@@ -29,7 +29,7 @@ const TopPage = () => {
         {
           isSignedIn && currentUser ? (
             <>
-              <h1>こんにちは！！</h1>
+              <h1>実装中です！</h1>
             </>
           ) : (
             <>
