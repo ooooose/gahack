@@ -71,7 +71,7 @@ export const SignIn = () => {
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
 
-        navigate("/");
+        navigate("/themes");
         console.log("Signed in successfully!");
       }
     } catch (e) {
