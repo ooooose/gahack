@@ -14,13 +14,13 @@
   box-shadow: inset 0 0 2px hsla(0,0%,0%,.2),
               0 3px 1px hsla(0,0%,100%,.75),
               0 -1px 1px 2px hsla(0,0%,0%,.1);
-  height: 18.75em;
+  height: 16em;
   left: 50%;
   margin: -9.875em -13em;
   padding: .5em;
   position: absolute;
   top: 50%;
-  width: 25em;
+  width: 24em;
 }
 
 /* Frame */
@@ -79,12 +79,12 @@
   box-shadow:0 0 5px 0 rgba(0,0,0,.25) inset, 0 5px 10px 5px rgba(0,0,0,.25);
   box-sizing:border-box;
   display:inline-block;
-  height: 20em;
-  left: 50%;
+  height: 21.5em;
+  left: 48%;
   margin: -9.875em -13em;
   position: absolute;
-  top: 50%;
-  width: 25em;
+  top: 35%;
+  width: 27em;
 }
 
 .second:before {
