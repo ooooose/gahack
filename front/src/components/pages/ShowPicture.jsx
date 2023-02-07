@@ -132,11 +132,7 @@ const ShowPicture = () => {
         <div className={isOpen ? classes.animation : classes.before}>
           <Grid container spacing={3}>
             <Grid item xs={4}>
-              {comments.length > 0 ? (
-                <Comments comments={comments} setComments={setComments} />
-              ) : (
-                <h3>まだコメントはありません</h3>
-              ) }
+              <Comments comments={comments} setComments={setComments} />
             </Grid>
             <Grid item xs={4}>
               <div className={`${styles.parent}`}>

@@ -9,8 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
   titleWrapper: {
     textAlign: 'left',
-    padding: '0 5px',
-    marginBottom: '5px',
+    padding: '10px',
   },
   commentsBox: {
     height: '70vh',
@@ -25,25 +24,29 @@ const Comments = ({comments, setComments}) => {
       <div className={classes.Box}>
         <div className={classes.titleWrapper}>
           <Typography
-                    component="span"
-                    variant="h5"
-                    color="textPrimary"
-                  >コメント一覧</Typography>
-          <Divider />
+            component="span"
+            variant="h5"
+            color="textPrimary"
+          >コメント一覧</Typography>
         </div>
-        <div className={classes.commentsBox}>
-          {comments.map((comment) => (
-            <div key={comment.id}>
-              <Comment
-                comments={comments}
-                comment={comment} 
-                commentId={comment.id}
-                user={comment.user}
-                picture={comment.picture}
-                setComments={setComments} />
-            </div>
-          ))}
-        </div>
+        <Divider />
+        { comments.length > 0 ? (
+          <div className={classes.commentsBox}>
+            {comments.map((comment) => (
+              <div key={comment.id}>
+                <Comment
+                  comments={comments}
+                  comment={comment} 
+                  commentId={comment.id}
+                  user={comment.user}
+                  picture={comment.picture}
+                  setComments={setComments} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <h3>まだコメントはありません</h3>
+        )}
       </div>
     </>
   )
