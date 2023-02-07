@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   },
   setting: {
     cursor: "pointer",
-    color: 'gray',
+    color: 'white',
     marginTop: theme.spacing(2),
     flexGrow: 1,
     textTransform: "none",
@@ -188,7 +188,7 @@ const ShowUser = () => {
                 className={classes.avatar}
                 />
               <div className={classes.userInfo}>
-                <Typography className={classes.header} variant="h6" color="secondary">
+                <Typography className={classes.header} variant="h6">
                   {user.name}
                 </Typography>
                 { currentUser.id !== user.id ? (
