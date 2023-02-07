@@ -68,7 +68,7 @@ Rails.application.configure do
     user_name: ENV['EMAIL_ADDRESS'],
     password: ENV['EMAIL_PASSWORD'],
     authentication: 'plain',
-    enabl
+    enable_starttls_auto: true
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
