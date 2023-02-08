@@ -69,6 +69,7 @@ const ShowPicture = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  console.log(currentUser);
   
   const handleShowPicture = async () => {
     try {

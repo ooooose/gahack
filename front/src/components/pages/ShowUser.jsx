@@ -264,9 +264,9 @@ const ShowUser = () => {
               </TabPanel>
               <TabPanel value={value} index={1}>
                 <div className={pageOpen ? classes.animation : classes.before}>
-                  <Grid container spacing={2}>
-                    { likedPictures.length > 0 ? (
-                      likedPictures.map((picture, i) => (
+                  { likedPictures.length > 0 ? (
+                    <Grid container spacing={2}>
+                      { likedPictures.map((picture, i) => (
                         Math.floor(i / 6 + 1) === likesPage && <Grid item xs={12} sm={6} md={4} key={picture.id}>
                           <div className={`${styles.parent}`}>
                             <Link to={{
@@ -282,14 +282,14 @@ const ShowUser = () => {
                             </Link>
                           </div>
                         </Grid>
-                      ))
+                      ))}
+                    </Grid>
                     ) : (
                       <>
                         <h2>いいねした絵はまだありません</h2>
                       </>
                     )
                     }
-                  </Grid>
                 </div>
                 <div className={classes.pageWrapper}>
                   {

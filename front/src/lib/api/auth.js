@@ -13,7 +13,7 @@ export const signIn = (params) => {
 
 // ゲストログイン
 export const guestSignIn = (params) => {
-  return client.post("/auth/guest_sign_in");
+  return client.post("/auth/guest_sign_in",);
 };
 
 // サインアウト

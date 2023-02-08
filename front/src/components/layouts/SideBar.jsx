@@ -103,16 +103,20 @@ const SideBar = ({open, handleDrawerClose}) => {
           (
             <>
               <List>
-                <Link to={`/users/${currentUser?.id}`} className={classes.link}>
-                    <ListItem button>
-                      <ListItemIcon>
-                        <Tooltip title="プロフィール">
-                          <Person />
-                        </Tooltip>
-                      </ListItemIcon>
-                      <ListItemText primary="プロフィール" />
-                    </ListItem>
-                </Link>
+                { currentUser.email === "guest@example.com" ? (
+                  <></>
+                ) : (
+                  <Link to={`/users/${currentUser?.id}`} className={classes.link}>
+                      <ListItem button>
+                        <ListItemIcon>
+                          <Tooltip title="プロフィール">
+                            <Person />
+                          </Tooltip>
+                        </ListItemIcon>
+                        <ListItemText primary="プロフィール" />
+                      </ListItem>
+                  </Link>
+                )}
                 <Link to="/themes" className={classes.link}>
                   <ListItem button>
                     <ListItemIcon>
