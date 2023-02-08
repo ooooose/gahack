@@ -13,6 +13,7 @@ import {Grid,
 
 import PropTypes from 'prop-types';
 import Picture from "../atoms/picture/Picture";
+import PictureCard from "../atoms/cards/PictureCard";
 import { useParams, Link } from "react-router-dom";
 import styles from "../../css/components/Frames.module.css"
 import { useContext } from "react";
@@ -224,7 +225,7 @@ const ShowUser = () => {
                       {
                         pictures.map((picture, i) => (
                           Math.floor(i / 6 + 1) === page && <Grid item xs={12} sm={6} md={4} key={picture.id}>
-                            <div className={`${styles.parent}`}>
+                            <div className={`${styles.grandParent}`}>
                               <Link to={{
                                   pathname: "/pictures/" + picture.id,
                                   state: {id: picture.id}
@@ -268,17 +269,19 @@ const ShowUser = () => {
                     <Grid container spacing={2}>
                       { likedPictures.map((picture, i) => (
                         Math.floor(i / 6 + 1) === likesPage && <Grid item xs={12} sm={6} md={4} key={picture.id}>
-                          <div className={`${styles.parent}`}>
+                          <div className={`${styles.secondParent}`}>
                             <Link to={{
                                 pathname: "/pictures/" + picture.id,
                                 state: {id: picture.id}
                               }}
                               id={picture.id}
                               >
-                              <Picture picture={picture} 
-                                theme={picture.theme} 
-                                image={picture.image}
-                                />          
+                              <PictureCard
+                                picture={picture} 
+                                pictureId={picture.id}
+                                pictures={pictures}
+                                setPictures={setPictures}
+                              />      
                             </Link>
                           </div>
                         </Grid>

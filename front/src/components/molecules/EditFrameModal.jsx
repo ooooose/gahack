@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '6px',
   },
   content: {
-    fontSize: '7px',
+    position: 'relative',
+    fontSize: '8px',
     height: '300px'
   },
   buttons: {

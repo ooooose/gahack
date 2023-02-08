@@ -1,5 +1,23 @@
 /* 親nodeのcss */
 
+.grandParent {
+  margin-top: 70px;
+  padding-bottom: 150px;
+  max-width: 300;
+  position: relative;
+  font-size: 9px;
+}
+
+.secondParent {
+  margin-top: 40px;
+  margin-bottom: 70px;
+  padding-bottom: 150px;
+  max-width: 300;
+  height: 70px;
+  position: relative;
+  font-size: 9px;
+}
+
 .parent {
   margin-top: 100px;
   padding-bottom: 150px;

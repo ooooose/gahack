@@ -37,16 +37,11 @@ const useStyles = makeStyles((theme) => ({
   button: {
     width: '120px'
   },
-  info: {
-    textAlign: 'left',
-    paddingTop: '80px',
-  },
   profile: {
     marginTop: '30px',
     marginRight: '30px',
   },
   editFrame: {
-    marginTop: '30px',
     marginRight: '50px',
     textAlign: 'right',
   },
