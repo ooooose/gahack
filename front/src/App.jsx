@@ -16,7 +16,7 @@ import NotFound from "./components/pages/NotFound";
 import RouteAuthGuard from "./provider/RouteAuthGuard";
 import PasswordReset from "./components/pages/PasswordReset";
 import EditPassword from "./components/pages/EditPassword";
-import TwitterCard from "./components/pages/TwitterCard";
+import TwitterAnswer from "./components/pages/TwitterAnswer";
 export const AuthContext = createContext();
 
 function App() {
@@ -66,7 +66,7 @@ function App() {
             <Route path="/password/reset" element={<EditPassword />} />
             <Route path="/picture" element={<RouteAuthGuard component={<Canvas />} redirect={"/signin"} />} />
             <Route path="/pictures/:id" element={<RouteAuthGuard component={<ShowPicture />} redirect={"/signin"} />} />
-            <Route path="/pictures/:id/twitter" element={<RouteAuthGuard component={<TwitterCard />} redirect={"/signin"} />} />
+            <Route path="/pictures/:id/twitter" element={<TwitterAnswer />} />
             <Route path="/themes" element={<RouteAuthGuard component={<ThemeIndex />} redirect={"/signin"} />} />
             <Route path="/themes/:id" element={<RouteAuthGuard component={<Theme />} redirect={"/signin"} />} />
             <Route path="/users/:id" element={<RouteAuthGuard component={<ShowUser />} redirect={"/signin"} />} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { showPicture } from '../../lib/api/pictures';
 import { Grid, TextField, Button, Tooltip, IconButton } from "@material-ui/core";
 import Picture from '../atoms/picture/Picture';
@@ -13,6 +13,8 @@ import { AuthContext } from '../../App';
 import UserCard from '../molecules/UserCard';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { ImTwitter } from 'react-icons/im';
+import { Helmet } from 'react-helmet';
+import { TwitterShareButton } from "react-share";
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -51,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
   setting: {
     cursor: "pointer",
     color: 'gray',
+    padding: '3px'
   },
 }));
 
@@ -69,7 +72,6 @@ const ShowPicture = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  console.log(currentUser);
   
   const handleShowPicture = async () => {
     try {
@@ -131,6 +133,14 @@ const ShowPicture = () => {
     <>
       {!loading ? (
         <div className={isOpen ? classes.animation : classes.before}>
+          <Helmet
+            meta={[
+              { name: 'twitter:card', content: 'summary_large_image' },
+              { name: 'twitter:image', content: picture.twitterCard.url },
+              { name: 'twitter:title', content: '画HACK' },
+              { name: 'twitter:description', content: 'この絵のテーマはなんでしょう？' },
+            ]}
+          />
           <Grid container spacing={3}>
             <Grid item xs={4}>
               <Comments comments={comments} setComments={setComments} />
@@ -146,13 +156,23 @@ const ShowPicture = () => {
               <div className={classes.editFrame}>
                 { currentUser.id === user.id ? (
                   <>
-                    <Tooltip title="Twitterシェア">
-                      <IconButton aria-label="twitter">
-                      <Link to={`/pictures/${id}/twitter`} className={classes.link}>
-                        <ImTwitter />
-                      </Link>
-                      </IconButton>
-                    </Tooltip>
+                    { picture.twitterCard.url !== null ? (
+                      <>
+                        <Tooltip title="Twitterシェア">
+                          <IconButton aria-label="twitter">
+                            <TwitterShareButton
+                              url={`${process.env.REACT_APP_API}`}
+                              hashtags={["画HACK"]}
+                            >
+                              <ImTwitter />
+                            </TwitterShareButton>
+                          </IconButton>
+                        </Tooltip>
+                      </>
+                    ) : (
+                      <>
+                      </>
+                    )}
                     <Tooltip title="フレーム変更">
                       <IconButton aria-label="setting" onClick={handleOpen}>
                         <SettingsIcon
@@ -162,14 +182,14 @@ const ShowPicture = () => {
                   </>
                 ) : (
                   <></>
-                  ) }
-                  <EditFrameModal 
-                    open={open} 
-                    setOpen={setOpen} 
-                    picture={picture} 
-                    setPicture={setPicture} 
-                    image={picture.image}
-                    setTheme={setTheme} />     
+                ) }
+                <EditFrameModal 
+                  open={open} 
+                  setOpen={setOpen} 
+                  picture={picture} 
+                  setPicture={setPicture} 
+                  image={picture.image}
+                  setTheme={setTheme} />     
               </div>
               { currentUser.email === "guest@example.com" ? (
                 <></>

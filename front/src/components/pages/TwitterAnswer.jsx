@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TwitterCard = () => {
+const TwitterAnswer = () => {
   const [picture, setPicture] = useState([]);
   const [theme, setTheme] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -65,4 +65,4 @@ const TwitterCard = () => {
   )
 } 
 
-export default TwitterCard;
+export default TwitterAnswer;
