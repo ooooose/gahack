@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
+         :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
   mount_uploader :image, ImageUploader
   has_many :pictures, dependent: :destroy
@@ -42,5 +42,13 @@ class User < ApplicationRecord
 
   def following?(user)
     self.followings.include?(user)
+  end
+
+  # ゲストログイン用メソッド
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "ゲストユーザー"
+    end
   end
 end

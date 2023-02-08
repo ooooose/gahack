@@ -20,6 +20,10 @@ Rails.application.routes.draw do
       namespace :auth do
         resources :sessions, only: %i[index]
       end
+
+      devise_scope :api_v1_user do
+        post "auth/guest_sign_in", to: "auth/sessions#guest_sign_in"
+      end
     end
   end
 end
