@@ -171,27 +171,33 @@ const ShowPicture = () => {
                     image={picture.image}
                     setTheme={setTheme} />     
               </div>
-              <div className={classes.textField}>
-                <TextField
-                  label="コメント"
-                  type="text"
-                  name="body"
-                  margin="normal"
-                  fullWidth
-                  multiline
-                  onChange={(event) => setComment(event.target.value)}
-                  value={comment}
-                />
-                <div className={classes.buttons}>
-                  <Button 
-                    className={classes.button}
-                    variant="contained" 
-                    color="primary"
-                    onClick={handleCommentSubmit}
-                    disabled={!comment ? true : false}
-                    >投稿する</Button>
-                </div>
-              </div>
+              { currentUser.email === "guest@example.com" ? (
+                <></>
+              ) : (
+                <>
+                  <div className={classes.textField}>
+                    <TextField
+                      label="コメント"
+                      type="text"
+                      name="body"
+                      margin="normal"
+                      fullWidth
+                      multiline
+                      onChange={(event) => setComment(event.target.value)}
+                      value={comment}
+                    />
+                    <div className={classes.buttons}>
+                      <Button 
+                        className={classes.button}
+                        variant="contained" 
+                        color="primary"
+                        onClick={handleCommentSubmit}
+                        disabled={!comment ? true : false}
+                        >投稿する</Button>
+                    </div>
+                  </div>
+                </>  
+              ) }
             </Grid>
             <Grid item xs={4}>
               <div className={classes.profile}>
