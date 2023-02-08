@@ -1,4 +1,4 @@
-class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
+class Api::V1::Auth::SessionsController < ApplicationController
 
   def index
     if current_api_v1_user
