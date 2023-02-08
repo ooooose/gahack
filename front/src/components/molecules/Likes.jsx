@@ -47,27 +47,23 @@ const Likes = ({picture, pictureId}) => {
       <>
         { likeState ? (
           <>
-            <IconButton >
-              <UnLikeButton 
-                params={generateParams()} 
-                likeState={picture.liked}
-                setLikeState={setLikeState}
-                likeId={picture.like_id}
-                likes={likes}
-                setLikes={setLikes}
-              />
-            </IconButton>
-          </>
-        ) : (
-          <IconButton >
-            <LikeButton 
+            <UnLikeButton 
               params={generateParams()} 
               likeState={picture.liked}
               setLikeState={setLikeState}
+              likeId={picture.like_id}
               likes={likes}
               setLikes={setLikes}
             />
-          </IconButton>
+          </>
+        ) : (
+          <LikeButton 
+            params={generateParams()} 
+            likeState={picture.liked}
+            setLikeState={setLikeState}
+            likes={likes}
+            setLikes={setLikes}
+          />
         )}
       </>
     )

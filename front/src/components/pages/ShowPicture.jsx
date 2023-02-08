@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
   animation: {
     transition: '1s',
     opacity: '1',
-    margin: '40px 40px 0px 80px'
+    margin: '25px 40px 0px 80px'
   },
   before: {
     opacity: '0',
-    margin: '40px 40px 0px 80px'
+    margin: '20px 40px 0px 80px'
   },
   textField: {
     paddingRight: '40px',
