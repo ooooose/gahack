@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     paddingTop: '20px',
     paddingBottom: '20px',
+    fontWeight: 'bold'
   },
   pagination: {
     display: 'inline-block',
@@ -70,7 +71,9 @@ const ThemeIndex = () => {
     <>
       {!loading ? (
         <div className={isOpen ? classes.animation : classes.before}>
-          <Typography className={classes.header} variant="h4">テーマ一覧</Typography> 
+          <Typography
+            className={classes.header} 
+            variant="h4">テーマ一覧</Typography> 
           <Grid container spacing={3}>
             {
               themes.map((theme,i) => (
