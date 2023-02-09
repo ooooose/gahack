@@ -1,12 +1,11 @@
 import React from "react";
 
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Tooltip, IconButton } from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles(() => ({
   deleteButton: {
     cursor: "pointer",
-    marginLeft: '8px',
   },
 }))
 
@@ -15,7 +14,11 @@ const DeletePicutreButton = ({handleDeletePicture}) => {
 
   return (
     <>
-      <DeleteIcon className={classes.deleteButton} onClick={handleDeletePicture} /> 
+      <Tooltip title="絵を削除する">
+        <IconButton aria-label="delete" >
+          <DeleteIcon className={classes.deleteButton} onClick={handleDeletePicture} /> 
+        </IconButton>
+      </Tooltip>
     </>
   )
 };

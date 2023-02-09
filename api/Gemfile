@@ -16,13 +16,16 @@ gem 'rack-cors'
 gem 'devise'
 gem 'devise_token_auth'
 gem 'devise-i18n'
-gem 'devise-i18n-views'
 
 # 画像アップロード機能を実装
 gem 'carrierwave', '~> 2.0'
+gem 'mini_magick'
 
 # シリアライザー（JSON整形用gem）
 gem 'active_model_serializers'
+
+# S3設定用
+gem 'fog-aws'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

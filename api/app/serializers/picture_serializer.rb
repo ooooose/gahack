@@ -1,5 +1,5 @@
 class PictureSerializer < ActiveModel::Serializer
-  attributes %i[id image frame_id created_at]
+  attributes %i[id image twitter_card frame_id created_at]
 
   has_many :comments, serializer: CommentSerializer do
     object.comments.recent

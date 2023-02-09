@@ -1,6 +1,5 @@
 ## 確認用にデータをいくつか用意する。
 
-## テーマを３つほど設定する。
-# Theme.create(title: "ドラえもん")
-# Theme.create(title: "のび太")
-# Theme.create(title: "とんかつDJ")
+Theme.find_of_create_by(title: "カエル")
+Theme.find_of_create_by(title: "腕を組む人")
+Theme.find_of_create_by(title: "とんかつDJ")

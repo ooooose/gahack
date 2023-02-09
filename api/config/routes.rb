@@ -17,8 +17,13 @@ Rails.application.routes.draw do
         registrations: "api/v1/auth/registrations",
         passwords: 'api/v1/auth/passwords',
       }
+
       namespace :auth do
         resources :sessions, only: %i[index]
+      end
+
+      devise_scope :api_v1_user do
+        post "auth/guest_sign_in", to: "auth/guests#guest_sign_in"
       end
     end
   end

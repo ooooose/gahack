@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { Grid, Typography } from "@material-ui/core";
 
@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import ThemeCard from "../atoms/cards/ThemeCard";
 import { Pagination } from "@material-ui/lab";
 import Loader from "./Loader";
+import AlertMessage from "../utils/AlertMessage";
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     paddingTop: '20px',
     paddingBottom: '20px',
+    fontWeight: 'bold'
   },
   pagination: {
     display: 'inline-block',
@@ -39,10 +41,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 const ThemeIndex = () => {
+  const location = useLocation();
   const [page, setPage] = useState(1);
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
   const [themes, setThemes] = useState([]);
+  const [successMessageOpen, setSuccessMessageOpen] = useState(location.state ? (location.state.successMessageOpen) : (false));
   const [loading, setLoading] = useState(true);
 
   const handleGetThemes = async () => {
@@ -67,7 +71,9 @@ const ThemeIndex = () => {
     <>
       {!loading ? (
         <div className={isOpen ? classes.animation : classes.before}>
-          <Typography className={classes.header} variant="h4">テーマ一覧</Typography> 
+          <Typography
+            className={classes.header} 
+            variant="h4">テーマ一覧</Typography> 
           <Grid container spacing={3}>
             {
               themes.map((theme,i) => (
@@ -96,6 +102,12 @@ const ThemeIndex = () => {
               />
             )}
           </div>
+          <AlertMessage
+            open={successMessageOpen}
+            setOpen={setSuccessMessageOpen}
+            severity="success"
+            message="ログインに成功しました"
+          />
         </div>
       ) : (
         <Loader />

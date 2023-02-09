@@ -11,6 +11,11 @@ export const signIn = (params) => {
   return client.post("/auth/sign_in", params);
 };
 
+// ゲストログイン
+export const guestSignIn = (params) => {
+  return client.post("/auth/guest_sign_in",);
+};
+
 // サインアウト
 export const signOut = () => {
   return client.delete("/auth/sign_out", {

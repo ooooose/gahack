@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -42,11 +42,14 @@ const useStyles = makeStyles((theme) => ({
 export const SignIn = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const location = useLocation();
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
+  const [successMessageOpen, setSuccessMessageOpen] = 
+        useState(location.state ? (location.state.successMessageOpen) : (false));
 
   const generateParams = () => {
     const signInParams = {
@@ -71,7 +74,7 @@ export const SignIn = () => {
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
 
-        navigate("/themes");
+        navigate("/themes", {state: { successMessageOpen: true }});
         console.log("Signed in successfully!");
       }
     } catch (e) {
@@ -129,6 +132,12 @@ export const SignIn = () => {
           setOpen={setAlertMessageOpen}
           severity="error"
           message="Emailもしくはパスワードが無効です"
+        />
+        <AlertMessage
+          open={successMessageOpen}
+          setOpen={setSuccessMessageOpen}
+          severity="success"
+          message="ユーザー登録に成功しました。"
         />
       </div>
     </>

@@ -1,18 +1,28 @@
 import React from 'react';
 
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Typography, IconButton, Grid} from "@material-ui/core";
 
 import { createLike } from "../../../lib/api/likes";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 const useStyles = makeStyles((theme) => ({
-  UnlikeButton: {
+  container: {
+    display: 'flex',
+    width: '100%',
+  },
+  likeButton: {
     cursor: 'pointer',
-    opacity: '0.5'
+    color: 'gray',
+    opacity: '0.5',
+    float: 'right'
+  },
+  text: {
+    marginTop: '12px',
+    float: 'left',
   },
 }));
 
-const LikeButton = ({params, setLikeState, likes, setLikes, children}) => {
+const LikeButton = ({params, setLikeState, likes, setLikes}) => {
   const classes = useStyles();
   const handleCreateLike = async () => {
     try {
@@ -28,9 +38,19 @@ const LikeButton = ({params, setLikeState, likes, setLikes, children}) => {
 
   return (
     <>
-      <FavoriteBorderIcon 
-        className={classes.UnlikeButton} 
-        onClick={handleCreateLike} /> {children}
+      <div className={classes.container}>
+        <Grid container>
+          <Grid item xs={5} >
+            <IconButton className={classes.likeButton}>
+            <FavoriteBorderIcon 
+              onClick={handleCreateLike} />
+            </IconButton>
+          </Grid>
+          <Grid item xs={7} >
+            <Typography className={classes.text}>{likes} いいね</Typography>
+          </Grid>
+        </Grid>
+      </div>
     </>
   )
 };

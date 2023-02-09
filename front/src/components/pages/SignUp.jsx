@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
@@ -48,13 +48,13 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
-  const confirmSuccessUrl = process.env.REACT_APP_API + "/signin";
 
   const generateParams = () => {
     const signUpParams = {
@@ -62,7 +62,6 @@ const SignUp = () => {
       email: email,
       password: password,
       passwordConfirmation: passwordConfirmation,
-      confirmSuccessUrl: confirmSuccessUrl,
     };
     return signUpParams;
   };
@@ -71,11 +70,12 @@ const SignUp = () => {
     e.preventDefault();
     const params = generateParams();
 
-    console.log(params);
     try {
       const res = await signUp(params);
       console.log(res);
-      window.alert("メールを送信しましたので、ご確認ください。");
+
+      navigate('/signin',
+      {state: {successMessageOpen: true}});
     } catch (e) {
       console.log(e);
       setAlertMessageOpen(true);

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
 import Header from "./Header";
 import SideBar from "./SideBar";
 
