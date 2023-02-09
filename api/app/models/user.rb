@@ -2,7 +2,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
-  mount_uploader :image, ImageUploader
+  mount_uploader :image, AvatarUploader
   has_many :pictures, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_pictures, through: :likes, source: :picture
