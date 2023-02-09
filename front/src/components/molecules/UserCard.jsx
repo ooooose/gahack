@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Avatar, 
         Card, 
@@ -9,6 +9,7 @@ import {Avatar,
         Divider } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import Likes from './Likes';
+import { AuthContext } from '../../App';
 
 const useStyles = makeStyles({
   root: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
     width: '80px',
     height: '80px',
     textAlign: 'center',
-    margin: '0 auto',
+    margin: '10px auto',
   },
   divider: {
     margin: '10px 0',
@@ -31,8 +32,9 @@ const useStyles = makeStyles({
   }
 });
 
-const UserCard = ({user, avatar ,picture, theme, likes, likeState, params, setLikeState, setLikes}) => {
+const UserCard = ({user, avatar ,picture, theme, likes}) => {
   const classes = useStyles();
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <Card className={classes.root}>
@@ -62,18 +64,22 @@ const UserCard = ({user, avatar ,picture, theme, likes, likeState, params, setLi
           picture={picture} 
           pictureId={picture.id} />   
       </CardContent>
-      <CardActions>
-        <Button size="small">
-          <Link
-            to={{
-              pathname: "/users/" + user.id,
-              state: {id: user.id}
-            }}
-            id={user.id}>
-            作者詳細
-          </Link>
-        </Button>
-      </CardActions>
+      { currentUser.email !== "guest@example.com" ? (
+        <CardActions>
+          <Button size="small">
+            <Link
+              to={{
+                pathname: "/users/" + user.id,
+                state: {id: user.id}
+              }}
+              id={user.id}>
+              作者詳細
+            </Link>
+          </Button>
+        </CardActions>
+      ) : (
+        <></>
+      )}
     </Card>
   );
 }
