@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { showPicture } from '../../lib/api/pictures';
 import { Grid, TextField, Button, Tooltip, IconButton } from "@material-ui/core";
 import Picture from '../atoms/picture/Picture';
@@ -15,7 +15,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { ImTwitter } from 'react-icons/im';
 import { Helmet } from 'react-helmet';
 import { TwitterShareButton } from "react-share";
-import Likes from '../molecules/Likes';
+import { deletePicture } from '../../lib/api/pictures';
+import DeletePicutreButton from '../atoms/buttons/DeletePictureButton';
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -57,6 +58,7 @@ const ShowPicture = () => {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
   const { id } = useParams();
+  const navigate = useNavigate();
   const [picture, setPicture] = useState([]);
   const [theme, setTheme] = useState([]);
   const [user, setUser] = useState([]);
@@ -108,6 +110,19 @@ const ShowPicture = () => {
       console.log(e);
     }
   };
+
+  const handleDeletePicture = async () => {
+    if (window.confirm('削除しますか？')){
+      try {
+        const res = await deletePicture(id);
+        if (res.status === 200) {
+          navigate(`/themes/${theme.id}`)
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
 
   const handleOpen = () => {
     setOpen(true);
@@ -175,6 +190,7 @@ const ShowPicture = () => {
                           className={classes.setting} />
                       </IconButton>
                     </Tooltip>
+                    <DeletePicutreButton handleDeletePicture={handleDeletePicture}/>
                   </>
                 ) : (
                   <></>
