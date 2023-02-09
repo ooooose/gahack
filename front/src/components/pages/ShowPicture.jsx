@@ -15,6 +15,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { ImTwitter } from 'react-icons/im';
 import { Helmet } from 'react-helmet';
 import { TwitterShareButton } from "react-share";
+import Likes from '../molecules/Likes';
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -184,12 +185,12 @@ const ShowPicture = () => {
                   picture={picture} 
                   setPicture={setPicture} 
                   image={picture.image}
-                  setTheme={setTheme} />     
+                  setTheme={setTheme} /> 
               </div>
               { currentUser.email === "guest@example.com" ? (
                 <></>
-              ) : (
-                <>
+                ) : (
+                  <>
                   <div className={classes.textField}>
                     <TextField
                       label="コメント"

@@ -1,7 +1,7 @@
 // いいねに関する情報を管理するコンポーネント
 import React, { useState, useContext } from "react";
 
-import { IconButton, makeStyles } from "@material-ui/core";
+import { IconButton, makeStyles, Typography, Grid } from "@material-ui/core";
 import LikeButton from "../atoms/buttons/LikeButton";
 import UnLikeButton from "../atoms/buttons/UnlikeButton";
 import { AuthContext } from "../../App";
@@ -11,7 +11,21 @@ import GuestsAlert from "../utils/GuestsAlert";
 const useStyles = makeStyles (() => ({
   UnlikeButton: {
     opacity: '0.5',
-  }
+  },
+  container: {
+    display: 'flex',
+    width: '100%',
+  },
+  likeButton: {
+    cursor: 'pointer',
+    color: 'gray',
+    opacity: '0.5',
+    float: 'right'
+  },
+  text: {
+    marginTop: '12px',
+    float: 'left',
+  },
 }))
 
 
@@ -28,7 +42,6 @@ const Likes = ({picture, pictureId}) => {
     };
     return likeParams;
   };
-
   const handleOpen = () => {
     setOpenAlert(true);
   }
@@ -36,11 +49,20 @@ const Likes = ({picture, pictureId}) => {
     <>
     { currentUser.email === "guest@example.com" ? (
       <>
-        <IconButton onClick={handleOpen} >
-          <FavoriteBorderIcon 
-          className={classes.UnlikeButton}
-          />
-        </IconButton>
+        <div className={classes.container}>
+          <Grid container>
+            <Grid item xs={5} >
+              <IconButton className={classes.likeButton} onClick={handleOpen} >
+                <FavoriteBorderIcon 
+                className={classes.UnlikeButton}
+                />
+              </IconButton>
+            </Grid>
+            <Grid item xs={7} >
+              <Typography className={classes.text}>{likes} いいね</Typography>
+            </Grid>
+          </Grid>
+        </div>
         <GuestsAlert open={openAlert} setOpen={setOpenAlert} />
       </>
     ) : (
