@@ -24,6 +24,9 @@ gem 'mini_magick'
 # シリアライザー（JSON整形用gem）
 gem 'active_model_serializers'
 
+# S3設定用
+gem 'fog-aws'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-rails'
