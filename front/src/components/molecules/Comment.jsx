@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../App";
+import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core";
 import ListItem from "@material-ui/core/ListItem";
@@ -41,11 +42,18 @@ const Comment = ({ comments, comment, commentId, user, picture, setComments }) =
     <>
     <ListItem alignItems="flex-start">
           <ListItemAvatar>
-          <Avatar
-            alt="avatar"
-            src={user.image.url}
-            className={classes.avatar}
-            />
+            <Link
+              to={{
+                pathname: "/users/" + user.id,
+                state: {id: user.id}
+              }}
+              id={user.id}>
+              <Avatar
+                alt="avatar"
+                src={user.image.url}
+                className={classes.avatar}
+                />
+            </Link>
           </ListItemAvatar>
           <Grid container>
             <Grid item xs={10} >
