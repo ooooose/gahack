@@ -8,6 +8,26 @@
   font-size: 9px;
 }
 
+.timeParent {
+  margin-top: 30px;
+  padding-bottom: 150px;
+  max-width: 300;
+  height:  100px;
+  position: relative;
+  font-size: 7px;
+  z-index: 0;
+}
+
+.themeParent {
+  margin-top: 20px;
+  padding-bottom: 110px;
+  max-width: 300;
+  height:  80px;
+  position: relative;
+  font-size: 8px;
+  z-index: 0;
+}
+
 .secondParent {
   margin-top: 40px;
   margin-bottom: 70px;

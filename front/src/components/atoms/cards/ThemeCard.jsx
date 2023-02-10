@@ -1,7 +1,7 @@
-import React from "react";
-
-import Card from "@material-ui/core/Card";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
+import { Card, makeStyles } from "@material-ui/core";
+import Picture from "../picture/Picture";
+import styles from '../../../css/components/Frames.module.css';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -16,15 +16,18 @@ const useStyles = makeStyles((theme) => ({
 
 const ThemeCard = ({theme, title}) => {
   const classes = useStyles();
-  const image_src = theme.bestPicture ? "data:image/png;base64," + theme.bestPicture.image : null;
+  const [picture, setPicture] = useState(theme.bestPicture);
   return (
     <>
       <Card
         className={classes.card}
-      > { image_src ? (
-        <>
-          <img src={image_src} alt={theme} className={classes.imageScales} /><br/>
-        </>
+      > { theme.bestPicture ? (
+        <div className={`${styles.themeParent}`}>
+          <Picture 
+            picture={picture} 
+            theme={theme} 
+            image={picture.image} />
+        </div>
       ) : (
         <h3>まだ投稿はありません。</h3>
       )
