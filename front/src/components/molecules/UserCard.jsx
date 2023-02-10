@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Avatar, 
         Card, 
@@ -31,8 +31,23 @@ const useStyles = makeStyles({
   }
 });
 
-const UserCard = ({user, avatar ,picture, theme, likes}) => {
+const UserCard = ({ user, avatar ,picture, theme }) => {
   const classes = useStyles();
+  const [date, setDate] = useState([]);
+
+  const handleToDate = (date) =>{
+    date = new Date(date);
+    if(date.getMinutes() < 10){
+        date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":0"+date.getMinutes()
+    } else {
+        date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()
+    }
+    setDate(date) }
+
+  useEffect(() => {
+    handleToDate(picture.createdAt);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Card className={classes.root}>
@@ -56,7 +71,7 @@ const UserCard = ({user, avatar ,picture, theme, likes}) => {
           本作品のテーマは
           <strong>{`${theme.title}`}</strong>
           です。<br/>
-          現在いいねの数は<strong>{`${likes}`}</strong>です。
+          <strong>{`${date}`}</strong>に作成されました。
         </Typography>
         <Likes 
           picture={picture} 

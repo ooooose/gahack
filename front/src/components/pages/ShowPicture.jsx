@@ -63,8 +63,6 @@ const ShowPicture = () => {
   const [theme, setTheme] = useState([]);
   const [user, setUser] = useState([]);
   const [avatar, setAvatar] = useState([]);
-  const [likeState, setLikeState] = useState(false);
-  const [likes, setLikes] = useState(0);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -78,8 +76,6 @@ const ShowPicture = () => {
         const data = res.data;
         setPicture(data);
         setUser(data.user);
-        setLikeState(data.liked);
-        setLikes(data.likes);
         setComments(data.comments);
         setTheme(data.theme);
         setAvatar(data.user.image);
@@ -126,13 +122,6 @@ const ShowPicture = () => {
 
   const handleOpen = () => {
     setOpen(true);
-  };
-
-  const generateParams = () => {
-    const likeParams = {
-      picture_id: id,
-    };
-    return likeParams;
   };
 
   useEffect(() => {
@@ -238,11 +227,6 @@ const ShowPicture = () => {
                   picture={picture}
                   theme={theme}
                   avatar={avatar}
-                  likes={likes}
-                  likeState={likeState}
-                  params={generateParams()} 
-                  setLikeState={setLikeState}
-                  setLikes={setLikes}
                 />
               </div>
             </Grid>
