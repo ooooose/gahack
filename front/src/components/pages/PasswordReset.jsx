@@ -34,7 +34,7 @@ const PasswordReset = () => {
   const generateParams = () => {
     const passwordResetParams = {
       email: email,
-      redirectUrl: "http://localhost:8000/password/reset"
+      redirectUrl: process.env.REACT_APP_API + "/password/reset"
     }
     return passwordResetParams;
   }
