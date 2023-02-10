@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Button, Divider, Box } from "@material-ui/core";
+import { Typography, Tooltip, Button, Divider, Box } from "@material-ui/core";
 
 import GuestLoginButton from "../atoms/buttons/GuestLoginButton";
 import styles from "../../css/organisms/TopBottom.module.css"
@@ -68,20 +68,27 @@ const TopBottom = () => {
         </Box>
         <footer className={classes.footer}>
           <div className={`${styles.footerContent}`}>
+            <Tooltip title="実装中">
+              <Button>
+                <Link to="#" className={classes.link}>
+                  利用規約
+                </Link>
+              </Button>
+            </Tooltip>
+            <Tooltip title="実装中">
+              <Button>
+                <Link to="#" className={classes.link}>
+                  プライバシーポリシー
+                </Link>
+              </Button>
+            </Tooltip>
             <Typography>
-              <Link to="#" className={classes.link}>
-                利用規約
-              </Link>
-            </Typography>
-            <Typography>
-              <Link to="#" className={classes.link}>
-                プライバシーポリシー
-              </Link>
-            </Typography>
-            <Typography>
-              <Link to="#" className={classes.link}>
+              <Button 
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfCMtaGohmoBIkGxkb8hPseJ9wLFDFzPp3NFZv1kToFH-ge6w/viewform?usp=sf_link" 
+                target="_blank"
+                className={classes.link}>
                 お問い合せ
-              </Link>
+              </Button>
             </Typography>
           </div>
         </footer>
