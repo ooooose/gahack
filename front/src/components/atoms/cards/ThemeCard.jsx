@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, makeStyles } from "@material-ui/core";
 import Picture from "../picture/Picture";
 import styles from '../../../css/components/Frames.module.css';
@@ -14,9 +14,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const ThemeCard = ({theme, title}) => {
+const ThemeCard = ({theme, picture, title}) => {
   const classes = useStyles();
-  const [picture, setPicture] = useState(theme.bestPicture);
   return (
     <>
       <Card

@@ -84,7 +84,7 @@ const ThemeIndex = () => {
                   id={theme.id}
                   className = {classes.link}
                   >
-                    <ThemeCard theme={theme} title={theme.title} />
+                    <ThemeCard theme={theme} picture={theme.bestPicture} title={theme.title} />
                   </Link>
                 </Grid>
               ))
