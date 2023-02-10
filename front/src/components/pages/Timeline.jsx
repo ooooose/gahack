@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   pageWrapper: {
     marginTop: '80px',
+    marginBottom: '30px'
   }
 }));
 
@@ -62,6 +63,7 @@ const Timeline = () => {
     handleGetPictures();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  console.log(pictures.length);
 
   return (
     <>
@@ -88,13 +90,13 @@ const Timeline = () => {
             />
           </div>
           <div className={classes.pageWrapper}>
-            { pictures.lenght > 6 && (
+            { pictures.length > 6 && (
               <Pagination 
                 count={Math.ceil(pictures.length / 6)}
                 page={page}
                 onChange={(e, page) => setPage(page)}
                 color="primary"
-                className={classes.Pagination}
+                className={classes.pagination}
               />
             )}
           </div>
