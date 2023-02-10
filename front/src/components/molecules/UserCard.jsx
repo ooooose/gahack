@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Avatar, 
         Card, 
@@ -9,7 +9,6 @@ import {Avatar,
         Divider } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import Likes from './Likes';
-import { AuthContext } from '../../App';
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +33,6 @@ const useStyles = makeStyles({
 
 const UserCard = ({user, avatar ,picture, theme, likes}) => {
   const classes = useStyles();
-  const { currentUser } = useContext(AuthContext);
 
   return (
     <Card className={classes.root}>
@@ -64,7 +62,7 @@ const UserCard = ({user, avatar ,picture, theme, likes}) => {
           picture={picture} 
           pictureId={picture.id} />   
       </CardContent>
-      { currentUser.email !== "guest@example.com" ? (
+      { user.email !== "guest@example.com" ? (
         <CardActions>
           <Button size="small">
             <Link
