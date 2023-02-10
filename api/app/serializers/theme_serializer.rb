@@ -1,6 +1,6 @@
 class ThemeSerializer < ActiveModel::Serializer
   attributes %i[id title created_at]
-  has_many :pictures
+  has_many :pictures, serializer: PictureSerializer
 
   def initialize(object, **option)
     @current_api_v1_user = option[:current_api_v1_user]
