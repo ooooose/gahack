@@ -11,10 +11,9 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-const Picture = ({theme, picture ,image}) => {
+const Picture = ({theme, picture, image}) => {
   const classes = useStyles();
   const image_src = "data:image/png;base64," + image;
-  
   return (
     <>
       <div className={picture.frameId === 2 ? `${styles.second}` : `${styles.first}`}>

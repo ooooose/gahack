@@ -20,7 +20,6 @@ const GuestLoginButton = () => {
 
   const handleSignInSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const res = await guestSignIn();
       if (res.status === 200) {
@@ -30,7 +29,7 @@ const GuestLoginButton = () => {
         Cookies.set("_uid", res.headers["uid"]);
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
-        navigate("/picture");
+        navigate("/", {state: { successMessageOpen: true }});
       }
     } catch (e) {
       console.log(e);

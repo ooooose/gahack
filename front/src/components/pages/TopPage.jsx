@@ -4,6 +4,7 @@ import { AuthContext } from "../../App";
 import TopMain from '../organisms/TopMain';
 import TopDescription from '../organisms/TopDescription';
 import TopBottom from '../organisms/TopBottom';
+import Timeline from './Timeline';
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +30,7 @@ const TopPage = () => {
         {
           isSignedIn && currentUser ? (
             <>
-              <h1>実装中です！</h1>
+              <Timeline />
             </>
           ) : (
             <>

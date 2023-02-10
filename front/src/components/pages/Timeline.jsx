@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from 'react-router-dom';
-
-import { Grid, Typography } from "@material-ui/core";
-
-import { makeStyles } from "@material-ui/styles";
-import { getThemes } from "../../lib/api/themes";
-import ThemeCard from "../atoms/cards/ThemeCard";
+import { makeStyles, Typography, Grid } from "@material-ui/core";
+import { useLocation } from "react-router-dom";
+import { getPictures } from "../../lib/api/pictures";
 import { Pagination } from "@material-ui/lab";
-import Loader from "./Loader";
 import AlertMessage from "../utils/AlertMessage";
+import Loader from "./Loader";
+import TimelineCard from "../molecules/TimelineCard";
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -38,22 +35,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-const ThemeIndex = () => {
+const Timeline = () => {
+  const classes = useStyles();
   const location = useLocation();
   const [page, setPage] = useState(1);
-  const classes = useStyles();
+  const [pictures, setPictures] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [themes, setThemes] = useState([]);
-  const [successMessageOpen, setSuccessMessageOpen] = useState(location.state ? (location.state.successMessageOpen) : (false));
   const [loading, setLoading] = useState(true);
+  const [successMessageOpen, setSuccessMessageOpen] = useState(location.state ? (location.state.successMessageOpen) : (false));
 
-  const handleGetThemes = async () => {
+  const handleGetPictures = async () => {
     try {
-      const res = await getThemes();
+      const res = await getPictures();
       if (res.status === 200) {
         const data = res.data;
-        setThemes(data);
+        setPictures(data);
       }
     } catch (e) {
       console.log(e);
@@ -61,8 +57,9 @@ const ThemeIndex = () => {
     setLoading(false);
     setTimeout(() => { setIsOpen(true) }, 100);
   }
+
   useEffect(() => {
-    handleGetThemes();
+    handleGetPictures();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -73,20 +70,12 @@ const ThemeIndex = () => {
           <div className={isOpen ? classes.animation : classes.before}>
             <Typography
               className={classes.header} 
-              variant="h4">テーマ一覧</Typography> 
+              variant="h4">タイムライン</Typography> 
             <Grid container spacing={3}>
               {
-                themes.map((theme,i) => (
-                  Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={theme.id}>
-                    <Link to={{
-                      pathname: "/themes/" + theme.id,
-                      state: {id: theme.id}
-                    }}
-                    id={theme.id}
-                    className = {classes.link}
-                    >
-                      <ThemeCard theme={theme} picture={theme.bestPicture} title={theme.title} />
-                    </Link>
+                pictures.map((picture,i) => (
+                  Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={picture.id}>
+                    <TimelineCard picture={picture} user={picture.user}/>
                   </Grid>
                 ))
               }
@@ -99,9 +88,9 @@ const ThemeIndex = () => {
             />
           </div>
           <div className={classes.pageWrapper}>
-            { themes.lenght > 6 && (
+            { pictures.lenght > 6 && (
               <Pagination 
-                count={Math.ceil(themes.length / 6)}
+                count={Math.ceil(pictures.length / 6)}
                 page={page}
                 onChange={(e, page) => setPage(page)}
                 color="primary"
@@ -117,4 +106,4 @@ const ThemeIndex = () => {
   )
 }
 
-export default ThemeIndex;
+export default Timeline;
