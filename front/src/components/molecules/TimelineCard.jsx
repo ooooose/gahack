@@ -80,9 +80,6 @@ const TimelineCard = ({picture , user}) => {
         <div>
           <Likes picture={picture} pictureId={picture.id} />
         </div>
-        <IconButton aria-label="share">
-          {/* <ShareIcon /> */}
-        </IconButton>
       </CardActions>
     </Card>
   );

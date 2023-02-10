@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import PictureCard from "../atoms/cards/PictureCard";
 
-import { Grid, makeStyles } from "@material-ui/core";
+import { Grid, makeStyles, Typography } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { showTheme } from "../../lib/api/themes";
 import styles from "../../css/components/Frames.module.css";
@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 60px',
     margin: '0px auto',
   },
+  header: {
+    paddingTop: '20px',
+    fontWeight: 'bold'
+  },
   noImage: {
     textAlign: 'center',
     margin: '200px auto'
@@ -38,6 +42,7 @@ const Theme = () => {
   const classes = useStyles();
   const { id } = useParams();
   const [pictures, setPictures] = useState([]);
+  const [theme, setTheme] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -46,6 +51,7 @@ const Theme = () => {
       const res = await showTheme(id);
       if (res.status === 200) {
         const data = res.data;
+        setTheme(data);
         setPictures(data.pictures);
       }
     } catch (e) {
@@ -71,13 +77,16 @@ const Theme = () => {
     <>
       {!loading ? (
         <div className={isOpen ? classes.animation : classes.before}>
+          <Typography
+            className={classes.header} 
+            variant="h4">{theme.title} の部屋</Typography> 
           <Grid container spacing={3}>
             { pictures.length > 0 ? (
               pictures.map(
                 (picture, i) =>
                   Math.floor(i / 6 + 1) === page && (
                     <Grid item xs={12} sm={6} md={4} key={picture.id}>
-                      <div className={`${styles.parent}`}>
+                      <div className={`${styles.themesParent}`}>
                         <PictureCard
                           picture={picture} 
                           pictureId={picture.id}

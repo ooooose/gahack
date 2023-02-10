@@ -69,27 +69,35 @@ const ThemeIndex = () => {
   return (
     <>
       {!loading ? (
-        <div className={isOpen ? classes.animation : classes.before}>
-          <Typography
-            className={classes.header} 
-            variant="h4">テーマ一覧</Typography> 
-          <Grid container spacing={3}>
-            {
-              themes.map((theme,i) => (
-                Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={theme.id}>
-                  <Link to={{
-                    pathname: "/themes/" + theme.id,
-                    state: {id: theme.id}
-                  }}
-                  id={theme.id}
-                  className = {classes.link}
-                  >
-                    <ThemeCard theme={theme} picture={theme.bestPicture} title={theme.title} />
-                  </Link>
-                </Grid>
-              ))
-            }
-          </Grid>
+        <>
+          <div className={isOpen ? classes.animation : classes.before}>
+            <Typography
+              className={classes.header} 
+              variant="h4">テーマ一覧</Typography> 
+            <Grid container spacing={3}>
+              {
+                themes.map((theme,i) => (
+                  Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={theme.id}>
+                    <Link to={{
+                      pathname: "/themes/" + theme.id,
+                      state: {id: theme.id}
+                    }}
+                    id={theme.id}
+                    className = {classes.link}
+                    >
+                      <ThemeCard theme={theme} picture={theme.bestPicture} title={theme.title} />
+                    </Link>
+                  </Grid>
+                ))
+              }
+            </Grid>
+            <AlertMessage
+              open={successMessageOpen}
+              setOpen={setSuccessMessageOpen}
+              severity="success"
+              message="ログインに成功しました"
+            />
+          </div>
           <div className={classes.pageWrapper}>
             { themes.lenght > 6 && (
               <Pagination 
@@ -101,13 +109,7 @@ const ThemeIndex = () => {
               />
             )}
           </div>
-          <AlertMessage
-            open={successMessageOpen}
-            setOpen={setSuccessMessageOpen}
-            severity="success"
-            message="ログインに成功しました"
-          />
-        </div>
+        </>
       ) : (
         <Loader />
       )}

@@ -66,19 +66,27 @@ const Timeline = () => {
   return (
     <>
       {!loading ? (
-        <div className={isOpen ? classes.animation : classes.before}>
-          <Typography
-            className={classes.header} 
-            variant="h4">タイムライン</Typography> 
-          <Grid container spacing={3}>
-            {
-              pictures.map((picture,i) => (
-                Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={picture.id}>
-                  <TimelineCard picture={picture} user={picture.user}/>
-                </Grid>
-              ))
-            }
-          </Grid>
+        <>
+          <div className={isOpen ? classes.animation : classes.before}>
+            <Typography
+              className={classes.header} 
+              variant="h4">タイムライン</Typography> 
+            <Grid container spacing={3}>
+              {
+                pictures.map((picture,i) => (
+                  Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={picture.id}>
+                    <TimelineCard picture={picture} user={picture.user}/>
+                  </Grid>
+                ))
+              }
+            </Grid>
+            <AlertMessage
+              open={successMessageOpen}
+              setOpen={setSuccessMessageOpen}
+              severity="success"
+              message="ログインに成功しました"
+            />
+          </div>
           <div className={classes.pageWrapper}>
             { pictures.lenght > 6 && (
               <Pagination 
@@ -90,13 +98,7 @@ const Timeline = () => {
               />
             )}
           </div>
-          <AlertMessage
-            open={successMessageOpen}
-            setOpen={setSuccessMessageOpen}
-            severity="success"
-            message="ログインに成功しました"
-          />
-        </div>
+        </>
       ) : (
         <Loader />
       )}
