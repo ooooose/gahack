@@ -270,19 +270,12 @@ const ShowUser = () => {
                       { likedPictures.map((picture, i) => (
                         Math.floor(i / 6 + 1) === likesPage && <Grid item xs={12} sm={6} md={4} key={picture.id}>
                           <div className={`${styles.secondParent}`}>
-                            <Link to={{
-                                pathname: "/pictures/" + picture.id,
-                                state: {id: picture.id}
-                              }}
-                              id={picture.id}
-                              >
-                              <PictureCard
-                                picture={picture} 
-                                pictureId={picture.id}
-                                pictures={pictures}
-                                setPictures={setPictures}
-                              />      
-                            </Link>
+                            <PictureCard
+                              picture={picture} 
+                              pictureId={picture.id}
+                              pictures={pictures}
+                              setPictures={setPictures}
+                            />      
                           </div>
                         </Grid>
                       ))}
