@@ -210,7 +210,7 @@ const ShowUser = () => {
               </div>
             </div>
             <Box sx={{ width: '100%' }}>
-              <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '50%' }}>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '100%' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
                   <Tab label="作品一覧" {...a11yProps(0)} />
                   <Tab label="いいね一覧" {...a11yProps(1)} />
