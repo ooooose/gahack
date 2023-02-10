@@ -17,7 +17,6 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 
 const drawerWidth = 240;
 
-
 const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
     display: "flex",
@@ -74,7 +73,7 @@ const SideBar = ({open, handleDrawerClose}) => {
         Cookies.remove("_uid")
 
         setIsSignedIn(false)
-        navigate("/");
+        navigate("/", {state: { successMessageOpen: true }});
 
         console.log("Succeeded in sign out");
       } else {
