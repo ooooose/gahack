@@ -89,24 +89,25 @@ const SignUp = () => {
             <CardHeader className={classes.header} title="サインアップ画面" />
             <CardContent>
               <Form
-                label={"Name"}
+                label={"お名前"}
                 value={name}
                 onChange={(event) => setName(event.target.value)}
               />
               <Form
-                label={"Email"}
+                label={"メールアドレス"}
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
               />
               <Form
-                label={"Password"}
+                label={"パスワード"}
                 type={"password"}
+                placeholder={"６文字以上で設定してください"}
                 value={password}
                 autoComplete={"current-password"}
                 onChange={(event) => setPassword(event.target.value)}
               />
               <Form
-                label={"Password Confirmation"}
+                label={"パスワード（確認用）"}
                 type={"password"}
                 value={passwordConfirmation}
                 autoComplete={"current-password"}

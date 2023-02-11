@@ -14,7 +14,7 @@ import {Grid,
 import PropTypes from 'prop-types';
 import Picture from "../atoms/picture/Picture";
 import PictureCard from "../atoms/cards/PictureCard";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import styles from "../../css/components/Frames.module.css"
 import { useContext } from "react";
 import { AuthContext } from "../../App";
@@ -24,6 +24,7 @@ import Relationships from "../molecules/Relationships";
 import Loader from "./Loader";
 import Following from "../molecules/Following";
 import Follower from "../molecules/Follower";
+import AlertMessage from "../utils/AlertMessage";
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -118,6 +119,7 @@ function a11yProps(index) {
 const ShowUser = () => {
   const { id } = useParams();
   const classes = useStyles();
+  const location = useLocation();
   const [user, setUser] = useState([]);
   const [avatar, setAvatar] = useState([]);
   const [pictures, setPictures] = useState([]);
@@ -134,6 +136,8 @@ const ShowUser = () => {
   const [followingsPage, setFollowingsPage] = useState(1);
   const [followers, setFollowers] = useState([]);
   const [followersPage, setFollowersPage] = useState(1);
+  const [successMessageOpen, setSuccessMessageOpen] = useState(location.state ? (location.state.successMessageOpen) : (false));
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -364,6 +368,12 @@ const ShowUser = () => {
               </TabPanel>
             </Box>
           </div>
+          <AlertMessage
+            open={successMessageOpen}
+            setOpen={setSuccessMessageOpen}
+            severity="success"
+            message="ログインに成功しました"
+          />
         </>
       ) : (
         <Loader />
