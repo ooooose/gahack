@@ -8,7 +8,7 @@ class Picture < ApplicationRecord
   mount_uploader :twitter_card, ImageUploader
 
   # 描かれた絵を作成順に並び替える
-  scope :by_recently_created, -> { order(created_at: :desc) }
+  scope :recent, -> { order(created_at: :desc) }
 
   validates :image, presence: true
   validates :user_id, presence: true

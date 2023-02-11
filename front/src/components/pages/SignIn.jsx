@@ -74,7 +74,7 @@ export const SignIn = () => {
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
 
-        navigate("/themes", {state: { successMessageOpen: true }});
+        navigate(`/users/${res.data.data.id}`, {state: { successMessageOpen: true }});
         console.log("Signed in successfully!");
       }
     } catch (e) {
@@ -90,12 +90,12 @@ export const SignIn = () => {
             <CardHeader className={classes.header} title="ログイン画面" />
             <CardContent>
               <Form
-                label={"Email"}
+                label={"メールアドレス"}
                 value={email}
                 onChange={event => setEmail(event.target.value)}
               />
               <Form
-                label={"password"}
+                label={"パスワード"}
                 type={"password"}
                 value={password}
                 autoComplete={"current-password"}

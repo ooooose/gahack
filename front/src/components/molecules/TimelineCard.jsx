@@ -40,20 +40,33 @@ const TimelineCard = ({picture , user}) => {
     <Card sx={{ maxWidth: 345 }} >
         <CardHeader
           avatar={
-            <Link to={{
-              pathname: "/users/" + user.id,
-              state: {id: user.id}
-            }}
-            id={picture.id}
-            className = {classes.link}
-            >
-              <Avatar
-                sx={{ bgcolor: 'red' }}
-                alt="avatar"
-                src={user.image.url}
-                className={classes.avatar}
-                />
-            </Link>
+            (
+              <>
+              { user.email !== "guest@example.com" ? (
+                  <Link to={{
+                    pathname: "/users/" + user.id,
+                    state: {id: user.id}
+                  }}
+                  id={picture.id}
+                  className = {classes.link}
+                  >
+                    <Avatar
+                      sx={{ bgcolor: 'red' }}
+                      alt="avatar"
+                      src={user.image.url}
+                      className={classes.avatar}
+                      />
+                  </Link>
+                ) : (
+                  <Avatar
+                    sx={{ bgcolor: 'red' }}
+                    alt="avatar"
+                    src={user.image.url}
+                    className={classes.avatar}
+                    />
+                )} 
+              </>
+            )
           }
           action={
             <IconButton aria-label="settings">

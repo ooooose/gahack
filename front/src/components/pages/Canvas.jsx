@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createPicture } from "../../lib/api/pictures";
 import { ResetButton } from "../atoms/buttons/ResetButton";
 
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Canvas = () => {
+  const navigate = useNavigate();
   const [load, setLoad] = useState(true);
   const classes = useStyles();
   const [drawFlag, setDrawFlag] = useState(0);
@@ -190,14 +192,12 @@ const Canvas = () => {
           try {
             const res = await createPicture(params);
             if (res.status === 200) {
-              // ページ遷移するようにする
-              window.alert("登録しました。");
+              navigate(`/pictures/${res.data.id}`, {state: { successMessageOpen: true }})
             }
           } catch (e) {
             console.log(e);
           }
         };
-        // pngファイルで保存するよう第二引数に設定することができる。 
       }, 'image/png');
       ctx.fillStyle = bgColor;
       ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
