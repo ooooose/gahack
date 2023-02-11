@@ -240,7 +240,7 @@ const ShowPicture = () => {
           open={successMessageOpen}
           setOpen={setSuccessMessageOpen}
           severity="success"
-          message="ログアウトに成功しました"
+          message="絵を作成しました"
         />
       </>
       ) : (
