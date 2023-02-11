@@ -2,7 +2,7 @@ class Api::V1::ThemesController < ApplicationController
   before_action :set_theme, only: %i[show destroy]
 
   def index
-    themes = Theme.all
+    themes = Theme.all.recent
     render_json = ActiveModelSerializers::SerializableResource.new(
       themes,
       includes: '**',
