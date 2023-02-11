@@ -63,7 +63,6 @@ const Timeline = () => {
     handleGetPictures();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(pictures.length);
 
   return (
     <>
