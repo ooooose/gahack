@@ -71,7 +71,7 @@ const ShowPicture = () => {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [successMessageOpen, setSuccessMessageOpen] = useState(location.state ? (location.state.successMessageOpen) : (false));
-  
+
   const handleShowPicture = async () => {
     try {
       const res = await showPicture(id);
