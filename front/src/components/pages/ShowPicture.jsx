@@ -139,12 +139,14 @@ const ShowPicture = () => {
           <div className={isOpen ? classes.animation : classes.before}>
             <Helmet
               meta={[
-                { property: 'og:url', content: `https://gahack.netlify.app/pictures/${picture.id}/twitter` },
                 { name: 'twitter:card', content: 'summary_large_image' },
                 { name: 'twitter:image', content: picture.twitterCard.url },
                 { name: 'twitter:title', content: '画HACK' },
                 { name: 'twitter:description', content: 'この絵のテーマはなんでしょう？' },
-              ]}
+                { property: "og:title", "content": "画HACK" },
+                { property: "og:type", "content": "website"},
+                { property: 'og:url', content: `https://gahack.netlify.app/pictures/${picture.id}/twitter` },
+            ]}
             />
             <Grid container spacing={3}>
               <Grid item xs={4}>
@@ -162,7 +164,6 @@ const ShowPicture = () => {
                   <></>
                 ) : (
                   <>
-                  
                     <div className={classes.editFrame}>
                       { currentUser.id === user.id ? (
                         <>
