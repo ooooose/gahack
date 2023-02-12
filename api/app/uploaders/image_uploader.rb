@@ -52,5 +52,5 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   "#{SecureRandom.uuid}.#{file.extension}" if original_filename
   # end
 
-  process resize_to_limit: [200, 200]
+  process resize_to_limit: [800, 418]
 end
