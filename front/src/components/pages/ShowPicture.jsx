@@ -157,47 +157,56 @@ const ShowPicture = () => {
                     image={picture.image}
                     />
                 </div>
-                <div className={classes.editFrame}>
-                  { currentUser.id === user.id ? (
-                    <>
-                      { picture.twitterCard.url !== null ? (
+                { user.email === "guest@example.com" ? (
+                  <></>
+                ) : (
+                  <>
+                  
+                    <div className={classes.editFrame}>
+                      { currentUser.id === user.id ? (
                         <>
-                          <Tooltip title="Twitterシェア">
-                            <IconButton aria-label="twitter">
-                              <TwitterShareButton
-                                url={`${process.env.REACT_APP_API}`}
-                                hashtags={["画HACK"]}
-                              >
-                                <ImTwitter />
-                              </TwitterShareButton>
+                          { picture.twitterCard.url !== null ? (
+                            <>
+                              <Tooltip title="Twitterシェア">
+                                <IconButton aria-label="twitter">
+                                  <TwitterShareButton
+                                    url={`${process.env.REACT_APP_FRONT}/pictures/${picture.id}`}
+                                    hashtags={["画HACK"]}
+                                  >
+                                    <ImTwitter />
+                                  </TwitterShareButton>
+                                </IconButton>
+                              </Tooltip>
+                            </>
+                          ) : (
+                            <>
+                            </>
+                          )}
+                          <Tooltip title="フレーム変更">
+                            <IconButton aria-label="setting" onClick={handleOpen}>
+                              <SettingsIcon
+                                className={classes.setting} />
                             </IconButton>
                           </Tooltip>
+                          <DeletePicutreButton handleDeletePicture={handleDeletePicture}/>
                         </>
                       ) : (
-                        <>
-                        </>
-                      )}
-                      <Tooltip title="フレーム変更">
-                        <IconButton aria-label="setting" onClick={handleOpen}>
-                          <SettingsIcon
-                            className={classes.setting} />
-                        </IconButton>
-                      </Tooltip>
-                      <DeletePicutreButton handleDeletePicture={handleDeletePicture}/>
-                    </>
-                  ) : (
-                    <></>
-                  ) }
-                  <EditFrameModal 
-                    open={open} 
-                    setOpen={setOpen} 
-                    picture={picture} 
-                    setPicture={setPicture} 
-                    image={picture.image}
-                    setTheme={setTheme} /> 
-                </div>
+                        <></>
+                      ) }
+                      <EditFrameModal 
+                        open={open} 
+                        setOpen={setOpen} 
+                        picture={picture} 
+                        setPicture={setPicture} 
+                        image={picture.image}
+                        setTheme={setTheme} /> 
+                    </div>
+                  </>
+                ) }
                 { currentUser.email === "guest@example.com" ? (
-                  <></>
+                  <>
+                    <p>※ゲストユーザーの方はコメントできません</p>
+                  </>
                   ) : (
                     <>
                     <div className={classes.textField}>
