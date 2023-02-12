@@ -61,7 +61,7 @@ const Canvas = () => {
   let eraser_x = 'white';
   let eraser_y = 12;
 
-  const generateParams = (base64, dataUrlBase64) => {
+  const generateParams = (base64) => {
     const pictureParams = {
       image: base64,
       theme_id: theme.id,

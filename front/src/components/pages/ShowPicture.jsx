@@ -141,7 +141,7 @@ const ShowPicture = () => {
               meta={[
                 { property: 'og:url', content: `https://gahack.netlify.app/pictures/${picture.id}` },
                 { name: 'twitter:card', content: 'summary_large_image' },
-                { name: 'twitter:image', content: picture.twitterCard.url },
+                { name: 'twitter:image', content: picture.twitterCard.url.to_s },
                 { name: 'twitter:title', content: '画HACK' },
                 { name: 'twitter:description', content: 'この絵のテーマはなんでしょう？' },
               ]}
@@ -171,7 +171,7 @@ const ShowPicture = () => {
                               <Tooltip title="Twitterシェア">
                                 <IconButton aria-label="twitter">
                                   <TwitterShareButton
-                                    url={`${process.env.REACT_APP_FRONT}/pictures/${picture.id}`}
+                                    url={`${process.env.REACT_APP_FRONT}/pictures/${picture.id}/twitter`}
                                     hashtags={["画HACK"]}
                                   >
                                     <ImTwitter />
