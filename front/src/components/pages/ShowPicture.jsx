@@ -139,6 +139,7 @@ const ShowPicture = () => {
           <div className={isOpen ? classes.animation : classes.before}>
             <Helmet
               meta={[
+                { property: 'og:url', content: `https://gahack.netlify.app/pictures/${picutre.id}` },
                 { name: 'twitter:card', content: 'summary_large_image' },
                 { name: 'twitter:image', content: picture.twitterCard.url },
                 { name: 'twitter:title', content: '画HACK' },
