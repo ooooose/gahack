@@ -57,8 +57,8 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  mail = ENV['EMAIL_ADDRESS'],
-  pass = ENV['EMAIL_PASSWORD'],
+  mail = ENV['EMAIL_ADDRESS']
+  pass = ENV['EMAIL_PASSWORD']
 
   config.action_mailer.default_options = { from: ENV['EMAIL_ADDRESS'] }
   config.action_mailer.default_url_options = { host: 'https://gahack.magia.runteq.jp/api/v1', protocol: "https" }
