@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Button, } from "@material-ui/core";
 import { showPicture } from '../../lib/api/pictures';
 import Picture from "../../components/atoms/picture/Picture";
 import Loader from "./Loader";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
     margin: '0 auto',
-    height: '300px',
+    height: '350px',
     width: '400px',
     textAlign: 'left'
   },
   picture: {
     position: 'relative',
-    top: '50%',
+    top: '70%',
     right: '0',
     fontSize: '8px',
   },
+  answer: {
+    fontSize: '30px',
+  },
+  link: {
+    color: 'white',
+    textDecoration: 'none',
+  }
 }));
 
 const TwitterAnswer = () => {
@@ -49,15 +56,24 @@ const TwitterAnswer = () => {
   return (
     <>
       {!loading ? (
-        <div className={classes.cardContent}>
-          <div className={classes.picture}>
-            <Picture 
-              picture={picture} 
-              theme={theme} 
-              image={picture.image}
-              />
+        <>
+          <div className={classes.cardContent}>
+            <div className={classes.picture}>
+              <Picture 
+                picture={picture} 
+                theme={theme} 
+                image={picture.image}
+                />
+            </div>
           </div>
-        </div>
+          <p className={classes.answer}>この絵のテーマは<strong>{theme.title}</strong>です！</p>
+          <p>お題に沿ってエモい絵描きましょう！</p>
+          <Button color="primary" variant="contained" >
+            <Link to="/" className={classes.link} >
+              トップ画面へ
+            </Link>
+          </Button>
+        </>
       ) : (
         <Loader />
       )}
