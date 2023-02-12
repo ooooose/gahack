@@ -24,7 +24,7 @@ class Api::V1::ThemesController < ApplicationController
   def show
     render_json = ActiveModelSerializers::SerializableResource.new(
       @theme,
-      include: :pictures,
+      includes: "**",
       serializer: ThemeSerializer,
       current_api_v1_user: current_api_v1_user
     )
