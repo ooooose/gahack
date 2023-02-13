@@ -5,7 +5,8 @@ import {Card,
         CardActions,
         Avatar,
         IconButton,
-        makeStyles
+        makeStyles,
+        Typography,
         } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Likes from './Likes';
@@ -17,12 +18,22 @@ const useStyles = makeStyles((theme) => ({
     width: "60px",
     height: '60px'
   },
+  cardContent: {
+    position: 'relative',
+  },
+  cardBottom: {
+    marginTop: '10px',
+  },
+  date: {
+    position: 'absolute',
+    bottom: '5px',
+    right: '15px',
+  }
 }));
 
 const TimelineCard = ({picture , user}) => {
   const classes = useStyles();
   const [date, setDate] = useState([]);
-
   const handleToDate = (date) =>{
     date = new Date(date);
     if(date.getMinutes() < 10){
@@ -37,8 +48,9 @@ const TimelineCard = ({picture , user}) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Card sx={{ maxWidth: 345 }} >
+    <Card className={classes.cardContent} sx={{ maxWidth: 345 }} >
         <CardHeader
+          align='left'
           avatar={
             (
               <>
@@ -73,7 +85,7 @@ const TimelineCard = ({picture , user}) => {
             </IconButton>
           }
           title={user.name}
-          subheader={date}
+          subheader={`テーマ： ${picture.theme.title}`}
         />
       <CardContent className={`${styles.timeParent}`}>
         <Link to={{
@@ -89,10 +101,11 @@ const TimelineCard = ({picture , user}) => {
             image={picture.image} />
         </Link>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions className={classes.cardBottom} disableSpacing>
         <div>
           <Likes picture={picture} pictureId={picture.id} />
         </div>
+        <Typography className={classes.date} paragraph>{date}</Typography>
       </CardActions>
     </Card>
   );
