@@ -12,9 +12,9 @@ import EditFrameModal from '../molecules/EditFrameModal';
 import { AuthContext } from '../../App';
 import UserCard from '../molecules/UserCard';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { ImTwitter } from 'react-icons/im';
+// import { ImTwitter } from 'react-icons/im';
 import { Helmet } from 'react-helmet';
-import { TwitterShareButton } from "react-share";
+// import { TwitterShareButton } from "react-share";
 import { deletePicture } from '../../lib/api/pictures';
 import DeletePicutreButton from '../atoms/buttons/DeletePictureButton';
 import AlertMessage from '../utils/AlertMessage';
@@ -169,7 +169,7 @@ const ShowPicture = () => {
                         <>
                           { picture.twitterCard.url !== null ? (
                             <>
-                              <Tooltip title="Twitterシェア">
+                              {/* <Tooltip title="Twitterシェア">
                                 <IconButton aria-label="twitter">
                                   <TwitterShareButton
                                     url={`${process.env.REACT_APP_FRONT}/pictures/${picture.id}/twitter`}
@@ -178,7 +178,7 @@ const ShowPicture = () => {
                                     <ImTwitter />
                                   </TwitterShareButton>
                                 </IconButton>
-                              </Tooltip>
+                              </Tooltip> */}
                             </>
                           ) : (
                             <>

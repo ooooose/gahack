@@ -50,7 +50,7 @@ const TopBottom = () => {
   return (
     <>
       <div className={classes.container}>
-        <Typography className={`${styles.title}`} variant="h5">さぁ、あなたらしい絵を描こう！</Typography> 
+        <Typography className={`${styles.title}`} variant="h5">さぁ、エモい絵描こうぜ！</Typography> 
         <Button className={classes.button} color="primary" variant="contained">
           <Link to="/signin" className={classes.buttonLink}>
             ログインして始める
@@ -94,7 +94,7 @@ const TopBottom = () => {
         </footer>
         <Divider className={classes.divider} />
         <Typography>
-          ©︎ 画HACK
+          Copyright © 2023 - All right reserved by Yuuki Oose
         </Typography>
       </div>
     </>
