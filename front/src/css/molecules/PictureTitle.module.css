@@ -5,7 +5,7 @@
   z-index: 2;
   position: absolute;
   left: 50%;
-  bottom: -35%;
+  bottom: -45%;
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
 }

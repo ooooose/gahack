@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import PictureTitle from "../../molecules/PictureTitle";
 
-const PictureCard = ({picture, pictureId, pictures, setPictures, setLikedPictures}) => {
+const PictureCard = ({picture, pictureId, setLikedPictures}) => {
 
   return (
     <>
