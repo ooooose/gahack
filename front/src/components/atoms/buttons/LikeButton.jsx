@@ -41,9 +41,8 @@ const LikeButton = ({params, setLikeState, likes, setLikes}) => {
       <div className={classes.container}>
         <Grid container>
           <Grid item xs={5} >
-            <IconButton className={classes.likeButton}>
-            <FavoriteBorderIcon 
-              onClick={handleCreateLike} />
+            <IconButton className={classes.likeButton}   onClick={handleCreateLike} >
+              <FavoriteBorderIcon />
             </IconButton>
           </Grid>
           <Grid item xs={7} >

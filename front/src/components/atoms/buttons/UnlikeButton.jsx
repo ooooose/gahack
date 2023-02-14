@@ -41,9 +41,8 @@ const UnLikeButton = ({params, setLikeState, likeId, likes, setLikes, children})
       <div className={classes.container}>
         <Grid container>
           <Grid item xs={5} >
-            <IconButton className={classes.likeButton}>
-              <FavoriteIcon 
-                onClick={handleDeleteLike} />
+            <IconButton className={classes.likeButton} onClick={handleDeleteLike} >
+              <FavoriteIcon />
             </IconButton>
           </Grid>
           <Grid item xs={7} >
