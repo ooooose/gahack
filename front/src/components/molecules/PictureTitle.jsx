@@ -3,7 +3,7 @@ import Likes from "./Likes";
 import { Typography, Card, CardContent } from "@material-ui/core";
 import styles from "../../css/molecules/PictureTitle.module.css";
 
-const PictureTitle = ({picture, pictureId, handleLikedPictures}) => {
+const PictureTitle = ({ picture, pictureId }) => {
   return (
     <>
       <Card className={`${styles.pictureTitle}`} >
@@ -14,7 +14,7 @@ const PictureTitle = ({picture, pictureId, handleLikedPictures}) => {
           <Likes 
             picture={picture} 
             pictureId={pictureId} 
-            handleLikedPictures={handleLikedPictures}/>
+          />
         </CardContent>
       </Card>
     </>

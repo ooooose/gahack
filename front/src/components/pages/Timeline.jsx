@@ -62,7 +62,7 @@ const Timeline = () => {
   useEffect(() => {
     handleGetPictures();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pictures]);
 
   return (
     <>
@@ -89,15 +89,17 @@ const Timeline = () => {
             />
           </div>
           <div className={classes.pageWrapper}>
-            { pictures.length > 6 && (
-              <Pagination 
-                count={Math.ceil(pictures.length / 6)}
-                page={page}
-                onChange={(e, page) => setPage(page)}
-                color="primary"
-                className={classes.pagination}
-              />
-            )}
+            {
+              pictures.length > 6 && (
+                <Pagination 
+                  count={Math.ceil(pictures.length / 6)}
+                  page={page}
+                  onChange={(e, page) => { setPage(page)}}
+                  color="primary"
+                  className={classes.pagination}
+                />
+              )
+            }
           </div>
         </>
       ) : (

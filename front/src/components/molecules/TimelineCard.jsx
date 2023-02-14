@@ -37,16 +37,18 @@ const TimelineCard = ({picture , user}) => {
   const handleToDate = (date) =>{
     date = new Date(date);
     if(date.getMinutes() < 10){
-        date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":0"+date.getMinutes()
+      date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":0"+date.getMinutes()
     } else {
-        date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()
+      date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()
     }
-    setDate(date) }
+    setDate(date) 
+  }
 
   useEffect(() => {
     handleToDate(picture.createdAt);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <Card className={classes.cardContent} sx={{ maxWidth: 345 }} >
         <CardHeader
