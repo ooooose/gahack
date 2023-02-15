@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { makeStyles, Typography, IconButton, Grid} from "@material-ui/core";
+import { makeStyles, IconButton } from "@material-ui/core";
 
 import { createLike } from "../../../lib/api/likes";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -8,7 +8,6 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
-    width: '100%',
   },
   likeButton: {
     cursor: 'pointer',
@@ -19,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   text: {
     marginTop: '12px',
     float: 'left',
+  },
+  length: {
+    fontSize: '14px'
   },
 }));
 
@@ -39,16 +41,10 @@ const LikeButton = ({params, setLikeState, likes, setLikes}) => {
   return (
     <>
       <div className={classes.container}>
-        <Grid container>
-          <Grid item xs={5} >
-            <IconButton className={classes.likeButton}   onClick={handleCreateLike} >
-              <FavoriteBorderIcon />
-            </IconButton>
-          </Grid>
-          <Grid item xs={7} >
-            <Typography className={classes.text}>{likes} いいね</Typography>
-          </Grid>
-        </Grid>
+        <IconButton className={classes.likeButton}   onClick={handleCreateLike} >
+          <FavoriteBorderIcon />
+          <span className={classes.length}>{likes}</span>
+        </IconButton>
       </div>
     </>
   )
