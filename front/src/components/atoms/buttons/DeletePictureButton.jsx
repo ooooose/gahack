@@ -15,8 +15,8 @@ const DeletePicutreButton = ({handleDeletePicture}) => {
   return (
     <>
       <Tooltip title="絵を削除する">
-        <IconButton aria-label="delete" >
-          <DeleteIcon className={classes.deleteButton} onClick={handleDeletePicture} /> 
+        <IconButton aria-label="delete" onClick={handleDeletePicture} >
+          <DeleteIcon className={classes.deleteButton} /> 
         </IconButton>
       </Tooltip>
     </>
