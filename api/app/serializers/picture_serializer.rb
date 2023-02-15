@@ -26,6 +26,18 @@ class PictureSerializer < ActiveModel::Serializer
     object.likes.count
   end
 
+  attribute :bookmarked do
+    if @current_api_v1_user
+      @current_api_v1_user.bookmark?(object)
+    end
+  end
+
+  attribute :bookmark_id do
+    if @current_api_v1_user
+      @current_api_v1_user.bookmarks.find_by(picture_id: object.id)&.id
+    end
+  end
+
   attribute :theme do
     object.theme
   end

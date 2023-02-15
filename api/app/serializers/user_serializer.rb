@@ -11,6 +11,7 @@ class UserSerializer < ActiveModel::Serializer
   has_many :liked_pictures, each_serializer: PictureSerializer
   has_many :followings
   has_many :followers
+  has_many :bookmark_pictures
 
   def initialize(object, **option)
     @current_api_v1_user = option[:current_api_v1_user]
