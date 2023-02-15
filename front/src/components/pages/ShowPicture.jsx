@@ -15,6 +15,7 @@ import { Helmet } from 'react-helmet';
 import { deletePicture } from '../../lib/api/pictures';
 import DeletePicutreButton from '../atoms/buttons/DeletePictureButton';
 import Likes from '../molecules/Likes';
+import Bookmarks from '../molecules/Bookmarks';
 import { FaRegComment } from 'react-icons/fa';
 import CommentsModal from '../molecules/CommentsModal';
 import AlertMessage from '../utils/AlertMessage';
@@ -226,8 +227,11 @@ const ShowPicture = () => {
                     <Divider className={classes.divider} />
                     <div className={classes.cardBottom}>
                       <div className={classes.icons}>
-                        <Likes 
-                          picture={picture} 
+                        <Likes
+                          picture={picture}
+                          pictureId={picture.id} />
+                        <Bookmarks
+                          picture={picture}
                           pictureId={picture.id} />
                         <Tooltip title="コメント" className={classes.comment}>
                           <IconButton aria-label="setting" onClick={() => setCommentOpen(true)}>

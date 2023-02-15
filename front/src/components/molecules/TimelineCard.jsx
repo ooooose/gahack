@@ -10,6 +10,7 @@ import {Card,
         } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Likes from './Likes';
+import Bookmarks from './Bookmarks';
 import Picture from '../atoms/picture/Picture';
 import styles from '../../css/components/Frames.module.css';
 
@@ -28,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     bottom: '5px',
     right: '15px',
+  },
+  icons: {
+    display: 'flex'
   }
 }));
 
@@ -104,8 +108,9 @@ const TimelineCard = ({picture , user}) => {
         </Link>
       </CardContent>
       <CardActions className={classes.cardBottom} disableSpacing>
-        <div>
+        <div className={classes.icons}>
           <Likes picture={picture} pictureId={picture.id} />
+          <Bookmarks picture={picture} pictureId={picture.id} />
         </div>
         <Typography className={classes.date} paragraph>{date}</Typography>
       </CardActions>

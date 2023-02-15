@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const UnLikeButton = ({params, setLikeState, likeId, likes, setLikes, children}) => {
+const UnLikeButton = ({params, setLikeState, likeId, likes, setLikes }) => {
   const classes = useStyles();
   const handleDeleteLike = async () => {
     try {
