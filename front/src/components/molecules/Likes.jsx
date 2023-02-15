@@ -26,6 +26,9 @@ const useStyles = makeStyles (() => ({
     marginTop: '12px',
     float: 'left',
   },
+  length: {
+    fontSize: '14px'
+  },
 }))
 
 
@@ -56,6 +59,7 @@ const Likes = ({picture, pictureId}) => {
                 <FavoriteBorderIcon 
                 className={classes.UnlikeButton}
                 />
+                <span className={classes.length}>{likes.length}</span>
               </IconButton>
             </Grid>
             <Grid item xs={7} >

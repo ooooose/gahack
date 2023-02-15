@@ -47,6 +47,15 @@
   font-size: 9px;
 }
 
+.ShowPictureParent {
+  margin-top: 60px;
+  padding-bottom: 160px;
+  max-width: 300;
+  height: 100px;
+  position: relative;
+  font-size: 11px;
+}
+
 .parent {
   margin-top: 80px;
   padding-bottom: 160px;
