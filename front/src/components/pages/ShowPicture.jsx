@@ -40,23 +40,23 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     width: "60px",
     height: '60px',
-    position: 'absolute',
-    top: '15px',
-    right: '25px',
+    float: 'right'
   },
   card: {
     margin: '20px auto 0',
     width: '330px',
-    textAlign: 'left',
-    position: 'relative',
+  },
+  pictureTheme: {
+    textAlign: 'left'
   },
   information: {
     padding: '15px 50px',
     margin: '0 auto'
   },
   userInfo: {
-    textAlign: 'center',
+    width: '100%',
     display: 'flex',
+    gap: '125px',
   },
   divider: {
     margin: '10px 10px'
@@ -64,6 +64,11 @@ const useStyles = makeStyles((theme) => ({
   profile: {
     marginTop: '30px',
     marginRight: '30px',
+  },
+  cardBottom: {
+    display: 'flex',
+    flexDirection: 'column',
+    float: 'right'
   },
   icons: {
     display: 'flex',
@@ -75,11 +80,12 @@ const useStyles = makeStyles((theme) => ({
     padding: '3px'
   },
   datePos: {
-    marginTop: '5px',
+    margin: '5px 5px 10px',
     textAlign: 'right'
   },
   length: {
-    fontSize: '14px'
+    fontSize: '14px',
+    marginLeft: '2px'
   }
 }));
 
@@ -176,99 +182,108 @@ const ShowPicture = () => {
                 </div>
                 <Card className={classes.card}>
                   <CardContent>
-                    <Typography sx={{ fontSize: 14 }} gutterBottom>
-                      作品のテーマ
-                    </Typography>
-                    <Typography variant="h6" component="div">
-                      {theme.title}
-                    </Typography>
-                    <Link to={{
-                      pathname: "/users/" + user.id,
-                      state: {id: user.id}
-                    }}
-                    id={picture.id}
-                    className = {classes.link}
-                    >
-                      <Avatar
-                        sx={{ bgcolor: 'red' }}
-                        alt="avatar"
-                        src={user.image.url}
-                        className={classes.avatar}
-                        />
-                    </Link>
-                    <Divider className={classes.divider} />
-                    { user.email === "guest@example.com" ? (
-                      <></>
-                    ) : (
-                      <>
-                        <div className={classes.icons}>
-                          <Likes 
-                            picture={picture} 
-                            pictureId={picture.id} />
-                          <Tooltip title="コメント" className={classes.comment}>
-                            <IconButton aria-label="setting" onClick={() => setCommentOpen(true)}>
-                              <FaRegComment />
-                              <span className={classes.length}>{comments.length}</span>
-                            </IconButton>
-                          </Tooltip>
-                          <CommentsModal 
-                            commentOpen={commentOpen} 
-                            setCommentOpen={setCommentOpen} 
-                            pictureId={picture.id} 
-                            comments={comments}
-                            setComments={setComments}
-                            /> 
-                          { currentUser.id === user.id ? (
-                            <>
-                              { picture.twitterCard.url !== null ? (
-                                <>
-                                  {/* <Tooltip title="Twitterシェア">
-                                    <IconButton aria-label="twitter">
-                                      <TwitterShareButton
-                                      url={`${process.env.REACT_APP_FRONT}/pictures/${picture.id}/twitter`}
-                                      hashtags={["画HACK"]}
-                                      >
-                                        <ImTwitter />
-                                      </TwitterShareButton>
-                                    </IconButton>
-                                  </Tooltip> */}
-                                </>
-                              ) : (
-                                <>
-                                </>
-                              )}
-                              <Tooltip title="フレーム変更">
-                                <IconButton aria-label="setting" onClick={handleOpen}>
-                                  <SettingsIcon
-                                    className={classes.setting} />
-                                </IconButton>
-                              </Tooltip>
-                              <DeletePicutreButton handleDeletePicture={handleDeletePicture}/>
-                            </>
-                          ) : (
-                            <></>
-                          ) }
-                          <EditFrameModal 
-                            open={open} 
-                            setOpen={setOpen} 
-                            picture={picture} 
-                            setPicture={setPicture} 
-                            image={picture.image}
-                            setTheme={setTheme} /> 
-                        </div>
-                      </>
-                    ) }
-                    { currentUser.email === "guest@example.com" ? (
-                      <>
-                        <p>※ゲストユーザーの方はコメントできません</p>
-                      </>
+                    <div className={classes.userInfo}>
+                      <div className={classes.pictureTheme}>
+                        <Typography sx={{ fontSize: 14 }} gutterBottom>
+                          作品のテーマ
+                        </Typography>
+                        <Typography variant="h6" component="div">
+                          {theme.title}
+                        </Typography>
+                      </div>
+                      { user.email === "guest@example.com" ? (
+                        <>
+                          <Tooltip title={`${user.name}`}>
+                            <Avatar
+                              sx={{ bgcolor: 'red' }}
+                              alt="avatar"
+                              src={user.image.url}
+                              className={classes.avatar}
+                              />
+                          </Tooltip>  
+                        </>
                       ) : (
-                      <>
-                      </>  
-                    ) }
-                    <Typography className={classes.datePos} variant="body2">
-                      {date}
-                    </Typography>
+                        <>
+                          <Link to={{
+                            pathname: "/users/" + user.id,
+                            state: {id: user.id}
+                          }}
+                          id={picture.id}
+                          className = {classes.link}
+                          >
+                            <Tooltip title={`${user.name}`}>
+                              <Avatar
+                                sx={{ bgcolor: 'red' }}
+                                alt="avatar"
+                                src={user.image.url}
+                                className={classes.avatar}
+                                />
+                            </Tooltip>
+                          </Link>
+                        </>
+                      )}
+                    </div>
+                    <Divider className={classes.divider} />
+                    <div className={classes.cardBottom}>
+                      <div className={classes.icons}>
+                        <Likes 
+                          picture={picture} 
+                          pictureId={picture.id} />
+                        <Tooltip title="コメント" className={classes.comment}>
+                          <IconButton aria-label="setting" onClick={() => setCommentOpen(true)}>
+                            <FaRegComment />
+                            <span className={classes.length}>{comments.length}</span>
+                          </IconButton>
+                        </Tooltip>
+                        <CommentsModal 
+                          commentOpen={commentOpen} 
+                          setCommentOpen={setCommentOpen} 
+                          pictureId={picture.id} 
+                          comments={comments}
+                          setComments={setComments}
+                          /> 
+                        { currentUser.id === user.id && user.email !== "guest@example.com" ? (
+                          <>
+                            { picture.twitterCard.url !== null ? (
+                              <>
+                                {/* <Tooltip title="Twitterシェア">
+                                  <IconButton aria-label="twitter">
+                                    <TwitterShareButton
+                                    url={`${process.env.REACT_APP_FRONT}/pictures/${picture.id}/twitter`}
+                                    hashtags={["画HACK"]}
+                                    >
+                                      <ImTwitter />
+                                    </TwitterShareButton>
+                                  </IconButton>
+                                </Tooltip> */}
+                              </>
+                            ) : (
+                              <>
+                              </>
+                            )}
+                            <Tooltip title="フレーム変更">
+                              <IconButton aria-label="setting" onClick={handleOpen}>
+                                <SettingsIcon
+                                  className={classes.setting} />
+                              </IconButton>
+                            </Tooltip>
+                            <DeletePicutreButton handleDeletePicture={handleDeletePicture}/>
+                          </>
+                        ) : (
+                          <></>
+                        ) }
+                        <EditFrameModal 
+                          open={open} 
+                          setOpen={setOpen} 
+                          picture={picture} 
+                          setPicture={setPicture} 
+                          image={picture.image}
+                          setTheme={setTheme} /> 
+                      </div>
+                      <Typography className={classes.datePos} variant="body2">
+                        {date}
+                      </Typography>
+                    </div>
                   </CardContent>
                 </Card>
               </div>

@@ -6,9 +6,6 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import { deleteLike } from "../../../lib/api/likes";
 
 const useStyles = makeStyles(() => ({
-  container: {
-    display: 'flex',
-  },
   likeButton: {
     cursor: 'pointer',
     color: 'red',
@@ -40,12 +37,10 @@ const UnLikeButton = ({params, setLikeState, likeId, likes, setLikes, children})
 
   return (
     <>
-      <div className={classes.container}>
-        <IconButton className={classes.likeButton} onClick={handleDeleteLike} >
-          <FavoriteIcon />
-          <span className={classes.length}>{likes}</span>
-        </IconButton>
-      </div>
+      <IconButton className={classes.likeButton} onClick={handleDeleteLike} >
+        <FavoriteIcon />
+        <span className={classes.length}>{likes}</span>
+      </IconButton>
     </>
   )
 };

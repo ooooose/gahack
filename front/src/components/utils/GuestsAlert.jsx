@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: 'white'
   },
+  cancelButton: {
+    marginRight: '5px',
+  },
 }))
 
 
@@ -62,6 +65,10 @@ const GuestsAlert = ({open, setOpen}) => {
     <div className={classes.paper}>
       <h2 id="simple-modal-title">ユーザー登録をお願いします</h2>
       <div className={classes.buttons}>
+        <Button 
+          variant="contained" 
+          onClick={() => setOpen(false)} 
+          className={classes.cancelButton}>閉じる</Button>
         <Button className={classes.button} color="primary" variant="contained" onClick={handleSignOut}>
           ユーザー登録へ
         </Button>

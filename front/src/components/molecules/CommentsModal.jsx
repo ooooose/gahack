@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles, Typography, Divider, TextField, Button, Modal } from "@material-ui/core";
 import Comment from "./Comment";
 import { createComment } from '../../lib/api/comments';
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import { AuthContext } from "../../App";
+import { signOut } from "../../lib/api/auth";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,16 +38,24 @@ const useStyles = makeStyles((theme) => ({
   button: {
     width: '120px'
   },
+  registerButton: {
+    width: '150px'
+  },
   text: {
     textAlign: 'center',
   },
   cancelButton: {
     marginRight: '5px',
   },
+  guest: {
+    textAlign: 'center'
+  },
 }));
 
 const CommentsModal = ({commentOpen, setCommentOpen, pictureId, comments, setComments}) => {
+  const { currentUser, setIsSignedIn } = useContext(AuthContext);
   const classes = useStyles();
+  const navigate = useNavigate();
   const [comment, setComment] = useState("");
 
   const generateCommentParams = () => {
@@ -64,6 +76,27 @@ const CommentsModal = ({commentOpen, setCommentOpen, pictureId, comments, setCom
       console.log(e);
     }
   };
+
+  const handleSignOut = async (e) => {
+    try {
+      const res = await signOut();
+
+      if (res.data.success === true) {
+        Cookies.remove("_access_token")
+        Cookies.remove("_client")
+        Cookies.remove("_uid")
+
+        setIsSignedIn(false)
+        navigate("/signup");
+
+        console.log("Succeeded in sign out");
+      } else {
+        console.log("Failed in sign out");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const body = (
     <div className={classes.paper}>
@@ -96,31 +129,51 @@ const CommentsModal = ({commentOpen, setCommentOpen, pictureId, comments, setCom
           </div>
         )}
       </div>
-      <div className={classes.textField}>
-        <TextField
-          label="コメント"
-          type="text"
-          name="body"
-          margin="normal"
-          fullWidth
-          multiline
-          onChange={(event) => setComment(event.target.value)}
-          value={comment}
-        />
-        <div className={classes.buttons}>
-          <Button 
-            variant="contained" 
-            onClick={() => setCommentOpen(false)} 
-            className={classes.cancelButton}>キャンセル</Button>
-          <Button 
-            className={classes.button}
-            variant="contained" 
-            color="primary"
-            onClick={handleCommentSubmit}
-            disabled={!comment ? true : false}
-          >投稿する</Button>
-        </div>
-      </div>
+      <Divider />
+      {currentUser.email !== "guest@example.com" ? (
+        <>
+          <div className={classes.textField}>
+            <TextField
+              label="コメント"
+              type="text"
+              name="body"
+              margin="normal"
+              fullWidth
+              multiline
+              onChange={(event) => setComment(event.target.value)}
+              value={comment}
+            />
+            <div className={classes.buttons}>
+              <Button 
+                variant="contained" 
+                onClick={() => setCommentOpen(false)} 
+                className={classes.cancelButton}>閉じる</Button>
+              <Button 
+                className={classes.button}
+                variant="contained" 
+                color="primary"
+                onClick={handleCommentSubmit}
+                disabled={!comment ? true : false}
+              >投稿する</Button>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={classes.guest}>
+            <h3>ゲストユーザーの方はコメントできません</h3>
+            <div className={classes.buttons}>
+              <Button 
+                variant="contained" 
+                onClick={() => setCommentOpen(false)} 
+                className={classes.cancelButton}>キャンセル</Button>
+              <Button className={classes.registerButton} color="primary" variant="contained" onClick={handleSignOut}>
+                ユーザー登録へ
+              </Button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   )
   

@@ -6,9 +6,6 @@ import { createLike } from "../../../lib/api/likes";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'flex',
-  },
   likeButton: {
     cursor: 'pointer',
     color: 'gray',
@@ -40,12 +37,10 @@ const LikeButton = ({params, setLikeState, likes, setLikes}) => {
 
   return (
     <>
-      <div className={classes.container}>
-        <IconButton className={classes.likeButton}   onClick={handleCreateLike} >
-          <FavoriteBorderIcon />
-          <span className={classes.length}>{likes}</span>
-        </IconButton>
-      </div>
+      <IconButton className={classes.likeButton}   onClick={handleCreateLike} >
+        <FavoriteBorderIcon />
+        <span className={classes.length}>{likes}</span>
+      </IconButton>
     </>
   )
 };
