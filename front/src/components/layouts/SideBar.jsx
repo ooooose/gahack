@@ -102,7 +102,7 @@ const SideBar = ({open, handleDrawerClose}) => {
           (
             <>
               <List>
-                { currentUser.email === "guest@example.com" ? (
+                { currentUser.name === "ゲストユーザー" ? (
                   <></>
                 ) : (
                   <Link to={`/users/${currentUser?.id}`} className={classes.link}>

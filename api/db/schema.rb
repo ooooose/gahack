@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_05_203310) do
+ActiveRecord::Schema.define(version: 2023_02_15_223728) do
+
+  create_table "bookmarks", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "picture_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["picture_id"], name: "index_bookmarks_on_picture_id"
+    t.index ["user_id", "picture_id"], name: "index_bookmarks_on_user_id_and_picture_id", unique: true
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
 
   create_table "comments", charset: "utf8mb4", force: :cascade do |t|
     t.string "body", null: false
@@ -90,6 +100,8 @@ ActiveRecord::Schema.define(version: 2023_02_05_203310) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "bookmarks", "pictures"
+  add_foreign_key "bookmarks", "users"
   add_foreign_key "comments", "pictures"
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "pictures"

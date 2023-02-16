@@ -7,6 +7,8 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_pictures, through: :likes, source: :picture
   has_many :comments, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_pictures, through: :bookmarks, source: :picture
 
   # フォロー、リフォロー
   has_many :relationships
@@ -44,9 +46,22 @@ class User < ApplicationRecord
     self.followings.include?(user)
   end
 
+  def bookmark(picture)
+    bookmark_pictures << picture
+  end
+
+  def unbookmark(picture)
+    bookmark_pictures.destroy(picture)
+  end
+
+  def bookmark?(picture)
+    bookmark_pictures.include?(picture)
+  end
+
   # ゲストログイン用メソッド
   def self.guest
-    find_or_create_by!(email: 'guest@example.com') do |user|
+    num=Random.new
+    find_or_create_by!(email: "guest-#{num.rand(10)}@example.com") do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = "ゲストユーザー"
     end

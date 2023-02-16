@@ -1,9 +1,19 @@
 import React from "react";
 import Likes from "./Likes";
-import { Typography, Card, CardContent } from "@material-ui/core";
+import { Typography, Card, CardContent, makeStyles } from "@material-ui/core";
 import styles from "../../css/molecules/PictureTitle.module.css";
+import Bookmarks from "./Bookmarks";
 
-const PictureTitle = ({picture, pictureId, handleLikedPictures}) => {
+const useStyles = makeStyles(() => ({
+  icons: {
+    display: 'flex',
+    float: 'right',
+  }
+}));
+
+
+const PictureTitle = ({ picture, pictureId }) => {
+  const classes = useStyles();
   return (
     <>
       <Card className={`${styles.pictureTitle}`} >
@@ -11,10 +21,16 @@ const PictureTitle = ({picture, pictureId, handleLikedPictures}) => {
           <Typography color="text.secondary" gutterBottom>
             {picture.user.name}さん
           </Typography>
-          <Likes 
-            picture={picture} 
-            pictureId={pictureId} 
-            handleLikedPictures={handleLikedPictures}/>
+          <div className={classes.icons}>
+            <Likes 
+              picture={picture} 
+              pictureId={pictureId} 
+            />
+            <Bookmarks 
+              picture={picture} 
+              pictureId={pictureId} 
+            />
+          </div>
         </CardContent>
       </Card>
     </>

@@ -124,7 +124,7 @@ const ShowUser = () => {
   const [avatar, setAvatar] = useState([]);
   const [pictures, setPictures] = useState([]);
   const [open, setOpen] = useState(false);
-  const [likedPictures, setLikedPictures] = useState([]);
+  const [bookmarkPictures, setBookmarkPictures] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const [value, setValue] = useState(0);
@@ -152,7 +152,7 @@ const ShowUser = () => {
         setUser(data);
         setAvatar(data.image);
         setPictures(data.pictures);
-        setLikedPictures(data.likedPictures);
+        setBookmarkPictures(data.bookmarkPictures);
         setFollowings(data.followings);
         setFollowers(data.followers);
       }
@@ -162,25 +162,25 @@ const ShowUser = () => {
     setLoading(false);
     setTimeout(() => { setIsOpen(true) }, 400);
   }
-  
+
   const handleOpen = () => {
     setOpen(true);
   };
-  
+
   const pageAnimation = () => {
     setTimeout(() => { setPageOpen(true) }, 300);
   };
-  
-  
+
+
   useEffect(() => {
     handleShowUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-  
+
   useEffect(() => {
     pageAnimation();
   }, [pageOpen]);
-  
+
   return (
     <>
       {!loading ? (
@@ -217,7 +217,7 @@ const ShowUser = () => {
               <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '100%' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
                   <Tab label="作品一覧" {...a11yProps(0)} />
-                  <Tab label="いいね一覧" {...a11yProps(1)} />
+                  <Tab label="お気に入り一覧" {...a11yProps(1)} />
                   <Tab label="フォロー" {...a11yProps(2)} />
                   <Tab label="フォロワー" {...a11yProps(3)} />
                 </Tabs>
@@ -269,9 +269,9 @@ const ShowUser = () => {
               </TabPanel>
               <TabPanel value={value} index={1}>
                 <div className={pageOpen ? classes.animation : classes.before}>
-                  { likedPictures.length > 0 ? (
+                  { bookmarkPictures.length > 0 ? (
                     <Grid container spacing={2}>
-                      { likedPictures.map((picture, i) => (
+                      { bookmarkPictures.map((picture, i) => (
                         Math.floor(i / 6 + 1) === likesPage && <Grid item xs={12} sm={6} md={4} key={picture.id}>
                           <div className={`${styles.secondParent}`}>
                             <PictureCard
@@ -279,7 +279,7 @@ const ShowUser = () => {
                               pictureId={picture.id}
                               pictures={pictures}
                               setPictures={setPictures}
-                            />      
+                            />
                           </div>
                         </Grid>
                       ))}
@@ -293,9 +293,9 @@ const ShowUser = () => {
                 </div>
                 <div className={classes.pageWrapper}>
                   {
-                    likedPictures.length > 6 && (
+                    bookmarkPictures.length > 6 && (
                       <Pagination 
-                        count={Math.ceil(likedPictures.length / 6)}
+                        count={Math.ceil(bookmarkPictures.length / 6)}
                         page={likesPage}
                         onChange={(e, likesPage) => {
                           setLikesPage(likesPage);
