@@ -192,7 +192,7 @@ const ShowPicture = () => {
                           {theme.title}
                         </Typography>
                       </div>
-                      { user.email === "guest@example.com" ? (
+                      { user.name === "ゲストユーザー" ? (
                         <>
                           <Tooltip title={`${user.name}`}>
                             <Avatar
@@ -246,7 +246,7 @@ const ShowPicture = () => {
                           comments={comments}
                           setComments={setComments}
                           /> 
-                        { currentUser.id === user.id && user.email !== "guest@example.com" ? (
+                        { currentUser.id === user.id && user.name !== "ゲストユーザー" ? (
                           <>
                             { picture.twitterCard.url !== null ? (
                               <>

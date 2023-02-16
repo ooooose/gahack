@@ -130,7 +130,7 @@ const CommentsModal = ({commentOpen, setCommentOpen, pictureId, comments, setCom
         )}
       </div>
       <Divider />
-      {currentUser.email !== "guest@example.com" ? (
+      {currentUser.name !== "ゲストユーザー" ? (
         <>
           <div className={classes.textField}>
             <TextField

@@ -46,7 +46,7 @@ const Bookmarks = ({picture, pictureId}) => {
   }
   return (
     <>
-    { currentUser.email === "guest@example.com" ? (
+    { currentUser.name === "ゲストユーザー" ? (
       <>
         <div className={classes.container}>
           <Tooltip title="お気に入り">

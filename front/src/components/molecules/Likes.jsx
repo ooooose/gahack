@@ -48,7 +48,7 @@ const Likes = ({picture, pictureId}) => {
   }
   return (
     <>
-    { currentUser.email === "guest@example.com" ? (
+    { currentUser.name === "ゲストユーザー" ? (
       <>
         <div className={classes.container}>
           <IconButton className={classes.likeButton} onClick={handleOpen} >
