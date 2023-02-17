@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { showUser } from "../../lib/api/users";
 
-import {Grid, 
-        makeStyles, 
-        Typography, 
-        Avatar, 
-        Tab, 
-        Tabs, 
+import {Grid,
+        makeStyles,
+        Typography,
+        Avatar,
+        Tab,
+        Tabs,
         Box,
         Button,
         Container } from "@material-ui/core";
@@ -166,6 +166,7 @@ const ShowUser = () => {
   const handleOpen = () => {
     setOpen(true);
   };
+
 
   const pageAnimation = () => {
     setTimeout(() => { setPageOpen(true) }, 300);
