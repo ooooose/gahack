@@ -48,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
     width: '330px',
   },
   pictureTheme: {
-    textAlign: 'left'
+    textAlign: 'left',
+    width: '100%'
   },
   information: {
     padding: '15px 50px',
@@ -57,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   userInfo: {
     width: '100%',
     display: 'flex',
-    gap: '125px',
+    gap: '115px',
   },
   divider: {
     margin: '10px 10px'

@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPicture } from "../../lib/api/pictures";
 import { ResetButton } from "../atoms/buttons/ResetButton";
-
 import { BsEraserFill } from "react-icons/bs";
-import { GrPowerReset } from "react-icons/gr";
-import {FaPen} from "react-icons/fa";
-
-import { Grid, makeStyles, Button, Tooltip } from "@material-ui/core";
+import { FaPen, FaUndo, FaRedo, FaTrash } from "react-icons/fa";
+import { Grid, makeStyles, Divider, Button, IconButton, Typography, Tooltip, Slider, Box, Card, CardContent } from "@material-ui/core";
 import { UploadButton } from "../atoms/buttons/UploadButton";
 import { SelectBox } from "../atoms/selectBoxes/SelectBox";
-
 import { getThemes } from "../../lib/api/themes";
 import styles from "../../css/pages/Canvas.module.css";
 
@@ -22,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     flexGrow: 1,
     textTransform: "none",
+    color: 'black',
   },
   item: {
     margin: '0 auto',
@@ -38,28 +35,53 @@ const useStyles = makeStyles((theme) => ({
   },
   eraser: {
     opacity: "0.5"
+  },
+  card: {
+    textAlign: 'left',
+    height: "380px",
+    padding: '15px',
+    margin: '0 auto'
+  },
+  label: {
+    marginTop: '15px',
+  },
+  slider: {
+    margin: "20px 0",
   }
 }));
+
+const marks = [
+  {
+    value: 1,
+    label: '1px',
+  },
+  {
+    value: 12,
+    label: '12px',
+  },
+]
 
 const Canvas = () => {
   const navigate = useNavigate();
   const [load, setLoad] = useState(true);
   const classes = useStyles();
+  const [lineWidth, setLineWidth] = useState(2);
   const [drawFlag, setDrawFlag] = useState(0);
+  // 1: ペンモード、2:消しゴムモード
+  const [drawMode, setDrawMode] = useState(1);
   const [theme, setTheme] = useState();
   const [themes, setThemes] = useState([]);
   const [eraser, setEraser] = useState(false);
   const [color, setColor] = useState("black");
-  setTimeout(() => { setLoad(false) }, 50);
-  
+  setTimeout(() => { setLoad(false) }, 0);
+
   const bgColor = 'rgb(255,255,255)';
   const line_color = document.getElementById("line_color");
-  const lineWidth = 2;
   let canvas;
   let ctx;
+  let temp = [];
   let Xpoint, Ypoint;
-  let eraser_x = 'white';
-  let eraser_y = 12;
+  let myStorage = localStorage;
 
   const generateParams = (base64) => {
     const pictureParams = {
@@ -72,9 +94,17 @@ const Canvas = () => {
   useEffect(() => {
     canvas = document.getElementById("canvas"); // eslint-disable-line
     ctx = canvas.getContext("2d"); // eslint-disable-line
+    if (drawMode === 1) {
+      ctx.lineWidth = lineWidth;
+      ctx.strokeStyle = color;
+    } else {
+      ctx.lineWidth = 12;
+    }
+
     if (load) {
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
+      initLocalStorage();
     }
     canvas.addEventListener('mousedown', startPoint, false);
     canvas.addEventListener("mousemove", movePoint, false);
@@ -83,6 +113,21 @@ const Canvas = () => {
     canvas.addEventListener("touchmove", touchMovePoint, false);
     canvas.addEventListener("touchend", touchEndPoint, false);
   });
+
+  const initLocalStorage = () => {
+    myStorage.setItem("__log", JSON.stringify([]));
+  }
+
+  const setLocalStorage = () => {
+    let png = canvas.toDataURL();
+    let logs = JSON.parse(myStorage.getItem("__log"));
+
+    setTimeout(() => {
+      logs.unshift({png:png});
+      myStorage.setItem("__log", JSON.stringify(logs));
+    }, 0);
+  }
+
 
   const startPoint = (e) => {
     e.preventDefault();
@@ -101,8 +146,6 @@ const Canvas = () => {
       setDrawFlag(1);
       ctx.lineTo(Xpoint, Ypoint);
       ctx.lineCap = "round";
-      ctx.strokeStyle = eraser ? eraser_x : color;
-      ctx.lineWidth = eraser ? eraser_y : lineWidth;
       ctx.stroke();
     }
   }
@@ -114,55 +157,124 @@ const Canvas = () => {
       ctx.stroke();
     }
     setDrawFlag(0);
+    setLocalStorage();
   }
 
   const touchStartPoint = (e) => {
     e.preventDefault();
     ctx.beginPath();
-    let rect = e.target.getBoundingClientRect();
-    Xpoint = e.clientX - rect.left;
-    Ypoint = e.clientY - rect.top;
-    ctx.moveTo(Xpoint, Ypoint);
+    const touches = e.touches;
+    const offset = e.target.getBoundingClientRect();
+    for (let i=0; i<touches.length; i++ ){
+      Xpoint = Math.floor(touches[i].pageX - offset.left);
+      Ypoint = Math.floor(touches[i].pageY - offset.top);
+      ctx.moveTo(Xpoint, Ypoint);
+    }
   }
 
   const touchMovePoint = (e) => {
-    if (e.buttons === 1 || e.witch === 1 || e.type === 'touchmove') {
-      let rect = e.target.getBoundingClientRect();
-      Xpoint = e.clientX - rect.left;
-      Ypoint = e.clientY - rect.top;
-      setDrawFlag(1);
+    e.preventDefault();
+    const touches = e.changedTouches;
+    const offset = e.target.getBoundingClientRect();
+    for (let i=0; i < touches.length; i++ ) {
+      Xpoint = Math.floor(touches[i].pageX - offset.left);
+      Ypoint = Math.floor(touches[i].pageY - offset.top);
       ctx.lineTo(Xpoint, Ypoint);
-      ctx.lineCap = "round";
-      ctx.strokeStyle = eraser ? eraser_x : color;
-      ctx.lineWidth = eraser ? eraser_y : lineWidth;
-      ctx.stroke();
     }
+    setDrawFlag(1);
+    ctx.lineCap = "round";
+    ctx.stroke();
   }
-  
+
   const touchEndPoint = (e) => {
+    e.preventDefault();
+    const touches = e.changedTouches;
+    const offset = e.target.getBoundingClientRect();
     if (drawFlag === 0) {
-      ctx.lineTo(Xpoint-1, Ypoint-1);
+      for (let i=0; i<touches.length; i++) {
+        Xpoint = Math.floor(touches[i].pageX - offset.left);
+        Ypoint = Math.floor(touches[i].pageY - offset.top);
+        ctx.lineTo(Xpoint-1, Ypoint-1);
+      }
       ctx.lineCap = "round";
       ctx.stroke();
     }
     setDrawFlag(0);
+    setLocalStorage();
   }
 
   const resetCanvas = () => {
     if (window.confirm('リセットしますか？')) {
       ctx.fillStyle = bgColor;
+      initLocalStorage();
       ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
     }
   }
 
+  const undo = () => {
+    let logs = JSON.parse(myStorage.getItem('__log'));
+    if (logs.length > 0) {
+      temp.unshift(logs.shift());
+      setTimeout(() => {
+        myStorage.setItem('__log', JSON.stringify(logs))
+        ctx.fillStyle = bgColor;
+        ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+        if( logs[0]){
+          draw(logs[0]['png']);
+        }
+      }, 0)
+    }
+  }
+
+  const redo = () => {
+    let logs = JSON.parse(myStorage.getItem('__log'));
+    console.log(logs)
+    if (temp.length > 0) {
+      logs.unshift(temp.shift());
+
+      setTimeout(() => {
+        myStorage.setItem('__log', JSON.stringify(logs));
+        ctx.fillStyle = bgColor;
+        ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+        if( logs[0]){
+          draw(logs[0]['png']);
+        }
+      }, 0)
+    }
+  }
+
+  const draw = (src) => {
+    let img = new Image();
+    img.src = src;
+    img.onload = function(){
+      ctx.drawImage(img, 0, 0);
+    }
+  }
+
   const changeEraser = () => {
-    setEraser(!eraser)
+    if (drawMode === 1) {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.lineWidth = 12;
+      setDrawMode(2);
+    } else {
+      ctx.globalCompositeOperation = 'source-over';
+      setDrawMode(1);
+    }
+    setEraser(!eraser);
   };
 
   const changeColor = () => {
     setColor(prev => line_color.value);
-    ctx.strokeStyle = eraser ? eraser_x : color;
+    if (eraser) {
+      ctx.globalCompositeOperation = 'destination-out';
+    } else {
+      ctx.strokeStyle = color;
+    }
   };
+
+  const handleLineWidth = (e, newVal) => {
+    setLineWidth(prev => newVal);
+  }
 
   const handleGetThemes = async () => {
     try {
@@ -203,7 +315,7 @@ const Canvas = () => {
       ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
     };
   };
-  
+
   return (
     <>
       <Grid className={classes.container} container spacing={3}>
@@ -217,83 +329,114 @@ const Canvas = () => {
         </Grid>
         <Grid item className={classes.item} xs={10} md={5}>
           <div className={classes.drawSet}>
-            <SelectBox 
-              placeholder={'テーマを選んでください'} 
-              option={theme} 
-              options={themes} 
-              setOption={setTheme} 
-              />
-            {eraser ? (
-              <>
-                <Tooltip title="ペン">
+            <Card className={classes.card}>
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  メニュー
+                </Typography>
+                <Divider />
+                {eraser ? (
+                  <>
+                    <Tooltip title="ペン">
+                      <IconButton
+                        className={classes.submitBtn}
+                        onClick={changeEraser}
+                      >
+                        <FaPen size="2rem"/>
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="消しゴム">
+                      <IconButton
+                        type='submit'
+                        id='erase'
+                        className={classes.submitBtn}
+                        color="default"
+                      >
+                        <BsEraserFill size="2rem" className={classes.eraser} />
+                      </IconButton>
+                    </Tooltip>
+                  </>
+                  ) : (
+                    <>
+                      <Tooltip title="ペン">
+                        <IconButton
+                          className={classes.submitBtn}
+                        >
+                          <FaPen size="2rem" className={classes.eraser} />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="消しゴム">
+                        <IconButton
+                          type='submit'
+                          id='erase'
+                          className={classes.submitBtn}
+                          color="default"
+                          onClick={changeEraser}
+                        >
+                            <BsEraserFill size="2rem" />
+                        </IconButton>
+                      </Tooltip>
+                    </>
+                )}
+                <Tooltip title="一つ前へ">
+                  <IconButton
+                    className={classes.submitBtn}
+                    onClick={undo}
+                  >
+                    <FaUndo size="2rem" />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="一つ先へ">
+                  <IconButton
+                    className={classes.submitBtn}
+                    onClick={redo}
+                  >
+                    <FaRedo size="2rem" />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="パレット">
                   <Button
                     className={classes.submitBtn}
-                    onClick={changeEraser}
+                    onChange={changeColor}
                   >
-                    <FaPen size="2rem"/>
+                    <input type="color" id="line_color" />
                   </Button>
                 </Tooltip>
-                <Tooltip title="消しゴム">
-                  <Button
-                    type='submit'
-                    id='erase'
-                    className={classes.submitBtn}
-                    color="default"
-                  >
-                    <BsEraserFill size="2rem" className={classes.eraser} />
-                  </Button>
+                <Tooltip title="リセット">
+                  <ResetButton resetCanvas={resetCanvas}>
+                    <FaTrash size="2rem" />
+                  </ResetButton>
                 </Tooltip>
-              </>
-              ) : (
-                <>
-                  <Tooltip title="ペン">
-                    <Button
-                      className={classes.submitBtn}
-                    >
-                      <FaPen size="2rem" className={classes.eraser} />
-                    </Button>
-                  </Tooltip>
-                  <Tooltip title="消しゴム">
-                    <Button
-                      type='submit'
-                      id='erase'
-                      className={classes.submitBtn}
-                      color="default"
-                      onClick={changeEraser}
-                    >
-                        <BsEraserFill size="2rem" />
-                    </Button>
-                  </Tooltip>
-                </>
-            )}
-            <Tooltip title="パレット">
-              <Button
-                className={classes.submitBtn}
-                onChange={changeColor}
-              >
-                <input type="color" id="line_color" />
-              </Button>
-            </Tooltip>
-            <Tooltip title="リセット">
-              <ResetButton resetCanvas={resetCanvas}>
-                <GrPowerReset size="2rem" />
-              </ResetButton>
-            </Tooltip>
-            {/* <Slider
-              value={lineWidth}
-              defaultValue={2}
-              onChange={handleLineWidth}
-              min={1}
-              max={12}
-              valueLabelDisplay="on"
-            /> */}
-            <UploadButton uploadCanvas={uploadPicture} 
-                          theme={theme}>
-              アップロードする
-            </UploadButton>
+                <Box className={classes.slider} sx={{ width: 300 }}>
+                  <Typography className={classes.label} gutterBottom>
+                    ペンの太さ
+                  </Typography>
+                  <Slider
+                    aria-label="Custom marks"
+                    value={lineWidth}
+                    onChange={handleLineWidth}
+                    step={1}
+                    min={1}
+                    max={12}
+                    valueLabelDisplay="auto"
+                    marks={marks}
+                  />
+                </Box>
+                <SelectBox
+                  placeholder={'テーマを選んでください'} 
+                  option={theme}
+                  options={themes}
+                  setOption={setTheme}
+                  />
+                <UploadButton uploadCanvas={uploadPicture} 
+                              theme={theme}>
+                  アップロードする
+                </UploadButton>
+              </CardContent>
+            </Card>
           </div>
         </Grid>
-      </Grid> 
+      </Grid>
     </>
   )
 }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { showUser } from "../../lib/api/users";
 
-import {Grid, 
-        makeStyles, 
-        Typography, 
-        Avatar, 
-        Tab, 
-        Tabs, 
+import {Grid,
+        makeStyles,
+        Typography,
+        Avatar,
+        Tab,
+        Tabs,
         Box,
         Button,
         Container } from "@material-ui/core";
@@ -167,6 +167,7 @@ const ShowUser = () => {
     setOpen(true);
   };
 
+
   const pageAnimation = () => {
     setTimeout(() => { setPageOpen(true) }, 300);
   };
@@ -239,7 +240,7 @@ const ShowUser = () => {
                                 <Picture picture={picture} 
                                   theme={picture.theme} 
                                   image={picture.image}
-                                  />          
+                                  />
                               </Link>
                             </div>
                           </Grid>
@@ -286,7 +287,7 @@ const ShowUser = () => {
                     </Grid>
                     ) : (
                       <>
-                        <h2>いいねした絵はまだありません</h2>
+                        <h2>お気に入りした絵はまだありません</h2>
                       </>
                     )
                     }

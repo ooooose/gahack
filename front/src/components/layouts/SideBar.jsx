@@ -83,6 +83,7 @@ const SideBar = ({open, handleDrawerClose}) => {
       console.log(e);
     }
   }
+  
   return (
     <>
       <Drawer 
@@ -105,7 +106,7 @@ const SideBar = ({open, handleDrawerClose}) => {
                 { currentUser.name === "ゲストユーザー" ? (
                   <></>
                 ) : (
-                  <Link to={`/users/${currentUser?.id}`} className={classes.link}>
+                  <Link to={`/users/${currentUser.id}`} className={classes.link}>
                       <ListItem button>
                         <ListItemIcon>
                           <Tooltip title="プロフィール">

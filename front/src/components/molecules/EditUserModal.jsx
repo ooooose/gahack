@@ -51,7 +51,7 @@ const EditUserModal = ({ open, setOpen, setUser, setAvatar }) => {
     if (image) formData.append("image", image)
     return formData;
   };
-  
+
   const handleEditUserSubmit = async (e) => {
     e.preventDefault();
     const params = generateParams();
@@ -107,18 +107,18 @@ const EditUserModal = ({ open, setOpen, setUser, setAvatar }) => {
       <Form
         label={"名前"}
         defaultValue={currentUser?.name}
-        onChange={(event) => setEditName(event.target.value)}
+        onChange={e => setEditName(e.target.value)}
       />
       <div className={classes.buttons}>
         <Button 
-          variant="contained" 
-          onClick={handleClose} 
+          variant="contained"
+          onClick={handleClose}
           className={classes.cancelButton}>キャンセル</Button>
-        <Button 
-          variant="contained" 
+        <Button
+          variant="contained"
           color="primary"
           className={classes.submitButton}
-          disabled={editName.length === 0 ? true : false}
+          disabled={ image ? true : false}
           onClick={handleEditUserSubmit}>更新</Button>
       </div>
     </div>

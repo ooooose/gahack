@@ -9,9 +9,6 @@ Rails.application.routes.draw do
       resources :themes, only: %i[index create show destroy]
       resources :pictures, only: %i[index create show destroy update] do
         resources :comments, only: %i[create destroy]
-        collection do
-          get :bookmarks
-        end
       end
       resources :bookmarks, only: %i[create destroy]
       resources :likes, only: %i[create destroy]
