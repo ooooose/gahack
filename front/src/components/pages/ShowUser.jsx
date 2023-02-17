@@ -197,19 +197,25 @@ const ShowUser = () => {
                 <Typography className={classes.header} variant="h6">
                   {user.name}
                 </Typography>
-                { currentUser.id !== user.id ? (
-                  <Relationships 
-                    user={user}
-                    userId={user.id} 
-                    />
+                { currentUser.name !== "ゲストユーザー" ? (
+                  <>
+                    { currentUser.id !== user.id ? (
+                      <Relationships 
+                        user={user}
+                        userId={user.id} 
+                        />
+                    ) : (
+                      <Button
+                        variant="contained"
+                        color="primary" 
+                        onClick={handleOpen} 
+                        className={classes.setting} >
+                        プロフィール編集
+                      </Button>
+                    ) }
+                  </>
                 ) : (
-                  <Button
-                    variant="contained"
-                    color="primary" 
-                    onClick={handleOpen} 
-                    className={classes.setting} >
-                    プロフィール編集
-                  </Button>
+                  <></>
                 ) }
                 <EditUserModal open={open} setOpen={setOpen} setUser={setUser} setAvatar={setAvatar} />
               </div>
