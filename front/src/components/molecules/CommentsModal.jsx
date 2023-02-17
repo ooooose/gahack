@@ -139,7 +139,6 @@ const CommentsModal = ({commentOpen, setCommentOpen, pictureId, comments, setCom
               name="body"
               margin="normal"
               fullWidth
-              multiline
               onChange={(event) => setComment(event.target.value)}
               value={comment}
             />
