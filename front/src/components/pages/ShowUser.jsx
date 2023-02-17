@@ -239,7 +239,7 @@ const ShowUser = () => {
                                 <Picture picture={picture} 
                                   theme={picture.theme} 
                                   image={picture.image}
-                                  />          
+                                  />
                               </Link>
                             </div>
                           </Grid>
@@ -286,7 +286,7 @@ const ShowUser = () => {
                     </Grid>
                     ) : (
                       <>
-                        <h2>いいねした絵はまだありません</h2>
+                        <h2>お気に入りした絵はまだありません</h2>
                       </>
                     )
                     }
