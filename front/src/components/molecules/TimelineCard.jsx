@@ -60,7 +60,7 @@ const TimelineCard = ({picture , user}) => {
           avatar={
             (
               <>
-              { user.email !== "guest@example.com" ? (
+              { user.name !== "ゲストユーザー" ? (
                   <Link to={{
                     pathname: "/users/" + user.id,
                     state: {id: user.id}

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'User', at: 'auth'
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   # letter_opener用に設定
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   namespace :api, format: 'json' do
