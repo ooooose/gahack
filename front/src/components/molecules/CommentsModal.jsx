@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    height: '500px',
+    height: '60vh',
+    paddingBottom: '120px',
     backgroundColor: theme.palette.background.paper,
     boxShadow: 24,
     padding: '18px',
@@ -65,7 +66,7 @@ const CommentsModal = ({commentOpen, setCommentOpen, pictureId, comments, setCom
     };
     return createCommentParams;
   };
-  
+
   const handleCommentSubmit = async (e) => {
     const params = generateCommentParams();
     try {
@@ -175,7 +176,7 @@ const CommentsModal = ({commentOpen, setCommentOpen, pictureId, comments, setCom
       )}
     </div>
   )
-  
+
   return (
     <>
       <Modal
