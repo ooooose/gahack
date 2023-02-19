@@ -15,7 +15,6 @@ gem 'rack-cors'
 # ログイン機能
 gem 'devise'
 gem 'devise_token_auth'
-gem 'devise-i18n'
 
 # 画像アップロード機能を実装
 gem 'carrierwave', '~> 2.0'
@@ -26,6 +25,10 @@ gem 'active_model_serializers'
 
 # S3設定用
 gem 'fog-aws'
+
+# 管理画面用Gem
+gem 'activeadmin'
+gem 'sassc-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
