@@ -1,4 +1,4 @@
-class Api::V1::PicturesController < ApplicationController
+class Api::V1::PicturesController < ApiController
   before_action :set_picture, only: %i[show update destroy]
   include CarrierwaveBase64Uploader
 

@@ -1,4 +1,4 @@
-class Api::V1::CommentsController < ApplicationController
+class Api::V1::CommentsController < ApiController
 
   def create
     comment = current_api_v1_user.comments.build(comment_params)

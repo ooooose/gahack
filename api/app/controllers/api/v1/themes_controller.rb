@@ -1,4 +1,4 @@
-class Api::V1::ThemesController < ApplicationController
+class Api::V1::ThemesController < ApiController
   before_action :set_theme, only: %i[show destroy]
 
   def index

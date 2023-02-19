@@ -1,4 +1,4 @@
-class Api::V1::BookmarksController < ApplicationController
+class Api::V1::BookmarksController < ApiController
   def create
     picture = Picture.find(params[:picture_id])
     current_api_v1_user.bookmark(picture)

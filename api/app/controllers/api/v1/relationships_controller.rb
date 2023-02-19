@@ -1,4 +1,4 @@
-class Api::V1::RelationshipsController < ApplicationController
+class Api::V1::RelationshipsController < ApiController
   before_action :set_user, only: %i[create destroy]
 
   def create
