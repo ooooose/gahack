@@ -3,6 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
   mount_uploader :image, AvatarUploader
+  enum role: { general: 0, admin: 1 }
   has_many :pictures, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_pictures, through: :likes, source: :picture
