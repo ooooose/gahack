@@ -39,11 +39,20 @@ const useStyles = makeStyles((theme) => ({
 const Timeline = () => {
   const classes = useStyles();
   const location = useLocation();
+  // const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [pictures, setPictures] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [successMessageOpen, setSuccessMessageOpen] = useState(location.state ? (location.state.successMessageOpen) : (false));
+
+  // const handlePageChange = (page) => {
+  //   const params = createSearchParams({
+  //     page: page,
+  //   })
+  //   navigate(`/?${params}`)
+  //   setPage(page);
+  // }
 
   const handleGetPictures = async () => {
     try {
@@ -94,7 +103,9 @@ const Timeline = () => {
                 <Pagination 
                   count={Math.ceil(pictures.length / 6)}
                   page={page}
-                  onChange={(e, page) => { setPage(page)}}
+                  onChange={(e, page) => {
+                    setPage(page);
+                    }}
                   color="primary"
                   className={classes.pagination}
                 />
