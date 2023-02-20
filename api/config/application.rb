@@ -41,7 +41,7 @@ module Myapp
     config.session_store :cookie_store, key: "_interslice_session"
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Flash
-    # config.middleware.use Rack::MethodOverride
+    config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
 
     # クロスドメイン対策を導入

@@ -3,6 +3,7 @@ import { makeStyles, Button, } from "@material-ui/core";
 import { showPicture } from '../../lib/api/pictures';
 import Picture from "../../components/atoms/picture/Picture";
 import Loader from "./Loader";
+import { Helmet } from 'react-helmet';
 import { useParams, Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +58,15 @@ const TwitterAnswer = () => {
     <>
       {!loading ? (
         <>
+          <Helmet
+              meta={[
+                { name: 'twitter:card', content: 'summary_large_image' },
+                { name: 'twitter:image', content: "https://gahack-app.s3.ap-northeast-1.amazonaws.com/TopImage.png" },
+                { name: 'twitter:title', content: '画HACK' },
+                { name: 'twitter:description', content: `${picture.user.name}さんが絵を描きました！テーマはなんですか？` },
+                { property: 'og:url', content: `https://gahack.netlify.app/pictures/${picture.id}/twitter` },
+            ]}
+            />
           <div className={classes.cardContent}>
             <div className={classes.picture}>
               <Picture 
