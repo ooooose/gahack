@@ -10,7 +10,7 @@ import EditFrameModal from '../molecules/EditFrameModal';
 import { AuthContext } from '../../App';
 import SettingsIcon from '@material-ui/icons/Settings';
 // import { ImTwitter } from 'react-icons/im';
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
 // import { TwitterShareButton } from "react-share";
 import { deletePicture } from '../../lib/api/pictures';
 import DeletePicutreButton from '../atoms/buttons/DeletePictureButton';
@@ -163,17 +163,15 @@ const ShowPicture = () => {
       {!loading ? (
         <>
           <div className={isOpen ? classes.animation : classes.before}>
-            <Helmet
+            {/* <Helmet
               meta={[
                 { name: 'twitter:card', content: 'summary_large_image' },
-                { name: 'twitter:image', content: picture.twitterCard.url },
+                { name: 'twitter:image', content: "https://gahack-app.s3.ap-northeast-1.amazonaws.com/TopImage.png" },
                 { name: 'twitter:title', content: '画HACK' },
-                { name: 'twitter:description', content: 'この絵のテーマはなんでしょう？' },
-                { property: "og:title", "content": "画HACK" },
-                { property: "og:type", "content": "website"},
+                { name: 'twitter:description', content: `${user.name}さんが絵を描きました！テーマはなんですか？` },
                 { property: 'og:url', content: `https://gahack.netlify.app/pictures/${picture.id}/twitter` },
             ]}
-            />
+            /> */}
               <div className={classes.container}>
                 <div className={`${styles.ShowPictureParent}`}>
                   <Picture 
