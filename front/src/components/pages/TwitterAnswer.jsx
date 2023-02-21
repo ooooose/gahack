@@ -4,7 +4,8 @@ import { showPicture } from '../../lib/api/pictures';
 import Picture from "../../components/atoms/picture/Picture";
 import Loader from "./Loader";
 import { Helmet } from 'react-helmet';
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import TwitterAnswerModal from "../molecules/TwitterAnswerModal";
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 const TwitterAnswer = () => {
   const [picture, setPicture] = useState([]);
   const [theme, setTheme] = useState([]);
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const classes = useStyles();
@@ -76,13 +78,11 @@ const TwitterAnswer = () => {
                 />
             </div>
           </div>
-          <p className={classes.answer}>この絵のテーマは<strong>{theme.title}</strong>です！</p>
-          <p>お題に沿ってエモい絵描きましょう！</p>
-          <Button color="primary" variant="contained" >
-            <Link to="/" className={classes.link} >
-              トップ画面へ
-            </Link>
+          <p className={classes.answer}>この絵のテーマはなんでしょう？</p>
+          <Button color="primary" onClick={() => {setOpen(true)}} variant="contained" >
+            答えを見る
           </Button>
+          <TwitterAnswerModal open={open} setOpen={setOpen} theme={theme} />
         </>
       ) : (
         <Loader />
