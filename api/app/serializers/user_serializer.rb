@@ -25,4 +25,8 @@ class UserSerializer < ActiveModel::Serializer
     end
   end
 
+  attribute :monthly_likes do
+    Like.monthly.where(picture_id: Picture.where(user_id: object.id).pluck(:id)).count
+  end
+
 end
