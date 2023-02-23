@@ -1,10 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
 
-export const LinkButton = (props) => {
+export const LinkButton = memo((props) => {
   return (
     <>
       <Button
@@ -18,4 +18,4 @@ export const LinkButton = (props) => {
       </Button>
     </>
   )
-};
+});

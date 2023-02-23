@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import { Drawer, makeStyles } from "@material-ui/core";
 
 import clsx from 'clsx';
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const SideBar = ({open, handleDrawerClose}) => {
+const SideBar = memo(({open, handleDrawerClose}) => {
   const classes = useStyles();
   const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -193,6 +193,6 @@ const SideBar = ({open, handleDrawerClose}) => {
       </Drawer>
     </>
   )
-}
+});
 
 export default SideBar;

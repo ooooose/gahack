@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, memo } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar ,Modal, Button } from "@material-ui/core";
 import { Form } from "../atoms/forms/Form";
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const EditUserModal = ({ open, setOpen, setUser, setAvatar }) => {
+const EditUserModal = memo(({ open, setOpen, setUser, setAvatar }) => {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
   const [editName, setEditName] = useState("");
@@ -136,6 +136,6 @@ const EditUserModal = ({ open, setOpen, setUser, setAvatar }) => {
       </Modal>
     </>
   )
-};
+});
 
 export default EditUserModal;

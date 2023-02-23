@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, memo } from "react";
 import { makeStyles, Typography, Divider, TextField, Button, Modal } from "@material-ui/core";
 import Comment from "./Comment";
 import { createComment } from '../../lib/api/comments';
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CommentsModal = ({commentOpen, setCommentOpen, pictureId, comments, setComments}) => {
+const CommentsModal = memo(({commentOpen, setCommentOpen, pictureId, comments, setComments}) => {
   const { currentUser, setIsSignedIn } = useContext(AuthContext);
   const classes = useStyles();
   const navigate = useNavigate();
@@ -190,6 +190,6 @@ const CommentsModal = ({commentOpen, setCommentOpen, pictureId, comments, setCom
       </Modal>
     </>
   )
-}
+});
 
 export default CommentsModal;

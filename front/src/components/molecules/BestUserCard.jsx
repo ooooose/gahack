@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Card, CardContent, Avatar, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const BestUserCard = ({user, index}) => {
+const BestUserCard = memo(({user, index}) => {
   const classes = useStyles();
   return (
     <>
@@ -53,6 +53,6 @@ const BestUserCard = ({user, index}) => {
       </Card>
     </>
   )
-}
+});
 
 export default BestUserCard;

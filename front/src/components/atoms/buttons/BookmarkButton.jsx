@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { makeStyles, IconButton, Tooltip } from "@material-ui/core";
 import { AiOutlineStar } from 'react-icons/ai';
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BookmarkButton = ({params, setBookmarkState}) => {
+const BookmarkButton = memo(({params, setBookmarkState}) => {
   const classes = useStyles();
   const handleCreateBookmark = async () => {
     try {
@@ -42,6 +42,6 @@ const BookmarkButton = ({params, setBookmarkState}) => {
       </Tooltip>
     </>
   )
-};
+});
 
 export default BookmarkButton;

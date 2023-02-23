@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, memo } from "react";
 
 import { IconButton, makeStyles, Tooltip } from "@material-ui/core";
 import BookmarkButton from "../atoms/buttons/BookmarkButton";
@@ -29,7 +29,7 @@ const useStyles = makeStyles (() => ({
 }))
 
 
-const Bookmarks = ({picture, pictureId}) => {
+const Bookmarks = memo(({picture, pictureId}) => {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
   const [bookmarkState, setBookmarkState] = useState(picture.bookmarked);
@@ -79,7 +79,6 @@ const Bookmarks = ({picture, pictureId}) => {
     }
     </>
   )
-
-}
+});
 
 export default Bookmarks;

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import { Link } from "react-router-dom";
 import clsx from 'clsx';
 import { AuthContext } from "../../App";
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-const Header = ({open, handleDrawerOpen}) => {
+const Header = memo(({open, handleDrawerOpen}) => {
   const classes = useStyles();
   const { isSignedIn, currentUser } = useContext(AuthContext);
 
@@ -96,6 +96,6 @@ const Header = ({open, handleDrawerOpen}) => {
       </AppBar>
     </>
   )
-}
+});
 
 export default Header;

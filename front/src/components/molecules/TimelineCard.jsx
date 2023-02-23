@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from 'react';
+import React, { useState ,useEffect, memo } from 'react';
 import {Card, 
         CardHeader, 
         CardContent, 
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TimelineCard = ({picture , user}) => {
+const TimelineCard = memo(({picture , user}) => {
   const classes = useStyles();
   const [date, setDate] = useState([]);
   const handleToDate = (date) =>{
@@ -116,6 +116,6 @@ const TimelineCard = ({picture , user}) => {
       </CardActions>
     </Card>
   );
-}
+});
 
 export default TimelineCard;

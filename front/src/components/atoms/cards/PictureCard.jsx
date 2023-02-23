@@ -1,11 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 
 import Picture from "../picture/Picture";
 import { Link } from "react-router-dom";
 
 import PictureTitle from "../../molecules/PictureTitle";
 
-const PictureCard = ({picture, pictureId }) => {
+const PictureCard = memo(({picture, pictureId }) => {
 
   return (
     <>
@@ -27,6 +27,6 @@ const PictureCard = ({picture, pictureId }) => {
       />
     </>
   )
-}
+});
 
 export default PictureCard;

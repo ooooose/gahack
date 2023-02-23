@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import {Modal, 
         Button, 
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditFrameModal = ({ open, setOpen, picture, setPicture ,image, setTheme }) => {
+const EditFrameModal = memo(({ open, setOpen, picture, setPicture ,image, setTheme }) => {
   const classes = useStyles();
   const [frame, setFrame] = useState(1);
   const image_src = "data:image/png;base64," + image;
@@ -131,6 +131,6 @@ const EditFrameModal = ({ open, setOpen, picture, setPicture ,image, setTheme })
       </Modal>
     </>
   )
-};
+});
 
 export default EditFrameModal;

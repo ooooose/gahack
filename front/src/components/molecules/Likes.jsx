@@ -1,5 +1,4 @@
-// いいねに関する情報を管理するコンポーネント
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, memo } from "react";
 
 import { IconButton, makeStyles } from "@material-ui/core";
 import LikeButton from "../atoms/buttons/LikeButton";
@@ -30,7 +29,7 @@ const useStyles = makeStyles (() => ({
 }))
 
 
-const Likes = ({picture, pictureId}) => {
+const Likes = memo(({picture, pictureId}) => {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
   const [likeState, setLikeState] = useState(picture.liked);
@@ -87,7 +86,6 @@ const Likes = ({picture, pictureId}) => {
     }
     </>
   )
-  
-}
+});
 
 export default Likes;

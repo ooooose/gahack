@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { makeStyles, Button } from "@material-ui/core";
 import { createRelationship } from '../../../lib/api/relationships';
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FollowButton = ({ userId, params, setFollowState }) => {
+const FollowButton = memo(({ userId, params, setFollowState }) => {
   const classes = useStyles();
   const handleCreateLike = async () => {
     try {
@@ -36,6 +36,6 @@ const FollowButton = ({ userId, params, setFollowState }) => {
       </Button>
     </>
   )
-};
+});
 
 export default FollowButton;

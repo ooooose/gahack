@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Card, makeStyles } from "@material-ui/core";
 import Picture from "../picture/Picture";
 import styles from '../../../css/components/Frames.module.css';
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const ThemeCard = ({theme, picture, title}) => {
+const ThemeCard = memo(({theme, picture, title}) => {
   const classes = useStyles();
   return (
     <>
@@ -35,6 +35,6 @@ const ThemeCard = ({theme, picture, title}) => {
       </Card>
     </>
   )
-}
+});
 
 export default ThemeCard;

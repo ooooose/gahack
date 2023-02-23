@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Modal, Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-const TwitterAnswerModal = ({theme, open, setOpen}) => {
+const TwitterAnswerModal = memo(({theme, open, setOpen}) => {
   const classes = useStyles();
 
   const handleClose =() => {
@@ -71,6 +71,6 @@ const TwitterAnswerModal = ({theme, open, setOpen}) => {
       </Modal>
     </>
   )
-};
+});
 
 export default TwitterAnswerModal;

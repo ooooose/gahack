@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Likes from "./Likes";
 import { Typography, Card, CardContent, makeStyles } from "@material-ui/core";
 import styles from "../../css/molecules/PictureTitle.module.css";
@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const PictureTitle = ({ picture, pictureId }) => {
+const PictureTitle = memo(({ picture, pictureId }) => {
   const classes = useStyles();
   return (
     <>
@@ -35,6 +35,6 @@ const PictureTitle = ({ picture, pictureId }) => {
       </Card>
     </>
   )
-};
+});
 
 export default PictureTitle;

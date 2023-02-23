@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { makeStyles, IconButton } from "@material-ui/core";
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const UnLikeButton = ({params, setLikeState, likeId, likes, setLikes }) => {
+const UnLikeButton = memo(({params, setLikeState, likeId, likes, setLikes }) => {
   const classes = useStyles();
   const handleDeleteLike = async () => {
     try {
@@ -43,6 +43,6 @@ const UnLikeButton = ({params, setLikeState, likeId, likes, setLikes }) => {
       </IconButton>
     </>
   )
-};
+});
 
 export default UnLikeButton;

@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from 'react';
+import React, { useState ,useEffect, memo } from 'react';
 import {Card, 
         CardHeader, 
         CardContent, 
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const BestPictureCard = ({picture , user, index}) => {
+const BestPictureCard = memo(({picture , user, index}) => {
   const classes = useStyles();
   const [date, setDate] = useState([]);
   const handleToDate = (date) =>{
@@ -116,6 +116,6 @@ const BestPictureCard = ({picture , user, index}) => {
       </CardActions>
     </Card>
   );
-}
+});
 
 export default BestPictureCard;
