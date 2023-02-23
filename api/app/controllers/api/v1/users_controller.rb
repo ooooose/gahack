@@ -21,8 +21,8 @@ class Api::V1::UsersController < ApiController
 
   def best_users
     picture_like_count = {}
-    User.all.each do |user|
-      picture_like_count.store(user, Like.where(picture_id: Picture.where(user_id: user.id).pluck(:id)).count)
+    User.all.without_guests.each do |user|
+      picture_like_count.store(user, Like.monthly.where(picture_id: Picture.where(user_id: user.id).pluck(:id)).count)
     end
     @best_users = picture_like_count.sort_by { |_, v| v }.reverse.to_h.keys.first(3)
     render_json = ActiveModelSerializers::SerializableResource.new(

@@ -10,6 +10,7 @@ class Picture < ApplicationRecord
   # 描かれた絵を作成順に並び替える
   scope :recent, -> { order(created_at: :desc) }
   scope :best_pictures, -> { sort{ |a, b| b.liked_users.size <=> a.liked_users.size}.first(3) }
+  scope :monthly, -> { where(created_at: Time.current.all_month ) }
 
   validates :image, presence: true
   validates :user_id, presence: true

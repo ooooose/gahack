@@ -16,6 +16,8 @@ class User < ApplicationRecord
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
   has_many :followers, through: :reverse_of_relationships, source: :user
 
+  scope :without_guests, -> { where.not(name: "ゲストユーザー") }
+
   validates :name, presence: true, length: { maximum: 30 }
   validates :email, presence: true, uniqueness: { case_sensitive: true }
 
