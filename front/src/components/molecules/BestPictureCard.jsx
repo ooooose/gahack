@@ -54,7 +54,7 @@ const BestPictureCard = ({picture , user, index}) => {
   return (
       <Card className={classes.cardContent} sx={{ maxWidth: 345 }} >
         <h2>
-          {index+1} 位
+          第 {index+1} 位
         </h2>
         <CardHeader
           align='left'
@@ -110,7 +110,7 @@ const BestPictureCard = ({picture , user, index}) => {
       </CardContent>
       <CardActions className={classes.cardBottom} disableSpacing>
         <div>
-          <p className={classes.result}><strong>{picture.likes}いいね</strong>を獲得しました</p>
+          <p className={classes.result}>今月<strong>{picture.likes}いいね</strong>を獲得！</p>
         </div>
         <Typography className={classes.date} paragraph>{date}</Typography>
       </CardActions>

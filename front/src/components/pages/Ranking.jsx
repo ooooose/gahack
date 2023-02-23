@@ -85,7 +85,7 @@ const Ranking = () => {
             <div className={classes.rankingContent}>
               <Typography
                 className={classes.header} 
-                variant="h5">〜Best画伯 TOP3〜</Typography>
+                variant="h5">〜Best 画伯 TOP3〜</Typography>
               <div className={classes.usersContent}>
                 <Grid container spacing={3}>
                   {
@@ -101,7 +101,7 @@ const Ranking = () => {
             <div className={classes.rankingContent}>
               <Typography
                 className={classes.header} 
-                variant="h5">〜Best絵画 TOP3〜</Typography> 
+                variant="h5">〜Best 絵画 TOP3〜</Typography> 
               <Grid container spacing={3}>
                 {
                   bestPictures.map((picture, index) => (

@@ -27,12 +27,11 @@ const BestUserCard = ({user, index}) => {
   return (
     <>
       <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <h2>
-          {index+1} 位
-        </h2>
-        <div className={classes.avatarContent}>
-          { user.name !== "ゲストユーザー" ? (
+        <CardContent>
+          <h2>
+            第 {index+1} 位
+          </h2>
+          <div className={classes.avatarContent}>
             <Link to={{
               pathname: "/users/" + user.id,
               state: {id: user.id}
@@ -47,18 +46,11 @@ const BestUserCard = ({user, index}) => {
                 className={classes.avatar}
                 />
             </Link>
-          ) : (
-            <Avatar
-              sx={{ bgcolor: 'red' }}
-              alt="avatar"
-              src={user.image.url}
-              className={classes.avatar}
-              />
-          )} 
-        </div>
-      <p><strong>{user.name}</strong>さん</p>
-      </CardContent>
-    </Card>
+          </div>
+        <p><strong>{user.name}</strong>さん</p>
+        <p>今月<strong>{user.monthlyLikes}いいね</strong>を獲得！</p>
+        </CardContent>
+      </Card>
     </>
   )
 }
