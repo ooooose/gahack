@@ -16,3 +16,7 @@ export const editUser = (id, params) => {
     "uid": Cookies.get("_uid"),
     }});
 }
+
+export const getBestUsers = () => {
+  return client.get("/user/best_users");
+}

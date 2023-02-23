@@ -41,3 +41,7 @@ export const editPicture = (id, params) => {
     "uid": Cookies.get("_uid"),
     }});
 }
+
+export const getBestPictures = () => {
+  return client.get("/picture/best_pictures");
+}
