@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import clsx from 'clsx';
+import { AuthContext } from "../../App";
 
-
-import { makeStyles } from "@material-ui/core/styles";
-
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
+import {makeStyles,
+        Avatar,
+        Tooltip,
+        AppBar,
+        Toolbar,
+        Typography,
+        IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
 const drawerWidth = 240;
@@ -41,16 +42,20 @@ const useStyles = makeStyles((theme) => ({
   menuButtonHidden: {
     display: "none",
   },
+  avatar: {
+    float: 'right',
+  }
 }))
 
 
 const Header = ({open, handleDrawerOpen}) => {
   const classes = useStyles();
+  const { isSignedIn, currentUser } = useContext(AuthContext);
 
   return (
     <>
       <AppBar
-        className={clsx(classes.appBar, open && classes.appBarShift)}  
+        className={clsx(classes.appBar, open && classes.appBarShift)}
         position="fixed"
       >
         <Toolbar>
@@ -74,6 +79,19 @@ const Header = ({open, handleDrawerOpen}) => {
           >
             画HACK
           </Typography>
+          { isSignedIn ? (
+            <>
+              <Tooltip title={currentUser.name}>
+                <Avatar
+                  alt='avatar'
+                  src={currentUser.image.url}
+                  className={classes.avatar}
+                />
+              </Tooltip>
+            </>
+          ) : (
+            <></>
+          ) }
         </Toolbar>
       </AppBar>
     </>
