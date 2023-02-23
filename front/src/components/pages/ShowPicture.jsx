@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     float: 'right'
   },
   card: {
-    margin: '20px auto 0',
+    margin: '20px auto',
     width: '330px',
   },
   pictureTheme: {

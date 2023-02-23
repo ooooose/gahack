@@ -4,9 +4,9 @@ import { Drawer, makeStyles } from "@material-ui/core";
 import clsx from 'clsx';
 import { IconButton, Divider, List, ListItem, ListItemIcon, ListItemText, Tooltip } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import GestureIcon from '@material-ui/icons/Gesture';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
-
+import { FaMedal } from 'react-icons/fa';
+import { MdDraw } from 'react-icons/md'
 import Cookies from "js-cookie";
 import { signOut } from "../../lib/api/auth";
 import { useNavigate, Link } from "react-router-dom";
@@ -108,42 +108,52 @@ const SideBar = ({open, handleDrawerClose}) => {
                 ) : (
                   <Link to={`/users/${currentUser.id}`} className={classes.link}>
                       <ListItem button>
-                        <ListItemIcon>
-                          <Tooltip title="プロフィール">
+                        <Tooltip title="プロフィール">
+                          <ListItemIcon>
                             <Person />
-                          </Tooltip>
-                        </ListItemIcon>
+                          </ListItemIcon>
+                        </Tooltip>
                         <ListItemText primary="プロフィール" />
                       </ListItem>
                   </Link>
                 )}
+                <Link to="/ranking" className={classes.link}>
+                  <ListItem button>
+                    <Tooltip title="月間ランキング">
+                      <ListItemIcon>
+                        <FaMedal size={'1.5rem'} />
+                      </ListItemIcon>
+                    </Tooltip>
+                    <ListItemText primary="月間ランキング" />
+                  </ListItem>
+                </Link>
                 <Link to="/themes" className={classes.link}>
                   <ListItem button>
-                    <ListItemIcon>
-                      <Tooltip title="テーマ一覧">
+                    <Tooltip title="テーマ一覧">
+                      <ListItemIcon>
                         <PhotoLibraryIcon />
-                      </Tooltip>
-                    </ListItemIcon>
+                      </ListItemIcon>
+                    </Tooltip>
                     <ListItemText primary="テーマ一覧" />
                   </ListItem>
                 </Link>
                 <Link to="/picture" className={classes.link}>
                   <ListItem button>
-                    <ListItemIcon>
-                      <Tooltip title="キャンバス">
-                        <GestureIcon />
-                      </Tooltip>
-                    </ListItemIcon>
+                    <Tooltip title="キャンバス">
+                      <ListItemIcon>
+                        <MdDraw size={'1.7rem'} />
+                      </ListItemIcon>
+                    </Tooltip>
                     <ListItemText primary="キャンバス" />
                   </ListItem>
                 </Link>
                 <Link onClick={handleSignOut} className={classes.link}>
                   <ListItem button>
-                    <ListItemIcon>
-                      <Tooltip title="ログアウト">
+                    <Tooltip title="ログアウト">
+                      <ListItemIcon>
                         <DirectionsRunIcon />
-                      </Tooltip>
-                    </ListItemIcon>
+                      </ListItemIcon>
+                    </Tooltip>
                     <ListItemText primary="ログアウト" />
                   </ListItem>
                 </Link>
