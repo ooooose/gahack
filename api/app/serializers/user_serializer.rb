@@ -24,4 +24,5 @@ class UserSerializer < ActiveModel::Serializer
       @current_api_v1_user.following?(object)
     end
   end
+
 end
