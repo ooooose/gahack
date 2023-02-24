@@ -7,9 +7,7 @@ import { createBookmark } from "../../../lib/api/bookmarks";
 const useStyles = makeStyles((theme) => ({
   bookmarkButton: {
     cursor: 'pointer',
-    color: 'gray',
-    opacity: '0.5',
-    float: 'right'
+    float: 'right',
   },
   text: {
     marginTop: '12px',

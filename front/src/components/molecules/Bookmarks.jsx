@@ -8,15 +8,10 @@ import { AiOutlineStar } from 'react-icons/ai';
 import GuestsAlert from "../utils/GuestsAlert";
 
 const useStyles = makeStyles (() => ({
-  UnbookmarkButton: {
-    opacity: '0.5',
-  },
   container: {
     width: '100%',
   },
   bookmarkButton: {
-    color: 'gray',
-    opacity: '0.5',
     float: 'right'
   },
   text: {
@@ -51,9 +46,7 @@ const Bookmarks = memo(({picture, pictureId}) => {
         <div className={classes.container}>
           <Tooltip title="お気に入り">
             <IconButton className={classes.bookmarkButton} onClick={handleOpen} >
-              <AiOutlineStar
-              className={classes.UnbookmarkButton}
-              />
+              <AiOutlineStar />
             </IconButton>
           </Tooltip>
         </div>

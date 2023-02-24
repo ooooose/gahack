@@ -8,15 +8,10 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import GuestsAlert from "../utils/GuestsAlert";
 
 const useStyles = makeStyles (() => ({
-  UnlikeButton: {
-    opacity: '0.5',
-  },
   container: {
     width: '100%',
   },
   likeButton: {
-    color: 'gray',
-    opacity: '0.5',
     float: 'right'
   },
   text: {
@@ -51,9 +46,7 @@ const Likes = memo(({picture, pictureId}) => {
       <>
         <div className={classes.container}>
           <IconButton className={classes.likeButton} onClick={handleOpen} >
-            <FavoriteBorderIcon 
-            className={classes.UnlikeButton}
-            />
+            <FavoriteBorderIcon />
             <span className={classes.length}>{likes}</span>
           </IconButton>
         </div>

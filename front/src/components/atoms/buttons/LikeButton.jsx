@@ -8,9 +8,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 const useStyles = makeStyles((theme) => ({
   likeButton: {
     cursor: 'pointer',
-    color: 'gray',
-    opacity: '0.5',
-    float: 'right'
+    float: 'right',
   },
   text: {
     marginTop: '12px',
