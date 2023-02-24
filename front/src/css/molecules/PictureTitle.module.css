@@ -1,11 +1,11 @@
 .pictureTitle {
-  width: 230px;
-  height: 90px;
+  width: 250px;
+  height: 120px;
   display: inline-block;
   z-index: 2;
   position: absolute;
   left: 50%;
-  bottom: -45%;
+  bottom: -60%;
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
 }

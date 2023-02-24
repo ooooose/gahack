@@ -24,11 +24,9 @@ const useStyles = makeStyles((theme) => ({
   animation: {
     transition: '1s',
     opacity: '1',
-    margin: '25px 40px 0px 80px'
   },
   before: {
     opacity: '0',
-    margin: '20px 40px 0px 80px'
   },
   textField: {
     marginTop: '20px',
@@ -49,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
   },
   pictureTheme: {
     textAlign: 'left',
-    width: '100%'
   },
   information: {
     padding: '15px 50px',
@@ -58,7 +55,9 @@ const useStyles = makeStyles((theme) => ({
   userInfo: {
     width: '100%',
     display: 'flex',
-    gap: '115px',
+  },
+  pictureTitle: {
+    width: '240px',
   },
   divider: {
     margin: '10px 10px'
@@ -187,9 +186,21 @@ const ShowPicture = () => {
                         <Typography sx={{ fontSize: 14 }} gutterBottom>
                           作品のテーマ
                         </Typography>
-                        <Typography variant="h6" component="div">
-                          {theme.title}
-                        </Typography>
+                          { theme.title.length > 10 ? (
+                            <>
+                              <Tooltip title={theme.title}>
+                                <Typography className={classes.pictureTitle} variant="h6" component="div">
+                                  {theme.title.substring(0, 10) + '...'}
+                                </Typography>
+                              </Tooltip>
+                            </>
+                          ) : (
+                            <>
+                              <Typography className={classes.pictureTitle} variant="h6" component="div">
+                                {theme.title}
+                              </Typography>
+                            </>
+                          )}
                       </div>
                       { user.name === "ゲストユーザー" ? (
                         <>

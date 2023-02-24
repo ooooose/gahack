@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import PictureTitle from "../../molecules/PictureTitle";
 
-const PictureCard = memo(({picture, pictureId }) => {
+const PictureCard = memo(({user, picture, pictureId }) => {
 
   return (
     <>
@@ -21,7 +21,8 @@ const PictureCard = memo(({picture, pictureId }) => {
           image={picture.image}
           />          
       </Link>
-      <PictureTitle 
+      <PictureTitle
+        user={user}
         picture={picture} 
         pictureId={pictureId} 
       />
