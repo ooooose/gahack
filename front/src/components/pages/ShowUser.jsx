@@ -217,7 +217,7 @@ const ShowUser = () => {
                 ) : (
                   <></>
                 ) }
-                <EditUserModal open={open} setOpen={setOpen} setUser={setUser} setAvatar={setAvatar} />
+                <EditUserModal open={open} setOpen={setOpen} user={user} setUser={setUser} setAvatar={setAvatar} />
               </div>
             </div>
             <Box sx={{ width: '100%' }}>
