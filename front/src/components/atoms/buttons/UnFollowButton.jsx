@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { makeStyles, Button } from "@material-ui/core";
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UnFollowButton = ({ userId, params, setFollowState }) => {
+const UnFollowButton = memo(({ userId, params, setFollowState }) => {
   const classes = useStyles();
   const handleDeleteRelationship = async () => {
     try {
@@ -38,6 +38,6 @@ const UnFollowButton = ({ userId, params, setFollowState }) => {
       </Button>
     </>
   )
-};
+});
 
 export default UnFollowButton;

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import { AuthContext } from "../../App";
 import { Link } from "react-router-dom";
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Comment = ({ comments, comment, commentId, user, picture, setComments }) => {
+const Comment = memo(({ comments, comment, commentId, user, picture, setComments }) => {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
   const handleDeleteComment = async () => {
@@ -105,6 +105,6 @@ const Comment = ({ comments, comment, commentId, user, picture, setComments }) =
         <Divider variant="inset" />
     </>
   )
-}
+});
 
 export default Comment;

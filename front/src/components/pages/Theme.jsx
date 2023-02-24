@@ -67,7 +67,7 @@ const Theme = () => {
   useEffect(() => {
     handleShowTheme();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pictures]);
 
   useEffect(() => {
     animation();
@@ -88,6 +88,7 @@ const Theme = () => {
                     <Grid item xs={12} sm={6} md={4} key={picture.id}>
                       <div className={`${styles.themesParent}`}>
                         <PictureCard
+                          user={picture.user}
                           picture={picture} 
                           pictureId={picture.id}
                           pictures={pictures}

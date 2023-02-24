@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CommonLayout = (props) => {
+const CommonLayout = memo((props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -50,6 +50,6 @@ const CommonLayout = (props) => {
       </div>
     </>
   )
-};
+});
 
 export default CommonLayout;

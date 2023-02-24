@@ -1,10 +1,10 @@
-import React,{ useState, useContext } from 'react';
+import React,{ useState, useContext, memo } from 'react';
 
 import FollowButton from '../atoms/buttons/FollowButton';
 import UnFollowButton from '../atoms/buttons/UnFollowButton';
 import { AuthContext } from '../../App';
 
-const Relationships = ({ user, userId }) => {
+const Relationships = memo(({ user, userId }) => {
   const [followState, setFollowState] = useState(user.following);
   const { currentUser } = useContext(AuthContext);
 
@@ -39,6 +39,6 @@ const Relationships = ({ user, userId }) => {
     ) }
     </>
   )
-};
+});
 
 export default Relationships;

@@ -1,5 +1,4 @@
-// いいねに関する情報を管理するコンポーネント
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, memo } from "react";
 
 import { IconButton, makeStyles } from "@material-ui/core";
 import LikeButton from "../atoms/buttons/LikeButton";
@@ -9,15 +8,10 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import GuestsAlert from "../utils/GuestsAlert";
 
 const useStyles = makeStyles (() => ({
-  UnlikeButton: {
-    opacity: '0.5',
-  },
   container: {
     width: '100%',
   },
   likeButton: {
-    color: 'gray',
-    opacity: '0.5',
     float: 'right'
   },
   text: {
@@ -30,7 +24,7 @@ const useStyles = makeStyles (() => ({
 }))
 
 
-const Likes = ({picture, pictureId}) => {
+const Likes = memo(({picture, pictureId}) => {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
   const [likeState, setLikeState] = useState(picture.liked);
@@ -52,9 +46,7 @@ const Likes = ({picture, pictureId}) => {
       <>
         <div className={classes.container}>
           <IconButton className={classes.likeButton} onClick={handleOpen} >
-            <FavoriteBorderIcon 
-            className={classes.UnlikeButton}
-            />
+            <FavoriteBorderIcon />
             <span className={classes.length}>{likes}</span>
           </IconButton>
         </div>
@@ -87,7 +79,6 @@ const Likes = ({picture, pictureId}) => {
     }
     </>
   )
-  
-}
+});
 
 export default Likes;

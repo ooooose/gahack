@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 
 import TextField from "@material-ui/core/TextField";
 
-export const Form = (props) => {
+export const Form = memo((props) => {
   return (
     <>
       <TextField
@@ -19,7 +19,5 @@ export const Form = (props) => {
         onChange={props.onChange}
       />
     </>
-
   )
-
-};
+});

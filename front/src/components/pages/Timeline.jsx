@@ -50,8 +50,7 @@ const Timeline = () => {
   //   const params = createSearchParams({
   //     page: page,
   //   })
-  //   navigate(`/?${params}`)
-  //   setPage(page);
+  //   navigate(`/?${params}`);
   // }
 
   const handleGetPictures = async () => {

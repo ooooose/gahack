@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import Button from "@material-ui/core/Button";
 import { makeStyles, Tooltip } from "@material-ui/core";
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ResetButton = (props) => {
+export const ResetButton = memo((props) => {
   const classes = useStyles();
   
   return (
@@ -28,4 +28,4 @@ export const ResetButton = (props) => {
       </Tooltip>
     </>
   )
-};
+});

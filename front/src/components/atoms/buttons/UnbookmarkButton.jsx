@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { makeStyles, IconButton, Tooltip } from "@material-ui/core";
 import { AiFillStar } from 'react-icons/ai';
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UnbookmarkButton = ({params, setBookmarkState, bookmarkId}) => {
+const UnbookmarkButton = memo(({params, setBookmarkState, bookmarkId}) => {
   const classes = useStyles();
   const handleDeleteBookmark = async () => {
     try {
@@ -40,6 +40,6 @@ const UnbookmarkButton = ({params, setBookmarkState, bookmarkId}) => {
       </Tooltip>
     </>
   )
-};
+});
 
 export default UnbookmarkButton;

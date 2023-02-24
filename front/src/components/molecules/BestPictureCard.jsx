@@ -9,8 +9,6 @@ import {Card,
         Typography,
         } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import Likes from './Likes';
-import Bookmarks from './Bookmarks';
 import Picture from '../atoms/picture/Picture';
 import styles from '../../css/components/Frames.module.css';
 
@@ -27,15 +25,15 @@ const useStyles = makeStyles((theme) => ({
   },
   date: {
     position: 'absolute',
-    bottom: '5px',
+    bottom: '7px',
     right: '15px',
   },
-  icons: {
-    display: 'flex'
+  result: {
+    marginLeft: '10px',
   }
 }));
 
-const TimelineCard = memo(({picture , user}) => {
+const BestPictureCard = memo(({picture , user, index}) => {
   const classes = useStyles();
   const [date, setDate] = useState([]);
   const handleToDate = (date) =>{
@@ -47,15 +45,19 @@ const TimelineCard = memo(({picture , user}) => {
     }
     setDate(date) 
   }
-  const shortTitle = picture.theme.title.length > 10 ?  picture.theme.title.substring(0, 10) + '...' : picture.theme.title;
 
   useEffect(() => {
     handleToDate(picture.createdAt);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const shortTitle = picture.theme.title.length > 10 ?  picture.theme.title.substring(0, 10) + '...' : picture.theme.title;
+
   return (
-    <Card className={classes.cardContent} sx={{ maxWidth: 345 }} >
+      <Card className={classes.cardContent} sx={{ maxWidth: 345 }} >
+        <h2>
+          第 {index+1} 位
+        </h2>
         <CardHeader
           align='left'
           avatar={
@@ -109,9 +111,8 @@ const TimelineCard = memo(({picture , user}) => {
         </Link>
       </CardContent>
       <CardActions className={classes.cardBottom} disableSpacing>
-        <div className={classes.icons}>
-          <Likes picture={picture} pictureId={picture.id} />
-          <Bookmarks picture={picture} pictureId={picture.id} />
+        <div>
+          <p className={classes.result}>今月<strong>{picture.likes}いいね</strong>を獲得！</p>
         </div>
         <Typography className={classes.date} paragraph>{date}</Typography>
       </CardActions>
@@ -119,4 +120,4 @@ const TimelineCard = memo(({picture , user}) => {
   );
 });
 
-export default TimelineCard;
+export default BestPictureCard;

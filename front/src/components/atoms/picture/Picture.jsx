@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { makeStyles } from "@material-ui/core";
 import styles from "../../../css/components/Frames.module.css"
@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-const Picture = ({theme, picture, image}) => {
+const Picture = memo(({theme, picture, image}) => {
   const classes = useStyles();
   const image_src = "data:image/png;base64," + image;
   return (
@@ -21,6 +21,6 @@ const Picture = ({theme, picture, image}) => {
       </div>
     </>
   )
-};
+});
 
 export default Picture;

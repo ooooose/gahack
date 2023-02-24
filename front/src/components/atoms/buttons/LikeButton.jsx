@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { makeStyles, IconButton } from "@material-ui/core";
 
@@ -8,9 +8,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 const useStyles = makeStyles((theme) => ({
   likeButton: {
     cursor: 'pointer',
-    color: 'gray',
-    opacity: '0.5',
-    float: 'right'
+    float: 'right',
   },
   text: {
     marginTop: '12px',
@@ -21,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LikeButton = ({params, setLikeState, likes, setLikes}) => {
+const LikeButton = memo(({params, setLikeState, likes, setLikes}) => {
   const classes = useStyles();
   const handleCreateLike = async () => {
     try {
@@ -43,6 +41,6 @@ const LikeButton = ({params, setLikeState, likes, setLikes}) => {
       </IconButton>
     </>
   )
-};
+});
 
 export default LikeButton;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core";
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SignUpButton = (props) => {
+export const SignUpButton = memo((props) => {
   const classes = useStyles();
   return (
     <>
@@ -29,4 +29,4 @@ export const SignUpButton = (props) => {
       </Button>
     </>
   )
-};
+});

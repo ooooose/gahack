@@ -24,4 +24,9 @@ class UserSerializer < ActiveModel::Serializer
       @current_api_v1_user.following?(object)
     end
   end
+
+  attribute :monthly_likes do
+    Like.monthly.where(picture_id: Picture.where(user_id: object.id).pluck(:id)).count
+  end
+
 end

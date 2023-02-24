@@ -9,10 +9,12 @@ Rails.application.routes.draw do
       resources :users, only: %i[show update] do
         resources :relationships, only: %i[create destroy]
       end
+      get 'user/best_users', to: 'users#best_users'
       resources :themes, only: %i[index create show destroy]
       resources :pictures, only: %i[index create show destroy update] do
         resources :comments, only: %i[create destroy]
       end
+      get 'picture/best_pictures', to: 'pictures#best_pictures'
       resources :bookmarks, only: %i[create destroy]
       resources :likes, only: %i[create destroy]
       resources :test, only: %i[index]

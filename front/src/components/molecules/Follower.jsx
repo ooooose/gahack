@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import {makeStyles,
         ListItem, 
         Divider, 
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Follower = ({ follower, handleShowUser }) => {
+const Follower = memo(({ follower, handleShowUser }) => {
   const classes = useStyles();
   const { currentUser } = useContext(AuthContext);
   return (
@@ -85,6 +85,6 @@ const Follower = ({ follower, handleShowUser }) => {
       <Divider variant="inset" />
     </>
   )
-};
+});
 
 export default Follower;

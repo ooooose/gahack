@@ -19,7 +19,7 @@ test:
 
 production:
   <<: *default
-  database: cld0xqevg003f9tryajbp4aiu
-  username: cld0xqevf003d9tryfqq6chs2
-  password: <%= ENV['GAHACK_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
