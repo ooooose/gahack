@@ -51,6 +51,8 @@ const BestPictureCard = memo(({picture , user, index}) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const shortTitle = picture.theme.title.length > 10 ?  picture.theme.title.substring(0, 10) + '...' : picture.theme.title;
+
   return (
       <Card className={classes.cardContent} sx={{ maxWidth: 345 }} >
         <h2>
@@ -92,7 +94,7 @@ const BestPictureCard = memo(({picture , user, index}) => {
             </IconButton>
           }
           title={user.name}
-          subheader={`テーマ： ${picture.theme.title}`}
+          subheader={`テーマ： ${shortTitle}`}
         />
       <CardContent className={`${styles.timeParent}`}>
         <Link to={{

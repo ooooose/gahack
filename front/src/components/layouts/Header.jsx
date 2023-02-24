@@ -81,7 +81,7 @@ const Header = memo(({open, handleDrawerOpen}) => {
           </Typography>
           { isSignedIn ? (
             <>
-              <Tooltip title={currentUser.name}>
+              <Tooltip title={`ようこそ、${currentUser.name}さん！`}>
                 <Avatar
                   alt='avatar'
                   src={currentUser.image.url}
