@@ -47,6 +47,7 @@ const TimelineCard = memo(({picture , user}) => {
     }
     setDate(date) 
   }
+  const shortTitle = picture.theme.title.length > 10 ?  picture.theme.title.substring(0, 10) + '...' : picture.theme.title;
 
   useEffect(() => {
     handleToDate(picture.createdAt);
@@ -91,7 +92,7 @@ const TimelineCard = memo(({picture , user}) => {
             </IconButton>
           }
           title={user.name}
-          subheader={`テーマ： ${picture.theme.title}`}
+          subheader={`テーマ： ${shortTitle}`}
         />
       <CardContent className={`${styles.timeParent}`}>
         <Link to={{
