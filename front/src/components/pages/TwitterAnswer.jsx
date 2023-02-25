@@ -6,6 +6,7 @@ import Loader from "./Loader";
 import { Helmet } from 'react-helmet';
 import { useParams } from "react-router-dom";
 import TwitterAnswerModal from "../molecules/TwitterAnswerModal";
+import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -83,6 +84,7 @@ const TwitterAnswer = () => {
             答えを見る
           </Button>
           <TwitterAnswerModal open={open} setOpen={setOpen} theme={theme} />
+          <Footer />
         </>
       ) : (
         <Loader />

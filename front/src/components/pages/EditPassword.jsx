@@ -5,6 +5,7 @@ import { Form } from "../atoms/forms/Form";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { editPassword } from "../../lib/api/auth";
 import AlertMessage from "../utils/AlertMessage";
+import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -113,6 +114,7 @@ const EditPassword = () => {
           message="パスワードを変更しました"
         />
       </div>
+      <Footer />
     </>
   )
 };

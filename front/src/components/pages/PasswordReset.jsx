@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, Button, makeStyles } from "@material-ui/
 import { Form } from "../atoms/forms/Form";
 import AlertMessage from "../utils/AlertMessage";
 import { passwordReset } from "../../lib/api/auth";
+import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -92,6 +93,7 @@ const PasswordReset = () => {
           message="メールの送信に成功しました"
         />
       </div>
+      <Footer />
     </>
   )
 }
