@@ -18,8 +18,8 @@ import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(6),
-    marginBottom: '100px',
+    marginTop: theme.spacing(12),
+    marginBottom: '150px',
   },
   submitBtn: {
     marginTop: theme.spacing(2),
