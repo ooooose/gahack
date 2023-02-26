@@ -38,13 +38,13 @@ const Footer = () => {
             </Tooltip>
             <Tooltip title="実装中">
               <Button>
-                <Link to="#" className={classes.link}>
+                <Link to="/privacypolicy" className={classes.link}>
                   プライバシーポリシー
                 </Link>
               </Button>
             </Tooltip>
             <Typography>
-              <Button 
+              <Button
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfCMtaGohmoBIkGxkb8hPseJ9wLFDFzPp3NFZv1kToFH-ge6w/viewform?usp=sf_link" 
                 target="_blank"
                 className={classes.link}>
