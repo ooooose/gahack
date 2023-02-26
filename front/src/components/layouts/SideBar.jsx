@@ -14,6 +14,8 @@ import { AuthContext } from "../../App";
 import Person from "@material-ui/icons/Person";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
+import { IoDocumentText } from 'react-icons/io5';
+import { MdPolicy } from 'react-icons/md';
 
 const drawerWidth = 240;
 
@@ -147,6 +149,32 @@ const SideBar = memo(({open, handleDrawerClose}) => {
                     <ListItemText primary="キャンバス" />
                   </ListItem>
                 </Link>
+                <Link
+                  to={"/termsofservice"}
+                  className={classes.link}
+                >
+                  <ListItem button>
+                    <Tooltip title="利用規約">
+                      <ListItemIcon>
+                        <IoDocumentText size={"1.5rem"} />
+                      </ListItemIcon>
+                    </Tooltip>
+                    <ListItemText primary="利用規約" />
+                  </ListItem>
+                </Link>
+                <Link
+                  to={"/privacypolicy"}
+                  className={classes.link}
+                >
+                  <ListItem button>
+                    <Tooltip title="プライバシーポリシー">
+                      <ListItemIcon>
+                        <MdPolicy size={"1.6rem"} />
+                      </ListItemIcon>
+                    </Tooltip>
+                    <ListItemText primary="プライバシーポリシー" />
+                  </ListItem>
+                </Link>
                 <Link onClick={handleSignOut} className={classes.link}>
                   <ListItem button>
                     <Tooltip title="ログアウト">
@@ -185,6 +213,32 @@ const SideBar = memo(({open, handleDrawerClose}) => {
                   </Tooltip>
                 </ListItemIcon>
                 <ListItemText primary="ユーザー登録" />
+              </ListItem>
+            </Link>
+            <Link
+              to={"/termsofservice"}
+              className={classes.link}
+            >
+              <ListItem button>
+                <Tooltip title="利用規約">
+                  <ListItemIcon>
+                    <IoDocumentText size={"1.5rem"} />
+                  </ListItemIcon>
+                </Tooltip>
+                <ListItemText primary="利用規約" />
+              </ListItem>
+            </Link>
+            <Link
+              to={"/privacypolicy"}
+              className={classes.link}
+            >
+              <ListItem button>
+                <Tooltip title="プライバシーポリシー">
+                  <ListItemIcon>
+                    <MdPolicy size={"1.6rem"} />
+                  </ListItemIcon>
+                </Tooltip>
+                <ListItemText primary="プライバシーポリシー" />
               </ListItem>
             </Link>
           </>

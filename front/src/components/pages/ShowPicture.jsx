@@ -19,7 +19,6 @@ import Bookmarks from '../molecules/Bookmarks';
 import { FaRegComment } from 'react-icons/fa';
 import CommentsModal from '../molecules/CommentsModal';
 import AlertMessage from '../utils/AlertMessage';
-import Footer from '../layouts/Footer';
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -305,7 +304,6 @@ const ShowPicture = () => {
                 </Card>
               </div>
           </div>
-          <Footer />
           <AlertMessage
           open={successMessageOpen}
           setOpen={setSuccessMessageOpen}

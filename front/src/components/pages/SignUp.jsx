@@ -12,7 +12,6 @@ import { signUp } from "../../lib/api/auth";
 import AlertMessage from "../utils/AlertMessage";
 import { SignUpButton } from "../atoms/buttons/SignUpButton";
 import { Form } from "../atoms/forms/Form";
-import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -142,7 +141,6 @@ const SignUp = () => {
           message="Emailもしくはパスワードが無効です"
         />
       </div>
-      <Footer />
     </>
   );
 };

@@ -70,7 +70,7 @@ const TopBottom = () => {
           <div className={`${styles.footerContent}`}>
             <Tooltip title="実装中">
               <Button>
-                <Link to="#" className={classes.link}>
+                <Link to="/termsofservice" className={classes.link}>
                   利用規約
                 </Link>
               </Button>

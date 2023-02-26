@@ -25,7 +25,6 @@ import Loader from "./Loader";
 import Following from "../molecules/Following";
 import Follower from "../molecules/Follower";
 import AlertMessage from "../utils/AlertMessage";
-import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -377,7 +376,6 @@ const ShowUser = () => {
               </TabPanel>
             </Box>
           </div>
-          <Footer />
           <AlertMessage
             open={successMessageOpen}
             setOpen={setSuccessMessageOpen}

@@ -8,7 +8,6 @@ import { showTheme } from "../../lib/api/themes";
 import styles from "../../css/components/Frames.module.css";
 import { Pagination } from "@material-ui/lab";
 import Loader from "./Loader";
-import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -119,7 +118,6 @@ const Theme = () => {
               )}
             </div>
           </div>
-          <Footer />
         </>
       ) : (
         <Loader />
