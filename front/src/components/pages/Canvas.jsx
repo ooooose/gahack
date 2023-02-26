@@ -9,7 +9,6 @@ import { UploadButton } from "../atoms/buttons/UploadButton";
 import { SelectBox } from "../atoms/selectBoxes/SelectBox";
 import { getThemes } from "../../lib/api/themes";
 import styles from "../../css/pages/Canvas.module.css";
-import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -439,7 +438,6 @@ const Canvas = () => {
           </div>
         </Grid>
       </Grid>
-      <Footer />
     </>
   )
 }

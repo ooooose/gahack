@@ -1,11 +1,11 @@
 import React from "react";
-import Footer from "../layouts/Footer";
 import { Typography, Box, List, ListItem, Link, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
     marginLeft: '80px',
     marginBottom: '30px',
+    marginRight: '50px',
   },
   header: {
     marginTop: '50px',
@@ -168,7 +168,6 @@ const PrivacyPolicy = () => {
           <Typography variant="subtitle1" className={classes.date} >2023年02月25日 制定</Typography>
         </Box>
       </div>
-      <Footer />
     </>
   )
 };

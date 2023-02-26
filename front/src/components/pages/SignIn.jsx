@@ -14,7 +14,6 @@ import { AuthContext } from "../../App";
 import AlertMessage from "../utils/AlertMessage";
 import { LoginButton } from "../atoms/buttons/LoginButton";
 import { Form } from "../atoms/forms/Form";
-import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -142,7 +141,6 @@ export const SignIn = () => {
           message="ユーザー登録に成功しました。"
         />
       </div>
-      <Footer />
     </>
   );
 };

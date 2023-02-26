@@ -5,7 +5,6 @@ import Loader from './Loader';
 import BestPictureCard from '../molecules/BestPictureCard';
 import BestUserCard from '../molecules/BestUserCard';
 import { Typography, Grid, makeStyles } from '@material-ui/core';
-import Footer from '../layouts/Footer';
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -114,7 +113,6 @@ const Ranking = () => {
               </Grid>
             </div>
           </div>
-          <Footer />
         </>
       ) : (
         <Loader />
