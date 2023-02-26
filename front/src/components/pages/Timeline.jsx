@@ -6,6 +6,7 @@ import { Pagination } from "@material-ui/lab";
 import AlertMessage from "../utils/AlertMessage";
 import Loader from "./Loader";
 import TimelineCard from "../molecules/TimelineCard";
+import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -15,12 +16,12 @@ const useStyles = makeStyles((theme) => ({
     transition: '1s',
     opacity: '1',
     padding: '0 70px',
-    margin: '24px auto',
+    margin: '24px auto 30px',
   },
   before: {
     opacity: '0',
     padding: '0 70px',
-    margin: '12px auto',
+    margin: '12px auto 30px',
   },
   header: {
     paddingTop: '20px',
@@ -111,6 +112,7 @@ const Timeline = () => {
               )
             }
           </div>
+          <Footer />
         </>
       ) : (
         <Loader />

@@ -8,6 +8,7 @@ import { getThemes } from "../../lib/api/themes";
 import ThemeCard from "../atoms/cards/ThemeCard";
 import { Pagination } from "@material-ui/lab";
 import Loader from "./Loader";
+import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -99,6 +100,7 @@ const ThemeIndex = () => {
               />
             )}
           </div>
+          <Footer />
         </>
       ) : (
         <Loader />

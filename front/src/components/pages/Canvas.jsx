@@ -9,10 +9,12 @@ import { UploadButton } from "../atoms/buttons/UploadButton";
 import { SelectBox } from "../atoms/selectBoxes/SelectBox";
 import { getThemes } from "../../lib/api/themes";
 import styles from "../../css/pages/Canvas.module.css";
+import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: '60px',
+    marginTop: '30px',
+    marginBottom: '30px',
   },
   submitBtn: {
     marginTop: theme.spacing(2),
@@ -437,6 +439,7 @@ const Canvas = () => {
           </div>
         </Grid>
       </Grid>
+      <Footer />
     </>
   )
 }

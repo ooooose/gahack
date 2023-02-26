@@ -14,10 +14,12 @@ import { AuthContext } from "../../App";
 import AlertMessage from "../utils/AlertMessage";
 import { LoginButton } from "../atoms/buttons/LoginButton";
 import { Form } from "../atoms/forms/Form";
+import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(6),
+    marginTop: theme.spacing(12),
+    marginBottom: '150px',
   },
   submitBtn: {
     marginTop: theme.spacing(2),
@@ -140,6 +142,7 @@ export const SignIn = () => {
           message="ユーザー登録に成功しました。"
         />
       </div>
+      <Footer />
     </>
   );
 };

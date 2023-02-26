@@ -19,14 +19,17 @@ import Bookmarks from '../molecules/Bookmarks';
 import { FaRegComment } from 'react-icons/fa';
 import CommentsModal from '../molecules/CommentsModal';
 import AlertMessage from '../utils/AlertMessage';
+import Footer from '../layouts/Footer';
 
 const useStyles = makeStyles((theme) => ({
   animation: {
     transition: '1s',
     opacity: '1',
+    marginBottom: '100px',
   },
   before: {
     opacity: '0',
+    marginBottom: '100px',
   },
   textField: {
     marginTop: '20px',
@@ -302,6 +305,7 @@ const ShowPicture = () => {
                 </Card>
               </div>
           </div>
+          <Footer />
           <AlertMessage
           open={successMessageOpen}
           setOpen={setSuccessMessageOpen}

@@ -18,6 +18,8 @@ import PasswordReset from "./components/pages/PasswordReset";
 import EditPassword from "./components/pages/EditPassword";
 import TwitterAnswer from "./components/pages/TwitterAnswer";
 import Ranking from "./components/pages/Ranking";
+import PrivacyPolicy from "./components/pages/PrivacyPolicy";
+import TermsOfService from "./components/pages/TermsOfService";
 export const AuthContext = createContext();
 
 function App() {
@@ -62,6 +64,8 @@ function App() {
           <Routes>
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
+            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+            <Route path="/termsofservice" element={<TermsOfService />} />
             <Route path="/" element={<TopPage />} />
             <Route path="/password" element={<PasswordReset />} />
             <Route path="/password/reset" element={<EditPassword />} />

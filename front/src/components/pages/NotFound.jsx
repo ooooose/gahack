@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import Footer from "../layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -28,6 +29,7 @@ const NotFound = () => {
           </Link>
         </Button>
       </div>
+      <Footer />
     </>
   )
 }
