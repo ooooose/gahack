@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Tooltip, Button, Divider, Box } from "@material-ui/core";
+import { Typography, Button, Divider, Box } from "@material-ui/core";
 
 import GuestLoginButton from "../atoms/buttons/GuestLoginButton";
 import styles from "../../css/organisms/TopBottom.module.css"
@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "1rem"
   },
   link: {
-    textDecoration: "none"
+    textDecoration: "none",
+    color: 'blue',
   },
   footer: {
     display: 'inline-block',
@@ -68,20 +69,16 @@ const TopBottom = () => {
         </Box>
         <footer className={classes.footer}>
           <div className={`${styles.footerContent}`}>
-            <Tooltip title="実装中">
-              <Button>
-                <Link to="/termsofservice" className={classes.link}>
-                  利用規約
-                </Link>
-              </Button>
-            </Tooltip>
-            <Tooltip title="実装中">
-              <Button>
-                <Link to="/privacypolicy" className={classes.link}>
-                  プライバシーポリシー
-                </Link>
-              </Button>
-            </Tooltip>
+            <Button>
+              <Link to="/termsofservice" className={classes.link}>
+                利用規約
+              </Link>
+            </Button>
+            <Button>
+              <Link to="/privacypolicy" className={classes.link}>
+                プライバシーポリシー
+              </Link>
+            </Button>
             <Typography>
               <Button
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfCMtaGohmoBIkGxkb8hPseJ9wLFDFzPp3NFZv1kToFH-ge6w/viewform?usp=sf_link" 

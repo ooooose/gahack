@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     marginLeft: '80px',
     marginBottom: '30px',
+    marginRight: '50px',
   },
   header: {
     marginTop: '50px',
