@@ -3,7 +3,7 @@ class Api::V1::PicturesController < ApiController
   include CarrierwaveBase64Uploader
 
   def index
-    pictures = Picture.all.recent.includes({ user: [:followings, :followers]}, :theme, :liked_users, :likes, :comments, :bookmark)
+    pictures = Picture.all.recent.includes({ user: [:followings, :followers]}, :theme, :liked_users, :likes, :comments)
     render_json = ActiveModelSerializers::SerializableResource.new(
       pictures,
       includes: "**",
@@ -14,6 +14,7 @@ class Api::V1::PicturesController < ApiController
   end
 
   def show
+    @picture = Picture.includes({ user: [:followings, :followers] }, :theme, :liked_users, :likes, :comments).find(params[:id])
     render_json = ActiveModelSerializers::SerializableResource.new(
       @picture,
       includes: "**",
@@ -48,7 +49,7 @@ class Api::V1::PicturesController < ApiController
 
   # TOP5の絵をランキング形式で表示
   def best_pictures
-    @pictures = Picture.includes(:user, :theme, :liked_users, :likes, {user: :comments}).monthly.recent.best_pictures
+    @pictures = Picture.includes({ user: [:followings, :followers] }, :theme, :liked_users, :likes, :comments).monthly.recent.best_pictures
     render_json = ActiveModelSerializers::SerializableResource.new(
       @pictures,
       includes: "**",
