@@ -3,7 +3,7 @@ class Api::V1::PicturesController < ApiController
   include CarrierwaveBase64Uploader
 
   def index
-    pictures = Picture.all.recent.includes(:user, :theme, :liked_users, :likes, {user: :comments})
+    pictures = Picture.all.recent.includes({ user: [:followings, :followers]}, :theme, :liked_users, :likes, :comments, :bookmark)
     render_json = ActiveModelSerializers::SerializableResource.new(
       pictures,
       includes: "**",
