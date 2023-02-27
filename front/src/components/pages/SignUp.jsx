@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -82,6 +82,14 @@ const SignUp = () => {
       setAlertMessageOpen(true);
     }
   };
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
+  
   return (
     <>
      <div className={classes.container}>

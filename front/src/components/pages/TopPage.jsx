@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from "../../App";
 import TopMain from '../organisms/TopMain';
@@ -26,6 +26,13 @@ const TopPage = () => {
   const { isSignedIn, currentUser } = useContext(AuthContext);
 
   setTimeout(() => { setIsOpen(true) }, 200);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   return (
     <>
