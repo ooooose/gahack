@@ -66,23 +66,25 @@ const SideBar = memo(({open, handleDrawerClose}) => {
   const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleSignOut = async (e) => {
-    try {
-      const res = await signOut();
-
-      if (res.data.success === true) {
-        Cookies.remove("_access_token")
-        Cookies.remove("_client")
-        Cookies.remove("_uid")
-
-        setIsSignedIn(false)
-        navigate("/", {state: { successMessageOpen: true }});
-
-        console.log("Succeeded in sign out");
-      } else {
-        console.log("Failed in sign out");
+    if (window.confirm("ログアウトしますか？") === true) {
+      try {
+        const res = await signOut();
+  
+        if (res.data.success === true) {
+          Cookies.remove("_access_token")
+          Cookies.remove("_client")
+          Cookies.remove("_uid")
+  
+          setIsSignedIn(false)
+          navigate("/", {state: { successMessageOpen: true }});
+  
+          console.log("Succeeded in sign out");
+        } else {
+          console.log("Failed in sign out");
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
     }
   }
   
