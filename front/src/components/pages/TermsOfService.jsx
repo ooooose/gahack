@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, Box, List, ListItem, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +34,13 @@ const useStyles = makeStyles((theme) => ({
 
 const TermsOfService = () => {
   const classes = useStyles();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
   return (
     <>
       <div className={classes.container} >
