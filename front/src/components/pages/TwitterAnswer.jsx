@@ -62,11 +62,11 @@ const TwitterAnswer = () => {
         <>
           <Helmet
               meta={[
-                { name: 'twitter:card', content: 'summary_large_image' },
-                { name: 'twitter:image', content: "https://gahack-app.s3.ap-northeast-1.amazonaws.com/TopImage.png" },
-                { name: 'twitter:title', content: '画HACK' },
-                { name: 'twitter:description', content: `${picture.user.name}さんが絵を描きました！テーマはなんですか？` },
-                { property: 'og:url', content: `https://gahack.netlify.app/pictures/${picture.id}/twitter` },
+                // { name: 'twitter:card', content: 'summary_large_image' },
+                // { name: 'twitter:image', content: `${process.env.REACT_APP_API}/TopImage.png` },
+                // { name: 'twitter:description', content: `${picture.user.name}さんが絵を描きました！テーマはなんですか？` },
+                { property: 'og:description', content: `${picture.user.name}さんが絵を描きました！テーマを当ててみましょう！` },
+                { property: 'og:url', content: `${process.env.REACT_APP_API}/pictures/${picture.id}/twitter/` },
             ]}
             />
           <div className={classes.cardContent}>
