@@ -62,11 +62,9 @@ const TwitterAnswer = () => {
         <>
           <Helmet
               meta={[
-                // { name: 'twitter:card', content: 'summary_large_image' },
-                // { name: 'twitter:image', content: `${process.env.REACT_APP_API}/TopImage.png` },
-                // { name: 'twitter:description', content: `${picture.user.name}さんが絵を描きました！テーマはなんですか？` },
                 { property: 'og:description', content: `${picture.user.name}さんが絵を描きました！テーマを当ててみましょう！` },
                 { property: 'og:url', content: `${process.env.REACT_APP_API}/pictures/${picture.id}/twitter/` },
+                { property: 'og:image', content: `${process.env.REACT_APP_API}/TwitterCard.png` },
             ]}
             />
           <div className={classes.cardContent}>

@@ -2,6 +2,7 @@ import React, { useContext, memo } from "react";
 import { Link } from "react-router-dom";
 import clsx from 'clsx';
 import { AuthContext } from "../../App";
+import TopLogo from '../../assets/img/TopLogo.png';
 
 import {makeStyles,
         Avatar,
@@ -35,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textDecoration: "none",
     color: "inherit"
+  },
+  logo: {
+    width: '120px'
   },
   menuButton: {
     marginRight: 36,
@@ -77,7 +81,7 @@ const Header = memo(({open, handleDrawerOpen}) => {
             to="/"
             className={classes.title}
           >
-            画HACK
+            <img className={classes.logo} src={TopLogo} alt="Logo" />
           </Typography>
           { isSignedIn ? (
             <>
