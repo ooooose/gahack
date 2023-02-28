@@ -5,6 +5,7 @@ class Picture < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
   has_many :comments, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
   mount_uploader :twitter_card, ImageUploader
 
   # 描かれた絵を作成順に並び替える
