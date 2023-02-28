@@ -1,7 +1,8 @@
 class Api::V1::UsersController < ApiController
-  before_action :set_user, only: %i[show update]
+  before_action :set_user, only: %i[update]
 
   def show
+    @user = User.includes({ pictures: [:comments, :likes, :theme] }, :bookmarks, :comments, :likes, :followings, :followers).find(params[:id])
     render_json = ActiveModelSerializers::SerializableResource.new(
       @user,
       includes: "**",
@@ -21,7 +22,7 @@ class Api::V1::UsersController < ApiController
 
   def best_users
     picture_like_count = {}
-    User.all.without_guests.each do |user|
+    User.all.includes({ pictures: [:comments, :likes, :theme] }, :bookmarks, :comments, :likes, :followings, :followers).without_guests.each do |user|
       picture_like_count.store(user, Like.monthly.where(picture_id: Picture.where(user_id: user.id).pluck(:id)).count)
     end
     @best_users = picture_like_count.sort_by { |_, v| v }.reverse.to_h.keys.first(3)
