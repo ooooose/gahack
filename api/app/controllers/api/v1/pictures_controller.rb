@@ -49,7 +49,7 @@ class Api::V1::PicturesController < ApiController
 
   # TOP5の絵をランキング形式で表示
   def best_pictures
-    @pictures = Picture.includes({ user: [:followings, :followers] }, :theme, :liked_users, :likes, :comments).monthly.recent.best_pictures
+    @pictures = Picture.includes({ user: [:followings, :followers] }, :theme, :liked_users, :likes, :comments).recent.best_pictures
     render_json = ActiveModelSerializers::SerializableResource.new(
       @pictures,
       includes: "**",
