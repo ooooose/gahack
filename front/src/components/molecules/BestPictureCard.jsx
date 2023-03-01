@@ -112,7 +112,7 @@ const BestPictureCard = memo(({picture , user, index}) => {
       </CardContent>
       <CardActions className={classes.cardBottom} disableSpacing>
         <div>
-          <p className={classes.result}>今月<strong>{picture.likes}いいね</strong>を獲得！</p>
+          <p className={classes.result}>今月<strong>{picture.monthlyLikes}いいね</strong>を獲得！</p>
         </div>
         <Typography className={classes.date} paragraph>{date}</Typography>
       </CardActions>
