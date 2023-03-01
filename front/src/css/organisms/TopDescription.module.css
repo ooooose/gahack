@@ -19,6 +19,7 @@
 
 .cardWrapper {
   padding: 10px 0;
+  margin-top: 10px;
 }
 
 .rightCardWrapper {
@@ -29,12 +30,12 @@
 .leftDescription {
   text-align: left;
   padding-top: 10px;
-  padding-left: 20%;
+  padding-left: 30%;
 }
 
 .rightDescription {
   text-align: left;
-  padding-left: 20%;
+  padding-left: 25%;
 }
 
 .rightCard {
@@ -53,7 +54,7 @@
   float: left;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .title {
     font-size: 22px;
   }
