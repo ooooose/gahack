@@ -43,16 +43,22 @@
   border-radius: 18px;
 }
 
+.image {
+  max-width: 300px;
+  float: right;
+}
+
+.rightImage {
+  max-width: 300px;
+  float: left;
+}
+
 @media (max-width: 900px) {
   .title {
     font-size: 22px;
   }
 
   .item {
-    margin: 0 auto;
-  }
-
-  .image {
     margin: 0 auto;
   }
 
@@ -84,5 +90,16 @@
 
   .container {
     text-align: center;
+  }
+
+  .image {
+    max-width: 200px;
+    float: none;
+  }
+  
+  .rightImage {
+    max-width: 200px;
+    display: inline-block;
+    float: none;
   }
 }

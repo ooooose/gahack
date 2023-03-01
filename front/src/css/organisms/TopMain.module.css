@@ -1,5 +1,5 @@
 .topImage{
-  margin-top: 50px;
+  margin-top: 40px;
   margin-bottom: 20px;
   width: 30%;
   box-shadow: 0 0 24px hsla(0, 0%, 0%, 0.2);
@@ -7,6 +7,7 @@
 
 @media (max-width: 600px) {
   .topImage{
+    margin-top: 20px;
     width: 50%;
   }
 }

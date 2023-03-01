@@ -8,9 +8,6 @@ import thirdImage from '../../assets/img/thirdTopIcon.png';
 import styles from "../../css/organisms/TopDescription.module.css";
 
 const useStyles = makeStyles((theme) => ({
-  image: {
-    maxWidth: '300px'
-  },
   top: {
     padding: '20px 0'
   },
@@ -59,7 +56,7 @@ const TopDescription = () => {
                 お題は定期的に更新追加をしていく予定です！</p>
           </Grid>
           <Grid className={`${styles.item}`} item xs={12} md={6}>
-            <img className={`${styles.image}`} src={firstImage} alt="firstImage" />
+            <img className={`${styles.rightImage}`} src={firstImage} alt="firstImage" />
           </Grid>
         </Grid>
         <Grid className={`${styles.rightCardWrapper}`} container >
@@ -72,7 +69,7 @@ const TopDescription = () => {
                 あなたの画才が注目されるチャンスかも！？</p>
           </Grid>
           <Grid className={`${styles.item}`} item xs={12} md={6}>
-            <img className={classes.image} src={secondImage} alt="secondImage" />  
+            <img className={`${styles.image}`} src={secondImage} alt="secondImage" />  
           </Grid>
         </Grid>
         <Grid className={`${styles.cardWrapper}`} container >
@@ -85,7 +82,7 @@ const TopDescription = () => {
               光る才能を見つけたら迷わず「いいね」しましょう！</p>
           </Grid>
           <Grid className={`${styles.item}`} item xs={12} md={6}>
-            <img className={classes.image} src={thirdImage} alt="thirdImage" />
+            <img className={`${styles.rightImage}`} src={thirdImage} alt="thirdImage" />
           </Grid>
         </Grid>
       </div>
