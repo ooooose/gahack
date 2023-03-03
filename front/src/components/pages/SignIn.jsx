@@ -17,8 +17,7 @@ import { Form } from "../atoms/forms/Form";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(12),
-    marginBottom: '150px',
+    marginTop: theme.spacing(10),
   },
   submitBtn: {
     marginTop: theme.spacing(2),

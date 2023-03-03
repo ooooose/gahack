@@ -76,8 +76,8 @@ const SideBar = memo(({open, handleDrawerClose}) => {
           Cookies.remove("_uid")
   
           setIsSignedIn(false)
-          handleDrawerClose();
           navigate("/", {state: { successMessageOpen: true }});
+          handleDrawerClose();
   
           console.log("Succeeded in sign out");
         } else {

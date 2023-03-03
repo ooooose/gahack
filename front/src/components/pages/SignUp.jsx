@@ -15,8 +15,7 @@ import { Form } from "../atoms/forms/Form";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: theme.spacing(10),
-    marginBottom: '150px',
+    marginTop: theme.spacing(8),
   },
   submitBtn: {
     marginTop: theme.spacing(2),
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 300
   },
   box: {
-    marginTop: "2rem"
+    marginTop: "15px"
   },
   link: {
     textDecoration: "none"
@@ -48,7 +47,15 @@ const useStyles = makeStyles((theme) => ({
   },
   preview: {
     width: "100%"
-  }
+  },
+  caution: {
+    fontSize: '13px',
+    marginTop: '10px',
+  },
+  minCaution: {
+    fontSize: '10px',
+    marginTop: '5px',
+  },
 }));
 
 const SignUp = () => {
@@ -128,6 +135,19 @@ const SignUp = () => {
                     autoComplete={"current-password"}
                     onChange={(event) => setPasswordConfirmation(event.target.value)}
                   />
+                  <Box style={{textAlign: 'right'}}>
+                    <Typography variant="body2" className={classes.caution}>
+                      本サービスへの登録申込をもって
+                      <Link to="/termsofservice" className={classes.link} >
+                        利用規約
+                      </Link>
+                      、<br />及び
+                      <Link to="/privacypolicy" className={classes.link} >
+                        プライバシーポリシー
+                      </Link>
+                      に同意したものとみなします。
+                    </Typography>
+                  </Box>
                   <SignUpButton
                     name={name}
                     email={email}
@@ -178,6 +198,19 @@ const SignUp = () => {
                     autoComplete={"current-password"}
                     onChange={(event) => setPasswordConfirmation(event.target.value)}
                   />
+                  <Box style={{textAlign: 'right'}}>
+                    <Typography variant="body2" className={classes.minCaution}>
+                      本サービスへの登録申込をもって
+                      <Link to="/termsofservice" className={classes.link} >
+                        利用規約
+                      </Link>
+                      、<br />及び
+                      <Link to="/privacypolicy" className={classes.link} >
+                        プライバシーポリシー
+                      </Link>
+                      に同意したものとみなします。
+                    </Typography>
+                  </Box>
                   <SignUpButton
                     name={name}
                     email={email}
