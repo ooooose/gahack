@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
+import { Typography, useMediaQuery } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     maxWidth: 400
   },
+  minCard: {
+    padding: theme.spacing(2),
+    maxWidth: 300
+  },
   box: {
     marginTop: "2rem"
   },
@@ -45,7 +49,7 @@ export const SignIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
-
+  const matches = useMediaQuery('(min-width:575px)');
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
@@ -94,46 +98,93 @@ export const SignIn = () => {
     <>
       <div className={classes.container}>
         <form noValidate autoComplete="off" style={{display:"inline-block"}}>
-          <Card className={classes.card}>
-            <CardHeader className={classes.header} title="ログイン画面" />
-            <CardContent>
-              <Form
-                label={"メールアドレス"}
-                value={email}
-                onChange={event => setEmail(event.target.value)}
-              />
-              <Form
-                label={"パスワード"}
-                type={"password"}
-                value={password}
-                autoComplete={"current-password"}
-                onChange={(event) => setPassword(event.target.value)}
-              />
-              <Box style={{textAlign: 'right'}}>
-                <Typography variant="body2" >
-                  パスワードをお忘れの方は
-                  <Link to="/password" className={classes.link} >
-                    こちら
-                  </Link>
-                </Typography>
-              </Box>
-              <LoginButton
-                email={email}
-                password={password}
-                handleSubmit={handleSignInSubmit}
-              >
-                ログインする
-              </LoginButton>
-              <Box textAlign="center" className={classes.box}>
-                <Typography variant="body2">
-                  アカウントをお持ちですか? &nbsp;
-                  <Link to="/signup" className={classes.link}>
-                    ユーザー登録はこちら!
-                  </Link>
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
+          {matches ? (
+            <>
+              <Card className={classes.card}>
+                <CardHeader className={classes.header} title="ログイン画面" />
+                <CardContent>
+                  <Form
+                    label={"メールアドレス"}
+                    value={email}
+                    onChange={event => setEmail(event.target.value)}
+                  />
+                  <Form
+                    label={"パスワード"}
+                    type={"password"}
+                    value={password}
+                    autoComplete={"current-password"}
+                    onChange={(event) => setPassword(event.target.value)}
+                  />
+                  <Box style={{textAlign: 'right'}}>
+                    <Typography variant="body2" >
+                      パスワードをお忘れの方は
+                      <Link to="/password" className={classes.link} >
+                        こちら
+                      </Link>
+                    </Typography>
+                  </Box>
+                  <LoginButton
+                    email={email}
+                    password={password}
+                    handleSubmit={handleSignInSubmit}
+                  >
+                    ログインする
+                  </LoginButton>
+                  <Box textAlign="center" className={classes.box}>
+                    <Typography variant="body2">
+                      アカウントをお持ちですか? &nbsp;
+                      <Link to="/signup" className={classes.link}>
+                        ユーザー登録はこちら!
+                      </Link>
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            </>
+          ) : (
+            <>
+              <Card className={classes.minCard}>
+                <CardHeader className={classes.header} title="ログイン画面" />
+                <CardContent>
+                  <Form
+                    label={"メールアドレス"}
+                    value={email}
+                    onChange={event => setEmail(event.target.value)}
+                  />
+                  <Form
+                    label={"パスワード"}
+                    type={"password"}
+                    value={password}
+                    autoComplete={"current-password"}
+                    onChange={(event) => setPassword(event.target.value)}
+                  />
+                  <Box style={{textAlign: 'right'}}>
+                    <Typography variant="body2" >
+                      パスワードをお忘れの方は
+                      <Link to="/password" className={classes.link} >
+                        こちら
+                      </Link>
+                    </Typography>
+                  </Box>
+                  <LoginButton
+                    email={email}
+                    password={password}
+                    handleSubmit={handleSignInSubmit}
+                  >
+                    ログインする
+                  </LoginButton>
+                  <Box textAlign="center" className={classes.box}>
+                    <Typography variant="body2">
+                      アカウントをお持ちですか? &nbsp;
+                      <Link to="/signup" className={classes.link}><br />
+                        ユーザー登録はこちら!
+                      </Link>
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            </>
+          )}
         </form>
         <AlertMessage
           open={alertMessageOpen}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles, Typography, Grid } from "@material-ui/core";
+import { makeStyles, Typography, Grid, useMediaQuery } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import { getPictures } from "../../lib/api/pictures";
 import { Pagination } from "@material-ui/lab";
@@ -17,9 +17,18 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 70px',
     margin: '24px auto 30px',
   },
+  minAnimation: {
+    transition: '1s',
+    opacity: '1',
+    margin: '24px auto 30px',
+  },
   before: {
     opacity: '0',
     padding: '0 70px',
+    margin: '12px auto 30px',
+  },
+  minBefore: {
+    opacity: '0',
     margin: '12px auto 30px',
   },
   header: {
@@ -39,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 const Timeline = () => {
   const classes = useStyles();
   const location = useLocation();
+  const matches = useMediaQuery('(min-width:575px)');
   // const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [pictures, setPictures] = useState([]);
@@ -74,46 +84,94 @@ const Timeline = () => {
 
   return (
     <>
-      {!loading ? (
+      { matches ? (
         <>
-          <div className={isOpen ? classes.animation : classes.before}>
-            <Typography
-              className={classes.header} 
-              variant="h4">タイムライン</Typography> 
-            <Grid container spacing={3}>
-              {
-                pictures.map((picture,i) => (
-                  Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={picture.id}>
-                    <TimelineCard picture={picture} user={picture.user}/>
-                  </Grid>
-                ))
-              }
-            </Grid>
-            <AlertMessage
-              open={successMessageOpen}
-              setOpen={setSuccessMessageOpen}
-              severity="success"
-              message="ログインに成功しました"
-            />
-          </div>
-          <div className={classes.pageWrapper}>
-            {
-              pictures.length > 6 && (
-                <Pagination 
-                  count={Math.ceil(pictures.length / 6)}
-                  page={page}
-                  onChange={(e, page) => {
-                    setPage(page);
-                    }}
-                  color="primary"
-                  className={classes.pagination}
+          {!loading ? (
+            <>
+              <div className={isOpen ? classes.animation : classes.before}>
+                <Typography
+                  className={classes.header} 
+                  variant="h4">タイムライン</Typography> 
+                <Grid container spacing={3}>
+                  {
+                    pictures.map((picture,i) => (
+                      Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={picture.id}>
+                        <TimelineCard picture={picture} user={picture.user}/>
+                      </Grid>
+                    ))
+                  }
+                </Grid>
+                <AlertMessage
+                  open={successMessageOpen}
+                  setOpen={setSuccessMessageOpen}
+                  severity="success"
+                  message="ログインに成功しました"
                 />
-              )
-            }
-          </div>
+              </div>
+              <div className={classes.pageWrapper}>
+                {
+                  pictures.length > 6 && (
+                    <Pagination 
+                      count={Math.ceil(pictures.length / 6)}
+                      page={page}
+                      onChange={(e, page) => {
+                        setPage(page);
+                        }}
+                      color="primary"
+                      className={classes.pagination}
+                    />
+                  )
+                }
+              </div>
+            </>
+          ) : (
+            <Loader />
+          )}
         </>
       ) : (
-        <Loader />
+        <>
+          {!loading ? (
+            <>
+              <div className={isOpen ? classes.minAnimation : classes.minBefore}>
+                <Typography
+                  className={classes.header} 
+                  variant="h4">タイムライン</Typography> 
+                <Grid container spacing={3}>
+                  {
+                    pictures.map((picture,i) => (
+                      Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={picture.id}>
+                        <TimelineCard picture={picture} user={picture.user}/>
+                      </Grid>
+                    ))
+                  }
+                </Grid>
+                <AlertMessage
+                  open={successMessageOpen}
+                  setOpen={setSuccessMessageOpen}
+                  severity="success"
+                  message="ログインに成功しました"
+                />
+              </div>
+              <div className={classes.pageWrapper}>
+                {
+                  pictures.length > 6 && (
+                    <Pagination 
+                      count={Math.ceil(pictures.length / 6)}
+                      page={page}
+                      onChange={(e, page) => {
+                        setPage(page);
+                        }}
+                      color="primary"
+                      className={classes.pagination}
+                    />
+                  )
+                }
+              </div>
+            </>
+          ) : (
+            <Loader />
+          )}
+        </>
       )}
     </>
   )

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { makeStyles, Card, CardHeader, CardContent, Button } from "@material-ui/core";
+import { makeStyles, Card, CardHeader, CardContent, Button, useMediaQuery } from "@material-ui/core";
 import { Form } from "../atoms/forms/Form";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { editPassword } from "../../lib/api/auth";
@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     maxWidth: '400px'
   },
+  minCard: {
+    padding: theme.spacing(2),
+    maxWidth: '300px'
+  },
   header: {
     textAlign: 'center'
   },
@@ -33,7 +37,7 @@ const EditPassword = () => {
   const classes = useStyles();
   const [searchParams] = useSearchParams();
   const navigation = useNavigate();
-
+  const matches = useMediaQuery('(min-width:575px)');
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
@@ -70,36 +74,73 @@ const EditPassword = () => {
     <>
       <div className={classes.container}>
         <form noValidate autoComplete="off" style={{display: "inline-block"}}>
-          <Card className={classes.card}>
-            <CardHeader className={classes.header} title="パスワード変更" />
-            <CardContent>
-              <Form 
-                label={"パスワード"}
-                type={"password"}
-                placeholder={"６文字以上で設定してください"}
-                value={password}
-                onChange={e => {setPassword(e.target.value)}}
-              />
-              <Form 
-                label={"パスワード（確認）"}
-                type={"password"}
-                value={passwordConfirmation}
-                onChange={e => {setPasswordConfirmation(e.target.value)}}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                size="large"
-                fullWidth
-                color="primary"
-                disabled={ !password || !passwordConfirmation ? true : false}
-                className={classes.submitBtn}
-                onClick={handleSubmit}
-              >
-                パスワードを変更する
-              </Button>
-            </CardContent>
-          </Card>
+          {matches ? (
+            <>
+              <Card className={classes.card}>
+                <CardHeader className={classes.header} title="パスワード変更" />
+                <CardContent>
+                  <Form 
+                    label={"パスワード"}
+                    type={"password"}
+                    placeholder={"６文字以上で設定してください"}
+                    value={password}
+                    onChange={e => {setPassword(e.target.value)}}
+                  />
+                  <Form 
+                    label={"パスワード（確認）"}
+                    type={"password"}
+                    value={passwordConfirmation}
+                    onChange={e => {setPasswordConfirmation(e.target.value)}}
+                  />
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    size="large"
+                    fullWidth
+                    color="primary"
+                    disabled={ !password || !passwordConfirmation ? true : false}
+                    className={classes.submitBtn}
+                    onClick={handleSubmit}
+                  >
+                    パスワードを変更する
+                  </Button>
+                </CardContent>
+              </Card>
+            </>
+          ) : (
+            <>
+              <Card className={classes.minCard}>
+                <CardHeader className={classes.header} title="パスワード変更" />
+                <CardContent>
+                  <Form 
+                    label={"パスワード"}
+                    type={"password"}
+                    placeholder={"６文字以上で設定してください"}
+                    value={password}
+                    onChange={e => {setPassword(e.target.value)}}
+                  />
+                  <Form 
+                    label={"パスワード（確認）"}
+                    type={"password"}
+                    value={passwordConfirmation}
+                    onChange={e => {setPasswordConfirmation(e.target.value)}}
+                  />
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    size="large"
+                    fullWidth
+                    color="primary"
+                    disabled={ !password || !passwordConfirmation ? true : false}
+                    className={classes.submitBtn}
+                    onClick={handleSubmit}
+                  >
+                    パスワードを変更する
+                  </Button>
+                </CardContent>
+              </Card>
+            </>
+          )}
         </form>
         <AlertMessage 
           open={alertMessageOpen}
