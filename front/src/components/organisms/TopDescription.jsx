@@ -40,7 +40,7 @@ const TopDescription = () => {
           <Grid item xs={12}>
             <div>
               <Typography variant="h5" style={{ fontWeight: 'bold' }} >サービスについて</Typography>
-              <p className={`${styles.description}`}>お題に沿った絵を描き、投稿できるサービスです。<br/> 童心に返って、自由に絵を描きましょう！！</p>
+              <p className={`${styles.description}`}>お題に沿った絵を描き、投稿できるサービスです。<br/> 童心に返って自由に絵を描きましょう！！</p>
             </div>
           </Grid>
         </Grid>
