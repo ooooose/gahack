@@ -19,11 +19,12 @@
 
 .cardWrapper {
   padding: 10px 0;
-  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .rightCardWrapper {
   padding: 10px 0;
+  margin-bottom: 20px;
   flex-direction: row-reverse;
 }
 
