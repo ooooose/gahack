@@ -10,10 +10,11 @@ import {makeStyles,
         AppBar,
         Toolbar,
         Typography,
-        IconButton } from "@material-ui/core";
+        IconButton,
+        useMediaQuery } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -40,6 +41,12 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     width: '120px'
   },
+  minLogo: {
+    width: '120px',
+    margin: '0 auto',
+    display: 'block',
+    paddingRight: '40px'
+  },
   menuButton: {
     marginRight: 36,
   },
@@ -48,56 +55,108 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     float: 'right',
-  }
+  },
+  minAvatar: {
+    float: 'right',
+    marginRight: '10px',
+  },
 }))
 
 
 const Header = memo(({open, handleDrawerOpen}) => {
   const classes = useStyles();
   const { isSignedIn, currentUser } = useContext(AuthContext);
+  const matches = useMediaQuery('(min-width:575px)');
 
   return (
     <>
-      <AppBar
-        className={clsx(classes.appBar, open && classes.appBarShift)}
-        position="fixed"
-      >
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(
-              classes.menuButton,
-              open && classes.menuButtonHidden
-            )}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component={Link}
-            variant="h5"
-            to="/"
-            className={classes.title}
-          >
-            <img className={classes.logo} src={TopLogo} alt="Logo" />
-          </Typography>
-          { isSignedIn ? (
-            <>
-              <Tooltip title={`ようこそ、${currentUser.name}さん！`}>
-                <Avatar
-                  alt='avatar'
-                  src={currentUser.image.url}
-                  className={classes.avatar}
-                />
-              </Tooltip>
-            </>
-          ) : (
-            <></>
-          ) }
-        </Toolbar>
-      </AppBar>
+    {matches ? (
+      <>
+        <AppBar
+          className={clsx(classes.appBar, open && classes.appBarShift)}
+          position="fixed"
+        >
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              className={clsx(
+                classes.menuButton,
+                open && classes.menuButtonHidden
+              )}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component={Link}
+              variant="h5"
+              to="/"
+              className={classes.title}
+            >
+              <img className={classes.logo} src={TopLogo} alt="Logo" />
+            </Typography>
+            { isSignedIn ? (
+              <>
+                <Tooltip title={`ようこそ、${currentUser.name}さん！`}>
+                  <Avatar
+                    alt='avatar'
+                    src={currentUser.image.url}
+                    className={classes.avatar}
+                  />
+                </Tooltip>
+              </>
+            ) : (
+              <></>
+            ) }
+          </Toolbar>
+        </AppBar>
+      </>
+    ) : (
+      <>
+        <AppBar
+          className={clsx(classes.appBar, open && classes.appBarShift)}
+          position="fixed"
+        >
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              className={clsx(
+                classes.menuButton,
+                open && classes.menuButtonHidden
+              )}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component={Link}
+              variant="h5"
+              to="/"
+              className={classes.title}
+            >
+              <img className={classes.minLogo} src={TopLogo} alt="Logo" />
+            </Typography>
+            { isSignedIn ? (
+              <>
+                <Tooltip title={`ようこそ、${currentUser.name}さん！`}>
+                  <Avatar
+                    alt='avatar'
+                    src={currentUser.image.url}
+                    className={classes.minAvatar}
+                  />
+                </Tooltip>
+              </>
+            ) : (
+              <></>
+            ) }
+          </Toolbar>
+        </AppBar>
+      </>
+    )}
     </>
   )
 });

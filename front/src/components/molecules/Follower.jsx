@@ -5,7 +5,8 @@ import {makeStyles,
         Typography, 
         Avatar, 
         ListItemAvatar, 
-        Grid} from "@material-ui/core";
+        Grid,
+        useMediaQuery} from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Relationships from "./Relationships";
 import { AuthContext } from "../../App";
@@ -30,59 +31,117 @@ const useStyles = makeStyles((theme) => ({
 
 const Follower = memo(({ follower, handleShowUser }) => {
   const classes = useStyles();
+  const matches = useMediaQuery('(min-width:575px)');
   const { currentUser } = useContext(AuthContext);
   return (
     <>
-      <ListItem alignItems="flex-start">
-        <Link
-          to={{
-            pathname: "/users/" + follower.id,
-            state: {id: follower.id}
-          }}
-          onClick={handleShowUser(follower.id)}
-          id={follower.id}>
-          <ListItemAvatar>
-            <Avatar
-              alt="avatar"
-              src={follower.image.url}
-              className={classes.avatar}
-              />
-          </ListItemAvatar>
-        </Link>
-        <Grid container>
-          <Grid item xs={8} >
-            <Link
-              className={classes.link}
-              to={{
-                pathname: "/users/" + follower.id,
-                state: {id: follower.id}
-              }}
-              onClick={handleShowUser(follower.id)}
-              id={follower.id}
-            >
-              <Typography
-                component="span"
-                variant="body1"
-                className={classes.inline}
-                color="textPrimary"
+    {matches ? (
+      <>
+        <ListItem alignItems="flex-start">
+          <Link
+            to={{
+              pathname: "/users/" + follower.id,
+              state: {id: follower.id}
+            }}
+            onClick={handleShowUser(follower.id)}
+            id={follower.id}>
+            <ListItemAvatar>
+              <Avatar
+                alt="avatar"
+                src={follower.image.url}
+                className={classes.avatar}
+                />
+            </ListItemAvatar>
+          </Link>
+          <Grid container>
+            <Grid item xs={8} >
+              <Link
+                className={classes.link}
+                to={{
+                  pathname: "/users/" + follower.id,
+                  state: {id: follower.id}
+                }}
+                onClick={handleShowUser(follower.id)}
+                id={follower.id}
               >
-                {follower.name}
-              </Typography>
-            </Link>
+                <Typography
+                  component="span"
+                  variant="body1"
+                  className={classes.inline}
+                  color="textPrimary"
+                >
+                  {follower.name}
+                </Typography>
+              </Link>
+            </Grid>
+            <Grid item xs={4}>
+              { currentUser.id !== follower.id ? (
+                  <Relationships 
+                    user={follower}
+                    userId={follower.id} 
+                    />
+                ) : (
+                  <></>
+              ) }
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            { currentUser.id !== follower.id ? (
-                <Relationships 
-                  user={follower}
-                  userId={follower.id} 
-                  />
-              ) : (
-                <></>
-            ) }
+        </ListItem>
+        <Divider variant="inset" />
+      </>
+      ) : (
+        <>
+        <ListItem alignItems="flex-start">
+          <Link
+            to={{
+              pathname: "/users/" + follower.id,
+              state: {id: follower.id}
+            }}
+            onClick={handleShowUser(follower.id)}
+            id={follower.id}>
+            <ListItemAvatar>
+              <Avatar
+                alt="avatar"
+                src={follower.image.url}
+                className={classes.avatar}
+                />
+            </ListItemAvatar>
+          </Link>
+          <Grid container>
+            <Grid item xs={6} >
+              <Link
+                className={classes.link}
+                to={{
+                  pathname: "/users/" + follower.id,
+                  state: {id: follower.id}
+                }}
+                onClick={handleShowUser(follower.id)}
+                id={follower.id}
+              >
+                <Typography
+                  component="span"
+                  variant="body1"
+                  className={classes.inline}
+                  color="textPrimary"
+                >
+                  {follower.name}
+                </Typography>
+              </Link>
+            </Grid>
+            <Grid item xs={6}>
+              { currentUser.id !== follower.id ? (
+                  <Relationships 
+                    user={follower}
+                    userId={follower.id} 
+                    />
+                ) : (
+                  <></>
+              ) }
+            </Grid>
           </Grid>
-        </Grid>
-      </ListItem>
-      <Divider variant="inset" />
+        </ListItem>
+        <Divider />
+      </>
+    )}
     </>
   )
 });

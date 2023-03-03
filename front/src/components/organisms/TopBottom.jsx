@@ -90,9 +90,9 @@ const TopBottom = () => {
           </div>
         </footer>
         <Divider className={classes.divider} />
-        <Typography>
+        <p className={`${styles.copyRight}`}>
           Copyright © 2023 - All right reserved by Yuuki Oose
-        </Typography>
+        </p>
       </div>
     </>
   )

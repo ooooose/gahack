@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Modal, Button, makeStyles } from "@material-ui/core";
+import { Modal, Button, makeStyles, useMediaQuery } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AuthContext } from "../../App";
@@ -12,6 +12,18 @@ const useStyles = makeStyles((theme) => ({
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: 24,
+    padding: '15px',
+    borderRadius: '6px',
+    textAlign: 'center'
+  },
+  minPaper: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 300,
     backgroundColor: theme.palette.background.paper,
     boxShadow: 24,
     padding: '15px',
@@ -34,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
 const GuestsAlert = ({open, setOpen}) => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const matches = useMediaQuery('(min-width:575px)');
   const { setIsSignedIn } = useContext(AuthContext);
 
   const handleSignOut = async (e) => {
@@ -62,18 +75,39 @@ const GuestsAlert = ({open, setOpen}) => {
   };
 
   const body = (
-    <div className={classes.paper}>
-      <h2 id="simple-modal-title">ユーザー登録をお願いします</h2>
-      <div className={classes.buttons}>
-        <Button 
-          variant="contained" 
-          onClick={() => setOpen(false)} 
-          className={classes.cancelButton}>閉じる</Button>
-        <Button className={classes.button} color="primary" variant="contained" onClick={handleSignOut}>
-          ユーザー登録へ
-        </Button>
-      </div>
-    </div>
+    <>
+      {matches ? (
+        <>
+          <div className={classes.paper}>
+            <h2 id="simple-modal-title">ユーザー登録をお願いします</h2>
+            <div className={classes.buttons}>
+              <Button 
+                variant="contained" 
+                onClick={() => setOpen(false)} 
+                className={classes.cancelButton}>閉じる</Button>
+              <Button className={classes.button} color="primary" variant="contained" onClick={handleSignOut}>
+                ユーザー登録へ
+              </Button>
+            </div>
+          </div>
+        </>
+        ) : (
+        <>
+          <div className={classes.minPaper}>
+            <h3 id="simple-modal-title">ユーザー登録をお願いします</h3>
+            <div className={classes.buttons}>
+              <Button 
+                variant="contained" 
+                onClick={() => setOpen(false)} 
+                className={classes.cancelButton}>閉じる</Button>
+              <Button className={classes.button} color="primary" variant="contained" onClick={handleSignOut}>
+                ユーザー登録へ
+              </Button>
+            </div>
+          </div>
+        </>
+      )}
+    </>
   );
   return (
     <>
