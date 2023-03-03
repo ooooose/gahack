@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { makeStyles, IconButton } from "@material-ui/core";
+import { makeStyles, IconButton, Tooltip } from "@material-ui/core";
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { deleteLike } from "../../../lib/api/likes";
@@ -37,10 +37,12 @@ const UnLikeButton = memo(({params, setLikeState, likeId, likes, setLikes }) => 
 
   return (
     <>
-      <IconButton className={classes.likeButton} onClick={handleDeleteLike} >
-        <FavoriteIcon />
-        <span className={classes.length}>{likes}</span>
-      </IconButton>
+      <Tooltip title="いいね">
+        <IconButton className={classes.likeButton} onClick={handleDeleteLike} >
+          <FavoriteIcon />
+          <span className={classes.length}>{likes}</span>
+        </IconButton>
+      </Tooltip>
     </>
   )
 });

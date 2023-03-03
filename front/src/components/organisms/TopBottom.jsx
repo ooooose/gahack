@@ -51,7 +51,7 @@ const TopBottom = () => {
   return (
     <>
       <div className={classes.container}>
-        <Typography className={`${styles.title}`} variant="h5">さぁ、エモい絵描こうぜ！</Typography> 
+        <Typography className={`${styles.title}`} variant="h5">あなたも「画伯」になろうよ！</Typography> 
         <Button className={classes.button} color="primary" variant="contained">
           <Link to="/signin" className={classes.buttonLink}>
             ログインして始める
@@ -90,9 +90,9 @@ const TopBottom = () => {
           </div>
         </footer>
         <Divider className={classes.divider} />
-        <Typography>
+        <p className={`${styles.copyRight}`}>
           Copyright © 2023 - All right reserved by Yuuki Oose
-        </Typography>
+        </p>
       </div>
     </>
   )

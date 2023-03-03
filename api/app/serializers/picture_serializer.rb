@@ -26,6 +26,10 @@ class PictureSerializer < ActiveModel::Serializer
     object.likes.count
   end
 
+  attribute :monthly_likes do
+    object.likes.monthly.count
+  end
+
   attribute :bookmarked do
     if @current_api_v1_user
       @current_api_v1_user.bookmark?(object)

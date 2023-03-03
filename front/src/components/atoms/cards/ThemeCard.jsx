@@ -6,7 +6,6 @@ import styles from '../../../css/components/Frames.module.css';
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2),
-    maxWidth: 300,
   },
   imageScales: {
     maxWidth: '80%',

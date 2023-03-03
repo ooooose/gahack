@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { makeStyles, IconButton } from "@material-ui/core";
+import { makeStyles, IconButton, Tooltip } from "@material-ui/core";
 
 import { createLike } from "../../../lib/api/likes";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -35,10 +35,12 @@ const LikeButton = memo(({params, setLikeState, likes, setLikes}) => {
 
   return (
     <>
-      <IconButton className={classes.likeButton}   onClick={handleCreateLike} >
-        <FavoriteBorderIcon />
-        <span className={classes.length}>{likes}</span>
-      </IconButton>
+      <Tooltip title="いいね">
+        <IconButton className={classes.likeButton}   onClick={handleCreateLike} >
+          <FavoriteBorderIcon />
+          <span className={classes.length}>{likes}</span>
+        </IconButton>
+      </Tooltip>
     </>
   )
 });

@@ -17,7 +17,7 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { IoDocumentText } from 'react-icons/io5';
 import { MdPolicy } from 'react-icons/md';
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
@@ -76,6 +76,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
           Cookies.remove("_uid")
   
           setIsSignedIn(false)
+          handleDrawerClose();
           navigate("/", {state: { successMessageOpen: true }});
   
           console.log("Succeeded in sign out");
@@ -110,7 +111,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
                 { currentUser.name === "ゲストユーザー" ? (
                   <></>
                 ) : (
-                  <Link to={`/users/${currentUser.id}`} className={classes.link}>
+                  <Link to={`/users/${currentUser.id}`} className={classes.link} onClick={handleDrawerClose}>
                       <ListItem button>
                         <Tooltip title="プロフィール">
                           <ListItemIcon>
@@ -121,7 +122,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
                       </ListItem>
                   </Link>
                 )}
-                <Link to="/ranking" className={classes.link}>
+                <Link to="/ranking" className={classes.link} onClick={handleDrawerClose}>
                   <ListItem button>
                     <Tooltip title="月間ランキング">
                       <ListItemIcon>
@@ -131,7 +132,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
                     <ListItemText primary="月間ランキング" />
                   </ListItem>
                 </Link>
-                <Link to="/themes" className={classes.link}>
+                <Link to="/themes" className={classes.link} onClick={handleDrawerClose}>
                   <ListItem button>
                     <Tooltip title="テーマ一覧">
                       <ListItemIcon>
@@ -141,7 +142,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
                     <ListItemText primary="テーマ一覧" />
                   </ListItem>
                 </Link>
-                <Link to="/picture" className={classes.link}>
+                <Link to="/picture" className={classes.link} onClick={handleDrawerClose}>
                   <ListItem button>
                     <Tooltip title="キャンバス">
                       <ListItemIcon>
@@ -154,6 +155,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
                 <Link
                   to={"/termsofservice"}
                   className={classes.link}
+                  onClick={handleDrawerClose}
                 >
                   <ListItem button>
                     <Tooltip title="利用規約">
@@ -167,6 +169,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
                 <Link
                   to={"/privacypolicy"}
                   className={classes.link}
+                  onClick={handleDrawerClose}
                 >
                   <ListItem button>
                     <Tooltip title="プライバシーポリシー">
@@ -194,6 +197,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
             <Link
               to={"/signin"}
               className={classes.link}
+              onClick={handleDrawerClose}
             >
               <ListItem button>
                 <ListItemIcon>
@@ -207,6 +211,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
             <Link
               to={"/signup"}
               className={classes.link}
+              onClick={handleDrawerClose}
             >
               <ListItem button>
                 <ListItemIcon>
@@ -220,6 +225,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
             <Link
               to={"/termsofservice"}
               className={classes.link}
+              onClick={handleDrawerClose}
             >
               <ListItem button>
                 <Tooltip title="利用規約">
@@ -233,6 +239,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
             <Link
               to={"/privacypolicy"}
               className={classes.link}
+              onClick={handleDrawerClose}
             >
               <ListItem button>
                 <Tooltip title="プライバシーポリシー">

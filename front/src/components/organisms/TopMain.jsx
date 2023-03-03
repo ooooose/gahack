@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: 'no-repeat',
     backgroundSize: '100%',
     margin: '10px auto',
+    paddingBottom: '20px'
   },
   topImage: {
     marginBottom: '20px',
