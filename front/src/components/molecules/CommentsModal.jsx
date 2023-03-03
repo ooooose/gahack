@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     top: '55%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    maxWidth: '300px',
+    width: 300,
     height: '60vh',
     paddingBottom: '120px',
     backgroundColor: theme.palette.background.paper,
@@ -117,7 +117,7 @@ const CommentsModal = memo(({commentOpen, setCommentOpen, pictureId, comments, s
     <>
       {matches ? (
         <>
-          <div className={classes.minPaper}>
+          <div className={classes.paper}>
             <div className={classes.titleWrapper}>
               <Typography
                 component="span"
@@ -195,7 +195,7 @@ const CommentsModal = memo(({commentOpen, setCommentOpen, pictureId, comments, s
         </>
         ) : (
         <>
-          <div className={classes.paper}>
+          <div className={classes.minPaper}>
             <div className={classes.titleWrapper}>
               <Typography
                 component="span"
@@ -256,7 +256,8 @@ const CommentsModal = memo(({commentOpen, setCommentOpen, pictureId, comments, s
             ) : (
               <>
                 <div className={classes.guest}>
-                  <h3>ゲストユーザーの方はコメントできません</h3>
+                  <h3>ゲストユーザーの方は<br />
+                      コメントできません</h3>
                   <div className={classes.buttons}>
                     <Button 
                       variant="contained" 

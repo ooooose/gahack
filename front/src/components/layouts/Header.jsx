@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     width: '120px',
     margin: '0 auto',
     display: 'block',
-    paddingRight: '40px'
+    paddingRight: '48px'
   },
   menuButton: {
     marginRight: 36,
