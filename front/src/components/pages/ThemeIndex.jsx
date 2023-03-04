@@ -44,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline-block',
   },
   pageWrapper: {
-    marginTop: '80px',
+    marginTop: '40px',
+    marginBottom: '30px',
   }
 }));
 
@@ -103,13 +104,13 @@ const ThemeIndex = () => {
                 </Grid>
               </div>
               <div className={classes.pageWrapper}>
-                { themes.lenght > 6 && (
+                { themes.length > 6 && (
                   <Pagination 
                     count={Math.ceil(themes.length / 6)}
                     page={page}
                     onChange={(e, page) => setPage(page)}
                     color="primary"
-                    className={classes.Pagination}
+                    className={classes.pagination}
                   />
                 )}
               </div>
@@ -138,15 +139,19 @@ const ThemeIndex = () => {
                 </Grid>
               </div>
               <div className={classes.pageWrapper}>
-                { themes.lenght > 6 && (
-                  <Pagination 
-                    count={Math.ceil(themes.length / 6)}
-                    page={page}
-                    onChange={(e, page) => setPage(page)}
-                    color="primary"
-                    className={classes.Pagination}
-                  />
-                )}
+                {
+                  themes.length > 6 && (
+                    <Pagination 
+                      count={Math.ceil(themes.length / 6)}
+                      page={page}
+                      onChange={(e, page) => {
+                        setPage(page);
+                        }}
+                      color="primary"
+                      className={classes.pagination}
+                    />
+                  )
+                }
               </div>
             </> 
           )}
