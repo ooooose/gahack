@@ -84,9 +84,10 @@ const TwitterAnswer = () => {
         <>
           <Helmet
               meta={[
-                { property: 'og:description', content: `${picture.user.name}さんが絵を描きました！テーマを当ててみましょう！` },
+                { property: 'og:description', content: `${picture.user.name}さんが絵を描きました！` },
                 { property: 'og:url', content: `https://gahack.net/pictures/${picture.id}/twitter/` },
                 { property: 'og:image', content: `https://gahack.net/TwitterCard.png` },
+                { name: 'twitter:image', content: `https://gahack.net/TwitterCard.png` },
             ]}
             />
           { matches ? (
