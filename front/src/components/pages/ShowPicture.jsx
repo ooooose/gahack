@@ -9,9 +9,8 @@ import Loader from './Loader';
 import EditFrameModal from '../molecules/EditFrameModal';
 import { AuthContext } from '../../App';
 import SettingsIcon from '@material-ui/icons/Settings';
-// import { ImTwitter } from 'react-icons/im';
-// import { Helmet } from 'react-helmet';
-// import { TwitterShareButton } from "react-share";
+import { ImTwitter } from 'react-icons/im';
+import { TwitterShareButton } from "react-share";
 import { deletePicture } from '../../lib/api/pictures';
 import DeletePicutreButton from '../atoms/buttons/DeletePictureButton';
 import Likes from '../molecules/Likes';
@@ -24,11 +23,9 @@ const useStyles = makeStyles((theme) => ({
   animation: {
     transition: '1s',
     opacity: '1',
-    marginBottom: '100px',
   },
   before: {
     opacity: '0',
-    marginBottom: '100px',
   },
   textField: {
     marginTop: '20px',
@@ -45,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     margin: '20px auto',
-    width: '330px',
+    width: '350px',
   },
   pictureTheme: {
     textAlign: 'left',
@@ -89,6 +86,9 @@ const useStyles = makeStyles((theme) => ({
   length: {
     fontSize: '14px',
     marginLeft: '2px'
+  },
+  twitter: {
+    color: '#1DA1F2',
   }
 }));
 
@@ -164,15 +164,6 @@ const ShowPicture = () => {
       {!loading ? (
         <>
           <div className={isOpen ? classes.animation : classes.before}>
-            {/* <Helmet
-              meta={[
-                { name: 'twitter:card', content: 'summary_large_image' },
-                { name: 'twitter:image', content: "https://gahack-app.s3.ap-northeast-1.amazonaws.com/TopImage.png" },
-                { name: 'twitter:title', content: '画HACK' },
-                { name: 'twitter:description', content: `${user.name}さんが絵を描きました！テーマはなんですか？` },
-                { property: 'og:url', content: `https://gahack.netlify.app/pictures/${picture.id}/twitter` },
-            ]}
-            /> */}
               <div className={classes.container}>
                 <div className={`${styles.ShowPictureParent}`}>
                   <Picture 
@@ -260,23 +251,6 @@ const ShowPicture = () => {
                           /> 
                         { currentUser.id === user.id && user.name !== "ゲストユーザー" ? (
                           <>
-                            { picture.twitterCard.url !== null ? (
-                              <>
-                                {/* <Tooltip title="Twitterシェア">
-                                  <IconButton aria-label="twitter">
-                                    <TwitterShareButton
-                                    url={`${process.env.REACT_APP_FRONT}/pictures/${picture.id}/twitter`}
-                                    hashtags={["画HACK"]}
-                                    >
-                                      <ImTwitter />
-                                    </TwitterShareButton>
-                                  </IconButton>
-                                </Tooltip> */}
-                              </>
-                            ) : (
-                              <>
-                              </>
-                            )}
                             <Tooltip title="フレーム変更">
                               <IconButton aria-label="setting" onClick={handleOpen}>
                                 <SettingsIcon
@@ -284,6 +258,17 @@ const ShowPicture = () => {
                               </IconButton>
                             </Tooltip>
                             <DeletePicutreButton handleDeletePicture={handleDeletePicture}/>
+                            <Tooltip title="Twitterシェア">
+                              <IconButton aria-label="twitter">
+                                <TwitterShareButton
+                                title="画伯が現れました！絵を覗いてみましょう！"
+                                url={`https://gahack.net/pictures/${picture.id}/twitter/`}
+                                hashtags={["画HACK"]}
+                                >
+                                  <ImTwitter className={classes.twitter} />
+                                </TwitterShareButton>
+                              </IconButton>
+                            </Tooltip>
                           </>
                         ) : (
                           <></>

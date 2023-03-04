@@ -10,10 +10,21 @@
   padding-left: 60px;
 }
 
+@media (max-width: 800px) {
+  .canvas {
+    width: 475px;
+    height: 350px;
+  }
+
+  .canvasParent {
+    padding-left: 0;
+  }
+}
+
 @media (max-width: 600px) {
   .canvas {
     width: 90%;
-    height: 50vh;
+    height: 240px;
   }
   .canvasParent {
     padding-left: 0;
