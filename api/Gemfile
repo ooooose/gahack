@@ -15,7 +15,6 @@ gem 'rack-cors'
 # ログイン機能
 gem 'devise'
 gem 'devise_token_auth'
-gem 'devise-i18n'
 
 # 画像アップロード機能を実装
 gem 'carrierwave', '~> 2.0'
