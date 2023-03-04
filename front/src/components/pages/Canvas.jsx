@@ -4,7 +4,18 @@ import { createPicture } from "../../lib/api/pictures";
 import { ResetButton } from "../atoms/buttons/ResetButton";
 import { BsEraserFill } from "react-icons/bs";
 import { FaPen, FaUndo, FaRedo, FaTrash } from "react-icons/fa";
-import { Grid, makeStyles, Divider, Button, IconButton, Typography, Tooltip, Slider, Box, Card, CardContent } from "@material-ui/core";
+import {Grid, 
+        makeStyles, 
+        Divider, 
+        Button, 
+        IconButton, 
+        Typography, 
+        Tooltip, 
+        Slider, 
+        Box, 
+        Card, 
+        CardContent, 
+        useMediaQuery} from "@material-ui/core";
 import { UploadButton } from "../atoms/buttons/UploadButton";
 import { SelectBox } from "../atoms/selectBoxes/SelectBox";
 import { getThemes } from "../../lib/api/themes";
@@ -13,7 +24,14 @@ import styles from "../../css/pages/Canvas.module.css";
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: '30px',
-    marginBottom: '30px',
+  },
+  midContainer: {
+    marginTop: '30px',
+    maxWidth: '100%',
+  },
+  minContainer: {
+    marginTop: '20px',
+    maxWidth: '100%',
   },
   submitBtn: {
     marginTop: theme.spacing(2),
@@ -24,7 +42,21 @@ const useStyles = makeStyles((theme) => ({
   item: {
     margin: '0 auto',
   },
+  midItem: {
+    margin: '0 auto',
+    paddingLeft: '10px',
+    textAlign: 'left',
+  },
+  minItem: {
+    margin: '0 auto',
+    paddingLeft: '10px',
+    textAlign: 'left',
+  },
   drawSet:{
+    paddingRight: '20px',
+    paddingLeft: '20px',
+  },
+  minDrawSet:{
     paddingRight: '20px',
     paddingLeft: '20px',
   },
@@ -39,7 +71,6 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     textAlign: 'left',
-    height: "380px",
     padding: '15px',
     margin: '0 auto'
   },
@@ -48,6 +79,12 @@ const useStyles = makeStyles((theme) => ({
   },
   slider: {
     margin: "20px 0",
+  },
+  midSlider: {
+    width: '180px',
+  },
+  minSlider: {
+    width: '300px',
   }
 }));
 
@@ -75,6 +112,8 @@ const Canvas = () => {
   const [eraser, setEraser] = useState(false);
   const [color, setColor] = useState("black");
   setTimeout(() => { setLoad(false) }, 0);
+  const matches = useMediaQuery('(min-width:800px)');
+  const minMatches = useMediaQuery('(min-width:575px)');
 
   const bgColor = 'rgb(255,255,255)';
   const line_color = document.getElementById("line_color");
@@ -319,51 +358,155 @@ const Canvas = () => {
 
   return (
     <>
-      <Grid className={classes.container} container spacing={3}>
-        <Grid item xs={12} md={7}>
-          <div className={`${styles.canvasParent}`} id="canvasParent">
-            <canvas 
-              id="canvas"
-              className={`${styles.canvas}`} 
-            ></canvas>
-          </div>
-        </Grid>
-        <Grid item className={classes.item} xs={10} md={5}>
-          <div className={classes.drawSet}>
-            <Card className={classes.card}>
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  メニュー
-                </Typography>
-                <Divider />
-                {eraser ? (
-                  <>
-                    <Tooltip title="ペン">
+      { matches ? (
+        <>
+          <Grid className={classes.container} container spacing={3}>
+            <Grid item xs={12} md={7}>
+              <div className={`${styles.canvasParent}`} id="canvasParent">
+                <canvas 
+                  id="canvas"
+                  className={`${styles.canvas}`} 
+                ></canvas>
+              </div>
+            </Grid>
+            <Grid item className={classes.item} xs={10} md={5}>
+              <div className={classes.drawSet}>
+                <Card className={classes.card}>
+                  <CardContent>
+                    <Typography variant="h5" component="div">
+                      メニュー
+                    </Typography>
+                    <Divider />
+                    {eraser ? (
+                      <>
+                        <Tooltip title="ペン">
+                          <IconButton
+                            className={classes.submitBtn}
+                            onClick={changeEraser}
+                          >
+                            <FaPen size="2rem"/>
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="消しゴム">
+                          <IconButton
+                            type='submit'
+                            id='erase'
+                            className={classes.submitBtn}
+                            color="default"
+                          >
+                            <BsEraserFill size="2rem" className={classes.eraser} />
+                          </IconButton>
+                        </Tooltip>
+                      </>
+                      ) : (
+                        <>
+                          <Tooltip title="ペン">
+                            <IconButton
+                              className={classes.submitBtn}
+                            >
+                              <FaPen size="2rem" className={classes.eraser} />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="消しゴム">
+                            <IconButton
+                              type='submit'
+                              id='erase'
+                              className={classes.submitBtn}
+                              color="default"
+                              onClick={changeEraser}
+                            >
+                                <BsEraserFill size="2rem" />
+                            </IconButton>
+                          </Tooltip>
+                        </>
+                    )}
+                    <Tooltip title="一つ前へ">
                       <IconButton
                         className={classes.submitBtn}
-                        onClick={changeEraser}
+                        onClick={undo}
                       >
-                        <FaPen size="2rem"/>
+                        <FaUndo size="2rem" />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="消しゴム">
+                    <Tooltip title="一つ先へ">
                       <IconButton
-                        type='submit'
-                        id='erase'
                         className={classes.submitBtn}
-                        color="default"
+                        onClick={redo}
                       >
-                        <BsEraserFill size="2rem" className={classes.eraser} />
+                        <FaRedo size="2rem" />
                       </IconButton>
                     </Tooltip>
-                  </>
-                  ) : (
+                    <Tooltip title="パレット">
+                      <Button
+                        className={classes.submitBtn}
+                        onChange={changeColor}
+                      >
+                        <input type="color" id="line_color" />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title="リセット">
+                      <ResetButton resetCanvas={resetCanvas}>
+                        <FaTrash size="2rem" />
+                      </ResetButton>
+                    </Tooltip>
+                    <Box className={classes.slider} sx={{ width: 300 }}>
+                      <Typography className={classes.label} gutterBottom>
+                        ペンの太さ
+                      </Typography>
+                      <Slider
+                        aria-label="Custom marks"
+                        value={lineWidth}
+                        onChange={handleLineWidth}
+                        step={1}
+                        min={1}
+                        max={12}
+                        valueLabelDisplay="auto"
+                        marks={marks}
+                      />
+                    </Box>
+                    <SelectBox
+                      placeholder={'テーマを選んでください'} 
+                      option={theme}
+                      options={themes}
+                      setOption={setTheme}
+                      />
+                    <UploadButton uploadCanvas={uploadPicture} 
+                                  theme={theme}>
+                      アップロードする
+                    </UploadButton>
+                  </CardContent>
+                </Card>
+              </div>
+            </Grid>
+          </Grid>
+        </>
+      ) : (
+        <>
+        { minMatches ? (
+          <>
+            <Grid className={classes.midContainer} container spacing={1}>
+              <Grid item xs={8}>
+                <div className={`${styles.canvasParent}`} id="canvasParent">
+                  <canvas 
+                    id="canvas"
+                    className={`${styles.canvas}`} 
+                  ></canvas>
+                </div>
+              </Grid>
+              <Grid item className={classes.midItem} xs={3}>
+                <div className={classes.midDrawSet}>
+                  <Typography variant="h5" component="div">
+                    メニュー
+                  </Typography>
+                  <Divider />
+                  {eraser ? (
                     <>
                       <Tooltip title="ペン">
                         <IconButton
                           className={classes.submitBtn}
+                          onClick={changeEraser}
                         >
-                          <FaPen size="2rem" className={classes.eraser} />
+                          <FaPen size="1.5rem"/>
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="消しゴム">
@@ -372,72 +515,212 @@ const Canvas = () => {
                           id='erase'
                           className={classes.submitBtn}
                           color="default"
-                          onClick={changeEraser}
                         >
-                            <BsEraserFill size="2rem" />
+                          <BsEraserFill size="1.5rem" className={classes.eraser} />
                         </IconButton>
                       </Tooltip>
                     </>
-                )}
-                <Tooltip title="一つ前へ">
-                  <IconButton
-                    className={classes.submitBtn}
-                    onClick={undo}
-                  >
-                    <FaUndo size="2rem" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="一つ先へ">
-                  <IconButton
-                    className={classes.submitBtn}
-                    onClick={redo}
-                  >
-                    <FaRedo size="2rem" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="パレット">
-                  <Button
-                    className={classes.submitBtn}
-                    onChange={changeColor}
-                  >
-                    <input type="color" id="line_color" />
-                  </Button>
-                </Tooltip>
-                <Tooltip title="リセット">
-                  <ResetButton resetCanvas={resetCanvas}>
-                    <FaTrash size="2rem" />
-                  </ResetButton>
-                </Tooltip>
-                <Box className={classes.slider} sx={{ width: 300 }}>
-                  <Typography className={classes.label} gutterBottom>
-                    ペンの太さ
+                    ) : (
+                      <>
+                        <Tooltip title="ペン">
+                          <IconButton
+                            className={classes.submitBtn}
+                          >
+                            <FaPen size="1.5rem" className={classes.eraser} />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="消しゴム">
+                          <IconButton
+                            type='submit'
+                            id='erase'
+                            className={classes.submitBtn}
+                            color="default"
+                            onClick={changeEraser}
+                          >
+                              <BsEraserFill size="1.5rem" />
+                          </IconButton>
+                        </Tooltip>
+                      </>
+                  )}
+                  <Tooltip title="一つ前へ">
+                    <IconButton
+                      className={classes.submitBtn}
+                      onClick={undo}
+                    >
+                      <FaUndo size="1.5rem" />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="一つ先へ">
+                    <IconButton
+                      className={classes.submitBtn}
+                      onClick={redo}
+                    >
+                      <FaRedo size="1.5rem" />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="パレット">
+                    <Button
+                      className={classes.submitBtn}
+                      onChange={changeColor}
+                    >
+                      <input type="color" id="line_color" />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip title="リセット">
+                    <ResetButton resetCanvas={resetCanvas}>
+                      <FaTrash size="1.5rem" />
+                    </ResetButton>
+                  </Tooltip>
+                  <Box className={classes.midSlider} >
+                    <Typography className={classes.label} gutterBottom>
+                      ペンの太さ
+                    </Typography>
+                    <Slider
+                      aria-label="Custom marks"
+                      value={lineWidth}
+                      onChange={handleLineWidth}
+                      step={1}
+                      min={1}
+                      max={12}
+                      valueLabelDisplay="auto"
+                      marks={marks}
+                    />
+                  </Box>
+                  <SelectBox
+                    placeholder={'テーマを選んでください'} 
+                    option={theme}
+                    options={themes}
+                    setOption={setTheme}
+                    />
+                  <UploadButton uploadCanvas={uploadPicture} 
+                                theme={theme}>
+                    アップロードする
+                  </UploadButton>
+                </div>
+              </Grid>
+            </Grid>
+          </>
+        ) : (
+          <>
+            <Grid className={classes.minContainer} container spacing={1}>
+              <Grid item xs={12}>
+                <div className={`${styles.canvasParent}`} id="canvasParent">
+                  <canvas 
+                    id="canvas"
+                    className={`${styles.canvas}`} 
+                  ></canvas>
+                </div>
+              </Grid>
+              <Grid item className={classes.minItem} xs={12}>
+                <div className={classes.minDrawSet}>
+                  <Typography variant="h7" component="div">
+                    メニュー
                   </Typography>
-                  <Slider
-                    aria-label="Custom marks"
-                    value={lineWidth}
-                    onChange={handleLineWidth}
-                    step={1}
-                    min={1}
-                    max={12}
-                    valueLabelDisplay="auto"
-                    marks={marks}
-                  />
-                </Box>
-                <SelectBox
-                  placeholder={'テーマを選んでください'} 
-                  option={theme}
-                  options={themes}
-                  setOption={setTheme}
-                  />
-                <UploadButton uploadCanvas={uploadPicture} 
-                              theme={theme}>
-                  アップロードする
-                </UploadButton>
-              </CardContent>
-            </Card>
-          </div>
-        </Grid>
-      </Grid>
+                  <Divider />
+                  {eraser ? (
+                    <>
+                      <Tooltip title="ペン">
+                        <IconButton
+                          className={classes.submitBtn}
+                          onClick={changeEraser}
+                        >
+                          <FaPen size="1.2rem"/>
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="消しゴム">
+                        <IconButton
+                          type='submit'
+                          id='erase'
+                          className={classes.submitBtn}
+                          color="default"
+                        >
+                          <BsEraserFill size="1.2rem" className={classes.eraser} />
+                        </IconButton>
+                      </Tooltip>
+                    </>
+                    ) : (
+                      <>
+                        <Tooltip title="ペン">
+                          <IconButton
+                            className={classes.submitBtn}
+                          >
+                            <FaPen size="1.2rem" className={classes.eraser} />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="消しゴム">
+                          <IconButton
+                            type='submit'
+                            id='erase'
+                            className={classes.submitBtn}
+                            color="default"
+                            onClick={changeEraser}
+                          >
+                              <BsEraserFill size="1.2rem" />
+                          </IconButton>
+                        </Tooltip>
+                      </>
+                  )}
+                  <Tooltip title="一つ前へ">
+                    <IconButton
+                      className={classes.submitBtn}
+                      onClick={undo}
+                    >
+                      <FaUndo size="1.2rem" />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="一つ先へ">
+                    <IconButton
+                      className={classes.submitBtn}
+                      onClick={redo}
+                    >
+                      <FaRedo size="1.2rem" />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="パレット">
+                    <Button
+                      className={classes.submitBtn}
+                      onChange={changeColor}
+                    >
+                      <input type="color" id="line_color" />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip title="リセット">
+                    <ResetButton resetCanvas={resetCanvas}>
+                      <FaTrash size="1.2rem" />
+                    </ResetButton>
+                  </Tooltip>
+                  <Box className={classes.minSlider} >
+                    <Typography className={classes.minLabel}>
+                      ペンの太さ
+                    </Typography>
+                    <Slider
+                      aria-label="Custom marks"
+                      value={lineWidth}
+                      onChange={handleLineWidth}
+                      step={1}
+                      min={1}
+                      max={12}
+                      valueLabelDisplay="auto"
+                      marks={marks}
+                    />
+                  </Box>
+                  <SelectBox
+                    placeholder={'テーマを選んでください'} 
+                    option={theme}
+                    options={themes}
+                    setOption={setTheme}
+                    />
+                  <UploadButton uploadCanvas={uploadPicture} 
+                                theme={theme}>
+                    アップロードする
+                  </UploadButton>
+                </div>
+              </Grid>
+            </Grid>
+          </>
+        )}
+        </>
+      )}
     </>
   )
 }
