@@ -54,6 +54,6 @@ module Myapp
                  methods: [:get, :post, :options, :delete, :put]
       end
     end
-    config.i18n.default_locale = :en
+    config.i18n.default_locale = :ja
   end
 end
