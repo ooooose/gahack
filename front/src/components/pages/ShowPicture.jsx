@@ -262,7 +262,7 @@ const ShowPicture = () => {
                               <IconButton aria-label="twitter">
                                 <TwitterShareButton
                                 title="画伯が現れました！絵を覗いてみましょう！"
-                                url={`https://gahack.net/pictures/${picture.id}/twitter/`}
+                                url={`https://gahack.net/pictures/${picture.id}/twitter`}
                                 hashtags={["画HACK"]}
                                 >
                                   <ImTwitter className={classes.twitter} />
