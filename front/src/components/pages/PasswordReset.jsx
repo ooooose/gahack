@@ -40,7 +40,7 @@ const PasswordReset = () => {
   const generateParams = () => {
     const passwordResetParams = {
       email: email,
-      redirectUrl: process.env.REACT_APP_FRONT + "password/reset",
+      redirectUrl: "https://gahack.net/password/reset",
     }
     return passwordResetParams;
   }
