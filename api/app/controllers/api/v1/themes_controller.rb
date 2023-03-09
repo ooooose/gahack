@@ -2,7 +2,8 @@ class Api::V1::ThemesController < ApiController
   before_action :set_theme, only: %i[destroy]
 
   def index
-    themes = Theme.all.recent.includes({ pictures: [:comments, :likes, { user: [:followings, :followers] }] })
+    themes = Theme.all.recent.includes({ pictures: [:comments, :likes, :liked_users, :bookmarks,
+            { user: [:pictures, :likes, :liked_pictures, :comments, :bookmarks, :bookmark_pictures, :followings, :followers] }] })
     render_json = ActiveModelSerializers::SerializableResource.new(
       themes,
       includes: '**',
@@ -22,7 +23,8 @@ class Api::V1::ThemesController < ApiController
   end
 
   def show
-    @theme = Theme.includes({ pictures: [:comments, :likes, { user: [:followings, :followers] }]}).find(params[:id])
+    @theme = Theme.includes({ pictures: [:comments, :likes,:liked_users, :bookmarks,
+             { user: [:pictures, :likes, :liked_pictures, :comments, :bookmarks, :bookmark_pictures, :followings, :followers] }]}).find(params[:id])
     render_json = ActiveModelSerializers::SerializableResource.new(
       @theme,
       includes: "**",
