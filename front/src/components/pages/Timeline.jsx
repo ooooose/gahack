@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles, Typography, Grid, useMediaQuery } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import { getPictures } from "../../lib/api/pictures";
@@ -63,7 +63,7 @@ const Timeline = () => {
   //   navigate(`/?${params}`);
   // }
 
-  const handleGetPictures = async () => {
+  const handleGetPictures = useCallback(async () => {
     try {
       const res = await getPictures();
       if (res.status === 200) {
@@ -75,7 +75,7 @@ const Timeline = () => {
     }
     setLoading(false);
     setTimeout(() => { setIsOpen(true) }, 100);
-  }
+  }, []);
 
   useEffect(() => {
     handleGetPictures();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Card, CardContent, CardHeader, Button, makeStyles, useMediaQuery } from "@material-ui/core";
 import { Form } from "../atoms/forms/Form";
 import AlertMessage from "../utils/AlertMessage";
@@ -37,14 +37,15 @@ const PasswordReset = () => {
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
   const [successMessageOpen, setSuccessMessageOpen] = useState(false);
 
-  const generateParams = () => {
+  const generateParams = useCallback(() => {
     const passwordResetParams = {
       email: email,
       redirectUrl: "https://gahack.net/password/reset",
     }
     return passwordResetParams;
-  }
-  const handleSubmit = async (e) => {
+  },[email]);
+
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     const data = generateParams();
     try {
@@ -57,7 +58,7 @@ const PasswordReset = () => {
       console.log(e);
       setAlertMessageOpen(true);
     }
-  }
+  }, [generateParams]);
 
   return (
     <>

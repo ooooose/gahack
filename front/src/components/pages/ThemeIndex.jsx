@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from 'react-router-dom';
 
 import { Grid, Typography, useMediaQuery } from "@material-ui/core";
@@ -57,7 +57,7 @@ const ThemeIndex = () => {
   const [loading, setLoading] = useState(true);
   const matches = useMediaQuery('(min-width:575px)');
 
-  const handleGetThemes = async () => {
+  const handleGetThemes = useCallback(async () => {
     try {
       const res = await getThemes();
       if (res.status === 200) {
@@ -69,7 +69,8 @@ const ThemeIndex = () => {
     }
     setLoading(false);
     setTimeout(() => { setIsOpen(true) }, 100);
-  }
+  }, []);
+
   useEffect(() => {
     handleGetThemes();
   // eslint-disable-next-line react-hooks/exhaustive-deps

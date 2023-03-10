@@ -1,4 +1,4 @@
-import React, { useContext, memo } from "react";
+import React, { useContext, memo, useCallback } from "react";
 import { Drawer, makeStyles } from "@material-ui/core";
 
 import clsx from 'clsx';
@@ -65,7 +65,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
   const classes = useStyles();
   const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const handleSignOut = async (e) => {
+  const handleSignOut = useCallback(async (e) => {
     if (window.confirm("ログアウトしますか？") === true) {
       try {
         const res = await signOut();
@@ -87,7 +87,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
         console.log(e);
       }
     }
-  }
+  }, [handleDrawerClose, navigate, setIsSignedIn]);
   
   return (
     <>

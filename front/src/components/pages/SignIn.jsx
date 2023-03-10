@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -70,7 +70,7 @@ export const SignIn = () => {
     });
   }, []);
 
-  const handleSignInSubmit = async (e) => {
+  const handleSignInSubmit = useCallback(async (e) => {
     e.preventDefault();
     const params = generateParams();
 
@@ -92,7 +92,9 @@ export const SignIn = () => {
       console.log(e);
       setAlertMessageOpen(true);
     }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [generateParams]);
+
   return (
     <>
       <div className={classes.container}>

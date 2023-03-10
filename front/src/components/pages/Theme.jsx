@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import PictureCard from "../atoms/cards/PictureCard";
 
@@ -68,7 +68,7 @@ const Theme = () => {
   const [loading, setLoading] = useState(true);
   const matches = useMediaQuery('(min-width:575px)');
 
-  const handleShowTheme = async () => {
+  const handleShowTheme = useCallback(async () => {
     try {
       const res = await showTheme(id);
       if (res.status === 200) {
@@ -80,7 +80,7 @@ const Theme = () => {
       console.log(e);
     }
     setLoading(false);
-  }
+  }, [id]);
 
   const animation = () => {
     setTimeout(() => { setIsOpen(true) }, 100);

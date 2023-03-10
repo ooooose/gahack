@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { showUser } from "../../lib/api/users";
 
 import {Grid,
@@ -188,7 +188,7 @@ const ShowUser = () => {
     setPageOpen(false);
   };
 
-  const handleShowUser = async () => {
+  const handleShowUser = useCallback(async () => {
     try {
       const res = await showUser(id);
       if (res.status === 200) {
@@ -205,11 +205,11 @@ const ShowUser = () => {
     }
     setLoading(false);
     setTimeout(() => { setIsOpen(true) }, 400);
-  }
+  }, [id])
 
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
     setOpen(true);
-  };
+  }, []);
 
 
   const pageAnimation = () => {

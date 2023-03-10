@@ -51,7 +51,7 @@ const TwitterAnswerModal = memo(({theme, open, setOpen}) => {
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:575px)');
 
-  const handleClose =() => {
+  const handleClose = () => {
     setOpen(false);
   };
 

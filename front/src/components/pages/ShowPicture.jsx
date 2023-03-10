@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
 import { showPicture } from '../../lib/api/pictures';
 import { Card, Divider, CardContent, Avatar, Tooltip, IconButton, Typography } from "@material-ui/core";
@@ -137,7 +137,7 @@ const ShowPicture = () => {
     setTimeout(() => { setIsOpen(true) }, 200)
   };
 
-  const handleDeletePicture = async () => {
+  const handleDeletePicture = useCallback(async () => {
     if (window.confirm('削除しますか？')){
       try {
         const res = await deletePicture(id);
@@ -148,7 +148,7 @@ const ShowPicture = () => {
         console.log(e);
       }
     }
-  }
+  }, [id, theme.id, navigate]);
 
   const handleOpen = () => {
     setOpen(true);
