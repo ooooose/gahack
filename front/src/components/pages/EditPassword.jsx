@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import { makeStyles, Card, CardHeader, CardContent, Button, useMediaQuery } from "@material-ui/core";
 import { Form } from "../atoms/forms/Form";
@@ -43,16 +43,16 @@ const EditPassword = () => {
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
   const [successMessageOpen, setSuccessMessageOpen] = useState(false);
 
-  const generateParams = () => {
+  const generateParams = useCallback(() => {
     const data = {
       password: password,
       passwordConfirmation: passwordConfirmation,
       resetPasswordToken: searchParams.get('reset_password_token'),
     }
     return data;
-  };
+  }, [password, passwordConfirmation, searchParams]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     const data = generateParams();
     const query = searchParams;
@@ -68,7 +68,7 @@ const EditPassword = () => {
       console.log(e);
       setAlertMessageOpen(true);
     }
-  }
+  }, [generateParams, navigation, searchParams])
 
   return (
     <>

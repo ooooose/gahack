@@ -3,25 +3,27 @@ class Api::V1::PicturesController < ApiController
   include CarrierwaveBase64Uploader
 
   def index
-    pictures = Picture.all.recent.includes({ user: [:followings, :followers]}, :theme, :liked_users, :likes, :comments)
+    pictures = Picture.all.recent.includes({ user: [:likes, :liked_pictures, :comments, :bookmarks, :bookmark_pictures, :followings, :followers] },
+                                           :theme, :likes, :liked_users, :comments, :bookmarks)
     render_json = ActiveModelSerializers::SerializableResource.new(
       pictures,
       includes: "**",
       each_serializer: PictureSerializer,
-      current_api_v1_user: current_api_v1_user
+      current_api_v1_user: current_api_v1_user,
     ).as_json
     render json: render_json
   end
 
   def show
-    @picture = Picture.includes({ user: [:followings, :followers] }, :theme, :liked_users, :likes, :comments).find(params[:id])
+    @picture = Picture.includes({ user: [:likes, :liked_pictures, :comments, :bookmarks, :bookmark_pictures, :followings, :followers] },
+                                :theme, :liked_users, :likes, :comments, :bookmarks).find(params[:id])
     render_json = ActiveModelSerializers::SerializableResource.new(
       @picture,
       includes: "**",
       serializer: PictureSerializer,
-      current_api_v1_user: current_api_v1_user
+      current_api_v1_user: current_api_v1_user,
     ).as_json
-    render json: render_json, status: 200
+    render json: render_json, status: :ok
   end
 
   def create
@@ -35,7 +37,7 @@ class Api::V1::PicturesController < ApiController
   end
 
   def destroy
-    @picture.destroy
+    @picture.destroy!
     render json: @picture
   end
 
@@ -43,7 +45,7 @@ class Api::V1::PicturesController < ApiController
     if @picture.update(frame_params)
       render json: @picture, serializer: PictureSerializer
     else
-      render json: { status: 500, message: '更新に失敗しました' }
+      render json: { status: 500, message: "更新に失敗しました" }
     end
   end
 
@@ -61,15 +63,15 @@ class Api::V1::PicturesController < ApiController
   # プライベートメソッド
   private
 
-  def set_picture
-    @picture = Picture.find(params[:id])
-  end
+    def set_picture
+      @picture = Picture.find(params[:id])
+    end
 
-  def picture_params
-    params.require(:picture).permit(:image, :theme_id)
-  end
+    def picture_params
+      params.require(:picture).permit(:image, :theme_id)
+    end
 
-  def frame_params
-    params.require(:picture).permit(:frame_id)
-  end
+    def frame_params
+      params.require(:picture).permit(:frame_id)
+    end
 end

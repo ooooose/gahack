@@ -11,9 +11,9 @@ class User < ApplicationRecord
   has_many :bookmark_pictures, through: :bookmarks, source: :picture
 
   # フォロー、リフォロー
-  has_many :relationships
+  has_many :relationships, dependent: :destroy
   has_many :followings, through: :relationships, source: :follow
-  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "follow_id", dependent: :destroy
   has_many :followers, through: :reverse_of_relationships, source: :user
 
   scope :without_guests, -> { where.not(name: "ゲストユーザー") }
@@ -35,13 +35,13 @@ class User < ApplicationRecord
 
   def follow(user)
     unless self == user
-      self.relationships.find_or_create_by(follow_id: user.id)
+      self.relationships.find_or_create_by!(follow_id: user.id)
     end
   end
 
   def unfollow(user)
     relationship = self.relationships.find_by(follow_id: user.id)
-    relationship.destroy if relationship
+    relationship.destroy! if relationship
   end
 
   def following?(user)
@@ -62,7 +62,7 @@ class User < ApplicationRecord
 
   # ゲストログイン用メソッド
   def self.guest
-    num=Random.new
+    num = Random.new
     find_or_create_by!(email: "guest-#{num.rand(10)}@example.com") do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = "ゲストユーザー"

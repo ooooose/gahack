@@ -1,4 +1,4 @@
-import React, { useState, useContext, memo } from "react";
+import React, { useState, useContext, memo, useCallback } from "react";
 
 import { IconButton, makeStyles } from "@material-ui/core";
 import LikeButton from "../atoms/buttons/LikeButton";
@@ -31,15 +31,17 @@ const Likes = memo(({picture, pictureId}) => {
   const [likes, setLikes] = useState(picture.likes);
   const [openAlert, setOpenAlert] = useState(false);
 
-  const generateParams = () => {
+  const generateParams = useCallback(() => {
     const likeParams = {
       picture_id: pictureId,
     };
     return likeParams;
-  };
-  const handleOpen = () => {
+  }, [pictureId]);
+
+  const handleOpen = useCallback(() => {
     setOpenAlert(true);
-  }
+  },[]);
+
   return (
     <>
     { currentUser.name === "ゲストユーザー" ? (
@@ -58,7 +60,6 @@ const Likes = memo(({picture, pictureId}) => {
           <>
             <UnLikeButton 
               params={generateParams()} 
-              likeState={picture.liked}
               setLikeState={setLikeState}
               likeId={picture.like_id}
               likes={likes}
@@ -68,7 +69,6 @@ const Likes = memo(({picture, pictureId}) => {
         ) : (
           <LikeButton 
             params={generateParams()} 
-            likeState={picture.liked}
             setLikeState={setLikeState}
             likes={likes}
             setLikes={setLikes}

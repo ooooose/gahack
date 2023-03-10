@@ -12,9 +12,9 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /myapp
 
 # ローカルからコンテナにファイルをコピー
-COPY Gemfile Gemfile.lock /myapp/
+COPY api/Gemfile api/Gemfile.lock /myapp/
 RUN bundle install
-COPY . /myapp
+COPY api/ /myapp
 
 COPY entrypoint.dev.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.dev.sh

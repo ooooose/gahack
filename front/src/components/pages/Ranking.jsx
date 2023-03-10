@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { getBestPictures } from '../../lib/api/pictures';
 import { getBestUsers } from '../../lib/api/users';
 import Loader from './Loader';
@@ -60,7 +60,7 @@ const Ranking = () => {
   const [bestUsers, setBestUsers] = useState([]);
   const matches = useMediaQuery('(min-width:575px)');
 
-  const handleGetPictures = async () => {
+  const handleGetPictures = useCallback(async () => {
     try {
       const res = await getBestPictures();
       if (res.status === 200) {
@@ -70,9 +70,9 @@ const Ranking = () => {
     } catch (e) {
       console.log(e);
     }
-  }
+  }, []);
   
-  const handleGetUsers = async () => {
+  const handleGetUsers = useCallback(async () => {
     try {
       const res = await getBestUsers();
       if (res.status === 200) {
@@ -84,7 +84,7 @@ const Ranking = () => {
     }
     setLoading(false);
     setTimeout(() => { setIsOpen(true) }, 100);
-  }
+  }, []);
 
   useEffect(() => {
     handleGetPictures();

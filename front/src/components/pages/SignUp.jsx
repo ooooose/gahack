@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -68,7 +68,7 @@ const SignUp = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
 
-  const generateParams = () => {
+  const generateParams = useCallback(() => {
     const signUpParams = {
       name: name,
       email: email,
@@ -76,9 +76,9 @@ const SignUp = () => {
       passwordConfirmation: passwordConfirmation,
     };
     return signUpParams;
-  };
+  }, [name, email, password, passwordConfirmation]);
 
-  const handleSignUpSubmit = async (e) => {
+  const handleSignUpSubmit = useCallback(async (e) => {
     e.preventDefault();
     const params = generateParams();
 
@@ -92,7 +92,7 @@ const SignUp = () => {
       console.log(e);
       setAlertMessageOpen(true);
     }
-  };
+  }, [generateParams, navigate]);
 
   useEffect(() => {
     window.scrollTo({
