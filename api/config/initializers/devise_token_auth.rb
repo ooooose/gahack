@@ -41,12 +41,12 @@ DeviseTokenAuth.setup do |config|
   # It depends on fields like email, provider and uid.
   # config.default_callbacks = true
 
-  config.headers_names = {:'access-token' => 'access-token',
-                         :'client' => 'client',
-                         :'expiry' => 'expiry',
-                         :'uid' => 'uid',
-                         :'token-type' => 'token-type',
-                         :'authorization' => 'authorization'}
+  config.headers_names = { 'access-token': "access-token",
+                           client: "client",
+                           expiry: "expiry",
+                           uid: "uid",
+                           'token-type': "token-type",
+                           authorization: "authorization" }
 
   # Makes it possible to use custom uid column
   # config.other_uid = "foo"

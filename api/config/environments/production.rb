@@ -13,7 +13,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
@@ -21,7 +21,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = 'http://assets.example.com'
@@ -46,7 +46,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -57,17 +57,17 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_options = { from: ENV['EMAIL_ADDRESS'] }
-  config.action_mailer.default_url_options = { host: 'https://gahack.herokuapp.com', protocol: "https" }
+  config.action_mailer.default_options = { from: ENV["EMAIL_ADDRESS"] }
+  config.action_mailer.default_url_options = { host: "https://gahack.herokuapp.com", protocol: "https" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
+    address: "smtp.gmail.com",
     port: 587,
-    domain: 'gmail.com',
-    user_name: ENV['EMAIL_ADDRESS'],
-    password: ENV['EMAIL_PASSWORD'],
-    authentication: 'plain',
-    enable_starttls_auto: true
+    domain: "gmail.com",
+    user_name: ENV["EMAIL_ADDRESS"],
+    password: ENV["EMAIL_PASSWORD"],
+    authentication: "plain",
+    enable_starttls_auto: true,
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.

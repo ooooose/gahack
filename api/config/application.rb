@@ -47,10 +47,10 @@ module Myapp
     # クロスドメイン対策を導入
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins "localhost:8000", 'https://gahack.netlify.app'
+        origins "localhost:8000", "https://gahack.netlify.app"
         resource "*",
                  headers: :any,
-                 expose: ['access-token', "expiry", "token-type", "uid", "client"],
+                 expose: ["access-token", "expiry", "token-type", "uid", "client"],
                  methods: [:get, :post, :options, :delete, :put]
       end
     end

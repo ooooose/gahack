@@ -10,6 +10,6 @@ class ThemeSerializer < ActiveModel::Serializer
   end
 
   attribute :best_picture do
-    object.pictures.recent.sort{ |a, b| b.likes.count <=> a.likes.count }.first
+    object.pictures.recent.sort {|a, b| b.likes.count <=> a.likes.count }.first
   end
 end

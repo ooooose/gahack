@@ -3,12 +3,13 @@ class Api::V1::ThemesController < ApiController
 
   def index
     themes = Theme.all.recent.includes({ pictures: [:comments, :likes, :liked_users, :bookmarks,
-            { user: [:pictures, :likes, :liked_pictures, :comments, :bookmarks, :bookmark_pictures, :followings, :followers] }] })
+                                                    { user: [:pictures, :likes, :liked_pictures, :comments,
+                                                             :bookmarks, :bookmark_pictures, :followings, :followers] }] })
     render_json = ActiveModelSerializers::SerializableResource.new(
       themes,
-      includes: '**',
+      includes: "**",
       each_serializer: ThemeSerializer,
-      current_api_v1_user: current_api_v1_user
+      current_api_v1_user: current_api_v1_user,
     ).as_json
     render json: render_json
   end
@@ -23,13 +24,14 @@ class Api::V1::ThemesController < ApiController
   end
 
   def show
-    @theme = Theme.includes({ pictures: [:comments, :likes,:liked_users, :bookmarks,
-             { user: [:pictures, :likes, :liked_pictures, :comments, :bookmarks, :bookmark_pictures, :followings, :followers] }]}).find(params[:id])
+    @theme = Theme.includes({ pictures: [:comments, :likes, :liked_users, :bookmarks,
+                                         { user: [:pictures, :likes, :liked_pictures, :comments,
+                                                  :bookmarks, :bookmark_pictures, :followings, :followers] }] }).find(params[:id])
     render_json = ActiveModelSerializers::SerializableResource.new(
       @theme,
       includes: "**",
       serializer: ThemeSerializer,
-      current_api_v1_user: current_api_v1_user
+      current_api_v1_user: current_api_v1_user,
     )
     render json: render_json.as_json
   end
@@ -44,11 +46,11 @@ class Api::V1::ThemesController < ApiController
 
   private
 
-  def set_theme
-    @theme = Theme.find(params[:id])
-  end
+    def set_theme
+      @theme = Theme.find(params[:id])
+    end
 
-  def theme_params
-    params.require(:theme).permit(:title)
-  end
+    def theme_params
+      params.require(:theme).permit(:title)
+    end
 end
