@@ -89,7 +89,7 @@ const Theme = () => {
   useEffect(() => {
     handleShowTheme();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pictures]);
+  }, [page]);
 
   useEffect(() => {
     animation();

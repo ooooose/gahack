@@ -79,8 +79,8 @@ const Timeline = () => {
 
   useEffect(() => {
     handleGetPictures();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pictures]);
+  }, [handleGetPictures, page]);
+  console.log('render');
 
   return (
     <>

@@ -63,7 +63,7 @@ const Bookmarks = memo(({picture, pictureId}) => {
         ) : (
           <BookmarkButton
             params={generateParams()}
-            bookmarkState={picture.bookmarked}
+            bookmarkState={bookmarkState}
             setBookmarkState={setBookmarkState}
           />
         )}

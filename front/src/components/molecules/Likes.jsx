@@ -60,7 +60,6 @@ const Likes = memo(({picture, pictureId}) => {
           <>
             <UnLikeButton 
               params={generateParams()} 
-              likeState={picture.liked}
               setLikeState={setLikeState}
               likeId={picture.like_id}
               likes={likes}
@@ -70,7 +69,6 @@ const Likes = memo(({picture, pictureId}) => {
         ) : (
           <LikeButton 
             params={generateParams()} 
-            likeState={picture.liked}
             setLikeState={setLikeState}
             likes={likes}
             setLikes={setLikes}

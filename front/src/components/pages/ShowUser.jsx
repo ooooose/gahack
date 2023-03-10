@@ -219,8 +219,7 @@ const ShowUser = () => {
 
   useEffect(() => {
     handleShowUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [handleShowUser, likesPage, currentUser]);
 
   useEffect(() => {
     pageAnimation();
