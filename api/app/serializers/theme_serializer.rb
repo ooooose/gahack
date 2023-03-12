@@ -1,5 +1,5 @@
 class ThemeSerializer < ActiveModel::Serializer
-  attributes %i[id title created_at]
+  attributes %i[id title]
   has_many :pictures, serializer: PictureSerializer do
     object.pictures.recent
   end
