@@ -5,14 +5,12 @@ class UserSerializer < ActiveModel::Serializer
     object.pictures.recent
   end
   has_many :comments, serializer: CommentSerializer do
-    object.comments.includes(:picture, :user).recent
+    object.comments.recent
   end
-  has_many :likes
   has_many :liked_pictures, each_serializer: PictureSerializer
   has_many :followings
   has_many :followers
-  has_many :bookmarks
-  has_many :bookmark_pictures, each_serializer: PictureSerializer
+  has_many :bookmark_pictures
 
   def initialize(object, **option)
     @current_api_v1_user = option[:current_api_v1_user]

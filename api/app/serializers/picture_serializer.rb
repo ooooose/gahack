@@ -2,7 +2,7 @@ class PictureSerializer < ActiveModel::Serializer
   attributes %i[id twitter_card frame_id created_at]
 
   has_many :comments, serializer: CommentSerializer do
-    object.comments.includes(:user, :picture).recent
+    object.comments.recent
   end
 
   def initialize(object, **option)
@@ -18,16 +18,16 @@ class PictureSerializer < ActiveModel::Serializer
 
   attribute :like_id do
     if @current_api_v1_user
-      object.likes.includes(:user, :picture).find_by(user_id: @current_api_v1_user.id)&.id
+      object.likes.find_by(user_id: @current_api_v1_user.id)&.id
     end
   end
 
   attribute :likes do
-    object.likes.includes(:user, :picture).count
+    object.likes.count
   end
 
   attribute :monthly_likes do
-    object.likes.includes(:user, :picture).monthly.count
+    object.likes.monthly.count
   end
 
   attribute :bookmarked do
@@ -38,7 +38,7 @@ class PictureSerializer < ActiveModel::Serializer
 
   attribute :bookmark_id do
     if @current_api_v1_user
-      @current_api_v1_user.bookmarks.includes(:user, :picture).find_by(picture_id: object.id)&.id
+      @current_api_v1_user.bookmarks.find_by(picture_id: object.id)&.id
     end
   end
 
