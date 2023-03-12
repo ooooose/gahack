@@ -5,7 +5,7 @@ class UserSerializer < ActiveModel::Serializer
     object.pictures.recent
   end
   has_many :comments, serializer: CommentSerializer do
-    object.comments.recent
+    object.comments.includes(:picture, :user).recent
   end
   has_many :likes
   has_many :liked_pictures, each_serializer: PictureSerializer
