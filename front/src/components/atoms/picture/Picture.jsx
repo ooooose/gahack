@@ -11,13 +11,12 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-const Picture = memo(({theme, picture, image}) => {
+const Picture = memo(({theme, picture }) => {
   const classes = useStyles();
-  const image_src = "data:image/png;base64," + image;
   return (
     <>
       <div className={picture.frameId === 2 ? `${styles.second}` : `${styles.first}`}>
-        <img src={image_src} alt={theme} className={classes.imageScales} />
+        <img src={picture.twitterCard.url} alt={theme} className={classes.imageScales} />
       </div>
     </>
   )

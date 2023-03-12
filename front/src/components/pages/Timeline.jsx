@@ -80,7 +80,6 @@ const Timeline = () => {
   useEffect(() => {
     handleGetPictures();
   }, [handleGetPictures, page]);
-  console.log('render');
 
   return (
     <>
