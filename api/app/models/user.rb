@@ -3,10 +3,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
   mount_uploader :image, AvatarUploader
-  has_many :pictures, dependent: :destroy
+  has_many :pictures, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_pictures, through: :likes, source: :picture
-  has_many :comments, dependent: :destroy
+  has_many :comments, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_pictures, through: :bookmarks, source: :picture
 

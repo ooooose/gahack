@@ -1,8 +1,6 @@
 class ThemeSerializer < ActiveModel::Serializer
   attributes %i[id title]
-  has_many :pictures, serializer: PictureSerializer do
-    object.pictures.recent
-  end
+  has_many :pictures, serializer: PictureSerializer
 
   def initialize(object, **option)
     @current_api_v1_user = option[:current_api_v1_user]
@@ -10,6 +8,6 @@ class ThemeSerializer < ActiveModel::Serializer
   end
 
   attribute :best_picture do
-    object.pictures.recent.sort {|a, b| b.likes.count <=> a.likes.count }.first
+    object.pictures.joins(:likes).group(:picture_id).order('count(picture_id) desc').first
   end
 end
