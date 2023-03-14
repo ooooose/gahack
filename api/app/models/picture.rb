@@ -1,11 +1,11 @@
 class Picture < ApplicationRecord
   belongs_to :user
   belongs_to :theme
-  # いいね機能
-  has_many :likes, dependent: :destroy
+
+  has_many :likes, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
-  has_many :comments, dependent: :destroy
-  has_many :bookmarks, dependent: :destroy
+  has_many :comments, -> { order(created_at: :desc) }, dependent: :destroy
+  has_many :bookmarks, -> { order(created_at: :desc) }, dependent: :destroy
   mount_uploader :twitter_card, ImageUploader
 
   # 描かれた絵を作成順に並び替える

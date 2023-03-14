@@ -1,9 +1,7 @@
 class PictureSerializer < ActiveModel::Serializer
   attributes %i[id twitter_card frame_id created_at]
 
-  has_many :comments, serializer: CommentSerializer do
-    object.comments.recent
-  end
+  has_many :comments, serializer: CommentSerializer
 
   def initialize(object, **option)
     @current_api_v1_user = option[:current_api_v1_user]
@@ -49,4 +47,5 @@ class PictureSerializer < ActiveModel::Serializer
   attribute :user do
     object.user
   end
+
 end

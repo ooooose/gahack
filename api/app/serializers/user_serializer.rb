@@ -1,13 +1,9 @@
 class UserSerializer < ActiveModel::Serializer
   attributes %i[id name image]
 
-  has_many :pictures, serializer: PictureSerializer do
-    object.pictures.recent
-  end
-  has_many :comments, serializer: CommentSerializer do
-    object.comments.recent
-  end
-  has_many :liked_pictures, each_serializer: PictureSerializer
+  has_many :pictures, serializer: PictureSerializer
+  has_many :comments, serializer: CommentSerializer
+  has_many :liked_pictures, serializer: PictureSerializer
   has_many :followings
   has_many :followers
   has_many :bookmark_pictures
