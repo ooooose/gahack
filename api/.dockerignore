@@ -1,0 +1,11 @@
+.env*
+.git
+.gitignore
+.cache
+.dockerignore
+README.md
+Dockerfile
+log/*
+public/assets/*
+storage/*
+tmp/*
