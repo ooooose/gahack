@@ -1,21 +1,19 @@
 import React, { useContext, memo, useCallback } from "react";
-import { Drawer, makeStyles } from "@material-ui/core";
+import { Drawer, makeStyles , IconButton, Divider, List, ListItem, ListItemIcon, ListItemText, Tooltip } from "@material-ui/core";
 
 import clsx from 'clsx';
-import { IconButton, Divider, List, ListItem, ListItemIcon, ListItemText, Tooltip } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import { FaMedal } from 'react-icons/fa';
-import { MdDraw } from 'react-icons/md'
+import { MdDraw , MdPolicy } from 'react-icons/md'
 import Cookies from "js-cookie";
-import { signOut } from "../../lib/api/auth";
 import { useNavigate, Link } from "react-router-dom";
-import { AuthContext } from "../../App";
 import Person from "@material-ui/icons/Person";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { IoDocumentText } from 'react-icons/io5';
-import { MdPolicy } from 'react-icons/md';
+import { AuthContext } from "../../App";
+import { signOut } from "../../lib/api/auth";
 
 const drawerWidth = 250;
 
@@ -90,8 +88,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
   }, [handleDrawerClose, navigate, setIsSignedIn]);
   
   return (
-    <>
-      <Drawer 
+    <Drawer 
         anchor='left' 
         variant="permanent"
         classes={{
@@ -106,8 +103,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
         <Divider />
         { isSignedIn ? 
           (
-            <>
-              <List>
+            <List>
                 { currentUser.name === "ゲストユーザー" ? (
                   <></>
                 ) : (
@@ -126,7 +122,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
                   <ListItem button>
                     <Tooltip title="月間ランキング">
                       <ListItemIcon>
-                        <FaMedal size={'1.5rem'} />
+                        <FaMedal size="1.5rem" />
                       </ListItemIcon>
                     </Tooltip>
                     <ListItemText primary="月間ランキング" />
@@ -146,35 +142,35 @@ const SideBar = memo(({open, handleDrawerClose}) => {
                   <ListItem button>
                     <Tooltip title="キャンバス">
                       <ListItemIcon>
-                        <MdDraw size={'1.7rem'} />
+                        <MdDraw size="1.7rem" />
                       </ListItemIcon>
                     </Tooltip>
                     <ListItemText primary="キャンバス" />
                   </ListItem>
                 </Link>
                 <Link
-                  to={"/termsofservice"}
+                  to="/termsofservice"
                   className={classes.link}
                   onClick={handleDrawerClose}
                 >
                   <ListItem button>
                     <Tooltip title="利用規約">
                       <ListItemIcon>
-                        <IoDocumentText size={"1.5rem"} />
+                        <IoDocumentText size="1.5rem" />
                       </ListItemIcon>
                     </Tooltip>
                     <ListItemText primary="利用規約" />
                   </ListItem>
                 </Link>
                 <Link
-                  to={"/privacypolicy"}
+                  to="/privacypolicy"
                   className={classes.link}
                   onClick={handleDrawerClose}
                 >
                   <ListItem button>
                     <Tooltip title="プライバシーポリシー">
                       <ListItemIcon>
-                        <MdPolicy size={"1.6rem"} />
+                        <MdPolicy size="1.6rem" />
                       </ListItemIcon>
                     </Tooltip>
                     <ListItemText primary="プライバシーポリシー" />
@@ -191,11 +187,10 @@ const SideBar = memo(({open, handleDrawerClose}) => {
                   </ListItem>
                 </Link>
               </List>
-            </>
           ) : (
             <>
             <Link
-              to={"/signin"}
+              to="/signin"
               className={classes.link}
               onClick={handleDrawerClose}
             >
@@ -209,7 +204,7 @@ const SideBar = memo(({open, handleDrawerClose}) => {
               </ListItem>
             </Link>
             <Link
-              to={"/signup"}
+              to="/signup"
               className={classes.link}
               onClick={handleDrawerClose}
             >
@@ -223,28 +218,28 @@ const SideBar = memo(({open, handleDrawerClose}) => {
               </ListItem>
             </Link>
             <Link
-              to={"/termsofservice"}
+              to="/termsofservice"
               className={classes.link}
               onClick={handleDrawerClose}
             >
               <ListItem button>
                 <Tooltip title="利用規約">
                   <ListItemIcon>
-                    <IoDocumentText size={"1.5rem"} />
+                    <IoDocumentText size="1.5rem" />
                   </ListItemIcon>
                 </Tooltip>
                 <ListItemText primary="利用規約" />
               </ListItem>
             </Link>
             <Link
-              to={"/privacypolicy"}
+              to="/privacypolicy"
               className={classes.link}
               onClick={handleDrawerClose}
             >
               <ListItem button>
                 <Tooltip title="プライバシーポリシー">
                   <ListItemIcon>
-                    <MdPolicy size={"1.6rem"} />
+                    <MdPolicy size="1.6rem" />
                   </ListItemIcon>
                 </Tooltip>
                 <ListItemText primary="プライバシーポリシー" />
@@ -254,7 +249,6 @@ const SideBar = memo(({open, handleDrawerClose}) => {
           )
         }
       </Drawer>
-    </>
   )
 });
 

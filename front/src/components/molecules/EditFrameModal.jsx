@@ -57,7 +57,7 @@ const EditFrameModal = memo(({ open, setOpen, picture, setPicture ,image, setThe
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:575px)');
   const [frame, setFrame] = useState(1);
-  const image_src = "data:image/png;base64," + image;
+  const image_src = `data:image/png;base64,${  image}`;
   const handleClose = () => {
     setOpen(false);
   };
@@ -71,7 +71,7 @@ const EditFrameModal = memo(({ open, setOpen, picture, setPicture ,image, setThe
 
   const handleEditPictureSubmit = async () => {
     const params = generateParams();
-    const id = picture.id
+    const {id} = picture
     try {
       const res = await editPicture(id, params);
       const new_picture = res.data;
@@ -92,8 +92,7 @@ const EditFrameModal = memo(({ open, setOpen, picture, setPicture ,image, setThe
   const body = (
     <>
       {matches ? (
-        <>
-          <div className={classes.paper}>
+        <div className={classes.paper}>
             <h2 id="simple-modal-title">フレーム編集</h2>
             <div className={classes.content}>
               <div className={frame === 2 ? `${styles.second}` : `${styles.first}`}>
@@ -114,7 +113,7 @@ const EditFrameModal = memo(({ open, setOpen, picture, setPicture ,image, setThe
                     handleFrameChange(e.target.value);
                   }}
                 >
-                  <MenuItem value=""></MenuItem>
+                  <MenuItem value="" />
                   <MenuItem value={1}>ブラック</MenuItem>
                   <MenuItem value={2}>ホワイト</MenuItem>
                 </Select>
@@ -133,10 +132,8 @@ const EditFrameModal = memo(({ open, setOpen, picture, setPicture ,image, setThe
                 >更新</Button>
             </div>
           </div>
-        </>
       ) : (
-        <>
-          <div className={classes.minPaper}>
+        <div className={classes.minPaper}>
             <h2 id="simple-modal-title">フレーム編集</h2>
             <div className={classes.content}>
               <div className={frame === 2 ? `${styles.second}` : `${styles.first}`}>
@@ -157,7 +154,7 @@ const EditFrameModal = memo(({ open, setOpen, picture, setPicture ,image, setThe
                     handleFrameChange(e.target.value);
                   }}
                 >
-                  <MenuItem value=""></MenuItem>
+                  <MenuItem value="" />
                   <MenuItem value={1}>ブラック</MenuItem>
                   <MenuItem value={2}>ホワイト</MenuItem>
                 </Select>
@@ -176,15 +173,13 @@ const EditFrameModal = memo(({ open, setOpen, picture, setPicture ,image, setThe
                 >更新</Button>
             </div>
           </div>
-        </>
 
       )}
     </>
   );
 
   return (
-    <>
-      <Modal
+    <Modal
         open={open}
         className={classes.modal}
         onClose={handleClose}
@@ -193,7 +188,6 @@ const EditFrameModal = memo(({ open, setOpen, picture, setPicture ,image, setThe
       >
         {body}
       </Modal>
-    </>
   )
 });
 

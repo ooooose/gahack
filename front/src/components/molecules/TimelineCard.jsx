@@ -51,13 +51,13 @@ const TimelineCard = memo(({picture , user}) => {
   const handleToDate = (date) =>{
     date = new Date(date);
     if(date.getMinutes() < 10){
-      date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":0"+date.getMinutes()
+      date = `${date.getFullYear()}/${date.getMonth()%12+1}/${date.getDate()} ${date.getHours()}:0${date.getMinutes()}`
     } else {
-      date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()
+      date = `${date.getFullYear()}/${date.getMonth()%12+1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
     }
     setDate(date) 
   }
-  const shortTitle = picture.theme.title.length > 10 ?  picture.theme.title.substring(0, 10) + '...' : picture.theme.title;
+  const shortTitle = picture.theme.title.length > 10 ?  `${picture.theme.title.substring(0, 10)  }...` : picture.theme.title;
 
   useEffect(() => {
     handleToDate(picture.createdAt);
@@ -67,8 +67,7 @@ const TimelineCard = memo(({picture , user}) => {
   return (
     <>
       { matches ? (
-        <>
-          <Card className={classes.cardContent} sx={{ maxWidth: 345 }} >
+        <Card className={classes.cardContent} sx={{ maxWidth: 345 }} >
               <CardHeader
                 align='left'
                 avatar={
@@ -76,7 +75,7 @@ const TimelineCard = memo(({picture , user}) => {
                     <>
                     { user.name !== "ゲストユーザー" ? (
                         <Link to={{
-                          pathname: "/users/" + user.id,
+                          pathname: `/users/${  user.id}`,
                           state: {id: user.id}
                         }}
                         id={picture.id}
@@ -101,15 +100,14 @@ const TimelineCard = memo(({picture , user}) => {
                   )
                 }
                 action={
-                  <IconButton aria-label="settings">
-                  </IconButton>
+                  <IconButton aria-label="settings" />
                 }
                 title={user.name}
                 subheader={`テーマ： ${shortTitle}`}
               />
             <CardContent className={`${styles.timeParent}`}>
               <Link to={{
-                          pathname: "/pictures/" + picture.id,
+                          pathname: `/pictures/${  picture.id}`,
                           state: {id: picture.id}
                         }}
                         id={picture.id}
@@ -129,10 +127,8 @@ const TimelineCard = memo(({picture , user}) => {
               <Typography className={classes.date} paragraph>{date}</Typography>
             </CardActions>
           </Card>
-        </>
       ) : (
-        <>
-          <Card className={classes.minCardContent} sx={{ maxWidth: 345 }} >
+        <Card className={classes.minCardContent} sx={{ maxWidth: 345 }} >
               <CardHeader
                 align='left'
                 avatar={
@@ -140,7 +136,7 @@ const TimelineCard = memo(({picture , user}) => {
                     <>
                     { user.name !== "ゲストユーザー" ? (
                         <Link to={{
-                          pathname: "/users/" + user.id,
+                          pathname: `/users/${  user.id}`,
                           state: {id: user.id}
                         }}
                         id={picture.id}
@@ -165,15 +161,14 @@ const TimelineCard = memo(({picture , user}) => {
                   )
                 }
                 action={
-                  <IconButton aria-label="settings">
-                  </IconButton>
+                  <IconButton aria-label="settings" />
                 }
                 title={user.name}
                 subheader={`テーマ： ${shortTitle}`}
               />
             <CardContent className={`${styles.timeParent}`}>
               <Link to={{
-                          pathname: "/pictures/" + picture.id,
+                          pathname: `/pictures/${  picture.id}`,
                           state: {id: picture.id}
                         }}
                         id={picture.id}
@@ -193,7 +188,6 @@ const TimelineCard = memo(({picture , user}) => {
               <Typography className={classes.minDate} paragraph>{date}</Typography>
             </CardActions>
           </Card>
-        </>
       )  }
     </>
   );

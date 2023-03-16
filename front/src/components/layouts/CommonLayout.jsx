@@ -33,8 +33,7 @@ const CommonLayout = memo((props) => {
   }, []);
   
   return (
-    <>
-      <div className={classes.root}>
+    <div className={classes.root}>
         <Header
           open={open}
           handleDrawerOpen={handleDrawerOpen}  
@@ -48,7 +47,6 @@ const CommonLayout = memo((props) => {
           </Grid>
         </main>
       </div>
-    </>
   )
 });
 

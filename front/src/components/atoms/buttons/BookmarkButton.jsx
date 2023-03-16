@@ -32,13 +32,11 @@ const BookmarkButton = memo(({params, setBookmarkState}) => {
   }
 
   return (
-    <>
-      <Tooltip title="お気に入り">
+    <Tooltip title="お気に入り">
         <IconButton className={classes.bookmarkButton}   onClick={handleCreateBookmark} >
           <AiOutlineStar />
         </IconButton>
       </Tooltip>
-    </>
   )
 });
 

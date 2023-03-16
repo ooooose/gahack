@@ -15,18 +15,16 @@ export const UploadButton = memo((props) => {
   const classes = useStyles();
   
   return (
-    <>
-      <Button
+    <Button
         variant="contained"
         size="large"
         color="primary"
         fullWidth
-        disabled={!props.theme ? true : false}
+        disabled={!props.theme}
         className={classes.submitBtn}
         onClick={props.uploadCanvas}
       >
         {props.children}
       </Button>
-    </>
   )
 });

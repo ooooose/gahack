@@ -3,11 +3,11 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
 
-const Alert = (props) =>{
+function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const AlertMessage = (props) => {
+function AlertMessage(props) {
   const { open, setOpen, severity, message} = props;
   const handleCloseAlertMessage = (e, reason) => {
     if (reason === "clickaway") return
@@ -26,6 +26,6 @@ const AlertMessage = (props) => {
       </Alert>
     </Snackbar>
   );
-};
+}
 
 export default AlertMessage;

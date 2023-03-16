@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export const SignIn = () => {
+export function SignIn() {
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
@@ -57,8 +57,8 @@ export const SignIn = () => {
 
   const generateParams = () => {
     const signInParams = {
-      email: email,
-      password: password,
+      email,
+      password,
     };
     return signInParams;
   };
@@ -79,8 +79,8 @@ export const SignIn = () => {
       if (res.status === 200) {
         console.log(res);
         Cookies.set("_access_token", res.headers["access-token"]);
-        Cookies.set("_client", res.headers["client"]);
-        Cookies.set("_uid", res.headers["uid"]);
+        Cookies.set("_client", res.headers.client);
+        Cookies.set("_uid", res.headers.uid);
 
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
@@ -96,24 +96,22 @@ export const SignIn = () => {
   }, [generateParams]);
 
   return (
-    <>
-      <div className={classes.container}>
+    <div className={classes.container}>
         <form noValidate autoComplete="off" style={{display:"inline-block"}}>
           {matches ? (
-            <>
-              <Card className={classes.card}>
+            <Card className={classes.card}>
                 <CardHeader className={classes.header} title="ログイン画面" />
                 <CardContent>
                   <Form
-                    label={"メールアドレス"}
+                    label="メールアドレス"
                     value={email}
                     onChange={event => setEmail(event.target.value)}
                   />
                   <Form
-                    label={"パスワード"}
-                    type={"password"}
+                    label="パスワード"
+                    type="password"
                     value={password}
-                    autoComplete={"current-password"}
+                    autoComplete="current-password"
                     onChange={(event) => setPassword(event.target.value)}
                   />
                   <Box style={{textAlign: 'right'}}>
@@ -141,22 +139,20 @@ export const SignIn = () => {
                   </Box>
                 </CardContent>
               </Card>
-            </>
           ) : (
-            <>
-              <Card className={classes.minCard}>
+            <Card className={classes.minCard}>
                 <CardHeader className={classes.header} title="ログイン画面" />
                 <CardContent>
                   <Form
-                    label={"メールアドレス"}
+                    label="メールアドレス"
                     value={email}
                     onChange={event => setEmail(event.target.value)}
                   />
                   <Form
-                    label={"パスワード"}
-                    type={"password"}
+                    label="パスワード"
+                    type="password"
                     value={password}
-                    autoComplete={"current-password"}
+                    autoComplete="current-password"
                     onChange={(event) => setPassword(event.target.value)}
                   />
                   <Box style={{textAlign: 'right'}}>
@@ -184,7 +180,6 @@ export const SignIn = () => {
                   </Box>
                 </CardContent>
               </Card>
-            </>
           )}
         </form>
         <AlertMessage
@@ -200,8 +195,7 @@ export const SignIn = () => {
           message="ユーザー登録に成功しました。"
         />
       </div>
-    </>
   );
-};
+}
 
 export default SignIn;

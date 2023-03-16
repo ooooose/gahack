@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PasswordReset = () => {
+function PasswordReset() {
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:575px)');
   const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ const PasswordReset = () => {
 
   const generateParams = useCallback(() => {
     const passwordResetParams = {
-      email: email,
+      email,
       redirectUrl: "https://gahack.net/password/reset",
     }
     return passwordResetParams;
@@ -61,16 +61,14 @@ const PasswordReset = () => {
   }, [generateParams]);
 
   return (
-    <>
-      <div className={classes.container}>
+    <div className={classes.container}>
         <form noValidate autoComplete="off" style={{display: 'inline-block'}}>
           {matches ? (
-            <>
-              <Card className={classes.card}>
+            <Card className={classes.card}>
                 <CardHeader className={classes.header} title="パスワードリセット" />
                 <CardContent>
                   <Form 
-                    label={"メールアドレス"}
+                    label="メールアドレス"
                     onChange={event => setEmail(event.target.value)}
                   />
                   <Button
@@ -79,7 +77,7 @@ const PasswordReset = () => {
                     size="large"
                     fullWidth
                     color="primary"
-                    disabled={!email ? true : false}
+                    disabled={!email}
                     className={classes.submitBtn}
                     onClick={handleSubmit}
                   >
@@ -87,14 +85,12 @@ const PasswordReset = () => {
                   </Button>
                 </CardContent>
               </Card>
-            </>
           ) : (
-            <>
-              <Card className={classes.minCard}>
+            <Card className={classes.minCard}>
                 <CardHeader className={classes.header} title="パスワードリセット" />
                 <CardContent>
                   <Form 
-                    label={"メールアドレス"}
+                    label="メールアドレス"
                     onChange={event => setEmail(event.target.value)}
                   />
                   <Button
@@ -103,7 +99,7 @@ const PasswordReset = () => {
                     size="large"
                     fullWidth
                     color="primary"
-                    disabled={!email ? true : false}
+                    disabled={!email}
                     className={classes.submitBtn}
                     onClick={handleSubmit}
                   >
@@ -111,7 +107,6 @@ const PasswordReset = () => {
                   </Button>
                 </CardContent>
               </Card>
-            </>
           )}
         </form>
         <AlertMessage 
@@ -127,7 +122,6 @@ const PasswordReset = () => {
           message="メールの送信に成功しました"
         />
       </div>
-    </>
   )
 }
 

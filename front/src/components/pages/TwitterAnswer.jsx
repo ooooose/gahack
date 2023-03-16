@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles, Button, useMediaQuery } from "@material-ui/core";
-import { showPicture } from '../../lib/api/pictures';
-import Picture from "../../components/atoms/picture/Picture";
-import Loader from "./Loader";
 import { Helmet } from 'react-helmet';
 import { useParams } from "react-router-dom";
+import { showPicture } from '../../lib/api/pictures';
+import Picture from "../atoms/picture/Picture";
+import Loader from "./Loader";
 import TwitterAnswerModal from "../molecules/TwitterAnswerModal";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TwitterAnswer = () => {
+function TwitterAnswer() {
   const [picture, setPicture] = useState([]);
   const [theme, setTheme] = useState([]);
   const [open, setOpen] = useState(false);
@@ -63,7 +63,7 @@ const TwitterAnswer = () => {
     try {
       const res = await showPicture(id);
       if (res.status === 200) {
-        const data = res.data;
+        const {data} = res;
         setPicture(data);
         setTheme(data.theme);
       }

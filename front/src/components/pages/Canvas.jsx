@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createPicture } from "../../lib/api/pictures";
-import { ResetButton } from "../atoms/buttons/ResetButton";
 import { BsEraserFill } from "react-icons/bs";
 import { FaPen, FaUndo, FaRedo, FaTrash } from "react-icons/fa";
 import {Grid, 
@@ -16,6 +14,8 @@ import {Grid,
         Card, 
         CardContent, 
         useMediaQuery} from "@material-ui/core";
+import { ResetButton } from "../atoms/buttons/ResetButton";
+import { createPicture } from "../../lib/api/pictures";
 import { UploadButton } from "../atoms/buttons/UploadButton";
 import { SelectBox } from "../atoms/selectBoxes/SelectBox";
 import { getThemes } from "../../lib/api/themes";
@@ -99,7 +99,7 @@ const marks = [
   },
 ]
 
-const Canvas = () => {
+function Canvas() {
   const navigate = useNavigate();
   const [load, setLoad] = useState(true);
   const classes = useStyles();
@@ -119,9 +119,9 @@ const Canvas = () => {
   const line_color = document.getElementById("line_color");
   let canvas;
   let ctx;
-  let temp = [];
-  let Xpoint, Ypoint;
-  let myStorage = localStorage;
+  const temp = [];
+  let Xpoint; let Ypoint;
+  const myStorage = localStorage;
 
   const generateParams = (base64) => {
     const pictureParams = {
@@ -159,11 +159,11 @@ const Canvas = () => {
   }
 
   const setLocalStorage = () => {
-    let png = canvas.toDataURL();
-    let logs = JSON.parse(myStorage.getItem("__log"));
+    const png = canvas.toDataURL();
+    const logs = JSON.parse(myStorage.getItem("__log"));
 
     setTimeout(() => {
-      logs.unshift({png:png});
+      logs.unshift({png});
       myStorage.setItem("__log", JSON.stringify(logs));
     }, 0);
   }
@@ -172,7 +172,7 @@ const Canvas = () => {
   const startPoint = (e) => {
     e.preventDefault();
     ctx.beginPath();
-    let rect = e.target.getBoundingClientRect();
+    const rect = e.target.getBoundingClientRect();
     Xpoint = e.clientX - rect.left;
     Ypoint = e.clientY - rect.top;
     ctx.moveTo(Xpoint, Ypoint);
@@ -180,7 +180,7 @@ const Canvas = () => {
 
   const movePoint = (e) => {
     if (e.buttons === 1 || e.witch === 1 || e.type === 'touchmove') {
-      let rect = e.target.getBoundingClientRect();
+      const rect = e.target.getBoundingClientRect();
       Xpoint = e.clientX - rect.left;
       Ypoint = e.clientY - rect.top;
       setDrawFlag(1);
@@ -203,7 +203,7 @@ const Canvas = () => {
   const touchStartPoint = (e) => {
     e.preventDefault();
     ctx.beginPath();
-    const touches = e.touches;
+    const {touches} = e;
     const offset = e.target.getBoundingClientRect();
     for (let i=0; i<touches.length; i++ ){
       Xpoint = Math.floor(touches[i].pageX - offset.left);
@@ -252,7 +252,7 @@ const Canvas = () => {
   }
 
   const undo = () => {
-    let logs = JSON.parse(myStorage.getItem('__log'));
+    const logs = JSON.parse(myStorage.getItem('__log'));
     if (logs.length > 0) {
       temp.unshift(logs.shift());
       setTimeout(() => {
@@ -260,14 +260,14 @@ const Canvas = () => {
         ctx.fillStyle = bgColor;
         ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
         if( logs[0]){
-          draw(logs[0]['png']);
+          draw(logs[0].png);
         }
       }, 0)
     }
   }
 
   const redo = () => {
-    let logs = JSON.parse(myStorage.getItem('__log'));
+    const logs = JSON.parse(myStorage.getItem('__log'));
     console.log(logs)
     if (temp.length > 0) {
       logs.unshift(temp.shift());
@@ -277,14 +277,14 @@ const Canvas = () => {
         ctx.fillStyle = bgColor;
         ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
         if( logs[0]){
-          draw(logs[0]['png']);
+          draw(logs[0].png);
         }
       }, 0)
     }
   }
 
   const draw = (src) => {
-    let img = new Image();
+    const img = new Image();
     img.src = src;
     img.onload = function(){
       ctx.drawImage(img, 0, 0);
@@ -320,7 +320,7 @@ const Canvas = () => {
     try {
       const res = await getThemes();
       if (res.status === 200) {
-        const data = res.data;
+        const {data} = res;
         setThemes(data);
       }
     } catch (e) {
@@ -335,11 +335,11 @@ const Canvas = () => {
   const uploadPicture = () => {
     if (window.confirm("保存して良いですか？") === true) {
       canvas.toBlob((blob) => {
-        let reader = new FileReader();
+        const reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onload = async (e) => {
-          let dataUrlBase64 = reader.result;
-          let base64 = dataUrlBase64.replace(/data:.*\/.*;base64,/, '');
+          const dataUrlBase64 = reader.result;
+          const base64 = dataUrlBase64.replace(/data:.*\/.*;base64,/, '');
           const params = generateParams(base64, dataUrlBase64);
           try {
             const res = await createPicture(params);
@@ -359,14 +359,13 @@ const Canvas = () => {
   return (
     <>
       { matches ? (
-        <>
-          <Grid className={classes.container} container spacing={3}>
+        <Grid className={classes.container} container spacing={3}>
             <Grid item xs={12} md={7}>
               <div className={`${styles.canvasParent}`} id="canvasParent">
                 <canvas 
                   id="canvas"
                   className={`${styles.canvas}`} 
-                ></canvas>
+                 />
               </div>
             </Grid>
             <Grid item className={classes.item} xs={10} md={5}>
@@ -465,7 +464,7 @@ const Canvas = () => {
                       />
                     </Box>
                     <SelectBox
-                      placeholder={'テーマを選んでください'} 
+                      placeholder="テーマを選んでください" 
                       option={theme}
                       options={themes}
                       setOption={setTheme}
@@ -479,18 +478,16 @@ const Canvas = () => {
               </div>
             </Grid>
           </Grid>
-        </>
       ) : (
         <>
         { minMatches ? (
-          <>
-            <Grid className={classes.midContainer} container spacing={1}>
+          <Grid className={classes.midContainer} container spacing={1}>
               <Grid item xs={8}>
                 <div className={`${styles.canvasParent}`} id="canvasParent">
                   <canvas 
                     id="canvas"
                     className={`${styles.canvas}`} 
-                  ></canvas>
+                   />
                 </div>
               </Grid>
               <Grid item className={classes.midItem} xs={3}>
@@ -587,7 +584,7 @@ const Canvas = () => {
                     />
                   </Box>
                   <SelectBox
-                    placeholder={'テーマを選んでください'} 
+                    placeholder="テーマを選んでください" 
                     option={theme}
                     options={themes}
                     setOption={setTheme}
@@ -599,16 +596,14 @@ const Canvas = () => {
                 </div>
               </Grid>
             </Grid>
-          </>
         ) : (
-          <>
-            <Grid className={classes.minContainer} container spacing={1}>
+          <Grid className={classes.minContainer} container spacing={1}>
               <Grid item xs={12}>
                 <div className={`${styles.canvasParent}`} id="canvasParent">
                   <canvas 
                     id="canvas"
                     className={`${styles.canvas}`} 
-                  ></canvas>
+                   />
                 </div>
               </Grid>
               <Grid item className={classes.minItem} xs={12}>
@@ -705,7 +700,7 @@ const Canvas = () => {
                     />
                   </Box>
                   <SelectBox
-                    placeholder={'テーマを選んでください'} 
+                    placeholder="テーマを選んでください" 
                     option={theme}
                     options={themes}
                     setOption={setTheme}
@@ -717,7 +712,6 @@ const Canvas = () => {
                 </div>
               </Grid>
             </Grid>
-          </>
         )}
         </>
       )}

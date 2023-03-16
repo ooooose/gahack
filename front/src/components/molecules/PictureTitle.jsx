@@ -1,7 +1,7 @@
 import React, { memo } from "react";
-import Likes from "./Likes";
 import { Typography, Card, CardContent, makeStyles, Avatar } from "@material-ui/core";
 import { Link } from 'react-router-dom';
+import Likes from "./Likes";
 import styles from "../../css/molecules/PictureTitle.module.css";
 import Bookmarks from "./Bookmarks";
 
@@ -29,13 +29,12 @@ const useStyles = makeStyles(() => ({
 const PictureTitle = memo(({ user, picture, pictureId }) => {
   const classes = useStyles();
   return (
-    <>
-      <Card className={`${styles.pictureTitle}`} >
+    <Card className={`${styles.pictureTitle}`} >
         <CardContent>
           <div className={classes.userInfo}>
             { user.name !== "ゲストユーザー" ? (
               <Link to={{
-                pathname: "/users/" + user.id,
+                pathname: `/users/${  user.id}`,
                 state: {id: user.id}
               }}
               id={picture.id}
@@ -72,7 +71,6 @@ const PictureTitle = memo(({ user, picture, pictureId }) => {
           </div>
         </CardContent>
       </Card>
-    </>
   )
 });
 

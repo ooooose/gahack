@@ -58,8 +58,7 @@ const TwitterAnswerModal = memo(({theme, open, setOpen}) => {
   const body = (
     <>
       {matches ? (
-        <>
-          <div className={classes.paper}>
+        <div className={classes.paper}>
             <p className={classes.answer}>この絵のテーマは<strong>{theme.title}</strong>でした！</p>
             <p>あなたもエモい絵を描きましょう！</p>
             <div className={classes.buttons}>
@@ -74,10 +73,8 @@ const TwitterAnswerModal = memo(({theme, open, setOpen}) => {
               </Button>
             </div>
           </div>
-        </>
       ) : (
-        <>
-          <div className={classes.minPaper}>
+        <div className={classes.minPaper}>
             <p className={classes.answer}>この絵のテーマは<br /><strong>{theme.title}</strong><br />でした！</p>
             <p>あなたもエモい絵を描きましょう！</p>
             <div className={classes.buttons}>
@@ -92,13 +89,11 @@ const TwitterAnswerModal = memo(({theme, open, setOpen}) => {
               </Button>
             </div>
           </div>
-        </>
       )}
     </>
   );
   return (
-    <>
-      <Modal
+    <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
@@ -106,7 +101,6 @@ const TwitterAnswerModal = memo(({theme, open, setOpen}) => {
       >
         {body}
       </Modal>
-    </>
   )
 });
 

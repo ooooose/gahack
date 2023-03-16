@@ -1,13 +1,12 @@
 import React, { useContext, memo } from "react";
-import { AuthContext } from "../../App";
 import { Link } from "react-router-dom";
 
-import { makeStyles } from "@material-ui/core";
+import { makeStyles , Avatar, ListItemAvatar, Grid } from "@material-ui/core";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
-import { Avatar, ListItemAvatar, Grid } from "@material-ui/core";
+import { AuthContext } from "../../App";
 import { deleteComment } from "../../lib/api/comments";
 import DeleteCommentButton from "../atoms/buttons/DeleteCommentButton";
 
@@ -28,9 +27,7 @@ const Comment = memo(({ comments, comment, commentId, user, picture, setComments
       try {
         const res = await deleteComment(picture.id, commentId)
         if (res.status === 200) {
-          const newComments = comments.filter((comment) => {
-            return comment.id !== commentId
-          });
+          const newComments = comments.filter((comment) => comment.id !== commentId);
           setComments(newComments);
         }
       } catch(e) {
@@ -44,7 +41,7 @@ const Comment = memo(({ comments, comment, commentId, user, picture, setComments
           <ListItemAvatar>
             <Link
               to={{
-                pathname: "/users/" + user.id,
+                pathname: `/users/${  user.id}`,
                 state: {id: user.id}
               }}
               id={user.id}>

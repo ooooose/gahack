@@ -11,13 +11,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DeleteCommentButton = ({handleDeleteComment}) => {
+function DeleteCommentButton({handleDeleteComment}) {
   const classes = useStyles();
 
   return (
-    <>
-      <DeleteIcon className={classes.deleteButton} onClick={handleDeleteComment} />
-    </>
+    <DeleteIcon className={classes.deleteButton} onClick={handleDeleteComment} />
   )
 }
 

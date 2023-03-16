@@ -31,11 +31,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TopDescription = () => {
+function TopDescription() {
   const classes = useStyles();
   return (
-    <>
-      <div className={`${styles.container}`}>
+    <div className={`${styles.container}`}>
         <Grid className={`${styles.cardWrapper}`} container>
           <Grid item xs={12}>
             <div>
@@ -90,8 +89,7 @@ const TopDescription = () => {
           </Grid>
         </Grid>
       </div>
-    </>
   )
-};
+}
 
 export default TopDescription;

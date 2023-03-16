@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import PictureCard from "../atoms/cards/PictureCard";
-
 import { Grid, makeStyles, Typography, useMediaQuery } from "@material-ui/core";
 import { useParams } from "react-router-dom";
+import { Pagination } from "@material-ui/lab";
+import PictureCard from "../atoms/cards/PictureCard";
+
 import { showTheme } from "../../lib/api/themes";
 import styles from "../../css/components/Frames.module.css";
-import { Pagination } from "@material-ui/lab";
 import Loader from "./Loader";
 
 const useStyles = makeStyles((theme) => ({
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Theme = () => {
+function Theme() {
   const [page, setPage] = useState(1);
   const classes = useStyles();
   const { id } = useParams();
@@ -72,7 +72,7 @@ const Theme = () => {
     try {
       const res = await showTheme(id);
       if (res.status === 200) {
-        const data = res.data;
+        const {data} = res;
         setTheme(data);
         setPictures(data.pictures);
       }
@@ -100,8 +100,7 @@ const Theme = () => {
       {!loading ? (
         <>
           {matches ? (
-            <>
-              <div className={isOpen ? classes.animation : classes.before}>
+            <div className={isOpen ? classes.animation : classes.before}>
                     <Typography
                       className={classes.header} 
                       variant="h4">{theme.title} の部屋</Typography> 
@@ -142,10 +141,8 @@ const Theme = () => {
                   )}
                 </div>
               </div>
-            </>
           ) : (
-            <>
-              <div className={isOpen ? classes.minAnimation : classes.minBefore}>
+            <div className={isOpen ? classes.minAnimation : classes.minBefore}>
                     <Typography
                       className={classes.header} 
                       variant="h4">{theme.title} の部屋</Typography> 
@@ -186,7 +183,6 @@ const Theme = () => {
                   )}
                 </div>
               </div>
-            </>
           )}
         </>
       ) : (

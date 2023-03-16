@@ -14,19 +14,17 @@ const useStyles = makeStyles((theme) => ({
 export const LoginButton = memo((props) => {
   const classes = useStyles();
   return (
-    <>
-      <Button
+    <Button
         type="submit"
         variant="contained"
         size="large"
         fullWidth
         color="default"
-        disabled={!props.email || !props.password ? true : false}
+        disabled={!!(!props.email || !props.password)}
         className={classes.submitBtn}
         onClick={props.handleSubmit}
       >
         {props.children}
       </Button>
-    </>
   )
 });

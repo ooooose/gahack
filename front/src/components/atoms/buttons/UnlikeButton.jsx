@@ -36,14 +36,12 @@ const UnLikeButton = memo(({params, setLikeState, likeId, likes, setLikes }) => 
   }
 
   return (
-    <>
-      <Tooltip title="いいね">
+    <Tooltip title="いいね">
         <IconButton className={classes.likeButton} onClick={handleDeleteLike} >
           <FavoriteIcon />
           <span className={classes.length}>{likes}</span>
         </IconButton>
       </Tooltip>
-    </>
   )
 });
 

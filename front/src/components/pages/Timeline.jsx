@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles, Typography, Grid, useMediaQuery } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
-import { getPictures } from "../../lib/api/pictures";
 import { Pagination } from "@material-ui/lab";
+import { getPictures } from "../../lib/api/pictures";
 import AlertMessage from "../utils/AlertMessage";
 import Loader from "./Loader";
 import TimelineCard from "../molecules/TimelineCard";
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Timeline = () => {
+function Timeline() {
   const classes = useStyles();
   const location = useLocation();
   const matches = useMediaQuery('(min-width:575px)');
@@ -67,7 +67,7 @@ const Timeline = () => {
     try {
       const res = await getPictures();
       if (res.status === 200) {
-        const data = res.data;
+        const {data} = res;
         setPictures(data);
       }
     } catch (e) {

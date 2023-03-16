@@ -26,15 +26,13 @@ const FollowButton = memo(({ userId, params, setFollowState }) => {
   }
 
   return (
-    <>
-      <Button
+    <Button
         variant="contained"
         color="primary"
         className={classes.submitBtn} 
         onClick={handleCreateLike} >
           フォロー
       </Button>
-    </>
   )
 });
 

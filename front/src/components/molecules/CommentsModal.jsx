@@ -1,9 +1,9 @@
 import React, { useState, useContext, memo } from "react";
 import { makeStyles, Typography, Divider, TextField, Button, Modal, useMediaQuery } from "@material-ui/core";
-import Comment from "./Comment";
-import { createComment } from '../../lib/api/comments';
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import Comment from "./Comment";
+import { createComment } from '../../lib/api/comments';
 import { AuthContext } from "../../App";
 import { signOut } from "../../lib/api/auth";
 
@@ -116,8 +116,7 @@ const CommentsModal = memo(({commentOpen, setCommentOpen, pictureId, comments, s
   const body = (
     <>
       {matches ? (
-        <>
-          <div className={classes.paper}>
+        <div className={classes.paper}>
             <div className={classes.titleWrapper}>
               <Typography
                 component="span"
@@ -149,8 +148,7 @@ const CommentsModal = memo(({commentOpen, setCommentOpen, pictureId, comments, s
             </div>
             <Divider />
             {currentUser.name !== "ゲストユーザー" ? (
-              <>
-                <div className={classes.textField}>
+              <div className={classes.textField}>
                   <TextField
                     label="コメント"
                     type="text"
@@ -170,14 +168,12 @@ const CommentsModal = memo(({commentOpen, setCommentOpen, pictureId, comments, s
                       variant="contained" 
                       color="primary"
                       onClick={handleCommentSubmit}
-                      disabled={!comment ? true : false}
+                      disabled={!comment}
                     >投稿する</Button>
                   </div>
                 </div>
-              </>
             ) : (
-              <>
-                <div className={classes.guest}>
+              <div className={classes.guest}>
                   <h3>ゲストユーザーの方はコメントできません</h3>
                   <div className={classes.buttons}>
                     <Button 
@@ -189,13 +185,10 @@ const CommentsModal = memo(({commentOpen, setCommentOpen, pictureId, comments, s
                     </Button>
                   </div>
                 </div>
-              </>
             )}
           </div>
-        </>
         ) : (
-        <>
-          <div className={classes.minPaper}>
+        <div className={classes.minPaper}>
             <div className={classes.titleWrapper}>
               <Typography
                 component="span"
@@ -227,8 +220,7 @@ const CommentsModal = memo(({commentOpen, setCommentOpen, pictureId, comments, s
             </div>
             <Divider />
             {currentUser.name !== "ゲストユーザー" ? (
-              <>
-                <div className={classes.textField}>
+              <div className={classes.textField}>
                   <TextField
                     label="コメント"
                     type="text"
@@ -248,14 +240,12 @@ const CommentsModal = memo(({commentOpen, setCommentOpen, pictureId, comments, s
                       variant="contained" 
                       color="primary"
                       onClick={handleCommentSubmit}
-                      disabled={!comment ? true : false}
+                      disabled={!comment}
                     >投稿する</Button>
                   </div>
                 </div>
-              </>
             ) : (
-              <>
-                <div className={classes.guest}>
+              <div className={classes.guest}>
                   <h3>ゲストユーザーの方は<br />
                       コメントできません</h3>
                   <div className={classes.buttons}>
@@ -268,17 +258,14 @@ const CommentsModal = memo(({commentOpen, setCommentOpen, pictureId, comments, s
                     </Button>
                   </div>
                 </div>
-              </>
             )}
           </div>
-        </>
       )}
     </>
   )
 
   return (
-    <>
-      <Modal
+    <Modal
         open={commentOpen}
         className={classes.modal}
         onClose={() => setCommentOpen(false)}
@@ -287,7 +274,6 @@ const CommentsModal = memo(({commentOpen, setCommentOpen, pictureId, comments, s
       >
         {body}
       </Modal>
-    </>
   )
 });
 

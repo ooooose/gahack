@@ -25,15 +25,14 @@ const useStyles = makeStyles((theme) => ({
 const BestUserCard = memo(({user, index}) => {
   const classes = useStyles();
   return (
-    <>
-      <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <h2>
             第 {index+1} 位
           </h2>
           <div className={classes.avatarContent}>
             <Link to={{
-              pathname: "/users/" + user.id,
+              pathname: `/users/${  user.id}`,
               state: {id: user.id}
             }}
             id={user.id}
@@ -51,7 +50,6 @@ const BestUserCard = memo(({user, index}) => {
         <p>今月<strong>{user.monthlyLikes}いいね</strong>を獲得！</p>
         </CardContent>
       </Card>
-    </>
   )
 });
 

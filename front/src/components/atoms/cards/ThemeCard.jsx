@@ -16,8 +16,7 @@ const useStyles = makeStyles((theme) => ({
 const ThemeCard = memo(({theme, picture, title}) => {
   const classes = useStyles();
   return (
-    <>
-      <Card
+    <Card
         className={classes.card}
       > { theme.bestPicture ? (
         <div className={`${styles.themeParent}`}>
@@ -32,13 +31,12 @@ const ThemeCard = memo(({theme, picture, title}) => {
       }
       { title.length > 10 ? (
         <Tooltip title={title}>
-          <p><strong>{title.substring(0 ,10) + '...'}</strong>の部屋</p>
+          <p><strong>{`${title.substring(0 ,10)  }...`}</strong>の部屋</p>
         </Tooltip>
       ) : (
         <p><strong>{title}</strong>の部屋</p>
       ) }
       </Card>
-    </>
   )
 });
 

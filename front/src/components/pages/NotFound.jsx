@@ -15,11 +15,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const NotFound = () => {
+function NotFound() {
   const classes = useStyles();
   return(
-    <>
-      <div>
+    <div>
         <h1 className={classes.notFound}>404</h1>
         <h3>お探しのページは見つかりませんでした。</h3>
         <Button color="primary" variant="contained" >
@@ -28,7 +27,6 @@ const NotFound = () => {
           </Link>
         </Button>
       </div>
-    </>
   )
 }
 

@@ -2,10 +2,8 @@ import React, { memo } from "react";
 
 import TextField from "@material-ui/core/TextField";
 
-export const Form = memo((props) => {
-  return (
-    <>
-      <TextField
+export const Form = memo((props) => (
+    <TextField
         variant="outlined"
         required
         fullWidth
@@ -18,6 +16,4 @@ export const Form = memo((props) => {
         autoComplete={props.autoComplete}
         onChange={props.onChange}
       />
-    </>
-  )
-});
+  ));

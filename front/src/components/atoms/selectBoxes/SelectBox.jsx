@@ -6,15 +6,14 @@ export const SelectBox = memo(({placeholder, option, options, setOption}) => {
     setOption(e.target.value);
   }
   return (
-    <>
-      <FormControl fullWidth>
+    <FormControl fullWidth>
         <InputLabel>{placeholder}</InputLabel>
         <Select
           displayEmpty
           onChange={onChange}
           value={option || ''}
         >
-          <MenuItem value="" disabled></MenuItem>
+          <MenuItem value="" disabled />
           {
             options.map((opt) => (
               <MenuItem value={opt} key={opt.id}>{opt.title}</MenuItem>
@@ -22,6 +21,5 @@ export const SelectBox = memo(({placeholder, option, options, setOption}) => {
           }
         </Select>
       </FormControl>
-    </>
   )
 });

@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-const GuestsAlert = ({open, setOpen}) => {
+function GuestsAlert({open, setOpen}) {
   const classes = useStyles();
   const navigate = useNavigate();
   const matches = useMediaQuery('(min-width:575px)');
@@ -77,8 +77,7 @@ const GuestsAlert = ({open, setOpen}) => {
   const body = (
     <>
       {matches ? (
-        <>
-          <div className={classes.paper}>
+        <div className={classes.paper}>
             <h2 id="simple-modal-title">ユーザー登録をお願いします</h2>
             <div className={classes.buttons}>
               <Button 
@@ -90,10 +89,8 @@ const GuestsAlert = ({open, setOpen}) => {
               </Button>
             </div>
           </div>
-        </>
         ) : (
-        <>
-          <div className={classes.minPaper}>
+        <div className={classes.minPaper}>
             <h3 id="simple-modal-title">ユーザー登録をお願いします</h3>
             <div className={classes.buttons}>
               <Button 
@@ -105,13 +102,11 @@ const GuestsAlert = ({open, setOpen}) => {
               </Button>
             </div>
           </div>
-        </>
       )}
     </>
   );
   return (
-    <>
-      <Modal
+    <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
@@ -119,8 +114,7 @@ const GuestsAlert = ({open, setOpen}) => {
       >
         {body}
       </Modal>
-    </>
   )
-};
+}
 
 export default GuestsAlert;

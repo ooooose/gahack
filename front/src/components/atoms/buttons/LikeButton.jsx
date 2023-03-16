@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 
 import { makeStyles, IconButton, Tooltip } from "@material-ui/core";
 
-import { createLike } from "../../../lib/api/likes";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import { createLike } from "../../../lib/api/likes";
 
 const useStyles = makeStyles((theme) => ({
   likeButton: {
@@ -34,14 +34,12 @@ const LikeButton = memo(({params, setLikeState, likes, setLikes}) => {
   }
 
   return (
-    <>
-      <Tooltip title="いいね">
+    <Tooltip title="いいね">
         <IconButton className={classes.likeButton}   onClick={handleCreateLike} >
           <FavoriteBorderIcon />
           <span className={classes.length}>{likes}</span>
         </IconButton>
       </Tooltip>
-    </>
   )
 });
 

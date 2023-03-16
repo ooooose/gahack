@@ -32,13 +32,11 @@ const UnbookmarkButton = memo(({params, setBookmarkState, bookmarkId}) => {
   }
 
   return (
-    <>
-      <Tooltip title="お気に入り">
+    <Tooltip title="お気に入り">
         <IconButton className={classes.bookmarkButton}   onClick={handleDeleteBookmark} >
           <AiFillStar className={classes.bookmarkIcon} />
         </IconButton>
       </Tooltip>
-    </>
   )
 });
 

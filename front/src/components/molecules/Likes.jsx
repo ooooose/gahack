@@ -1,10 +1,10 @@
 import React, { useState, useContext, memo, useCallback } from "react";
 
 import { IconButton, makeStyles } from "@material-ui/core";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import LikeButton from "../atoms/buttons/LikeButton";
 import UnLikeButton from "../atoms/buttons/UnlikeButton";
 import { AuthContext } from "../../App";
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import GuestsAlert from "../utils/GuestsAlert";
 
 const useStyles = makeStyles (() => ({
@@ -57,15 +57,13 @@ const Likes = memo(({picture, pictureId}) => {
     ) : (
       <>
         { likeState ? (
-          <>
-            <UnLikeButton 
+          <UnLikeButton 
               params={generateParams()} 
               setLikeState={setLikeState}
               likeId={picture.like_id}
               likes={likes}
               setLikes={setLikes}
             />
-          </>
         ) : (
           <LikeButton 
             params={generateParams()} 

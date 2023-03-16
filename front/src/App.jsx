@@ -20,6 +20,7 @@ import TwitterAnswer from "./components/pages/TwitterAnswer";
 import Ranking from "./components/pages/Ranking";
 import PrivacyPolicy from "./components/pages/PrivacyPolicy";
 import TermsOfService from "./components/pages/TermsOfService";
+
 export const AuthContext = createContext();
 
 function App() {
@@ -69,13 +70,13 @@ function App() {
             <Route path="/" element={<TopPage />} />
             <Route path="/password" element={<PasswordReset />} />
             <Route path="/password/reset" element={<EditPassword />} />
-            <Route path="/picture" element={<RouteAuthGuard component={<Canvas />} redirect={"/signin"} />} />
-            <Route path="/pictures/:id" element={<RouteAuthGuard component={<ShowPicture />} redirect={"/signin"} />} />
+            <Route path="/picture" element={<RouteAuthGuard component={<Canvas />} redirect="/signin" />} />
+            <Route path="/pictures/:id" element={<RouteAuthGuard component={<ShowPicture />} redirect="/signin" />} />
             <Route path="/pictures/:id/twitter" element={<TwitterAnswer />} />
-            <Route path="/themes" element={<RouteAuthGuard component={<ThemeIndex />} redirect={"/signin"} />} />
-            <Route path="/ranking" element={<RouteAuthGuard component={<Ranking />} redirect={"/signin"} />} />
-            <Route path="/themes/:id" element={<RouteAuthGuard component={<Theme />} redirect={"/signin"} />} />
-            <Route path="/users/:id" element={<RouteAuthGuard component={<ShowUser />} redirect={"/signin"} />} />
+            <Route path="/themes" element={<RouteAuthGuard component={<ThemeIndex />} redirect="/signin" />} />
+            <Route path="/ranking" element={<RouteAuthGuard component={<Ranking />} redirect="/signin" />} />
+            <Route path="/themes/:id" element={<RouteAuthGuard component={<Theme />} redirect="/signin" />} />
+            <Route path="/users/:id" element={<RouteAuthGuard component={<ShowUser />} redirect="/signin" />} />
             <Route path="*" element={<NotFound /> } />
           </Routes>
         </CommonLayout>

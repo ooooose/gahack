@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TermsOfService = () => {
+function TermsOfService() {
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:575px)');
   useEffect(() => {
@@ -56,8 +56,7 @@ const TermsOfService = () => {
   return (
     <>
       {matches ? (
-        <>
-          <div className={classes.container} >
+        <div className={classes.container} >
             <Typography
               variant="h4"
               className={classes.header}
@@ -481,10 +480,8 @@ const TermsOfService = () => {
               <Typography variant="subtitle1" className={classes.date}>2023年02月25日 制定</Typography>
             </Box>
           </div>
-        </>
       ) : (
-        <>
-          <div className={classes.minContainer} >
+        <div className={classes.minContainer} >
             <Typography
               variant="h4"
               className={classes.minHeader}
@@ -907,10 +904,9 @@ const TermsOfService = () => {
               <Typography variant="subtitle1" className={classes.date}>2023年02月25日 制定</Typography>
             </Box>
           </div>
-        </>
       )}
     </>
   )
-};
+}
 
 export default TermsOfService;

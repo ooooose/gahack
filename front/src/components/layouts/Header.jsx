@@ -1,9 +1,6 @@
 import React, { useContext, memo } from "react";
 import { Link } from "react-router-dom";
 import clsx from 'clsx';
-import { AuthContext } from "../../App";
-import TopLogo from '../../assets/img/TopLogo.png';
-
 import {makeStyles,
         Avatar,
         Tooltip,
@@ -13,6 +10,9 @@ import {makeStyles,
         IconButton,
         useMediaQuery } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import { AuthContext } from "../../App";
+import TopLogo from '../../assets/img/TopLogo.png';
+
 
 const drawerWidth = 250;
 
@@ -71,8 +71,7 @@ const Header = memo(({open, handleDrawerOpen}) => {
   return (
     <>
     {matches ? (
-      <>
-        <AppBar
+      <AppBar
           className={clsx(classes.appBar, open && classes.appBarShift)}
           position="fixed"
         >
@@ -98,24 +97,20 @@ const Header = memo(({open, handleDrawerOpen}) => {
               <img className={classes.logo} src={TopLogo} alt="Logo" />
             </Typography>
             { isSignedIn ? (
-              <>
-                <Tooltip title={`ようこそ、${currentUser.name}さん！`}>
+              <Tooltip title={`ようこそ、${currentUser.name}さん！`}>
                   <Avatar
                     alt='avatar'
                     src={currentUser.image.url}
                     className={classes.avatar}
                   />
                 </Tooltip>
-              </>
             ) : (
               <></>
             ) }
           </Toolbar>
         </AppBar>
-      </>
     ) : (
-      <>
-        <AppBar
+      <AppBar
           className={clsx(classes.appBar, open && classes.appBarShift)}
           position="fixed"
         >
@@ -141,21 +136,18 @@ const Header = memo(({open, handleDrawerOpen}) => {
               <img className={classes.minLogo} src={TopLogo} alt="Logo" />
             </Typography>
             { isSignedIn ? (
-              <>
-                <Tooltip title={`ようこそ、${currentUser.name}さん！`}>
+              <Tooltip title={`ようこそ、${currentUser.name}さん！`}>
                   <Avatar
                     alt='avatar'
                     src={currentUser.image.url}
                     className={classes.minAvatar}
                   />
                 </Tooltip>
-              </>
             ) : (
               <></>
             ) }
           </Toolbar>
         </AppBar>
-      </>
     )}
     </>
   )

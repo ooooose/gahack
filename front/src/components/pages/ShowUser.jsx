@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { showUser } from "../../lib/api/users";
-
+import React, { useState, useEffect, useCallback , useContext } from "react";
 import {Grid,
         makeStyles,
         Typography,
@@ -11,16 +9,17 @@ import {Grid,
         Button,
         Container,
         useMediaQuery } from "@material-ui/core";
-
 import PropTypes from 'prop-types';
+import { useParams, Link, useLocation } from "react-router-dom";
+import { Pagination } from "@material-ui/lab";
+import { showUser } from "../../lib/api/users";
+
+
 import Picture from "../atoms/picture/Picture";
 import PictureCard from "../atoms/cards/PictureCard";
-import { useParams, Link, useLocation } from "react-router-dom";
 import styles from "../../css/components/Frames.module.css"
-import { useContext } from "react";
 import { AuthContext } from "../../App";
 import EditUserModal from "../molecules/EditUserModal";
-import { Pagination } from "@material-ui/lab";
 import Relationships from "../molecules/Relationships";
 import Loader from "./Loader";
 import Following from "../molecules/Following";
@@ -160,7 +159,7 @@ function a11yProps(index) {
   };
 }
 
-const ShowUser = () => {
+function ShowUser() {
   const { id } = useParams();
   const classes = useStyles();
   const location = useLocation();
@@ -192,7 +191,7 @@ const ShowUser = () => {
     try {
       const res = await showUser(id);
       if (res.status === 200) {
-        const data = res.data;
+        const {data} = res;
         setUser(data);
         setAvatar(data.image);
         setPictures(data.pictures);
@@ -283,7 +282,7 @@ const ShowUser = () => {
                               Math.floor(i / 6 + 1) === page && <Grid item xs={12} sm={6} md={4} key={picture.id}>
                                 <div className={`${styles.grandParent}`}>
                                   <Link to={{
-                                      pathname: "/pictures/" + picture.id,
+                                      pathname: `/pictures/${  picture.id}`,
                                       state: {id: picture.id}
                                     }}
                                     id={picture.id}
@@ -338,9 +337,7 @@ const ShowUser = () => {
                           ))}
                         </Grid>
                         ) : (
-                          <>
-                            <h2>お気に入りした絵はまだありません</h2>
-                          </>
+                          <h2>お気に入りした絵はまだありません</h2>
                         )
                         }
                     </div>
@@ -482,7 +479,7 @@ const ShowUser = () => {
                               Math.floor(i / 6 + 1) === page && <Grid item xs={12} sm={6} md={4} key={picture.id}>
                                 <div className={`${styles.grandParent}`}>
                                   <Link to={{
-                                      pathname: "/pictures/" + picture.id,
+                                      pathname: `/pictures/${  picture.id}`,
                                       state: {id: picture.id}
                                     }}
                                     id={picture.id}
@@ -537,9 +534,7 @@ const ShowUser = () => {
                           ))}
                         </Grid>
                         ) : (
-                          <>
-                            <h4>お気に入りはまだありません</h4>
-                          </>
+                          <h4>お気に入りはまだありません</h4>
                         )
                         }
                     </div>
@@ -634,6 +629,6 @@ const ShowUser = () => {
       ) }
     </>
   )
-};
+}
 
 export default ShowUser;

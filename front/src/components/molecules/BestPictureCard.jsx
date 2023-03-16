@@ -45,9 +45,9 @@ const BestPictureCard = memo(({picture , user, index}) => {
   const handleToDate = (date) =>{
     date = new Date(date);
     if(date.getMinutes() < 10){
-      date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":0"+date.getMinutes()
+      date = `${date.getFullYear()}/${date.getMonth()%12+1}/${date.getDate()} ${date.getHours()}:0${date.getMinutes()}`
     } else {
-      date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()
+      date = `${date.getFullYear()}/${date.getMonth()%12+1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
     }
     setDate(date) 
   }
@@ -57,7 +57,7 @@ const BestPictureCard = memo(({picture , user, index}) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const shortTitle = picture.theme.title.length > 10 ?  picture.theme.title.substring(0, 10) + '...' : picture.theme.title;
+  const shortTitle = picture.theme.title.length > 10 ?  `${picture.theme.title.substring(0, 10)  }...` : picture.theme.title;
 
   return (
     <Card className={classes.cardContent} sx={{ maxWidth: 345 }} >
@@ -71,7 +71,7 @@ const BestPictureCard = memo(({picture , user, index}) => {
                     <>
                     { user.name !== "ゲストユーザー" ? (
                         <Link to={{
-                          pathname: "/users/" + user.id,
+                          pathname: `/users/${  user.id}`,
                           state: {id: user.id}
                         }}
                         id={picture.id}
@@ -96,15 +96,14 @@ const BestPictureCard = memo(({picture , user, index}) => {
                   )
                 }
           action={
-            <IconButton aria-label="settings">
-            </IconButton>
+            <IconButton aria-label="settings" />
           }
           title={user.name}
           subheader={`テーマ： ${shortTitle}`}
         />
         <CardContent className={`${styles.timeParent}`}>
           <Link to={{
-                      pathname: "/pictures/" + picture.id,
+                      pathname: `/pictures/${  picture.id}`,
                       state: {id: picture.id}
                     }}
                     id={picture.id}
@@ -117,23 +116,19 @@ const BestPictureCard = memo(({picture , user, index}) => {
           </Link>
         </CardContent>
         { matches ? (
-          <>
-            <CardActions className={classes.cardBottom} disableSpacing>
+          <CardActions className={classes.cardBottom} disableSpacing>
               <div>
                 <p className={classes.result}>今月<strong>{picture.monthlyLikes}いいね</strong>を獲得！</p>
               </div>
               <Typography className={classes.date} paragraph>{date}</Typography>
             </CardActions>
-          </>
         ) : (
-          <>
-            <CardActions className={classes.minCardBottom} disableSpacing>
+          <CardActions className={classes.minCardBottom} disableSpacing>
               <div>
                 <p className={classes.result}>今月<strong>{picture.monthlyLikes}いいね</strong>を獲得！</p>
               </div>
               <Typography paragraph>{date}</Typography>
             </CardActions>
-          </>
         )}
     </Card>
   );

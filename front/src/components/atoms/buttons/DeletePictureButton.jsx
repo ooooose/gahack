@@ -9,18 +9,16 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const DeletePicutreButton = ({handleDeletePicture}) => {
+function DeletePicutreButton({handleDeletePicture}) {
   const classes = useStyles();
 
   return (
-    <>
-      <Tooltip title="絵を削除する">
+    <Tooltip title="絵を削除する">
         <IconButton aria-label="delete" onClick={handleDeletePicture} >
           <DeleteIcon className={classes.deleteButton} /> 
         </IconButton>
       </Tooltip>
-    </>
   )
-};
+}
 
 export default DeletePicutreButton;

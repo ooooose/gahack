@@ -40,7 +40,7 @@ const Following = memo(({following, handleShowUser}) => {
         <ListItem alignItems="flex-start">
           <Link
             to={{
-              pathname: "/users/" + following.id,
+              pathname: `/users/${  following.id}`,
               state: {id: following.id}
             }}
             onClick={handleShowUser(following.id)}
@@ -58,7 +58,7 @@ const Following = memo(({following, handleShowUser}) => {
               <Link
                 className={classes.link}
                 to={{
-                  pathname: "/users/" + following.id,
+                  pathname: `/users/${  following.id}`,
                   state: {id: following.id}
                 }}
                 onClick={handleShowUser(following.id)}
@@ -94,7 +94,7 @@ const Following = memo(({following, handleShowUser}) => {
         <ListItem alignItems="flex-start">
           <Link
             to={{
-              pathname: "/users/" + following.id,
+              pathname: `/users/${  following.id}`,
               state: {id: following.id}
             }}
             onClick={handleShowUser(following.id)}
@@ -112,7 +112,7 @@ const Following = memo(({following, handleShowUser}) => {
               <Link
                 className={classes.link}
                 to={{
-                  pathname: "/users/" + following.id,
+                  pathname: `/users/${  following.id}`,
                   state: {id: following.id}
                 }}
                 onClick={handleShowUser(following.id)}

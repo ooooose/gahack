@@ -1,21 +1,20 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
-import { showPicture } from '../../lib/api/pictures';
 import { Card, Divider, CardContent, Avatar, Tooltip, IconButton, Typography } from "@material-ui/core";
-import Picture from '../atoms/picture/Picture';
 import { makeStyles } from "@material-ui/core/styles";
+import SettingsIcon from '@material-ui/icons/Settings';
+import { ImTwitter } from 'react-icons/im';
+import { TwitterShareButton } from "react-share";
+import { FaRegComment } from 'react-icons/fa';
+import { showPicture , deletePicture } from '../../lib/api/pictures';
+import Picture from '../atoms/picture/Picture';
 import styles from "../../css/components/Frames.module.css";
 import Loader from './Loader';
 import EditFrameModal from '../molecules/EditFrameModal';
 import { AuthContext } from '../../App';
-import SettingsIcon from '@material-ui/icons/Settings';
-import { ImTwitter } from 'react-icons/im';
-import { TwitterShareButton } from "react-share";
-import { deletePicture } from '../../lib/api/pictures';
 import DeletePicutreButton from '../atoms/buttons/DeletePictureButton';
 import Likes from '../molecules/Likes';
 import Bookmarks from '../molecules/Bookmarks';
-import { FaRegComment } from 'react-icons/fa';
 import CommentsModal from '../molecules/CommentsModal';
 import AlertMessage from '../utils/AlertMessage';
 
@@ -92,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ShowPicture = () => {
+function ShowPicture() {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
   const { id } = useParams();
@@ -112,9 +111,9 @@ const ShowPicture = () => {
   const handleToDate = (date) =>{
     date = new Date(date);
     if(date.getMinutes() < 10){
-      date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":0"+date.getMinutes()
+      date = `${date.getFullYear()}/${date.getMonth()%12+1}/${date.getDate()} ${date.getHours()}:0${date.getMinutes()}`
     } else {
-      date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()
+      date = `${date.getFullYear()}/${date.getMonth()%12+1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
     }
     setDate(date) 
   }
@@ -123,7 +122,7 @@ const ShowPicture = () => {
     try {
       const res = await showPicture(id);
       if (res.status === 200) {
-        const data = res.data;
+        const {data} = res;
         setPicture(data);
         setUser(data.user);
         setComments(data.comments);
@@ -180,36 +179,29 @@ const ShowPicture = () => {
                           作品のテーマ
                         </Typography>
                           { theme.title.length > 10 ? (
-                            <>
-                              <Tooltip title={theme.title}>
+                            <Tooltip title={theme.title}>
                                 <Typography className={classes.pictureTitle} variant="h6" component="div">
-                                  {theme.title.substring(0, 10) + '...'}
+                                  {`${theme.title.substring(0, 10)  }...`}
                                 </Typography>
                               </Tooltip>
-                            </>
                           ) : (
-                            <>
-                              <Typography className={classes.pictureTitle} variant="h6" component="div">
+                            <Typography className={classes.pictureTitle} variant="h6" component="div">
                                 {theme.title}
                               </Typography>
-                            </>
                           )}
                       </div>
                       { user.name === "ゲストユーザー" ? (
-                        <>
-                          <Tooltip title={`${user.name}`}>
+                        <Tooltip title={`${user.name}`}>
                             <Avatar
                               sx={{ bgcolor: 'red' }}
                               alt="avatar"
                               src={user.image.url}
                               className={classes.avatar}
                               />
-                          </Tooltip>  
-                        </>
+                          </Tooltip>
                       ) : (
-                        <>
-                          <Link to={{
-                            pathname: "/users/" + user.id,
+                        <Link to={{
+                            pathname: `/users/${  user.id}`,
                             state: {id: user.id}
                           }}
                           id={picture.id}
@@ -224,7 +216,6 @@ const ShowPicture = () => {
                                 />
                             </Tooltip>
                           </Link>
-                        </>
                       )}
                     </div>
                     <Divider className={classes.divider} />
@@ -301,6 +292,6 @@ const ShowPicture = () => {
       )}
     </>
   )
-};
+}
 
 export default ShowPicture;

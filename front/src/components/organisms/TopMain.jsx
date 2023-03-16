@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography, Button, Box } from "@material-ui/core";
 import TopBackImage from "../../assets/img/TopBackImage.png";
 import TopImage from "../../assets/img/TopImage.png";
 
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Button, Box } from "@material-ui/core";
 import styles from "../../css/organisms/TopMain.module.css";
 import GuestLoginButton from "../atoms/buttons/GuestLoginButton";
 
@@ -37,11 +37,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TopMain = () => {
+function TopMain() {
   const classes = useStyles();
   return (
-    <>
-      <div className={classes.root}>
+    <div className={classes.root}>
         <div className={classes.container}>
           <img className={`${styles.topImage}`} src={TopImage} alt="TopImage" /><br/>
           <Button className={classes.button} color="primary" variant="contained">
@@ -61,8 +60,7 @@ const TopMain = () => {
           </Box>
         </div>
       </div>
-    </>
   )
-};
+}
 
 export default TopMain;

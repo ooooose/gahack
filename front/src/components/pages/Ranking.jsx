@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Typography, Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import { getBestPictures } from '../../lib/api/pictures';
 import { getBestUsers } from '../../lib/api/users';
 import Loader from './Loader';
 import BestPictureCard from '../molecules/BestPictureCard';
 import BestUserCard from '../molecules/BestUserCard';
-import { Typography, Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Ranking = () => {
+function Ranking() {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
@@ -64,7 +64,7 @@ const Ranking = () => {
     try {
       const res = await getBestPictures();
       if (res.status === 200) {
-        const data = res.data;
+        const {data} = res;
         setBestPictures(data);
       }
     } catch (e) {
@@ -76,7 +76,7 @@ const Ranking = () => {
     try {
       const res = await getBestUsers();
       if (res.status === 200) {
-        const data = res.data;
+        const {data} = res;
         setBestUsers(data);
       } 
     } catch (e) {
@@ -97,8 +97,7 @@ const Ranking = () => {
       {!loading ? (
         <>
           { matches ? (
-            <>
-              <div className={isOpen ? classes.animation : classes.before}>
+            <div className={isOpen ? classes.animation : classes.before}>
                 <Typography
                   className={classes.header} 
                   variant="h4">月間ランキング</Typography>
@@ -133,10 +132,8 @@ const Ranking = () => {
                   </Grid>
                 </div>
               </div>
-            </>
           ) : (
-            <>
-              <div className={isOpen ? classes.minAnimation : classes.minBefore}>
+            <div className={isOpen ? classes.minAnimation : classes.minBefore}>
                 <Typography
                   className={classes.header} 
                   variant="h4">月間ランキング</Typography>
@@ -171,7 +168,6 @@ const Ranking = () => {
                   </Grid>
                 </div>
               </div>
-            </>
           )}
         </>
       ) : (

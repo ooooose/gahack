@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = () => {
+function SignUp() {
   const classes = useStyles();
   const navigate = useNavigate();
   const matches = useMediaQuery('(min-width:575px)');
@@ -70,10 +70,10 @@ const SignUp = () => {
 
   const generateParams = useCallback(() => {
     const signUpParams = {
-      name: name,
-      email: email,
-      password: password,
-      passwordConfirmation: passwordConfirmation,
+      name,
+      email,
+      password,
+      passwordConfirmation,
     };
     return signUpParams;
   }, [name, email, password, passwordConfirmation]);
@@ -102,37 +102,35 @@ const SignUp = () => {
   }, []);
   
   return (
-    <>
-      <div className={classes.container}>
+    <div className={classes.container}>
         <form noValidate autoComplete="off" style={{display:"inline-block"}}>
           {matches ? (
-            <>
-              <Card className={classes.card}>
+            <Card className={classes.card}>
                 <CardHeader className={classes.header} title="サインアップ画面" />
                 <CardContent>
                   <Form
-                    label={"お名前"}
+                    label="お名前"
                     value={name}
                     onChange={(event) => setName(event.target.value)}
                   />
                   <Form
-                    label={"メールアドレス"}
+                    label="メールアドレス"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                   />
                   <Form
-                    label={"パスワード"}
-                    type={"password"}
-                    placeholder={"６文字以上で設定してください"}
+                    label="パスワード"
+                    type="password"
+                    placeholder="６文字以上で設定してください"
                     value={password}
-                    autoComplete={"current-password"}
+                    autoComplete="current-password"
                     onChange={(event) => setPassword(event.target.value)}
                   />
                   <Form
-                    label={"パスワード（確認用）"}
-                    type={"password"}
+                    label="パスワード（確認用）"
+                    type="password"
                     value={passwordConfirmation}
-                    autoComplete={"current-password"}
+                    autoComplete="current-password"
                     onChange={(event) => setPasswordConfirmation(event.target.value)}
                   />
                   <Box style={{textAlign: 'right'}}>
@@ -167,35 +165,33 @@ const SignUp = () => {
                   </Box>
                 </CardContent>
               </Card>
-            </>
           ) : (
-            <>
-              <Card className={classes.minCard}>
+            <Card className={classes.minCard}>
                 <CardHeader className={classes.header} title="サインアップ画面" />
                 <CardContent>
                   <Form
-                    label={"お名前"}
+                    label="お名前"
                     value={name}
                     onChange={(event) => setName(event.target.value)}
                   />
                   <Form
-                    label={"メールアドレス"}
+                    label="メールアドレス"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                   />
                   <Form
-                    label={"パスワード"}
-                    type={"password"}
-                    placeholder={"６文字以上で設定してください"}
+                    label="パスワード"
+                    type="password"
+                    placeholder="６文字以上で設定してください"
                     value={password}
-                    autoComplete={"current-password"}
+                    autoComplete="current-password"
                     onChange={(event) => setPassword(event.target.value)}
                   />
                   <Form
-                    label={"パスワード（確認用）"}
-                    type={"password"}
+                    label="パスワード（確認用）"
+                    type="password"
                     value={passwordConfirmation}
-                    autoComplete={"current-password"}
+                    autoComplete="current-password"
                     onChange={(event) => setPasswordConfirmation(event.target.value)}
                   />
                   <Box style={{textAlign: 'right'}}>
@@ -230,7 +226,6 @@ const SignUp = () => {
                   </Box>
                 </CardContent>
               </Card>
-            </>
           )}
         </form>
         <AlertMessage
@@ -240,8 +235,7 @@ const SignUp = () => {
           message="Emailもしくはパスワードが無効です"
         />
       </div>
-    </>
   );
-};
+}
 
 export default SignUp;

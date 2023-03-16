@@ -1,16 +1,14 @@
 import React, { memo } from "react";
 
-import Picture from "../picture/Picture";
 import { Link } from "react-router-dom";
+import Picture from "../picture/Picture";
 
 import PictureTitle from "../../molecules/PictureTitle";
 
-const PictureCard = memo(({user, picture, pictureId }) => {
-
-  return (
+const PictureCard = memo(({user, picture, pictureId }) => (
     <>
       <Link to={{
-          pathname: "/pictures/" + picture.id,
+          pathname: `/pictures/${  picture.id}`,
           state: {id: picture.id}
         }}
         id={picture.id}
@@ -27,7 +25,6 @@ const PictureCard = memo(({user, picture, pictureId }) => {
         pictureId={pictureId} 
       />
     </>
-  )
-});
+  ));
 
 export default PictureCard;

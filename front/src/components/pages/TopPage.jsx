@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { makeStyles } from "@material-ui/core";
 import { AuthContext } from "../../App";
 import TopMain from '../organisms/TopMain';
 import TopDescription from '../organisms/TopDescription';
 import TopBottom from '../organisms/TopBottom';
 import Timeline from './Timeline';
 import AlertMessage from '../utils/AlertMessage';
-import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TopPage = () => {
+function TopPage() {
   const classes = useStyles();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
@@ -39,9 +39,7 @@ const TopPage = () => {
       <div className={isOpen ? classes.animation : classes.before}>
         {
           isSignedIn && currentUser ? (
-            <>
-              <Timeline />
-            </>
+            <Timeline />
           ) : (
             <>
               <TopMain />
@@ -59,6 +57,6 @@ const TopPage = () => {
       />
     </>
   )
-};
+}
 
 export default TopPage;

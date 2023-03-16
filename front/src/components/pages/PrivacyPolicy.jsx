@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const PrivacyPolicy = () => {
+function PrivacyPolicy() {
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:575px)');
 
@@ -59,8 +59,7 @@ const PrivacyPolicy = () => {
   return (
     <>
       {matches ? (
-        <>
-          <div className={classes.container}>
+        <div className={classes.container}>
             <Typography
               variant="h4"
               className={classes.header}
@@ -191,10 +190,8 @@ const PrivacyPolicy = () => {
               <Typography variant="subtitle1" className={classes.date} >2023年02月25日 制定</Typography>
             </Box>
           </div>
-        </>
         ) : (
-        <>
-          <div className={classes.minContainer}>
+        <div className={classes.minContainer}>
             <Typography
               variant="h4"
               className={classes.minHeader}
@@ -326,10 +323,9 @@ const PrivacyPolicy = () => {
               <Typography variant="subtitle1" className={classes.date} >2023年02月25日 制定</Typography>
             </Box>
           </div>
-        </>
       )}
     </>
   )
-};
+}
 
 export default PrivacyPolicy;

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../App";
 import { Navigate } from "react-router-dom";
+import { AuthContext } from "../App";
 
 
-const RouteAuthGuard = (props) => {
+function RouteAuthGuard(props) {
   const { loading, isSignedIn } = useContext(AuthContext);
 
   if (!loading) {

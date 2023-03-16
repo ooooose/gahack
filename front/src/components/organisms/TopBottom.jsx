@@ -46,11 +46,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TopBottom = () => {
+function TopBottom() {
   const classes = useStyles();
   return (
-    <>
-      <div className={classes.container}>
+    <div className={classes.container}>
         <Typography className={`${styles.title}`} variant="h5">あなたも「画伯」になろうよ！</Typography> 
         <Button className={classes.button} color="primary" variant="contained">
           <Link to="/signin" className={classes.buttonLink}>
@@ -94,8 +93,7 @@ const TopBottom = () => {
           Copyright © 2023 - All right reserved by Yuuki Oose
         </p>
       </div>
-    </>
   )
-};
+}
 
 export default TopBottom;

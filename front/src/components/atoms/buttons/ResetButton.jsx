@@ -15,8 +15,7 @@ export const ResetButton = memo((props) => {
   const classes = useStyles();
   
   return (
-    <>
-      <Tooltip title="リセット" >
+    <Tooltip title="リセット" >
         <Button
           size="large"
           color="default"
@@ -26,6 +25,5 @@ export const ResetButton = memo((props) => {
           {props.children}
         </Button>
       </Tooltip>
-    </>
   )
 });

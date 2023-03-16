@@ -99,13 +99,12 @@ const EditUserModal = memo(({ open, setOpen, user, setUser, setAvatar }) => {
   const body = (
     <>
       {matches ? (
-        <>
-          <div className={classes.paper}>
+        <div className={classes.paper}>
             <h2 id="simple-modal-title">プロフィール編集</h2>
             <div className={classes.imageUploadBtn}>
               <Avatar
                 alt="avatar"
-                src={preview ? preview : currentUser?.image.url}
+                src={preview || currentUser?.image.url}
                 className={classes.avatar}
                 />
               <input 
@@ -120,7 +119,7 @@ const EditUserModal = memo(({ open, setOpen, user, setUser, setAvatar }) => {
               />
             </div>
             <Form
-              label={"名前"}
+              label="名前"
               defaultValue={currentUser?.name}
               onChange={e => setEditName(e.target.value)}
             />
@@ -133,19 +132,17 @@ const EditUserModal = memo(({ open, setOpen, user, setUser, setAvatar }) => {
                 variant="contained"
                 color="primary"
                 className={classes.submitButton}
-                disabled={ !editName ? true : false}
+                disabled={ !editName}
                 onClick={handleEditUserSubmit}>更新</Button>
             </div>
           </div>
-        </>
         ) : (
-        <>
-          <div className={classes.minPaper}>
+        <div className={classes.minPaper}>
             <h3 id="simple-modal-title">プロフィール編集</h3>
             <div className={classes.imageUploadBtn}>
               <Avatar
                 alt="avatar"
-                src={preview ? preview : currentUser?.image.url}
+                src={preview || currentUser?.image.url}
                 className={classes.avatar}
                 />
               <input 
@@ -160,7 +157,7 @@ const EditUserModal = memo(({ open, setOpen, user, setUser, setAvatar }) => {
               />
             </div>
             <Form
-              label={"名前"}
+              label="名前"
               defaultValue={currentUser?.name}
               onChange={e => setEditName(e.target.value)}
             />
@@ -173,19 +170,16 @@ const EditUserModal = memo(({ open, setOpen, user, setUser, setAvatar }) => {
                 variant="contained"
                 color="primary"
                 className={classes.submitButton}
-                disabled={ !editName ? true : false}
+                disabled={ !editName}
                 onClick={handleEditUserSubmit}>更新</Button>
             </div>
           </div>
-        
-        </>
       )}
     </>
   );
 
   return (
-    <>
-      <Modal
+    <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
@@ -193,7 +187,6 @@ const EditUserModal = memo(({ open, setOpen, user, setUser, setAvatar }) => {
       >
         {body}
       </Modal>
-    </>
   )
 });
 

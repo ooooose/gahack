@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from "react";
 
 import { makeStyles, Card, CardHeader, CardContent, Button, useMediaQuery } from "@material-ui/core";
-import { Form } from "../atoms/forms/Form";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { Form } from "../atoms/forms/Form";
 import { editPassword } from "../../lib/api/auth";
 import AlertMessage from "../utils/AlertMessage";
 
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const EditPassword = () => {
+function EditPassword() {
   const classes = useStyles();
   const [searchParams] = useSearchParams();
   const navigation = useNavigate();
@@ -45,8 +45,8 @@ const EditPassword = () => {
 
   const generateParams = useCallback(() => {
     const data = {
-      password: password,
-      passwordConfirmation: passwordConfirmation,
+      password,
+      passwordConfirmation,
       resetPasswordToken: searchParams.get('reset_password_token'),
     }
     return data;
@@ -71,24 +71,22 @@ const EditPassword = () => {
   }, [generateParams, navigation, searchParams])
 
   return (
-    <>
-      <div className={classes.container}>
+    <div className={classes.container}>
         <form noValidate autoComplete="off" style={{display: "inline-block"}}>
           {matches ? (
-            <>
-              <Card className={classes.card}>
+            <Card className={classes.card}>
                 <CardHeader className={classes.header} title="パスワード変更" />
                 <CardContent>
                   <Form 
-                    label={"パスワード"}
-                    type={"password"}
-                    placeholder={"６文字以上で設定してください"}
+                    label="パスワード"
+                    type="password"
+                    placeholder="６文字以上で設定してください"
                     value={password}
                     onChange={e => {setPassword(e.target.value)}}
                   />
                   <Form 
-                    label={"パスワード（確認）"}
-                    type={"password"}
+                    label="パスワード（確認）"
+                    type="password"
                     value={passwordConfirmation}
                     onChange={e => {setPasswordConfirmation(e.target.value)}}
                   />
@@ -98,7 +96,7 @@ const EditPassword = () => {
                     size="large"
                     fullWidth
                     color="primary"
-                    disabled={ !password || !passwordConfirmation ? true : false}
+                    disabled={ !!(!password || !passwordConfirmation)}
                     className={classes.submitBtn}
                     onClick={handleSubmit}
                   >
@@ -106,22 +104,20 @@ const EditPassword = () => {
                   </Button>
                 </CardContent>
               </Card>
-            </>
           ) : (
-            <>
-              <Card className={classes.minCard}>
+            <Card className={classes.minCard}>
                 <CardHeader className={classes.header} title="パスワード変更" />
                 <CardContent>
                   <Form 
-                    label={"パスワード"}
-                    type={"password"}
-                    placeholder={"６文字以上で設定してください"}
+                    label="パスワード"
+                    type="password"
+                    placeholder="６文字以上で設定してください"
                     value={password}
                     onChange={e => {setPassword(e.target.value)}}
                   />
                   <Form 
-                    label={"パスワード（確認）"}
-                    type={"password"}
+                    label="パスワード（確認）"
+                    type="password"
                     value={passwordConfirmation}
                     onChange={e => {setPasswordConfirmation(e.target.value)}}
                   />
@@ -131,7 +127,7 @@ const EditPassword = () => {
                     size="large"
                     fullWidth
                     color="primary"
-                    disabled={ !password || !passwordConfirmation ? true : false}
+                    disabled={ !!(!password || !passwordConfirmation)}
                     className={classes.submitBtn}
                     onClick={handleSubmit}
                   >
@@ -139,7 +135,6 @@ const EditPassword = () => {
                   </Button>
                 </CardContent>
               </Card>
-            </>
           )}
         </form>
         <AlertMessage 
@@ -155,8 +150,7 @@ const EditPassword = () => {
           message="パスワードを変更しました"
         />
       </div>
-    </>
   )
-};
+}
 
 export default EditPassword;

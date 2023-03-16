@@ -17,14 +17,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Loader = () => {
+function Loader() {
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:575px)');
   return (
     <>
     {matches ? (
-      <>
-        <div className={classes.loading}>
+      <div className={classes.loading}>
           <Puff
             type="Puff"
             color="#00BFFF"
@@ -34,10 +33,8 @@ const Loader = () => {
             ariaLabel="loading"
           />
         </div>
-      </>
     ) : (
-      <>
-        <div className={classes.minLoading}>
+      <div className={classes.minLoading}>
           <Puff
             type="Puff"
             color="#00BFFF"
@@ -47,7 +44,6 @@ const Loader = () => {
             ariaLabel="loading"
           />
         </div>
-      </>
     )}
     </>
   )

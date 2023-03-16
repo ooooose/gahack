@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { Grid, Typography, useMediaQuery } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/styles";
+import { Pagination } from "@material-ui/lab";
 import { getThemes } from "../../lib/api/themes";
 import ThemeCard from "../atoms/cards/ThemeCard";
-import { Pagination } from "@material-ui/lab";
 import Loader from "./Loader";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ThemeIndex = () => {
+function ThemeIndex() {
   const [page, setPage] = useState(1);
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +61,7 @@ const ThemeIndex = () => {
     try {
       const res = await getThemes();
       if (res.status === 200) {
-        const data = res.data;
+        const {data} = res;
         setThemes(data);
       }
     } catch (e) {
@@ -91,7 +91,7 @@ const ThemeIndex = () => {
                     themes.map((theme,i) => (
                       Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={theme.id}>
                         <Link to={{
-                          pathname: "/themes/" + theme.id,
+                          pathname: `/themes/${  theme.id}`,
                           state: {id: theme.id}
                         }}
                         id={theme.id}
@@ -127,7 +127,7 @@ const ThemeIndex = () => {
                     themes.map((theme,i) => (
                       Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={theme.id}>
                         <Link to={{
-                          pathname: "/themes/" + theme.id,
+                          pathname: `/themes/${  theme.id}`,
                           state: {id: theme.id}
                         }}
                         id={theme.id}

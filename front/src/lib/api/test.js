@@ -1,5 +1,3 @@
 import client from "lib/api/client"
 
-export const execTest = () => {
-  return client.get("/test");
-}
+export const execTest = () => client.get("/test")

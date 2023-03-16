@@ -27,8 +27,7 @@ const UnFollowButton = memo(({ userId, params, setFollowState }) => {
   }
 
   return (
-    <>
-      <Button
+    <Button
         variant="outlined"
         color="secondary"
         onClick={handleDeleteRelationship}
@@ -36,7 +35,6 @@ const UnFollowButton = memo(({ userId, params, setFollowState }) => {
       >
         フォロー解除
       </Button>
-    </>
   )
 });
 
