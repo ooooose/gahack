@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles, Button, useMediaQuery } from "@material-ui/core";
+import React, { useState, useEffect } from 'react';
+import { makeStyles, Button, useMediaQuery } from '@material-ui/core';
 import { Helmet } from 'react-helmet';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import { showPicture } from '../../lib/api/pictures';
-import Picture from "../atoms/picture/Picture";
-import Loader from "./Loader";
-import TwitterAnswerModal from "../molecules/TwitterAnswerModal";
+import Picture from '../atoms/picture/Picture';
+import Loader from './Loader';
+import TwitterAnswerModal from '../molecules/TwitterAnswerModal';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     margin: '0 auto',
     height: '350px',
-    textAlign: 'left'
+    textAlign: 'left',
   },
   minCardContent: {
     margin: '0 auto',
     height: '350px',
-    textAlign: 'left'
+    textAlign: 'left',
   },
   picture: {
     position: 'relative',
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btn: {
     fontSize: '20px',
-  }
+  },
 }));
 
 function TwitterAnswer() {
@@ -63,7 +63,7 @@ function TwitterAnswer() {
     try {
       const res = await showPicture(id);
       if (res.status === 200) {
-        const {data} = res;
+        const { data } = res;
         setPicture(data);
         setTheme(data.theme);
       }
@@ -75,7 +75,7 @@ function TwitterAnswer() {
 
   useEffect(() => {
     handleShowPicture();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -83,27 +83,46 @@ function TwitterAnswer() {
       {!loading ? (
         <>
           <Helmet
-              meta={[
-                { property: 'og:description', content: `${picture.user.name}さんが絵を描きました！` },
-                { property: 'og:url', content: `https://gahack.net/pictures/${picture.id}/twitter/` },
-                { property: 'og:image', content: `https://gahack.net/TwitterCard.png` },
-                { name: 'twitter:image', content: `https://gahack.net/TwitterCard.png` },
+            meta={[
+              {
+                property: 'og:description',
+                content: `${picture.user.name}さんが絵を描きました！`,
+              },
+              {
+                property: 'og:url',
+                content: `https://gahack.net/pictures/${picture.id}/twitter/`,
+              },
+              {
+                property: 'og:image',
+                content: `https://gahack.net/TwitterCard.png`,
+              },
+              {
+                name: 'twitter:image',
+                content: `https://gahack.net/TwitterCard.png`,
+              },
             ]}
-            />
-          { matches ? (
+          />
+          {matches ? (
             <>
               <div className={classes.cardContent}>
                 <div className={classes.picture}>
-                  <Picture 
-                    picture={picture} 
-                    theme={theme} 
+                  <Picture
+                    picture={picture}
+                    theme={theme}
                     image={picture.image}
-                    />
+                  />
                 </div>
               </div>
               <div className={classes.container}>
                 <p className={classes.answer}>この絵のテーマはなんでしょう？</p>
-                <Button className={classes.btn} color="primary" onClick={() => {setOpen(true)}} variant="contained" >
+                <Button
+                  className={classes.btn}
+                  color="primary"
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                  variant="contained"
+                >
                   答えを見る
                 </Button>
               </div>
@@ -112,16 +131,24 @@ function TwitterAnswer() {
             <>
               <div className={classes.cardContent}>
                 <div className={classes.minPicture}>
-                  <Picture 
-                    picture={picture} 
-                    theme={theme} 
+                  <Picture
+                    picture={picture}
+                    theme={theme}
                     image={picture.image}
-                    />
+                  />
                 </div>
               </div>
               <div className={classes.container}>
-                <p className={classes.minAnswer}>この絵のテーマはなんでしょう？</p>
-                <Button color="primary" onClick={() => {setOpen(true)}} variant="contained" >
+                <p className={classes.minAnswer}>
+                  この絵のテーマはなんでしょう？
+                </p>
+                <Button
+                  color="primary"
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                  variant="contained"
+                >
                   答えを見る
                 </Button>
               </div>
@@ -133,7 +160,7 @@ function TwitterAnswer() {
         <Loader />
       )}
     </>
-  )
-} 
+  );
+}
 
 export default TwitterAnswer;

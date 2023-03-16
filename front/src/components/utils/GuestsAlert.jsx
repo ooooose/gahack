@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import { Modal, Button, makeStyles, useMediaQuery } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import { AuthContext } from "../../App";
-import { signOut } from "../../lib/api/auth";
+import React, { useContext } from 'react';
+import { Modal, Button, makeStyles, useMediaQuery } from '@material-ui/core';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { AuthContext } from '../../App';
+import { signOut } from '../../lib/api/auth';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: 24,
     padding: '15px',
     borderRadius: '6px',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   minPaper: {
     position: 'absolute',
@@ -28,22 +28,21 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: 24,
     padding: '15px',
     borderRadius: '6px',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   buttons: {
     paddingTop: '5px',
   },
   buttonLink: {
-    textDecoration: "none",
-    color: 'white'
+    textDecoration: 'none',
+    color: 'white',
   },
   cancelButton: {
     marginRight: '5px',
   },
-}))
+}));
 
-
-function GuestsAlert({open, setOpen}) {
+function GuestsAlert({ open, setOpen }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const matches = useMediaQuery('(min-width:575px)');
@@ -54,23 +53,23 @@ function GuestsAlert({open, setOpen}) {
       const res = await signOut();
 
       if (res.data.success === true) {
-        Cookies.remove("_access_token")
-        Cookies.remove("_client")
-        Cookies.remove("_uid")
+        Cookies.remove('_access_token');
+        Cookies.remove('_client');
+        Cookies.remove('_uid');
 
-        setIsSignedIn(false)
-        navigate("/signup");
+        setIsSignedIn(false);
+        navigate('/signup');
 
-        console.log("Succeeded in sign out");
+        console.log('Succeeded in sign out');
       } else {
-        console.log("Failed in sign out");
+        console.log('Failed in sign out');
       }
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  const handleClose =() => {
+  const handleClose = () => {
     setOpen(false);
   };
 
@@ -78,43 +77,59 @@ function GuestsAlert({open, setOpen}) {
     <>
       {matches ? (
         <div className={classes.paper}>
-            <h2 id="simple-modal-title">ユーザー登録をお願いします</h2>
-            <div className={classes.buttons}>
-              <Button 
-                variant="contained" 
-                onClick={() => setOpen(false)} 
-                className={classes.cancelButton}>閉じる</Button>
-              <Button className={classes.button} color="primary" variant="contained" onClick={handleSignOut}>
-                ユーザー登録へ
-              </Button>
-            </div>
+          <h2 id="simple-modal-title">ユーザー登録をお願いします</h2>
+          <div className={classes.buttons}>
+            <Button
+              variant="contained"
+              onClick={() => setOpen(false)}
+              className={classes.cancelButton}
+            >
+              閉じる
+            </Button>
+            <Button
+              className={classes.button}
+              color="primary"
+              variant="contained"
+              onClick={handleSignOut}
+            >
+              ユーザー登録へ
+            </Button>
           </div>
-        ) : (
+        </div>
+      ) : (
         <div className={classes.minPaper}>
-            <h3 id="simple-modal-title">ユーザー登録をお願いします</h3>
-            <div className={classes.buttons}>
-              <Button 
-                variant="contained" 
-                onClick={() => setOpen(false)} 
-                className={classes.cancelButton}>閉じる</Button>
-              <Button className={classes.button} color="primary" variant="contained" onClick={handleSignOut}>
-                ユーザー登録へ
-              </Button>
-            </div>
+          <h3 id="simple-modal-title">ユーザー登録をお願いします</h3>
+          <div className={classes.buttons}>
+            <Button
+              variant="contained"
+              onClick={() => setOpen(false)}
+              className={classes.cancelButton}
+            >
+              閉じる
+            </Button>
+            <Button
+              className={classes.button}
+              color="primary"
+              variant="contained"
+              onClick={handleSignOut}
+            >
+              ユーザー登録へ
+            </Button>
           </div>
+        </div>
       )}
     </>
   );
   return (
     <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        {body}
-      </Modal>
-  )
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="simple-modal-title"
+      aria-describedby="simple-modal-description"
+    >
+      {body}
+    </Modal>
+  );
 }
 
 export default GuestsAlert;

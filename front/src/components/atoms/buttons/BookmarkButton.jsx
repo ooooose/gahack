@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 
-import { makeStyles, IconButton, Tooltip } from "@material-ui/core";
+import { makeStyles, IconButton, Tooltip } from '@material-ui/core';
 import { AiOutlineStar } from 'react-icons/ai';
-import { createBookmark } from "../../../lib/api/bookmarks";
+import { createBookmark } from '../../../lib/api/bookmarks';
 
 const useStyles = makeStyles((theme) => ({
   bookmarkButton: {
@@ -14,11 +14,11 @@ const useStyles = makeStyles((theme) => ({
     float: 'left',
   },
   length: {
-    fontSize: '14px'
+    fontSize: '14px',
   },
 }));
 
-const BookmarkButton = memo(({params, setBookmarkState}) => {
+const BookmarkButton = memo(({ params, setBookmarkState }) => {
   const classes = useStyles();
   const handleCreateBookmark = async () => {
     try {
@@ -29,15 +29,18 @@ const BookmarkButton = memo(({params, setBookmarkState}) => {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   return (
     <Tooltip title="お気に入り">
-        <IconButton className={classes.bookmarkButton}   onClick={handleCreateBookmark} >
-          <AiOutlineStar />
-        </IconButton>
-      </Tooltip>
-  )
+      <IconButton
+        className={classes.bookmarkButton}
+        onClick={handleCreateBookmark}
+      >
+        <AiOutlineStar />
+      </IconButton>
+    </Tooltip>
+  );
 });
 
 export default BookmarkButton;

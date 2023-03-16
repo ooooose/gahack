@@ -1,24 +1,24 @@
 import React, { memo } from 'react';
 
-import { makeStyles, IconButton, Tooltip } from "@material-ui/core";
+import { makeStyles, IconButton, Tooltip } from '@material-ui/core';
 import { AiFillStar } from 'react-icons/ai';
-import { deleteBookmark } from "../../../lib/api/bookmarks";
+import { deleteBookmark } from '../../../lib/api/bookmarks';
 
 const useStyles = makeStyles((theme) => ({
   bookmarkButton: {
     float: 'right',
-    color: 'black'
+    color: 'black',
   },
   text: {
     marginTop: '12px',
     float: 'left',
   },
   length: {
-    fontSize: '14px'
+    fontSize: '14px',
   },
 }));
 
-const UnbookmarkButton = memo(({params, setBookmarkState, bookmarkId}) => {
+const UnbookmarkButton = memo(({ params, setBookmarkState, bookmarkId }) => {
   const classes = useStyles();
   const handleDeleteBookmark = async () => {
     try {
@@ -29,15 +29,18 @@ const UnbookmarkButton = memo(({params, setBookmarkState, bookmarkId}) => {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   return (
     <Tooltip title="お気に入り">
-        <IconButton className={classes.bookmarkButton}   onClick={handleDeleteBookmark} >
-          <AiFillStar className={classes.bookmarkIcon} />
-        </IconButton>
-      </Tooltip>
-  )
+      <IconButton
+        className={classes.bookmarkButton}
+        onClick={handleDeleteBookmark}
+      >
+        <AiFillStar className={classes.bookmarkIcon} />
+      </IconButton>
+    </Tooltip>
+  );
 });
 
 export default UnbookmarkButton;
