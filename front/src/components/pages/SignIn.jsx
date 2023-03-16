@@ -1,19 +1,19 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import Cookies from "js-cookie";
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography, useMediaQuery } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import Box from "@material-ui/core/Box";
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography, useMediaQuery } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Box from '@material-ui/core/Box';
 
-import { signIn } from "../../lib/api/auth";
-import { AuthContext } from "../../App";
-import AlertMessage from "../utils/AlertMessage";
-import { LoginButton } from "../atoms/buttons/LoginButton";
-import { Form } from "../atoms/forms/Form";
+import { signIn } from '../../lib/api/auth';
+import { AuthContext } from '../../App';
+import AlertMessage from '../utils/AlertMessage';
+import { LoginButton } from '../atoms/buttons/LoginButton';
+import { Form } from '../atoms/forms/Form';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -22,43 +22,44 @@ const useStyles = makeStyles((theme) => ({
   submitBtn: {
     marginTop: theme.spacing(2),
     flexGrow: 1,
-    textTransform: "none"
+    textTransform: 'none',
   },
   header: {
-    textAlign: "center"
+    textAlign: 'center',
   },
   card: {
     padding: theme.spacing(2),
-    maxWidth: 400
+    maxWidth: 400,
   },
   minCard: {
     padding: theme.spacing(2),
-    maxWidth: 300
+    maxWidth: 300,
   },
   box: {
-    marginTop: "2rem"
+    marginTop: '2rem',
   },
   link: {
-    textDecoration: "none"
-  }
+    textDecoration: 'none',
+  },
 }));
 
-export const SignIn = () => {
+export function SignIn() {
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
   const matches = useMediaQuery('(min-width:575px)');
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [alertMessageOpen, setAlertMessageOpen] = useState(false);
-  const [successMessageOpen, setSuccessMessageOpen] = 
-        useState(location.state ? (location.state.successMessageOpen) : (false));
+  const [successMessageOpen, setSuccessMessageOpen] = useState(
+    location.state ? location.state.successMessageOpen : false,
+  );
 
   const generateParams = () => {
     const signInParams = {
-      email: email,
-      password: password,
+      email,
+      password,
     };
     return signInParams;
   };
@@ -66,142 +67,142 @@ export const SignIn = () => {
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   }, []);
 
-  const handleSignInSubmit = useCallback(async (e) => {
-    e.preventDefault();
-    const params = generateParams();
+  const handleSignInSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const params = generateParams();
 
-    try {
-      const res = await signIn(params);
-      if (res.status === 200) {
-        console.log(res);
-        Cookies.set("_access_token", res.headers["access-token"]);
-        Cookies.set("_client", res.headers["client"]);
-        Cookies.set("_uid", res.headers["uid"]);
+      try {
+        const res = await signIn(params);
+        if (res.status === 200) {
+          console.log(res);
+          Cookies.set('_access_token', res.headers['access-token']);
+          Cookies.set('_client', res.headers.client);
+          Cookies.set('_uid', res.headers.uid);
 
-        setIsSignedIn(true);
-        setCurrentUser(res.data.data);
+          setIsSignedIn(true);
+          setCurrentUser(res.data.data);
 
-        navigate(`/users/${res.data.data.id}`, {state: { successMessageOpen: true }});
-        console.log("Signed in successfully!");
+          navigate(`/users/${res.data.data.id}`, {
+            state: { successMessageOpen: true },
+          });
+          console.log('Signed in successfully!');
+        }
+      } catch (e) {
+        console.log(e);
+        setAlertMessageOpen(true);
       }
-    } catch (e) {
-      console.log(e);
-      setAlertMessageOpen(true);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [generateParams]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [generateParams],
+  );
 
   return (
-    <>
-      <div className={classes.container}>
-        <form noValidate autoComplete="off" style={{display:"inline-block"}}>
-          {matches ? (
-            <>
-              <Card className={classes.card}>
-                <CardHeader className={classes.header} title="ログイン画面" />
-                <CardContent>
-                  <Form
-                    label={"メールアドレス"}
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}
-                  />
-                  <Form
-                    label={"パスワード"}
-                    type={"password"}
-                    value={password}
-                    autoComplete={"current-password"}
-                    onChange={(event) => setPassword(event.target.value)}
-                  />
-                  <Box style={{textAlign: 'right'}}>
-                    <Typography variant="body2" >
-                      パスワードをお忘れの方は
-                      <Link to="/password" className={classes.link} >
-                        こちら
-                      </Link>
-                    </Typography>
-                  </Box>
-                  <LoginButton
-                    email={email}
-                    password={password}
-                    handleSubmit={handleSignInSubmit}
-                  >
-                    ログインする
-                  </LoginButton>
-                  <Box textAlign="center" className={classes.box}>
-                    <Typography variant="body2">
-                      アカウントをお持ちですか? &nbsp;
-                      <Link to="/signup" className={classes.link}>
-                        ユーザー登録はこちら!
-                      </Link>
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </>
-          ) : (
-            <>
-              <Card className={classes.minCard}>
-                <CardHeader className={classes.header} title="ログイン画面" />
-                <CardContent>
-                  <Form
-                    label={"メールアドレス"}
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}
-                  />
-                  <Form
-                    label={"パスワード"}
-                    type={"password"}
-                    value={password}
-                    autoComplete={"current-password"}
-                    onChange={(event) => setPassword(event.target.value)}
-                  />
-                  <Box style={{textAlign: 'right'}}>
-                    <Typography variant="body2" >
-                      パスワードをお忘れの方は
-                      <Link to="/password" className={classes.link} >
-                        こちら
-                      </Link>
-                    </Typography>
-                  </Box>
-                  <LoginButton
-                    email={email}
-                    password={password}
-                    handleSubmit={handleSignInSubmit}
-                  >
-                    ログインする
-                  </LoginButton>
-                  <Box textAlign="center" className={classes.box}>
-                    <Typography variant="body2">
-                      アカウントをお持ちですか? &nbsp;
-                      <Link to="/signup" className={classes.link}><br />
-                        ユーザー登録はこちら!
-                      </Link>
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </>
-          )}
-        </form>
-        <AlertMessage
-          open={alertMessageOpen}
-          setOpen={setAlertMessageOpen}
-          severity="error"
-          message="Emailもしくはパスワードが無効です"
-        />
-        <AlertMessage
-          open={successMessageOpen}
-          setOpen={setSuccessMessageOpen}
-          severity="success"
-          message="ユーザー登録に成功しました。"
-        />
-      </div>
-    </>
+    <div className={classes.container}>
+      <form noValidate autoComplete="off" style={{ display: 'inline-block' }}>
+        {matches ? (
+          <Card className={classes.card}>
+            <CardHeader className={classes.header} title="ログイン画面" />
+            <CardContent>
+              <Form
+                label="メールアドレス"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <Form
+                label="パスワード"
+                type="password"
+                value={password}
+                autoComplete="current-password"
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <Box style={{ textAlign: 'right' }}>
+                <Typography variant="body2">
+                  パスワードをお忘れの方は
+                  <Link to="/password" className={classes.link}>
+                    こちら
+                  </Link>
+                </Typography>
+              </Box>
+              <LoginButton
+                email={email}
+                password={password}
+                handleSubmit={handleSignInSubmit}
+              >
+                ログインする
+              </LoginButton>
+              <Box textAlign="center" className={classes.box}>
+                <Typography variant="body2">
+                  アカウントをお持ちですか? &nbsp;
+                  <Link to="/signup" className={classes.link}>
+                    ユーザー登録はこちら!
+                  </Link>
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        ) : (
+          <Card className={classes.minCard}>
+            <CardHeader className={classes.header} title="ログイン画面" />
+            <CardContent>
+              <Form
+                label="メールアドレス"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <Form
+                label="パスワード"
+                type="password"
+                value={password}
+                autoComplete="current-password"
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <Box style={{ textAlign: 'right' }}>
+                <Typography variant="body2">
+                  パスワードをお忘れの方は
+                  <Link to="/password" className={classes.link}>
+                    こちら
+                  </Link>
+                </Typography>
+              </Box>
+              <LoginButton
+                email={email}
+                password={password}
+                handleSubmit={handleSignInSubmit}
+              >
+                ログインする
+              </LoginButton>
+              <Box textAlign="center" className={classes.box}>
+                <Typography variant="body2">
+                  アカウントをお持ちですか? &nbsp;
+                  <Link to="/signup" className={classes.link}>
+                    <br />
+                    ユーザー登録はこちら!
+                  </Link>
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        )}
+      </form>
+      <AlertMessage
+        open={alertMessageOpen}
+        setOpen={setAlertMessageOpen}
+        severity="error"
+        message="Emailもしくはパスワードが無効です"
+      />
+      <AlertMessage
+        open={successMessageOpen}
+        setOpen={setSuccessMessageOpen}
+        severity="success"
+        message="ユーザー登録に成功しました。"
+      />
+    </div>
   );
-};
+}
 
 export default SignIn;

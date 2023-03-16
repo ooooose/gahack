@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { makeStyles, Typography, Grid, useMediaQuery } from "@material-ui/core";
-import { useLocation } from "react-router-dom";
-import { getPictures } from "../../lib/api/pictures";
-import { Pagination } from "@material-ui/lab";
-import AlertMessage from "../utils/AlertMessage";
-import Loader from "./Loader";
-import TimelineCard from "../molecules/TimelineCard";
+import React, { useState, useEffect, useCallback } from 'react';
+import { makeStyles, Typography, Grid, useMediaQuery } from '@material-ui/core';
+import { useLocation } from 'react-router-dom';
+import { Pagination } from '@material-ui/lab';
+import { getPictures } from '../../lib/api/pictures';
+import AlertMessage from '../utils/AlertMessage';
+import Loader from './Loader';
+import TimelineCard from '../molecules/TimelineCard';
 
 const useStyles = makeStyles((theme) => ({
   link: {
-    textDecoration: "none",
+    textDecoration: 'none',
   },
   animation: {
     transition: '1s',
@@ -34,18 +34,18 @@ const useStyles = makeStyles((theme) => ({
   header: {
     paddingTop: '20px',
     paddingBottom: '20px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   pagination: {
     display: 'inline-block',
   },
   pageWrapper: {
     marginTop: '80px',
-    marginBottom: '30px'
-  }
+    marginBottom: '30px',
+  },
 }));
 
-const Timeline = () => {
+function Timeline() {
   const classes = useStyles();
   const location = useLocation();
   const matches = useMediaQuery('(min-width:575px)');
@@ -54,7 +54,9 @@ const Timeline = () => {
   const [pictures, setPictures] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [successMessageOpen, setSuccessMessageOpen] = useState(location.state ? (location.state.successMessageOpen) : (false));
+  const [successMessageOpen, setSuccessMessageOpen] = useState(
+    location.state ? location.state.successMessageOpen : false,
+  );
 
   // const handlePageChange = (page) => {
   //   const params = createSearchParams({
@@ -67,14 +69,16 @@ const Timeline = () => {
     try {
       const res = await getPictures();
       if (res.status === 200) {
-        const data = res.data;
+        const { data } = res;
         setPictures(data);
       }
     } catch (e) {
       console.log(e);
     }
     setLoading(false);
-    setTimeout(() => { setIsOpen(true) }, 100);
+    setTimeout(() => {
+      setIsOpen(true);
+    }, 100);
   }, []);
 
   useEffect(() => {
@@ -83,22 +87,30 @@ const Timeline = () => {
 
   return (
     <>
-      { matches ? (
+      {matches ? (
         <>
           {!loading ? (
             <>
               <div className={isOpen ? classes.animation : classes.before}>
-                <Typography
-                  className={classes.header} 
-                  variant="h4">タイムライン</Typography> 
+                <Typography className={classes.header} variant="h4">
+                  タイムライン
+                </Typography>
                 <Grid container spacing={3}>
-                  {
-                    pictures.map((picture,i) => (
-                      Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={picture.id}>
-                        <TimelineCard picture={picture} user={picture.user}/>
-                      </Grid>
-                    ))
-                  }
+                  {pictures.map(
+                    (picture, i) =>
+                      Math.floor(i / 6 + 1) === page && (
+                        <Grid
+                          item
+                          className={classes.gridItem}
+                          xs={12}
+                          sm={6}
+                          md={4}
+                          key={picture.id}
+                        >
+                          <TimelineCard picture={picture} user={picture.user} />
+                        </Grid>
+                      ),
+                  )}
                 </Grid>
                 <AlertMessage
                   open={successMessageOpen}
@@ -108,19 +120,17 @@ const Timeline = () => {
                 />
               </div>
               <div className={classes.pageWrapper}>
-                {
-                  pictures.length > 6 && (
-                    <Pagination 
-                      count={Math.ceil(pictures.length / 6)}
-                      page={page}
-                      onChange={(e, page) => {
-                        setPage(page);
-                        }}
-                      color="primary"
-                      className={classes.pagination}
-                    />
-                  )
-                }
+                {pictures.length > 6 && (
+                  <Pagination
+                    count={Math.ceil(pictures.length / 6)}
+                    page={page}
+                    onChange={(e, page) => {
+                      setPage(page);
+                    }}
+                    color="primary"
+                    className={classes.pagination}
+                  />
+                )}
               </div>
             </>
           ) : (
@@ -131,18 +141,28 @@ const Timeline = () => {
         <>
           {!loading ? (
             <>
-              <div className={isOpen ? classes.minAnimation : classes.minBefore}>
-                <Typography
-                  className={classes.header} 
-                  variant="h4">タイムライン</Typography> 
+              <div
+                className={isOpen ? classes.minAnimation : classes.minBefore}
+              >
+                <Typography className={classes.header} variant="h4">
+                  タイムライン
+                </Typography>
                 <Grid container spacing={3}>
-                  {
-                    pictures.map((picture,i) => (
-                      Math.floor(i / 6 + 1) === page && <Grid item className={classes.gridItem} xs={12} sm={6} md={4} key={picture.id}>
-                        <TimelineCard picture={picture} user={picture.user}/>
-                      </Grid>
-                    ))
-                  }
+                  {pictures.map(
+                    (picture, i) =>
+                      Math.floor(i / 6 + 1) === page && (
+                        <Grid
+                          item
+                          className={classes.gridItem}
+                          xs={12}
+                          sm={6}
+                          md={4}
+                          key={picture.id}
+                        >
+                          <TimelineCard picture={picture} user={picture.user} />
+                        </Grid>
+                      ),
+                  )}
                 </Grid>
                 <AlertMessage
                   open={successMessageOpen}
@@ -152,19 +172,17 @@ const Timeline = () => {
                 />
               </div>
               <div className={classes.pageWrapper}>
-                {
-                  pictures.length > 6 && (
-                    <Pagination 
-                      count={Math.ceil(pictures.length / 6)}
-                      page={page}
-                      onChange={(e, page) => {
-                        setPage(page);
-                        }}
-                      color="primary"
-                      className={classes.pagination}
-                    />
-                  )
-                }
+                {pictures.length > 6 && (
+                  <Pagination
+                    count={Math.ceil(pictures.length / 6)}
+                    page={page}
+                    onChange={(e, page) => {
+                      setPage(page);
+                    }}
+                    color="primary"
+                    className={classes.pagination}
+                  />
+                )}
               </div>
             </>
           ) : (
@@ -173,7 +191,7 @@ const Timeline = () => {
         </>
       )}
     </>
-  )
+  );
 }
 
 export default Timeline;

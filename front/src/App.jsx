@@ -1,25 +1,26 @@
-import React, { useState, useEffect, createContext } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { getCurrentUser } from "./lib/api/auth";
+import React, { useState, useEffect, createContext } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { getCurrentUser } from './lib/api/auth';
 
-import CommonLayout from "./components/layouts/CommonLayout";
-import TopPage from "./components/pages/TopPage";
-import SignIn from "./components/pages/SignIn";
-import SignUp from "./components/pages/SignUp";
-import Canvas from "./components/pages/Canvas";
-import ThemeIndex from "./components/pages/ThemeIndex";
-import Theme from "./components/pages/Theme";
-import ShowPicture from "./components/pages/ShowPicture";
-import ShowUser from "./components/pages/ShowUser";
+import CommonLayout from './components/layouts/CommonLayout';
+import TopPage from './components/pages/TopPage';
+import SignIn from './components/pages/SignIn';
+import SignUp from './components/pages/SignUp';
+import Canvas from './components/pages/Canvas';
+import ThemeIndex from './components/pages/ThemeIndex';
+import Theme from './components/pages/Theme';
+import ShowPicture from './components/pages/ShowPicture';
+import ShowUser from './components/pages/ShowUser';
 import './css/fonts/style.css';
-import NotFound from "./components/pages/NotFound";
-import RouteAuthGuard from "./provider/RouteAuthGuard";
-import PasswordReset from "./components/pages/PasswordReset";
-import EditPassword from "./components/pages/EditPassword";
-import TwitterAnswer from "./components/pages/TwitterAnswer";
-import Ranking from "./components/pages/Ranking";
-import PrivacyPolicy from "./components/pages/PrivacyPolicy";
-import TermsOfService from "./components/pages/TermsOfService";
+import NotFound from './components/pages/NotFound';
+import RouteAuthGuard from './provider/RouteAuthGuard';
+import PasswordReset from './components/pages/PasswordReset';
+import EditPassword from './components/pages/EditPassword';
+import TwitterAnswer from './components/pages/TwitterAnswer';
+import Ranking from './components/pages/Ranking';
+import PrivacyPolicy from './components/pages/PrivacyPolicy';
+import TermsOfService from './components/pages/TermsOfService';
+
 export const AuthContext = createContext();
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
         setCurrentUser(res?.data.data);
         console.log(res?.data.data);
       } else {
-        console.log("no current user");
+        console.log('no current user');
       }
     } catch (e) {
       console.log(e);
@@ -69,14 +70,47 @@ function App() {
             <Route path="/" element={<TopPage />} />
             <Route path="/password" element={<PasswordReset />} />
             <Route path="/password/reset" element={<EditPassword />} />
-            <Route path="/picture" element={<RouteAuthGuard component={<Canvas />} redirect={"/signin"} />} />
-            <Route path="/pictures/:id" element={<RouteAuthGuard component={<ShowPicture />} redirect={"/signin"} />} />
+            <Route
+              path="/picture"
+              element={
+                <RouteAuthGuard component={<Canvas />} redirect="/signin" />
+              }
+            />
+            <Route
+              path="/pictures/:id"
+              element={
+                <RouteAuthGuard
+                  component={<ShowPicture />}
+                  redirect="/signin"
+                />
+              }
+            />
             <Route path="/pictures/:id/twitter" element={<TwitterAnswer />} />
-            <Route path="/themes" element={<RouteAuthGuard component={<ThemeIndex />} redirect={"/signin"} />} />
-            <Route path="/ranking" element={<RouteAuthGuard component={<Ranking />} redirect={"/signin"} />} />
-            <Route path="/themes/:id" element={<RouteAuthGuard component={<Theme />} redirect={"/signin"} />} />
-            <Route path="/users/:id" element={<RouteAuthGuard component={<ShowUser />} redirect={"/signin"} />} />
-            <Route path="*" element={<NotFound /> } />
+            <Route
+              path="/themes"
+              element={
+                <RouteAuthGuard component={<ThemeIndex />} redirect="/signin" />
+              }
+            />
+            <Route
+              path="/ranking"
+              element={
+                <RouteAuthGuard component={<Ranking />} redirect="/signin" />
+              }
+            />
+            <Route
+              path="/themes/:id"
+              element={
+                <RouteAuthGuard component={<Theme />} redirect="/signin" />
+              }
+            />
+            <Route
+              path="/users/:id"
+              element={
+                <RouteAuthGuard component={<ShowUser />} redirect="/signin" />
+              }
+            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </CommonLayout>
       </Router>

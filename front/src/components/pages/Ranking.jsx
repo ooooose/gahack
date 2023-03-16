@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Typography, Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 import { getBestPictures } from '../../lib/api/pictures';
 import { getBestUsers } from '../../lib/api/users';
 import Loader from './Loader';
 import BestPictureCard from '../molecules/BestPictureCard';
 import BestUserCard from '../molecules/BestUserCard';
-import { Typography, Grid, makeStyles, useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   link: {
-    textDecoration: "none",
+    textDecoration: 'none',
   },
   animation: {
     transition: '1s',
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     paddingTop: '20px',
     paddingBottom: '20px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   minHeader: {
     paddingTop: '20px',
@@ -44,15 +44,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '26px',
   },
   rankingContent: {
-    marginBottom: '30px'
+    marginBottom: '30px',
   },
   usersContent: {
     margin: '0 auto',
-    display: 'flex'
-  }
+    display: 'flex',
+  },
 }));
 
-const Ranking = () => {
+function Ranking() {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
@@ -64,121 +64,119 @@ const Ranking = () => {
     try {
       const res = await getBestPictures();
       if (res.status === 200) {
-        const data = res.data;
+        const { data } = res;
         setBestPictures(data);
       }
     } catch (e) {
       console.log(e);
     }
   }, []);
-  
+
   const handleGetUsers = useCallback(async () => {
     try {
       const res = await getBestUsers();
       if (res.status === 200) {
-        const data = res.data;
+        const { data } = res;
         setBestUsers(data);
-      } 
+      }
     } catch (e) {
       console.log(e);
     }
     setLoading(false);
-    setTimeout(() => { setIsOpen(true) }, 100);
+    setTimeout(() => {
+      setIsOpen(true);
+    }, 100);
   }, []);
 
   useEffect(() => {
     handleGetPictures();
     handleGetUsers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       {!loading ? (
         <>
-          { matches ? (
-            <>
-              <div className={isOpen ? classes.animation : classes.before}>
-                <Typography
-                  className={classes.header} 
-                  variant="h4">月間ランキング</Typography>
-                <div className={classes.rankingContent}>
-                  <Typography
-                    className={classes.header} 
-                    variant="h5">〜Best 画伯 TOP3〜</Typography>
-                  <div className={classes.usersContent}>
-                    <Grid container spacing={3}>
-                      {
-                        bestUsers.map((user, index) => (
-                          <Grid item xs={12} sm={6} md={4} key={index}>
-                            <BestUserCard user={user} index={index} />
-                          </Grid>
-                        ))
-                      }
-                    </Grid>
-                  </div>
-                </div>
-                <div className={classes.rankingContent}>
-                  <Typography
-                    className={classes.header} 
-                    variant="h5">〜Best 絵画 TOP3〜</Typography> 
+          {matches ? (
+            <div className={isOpen ? classes.animation : classes.before}>
+              <Typography className={classes.header} variant="h4">
+                月間ランキング
+              </Typography>
+              <div className={classes.rankingContent}>
+                <Typography className={classes.header} variant="h5">
+                  〜Best 画伯 TOP3〜
+                </Typography>
+                <div className={classes.usersContent}>
                   <Grid container spacing={3}>
-                    {
-                      bestPictures.map((picture, index) => (
-                        <Grid item xs={12} sm={6} md={4} key={picture.id}>
-                          <BestPictureCard picture={picture} user={picture.user} index={index} />
-                        </Grid>
-                      ))
-                    }
+                    {bestUsers.map((user, index) => (
+                      <Grid item xs={12} sm={6} md={4} key={index}>
+                        <BestUserCard user={user} index={index} />
+                      </Grid>
+                    ))}
                   </Grid>
                 </div>
               </div>
-            </>
+              <div className={classes.rankingContent}>
+                <Typography className={classes.header} variant="h5">
+                  〜Best 絵画 TOP3〜
+                </Typography>
+                <Grid container spacing={3}>
+                  {bestPictures.map((picture, index) => (
+                    <Grid item xs={12} sm={6} md={4} key={picture.id}>
+                      <BestPictureCard
+                        picture={picture}
+                        user={picture.user}
+                        index={index}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              </div>
+            </div>
           ) : (
-            <>
-              <div className={isOpen ? classes.minAnimation : classes.minBefore}>
-                <Typography
-                  className={classes.header} 
-                  variant="h4">月間ランキング</Typography>
-                <div className={classes.rankingContent}>
-                  <Typography
-                    className={classes.header} 
-                    variant="h5">〜Best 画伯 TOP3〜</Typography>
-                  <div className={classes.usersContent}>
-                    <Grid container spacing={3}>
-                      {
-                        bestUsers.map((user, index) => (
-                          <Grid item xs={12} sm={6} md={4} key={index}>
-                            <BestUserCard user={user} index={index} />
-                          </Grid>
-                        ))
-                      }
-                    </Grid>
-                  </div>
-                </div>
-                <div className={classes.rankingContent}>
-                  <Typography
-                    className={classes.minHeader} 
-                    variant="h5">〜Best 絵画 TOP3〜</Typography> 
+            <div className={isOpen ? classes.minAnimation : classes.minBefore}>
+              <Typography className={classes.header} variant="h4">
+                月間ランキング
+              </Typography>
+              <div className={classes.rankingContent}>
+                <Typography className={classes.header} variant="h5">
+                  〜Best 画伯 TOP3〜
+                </Typography>
+                <div className={classes.usersContent}>
                   <Grid container spacing={3}>
-                    {
-                      bestPictures.map((picture, index) => (
-                        <Grid item xs={12} sm={6} md={4} key={picture.id}>
-                          <BestPictureCard picture={picture} user={picture.user} index={index} />
-                        </Grid>
-                      ))
-                    }
+                    {bestUsers.map((user, index) => (
+                      <Grid item xs={12} sm={6} md={4} key={index}>
+                        <BestUserCard user={user} index={index} />
+                      </Grid>
+                    ))}
                   </Grid>
                 </div>
               </div>
-            </>
+              <div className={classes.rankingContent}>
+                <Typography className={classes.minHeader} variant="h5">
+                  〜Best 絵画 TOP3〜
+                </Typography>
+                <Grid container spacing={3}>
+                  {bestPictures.map((picture, index) => (
+                    <Grid item xs={12} sm={6} md={4} key={picture.id}>
+                      <BestPictureCard
+                        picture={picture}
+                        user={picture.user}
+                        index={index}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              </div>
+            </div>
           )}
         </>
       ) : (
         <Loader />
       )}
     </>
-  )
+  );
 }
 
 export default Ranking;

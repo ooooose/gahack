@@ -1,4 +1,4 @@
-import React,{ useState, useContext, memo, useCallback } from 'react';
+import React, { useState, useContext, memo, useCallback } from 'react';
 
 import FollowButton from '../atoms/buttons/FollowButton';
 import UnFollowButton from '../atoms/buttons/UnFollowButton';
@@ -17,28 +17,27 @@ const Relationships = memo(({ user, userId }) => {
 
   return (
     <>
-    { currentUser.email === "guest@example.com" ? (
-      <>
-      </>
-    ) : (
-      <>
-        { followState ? (
-          <UnFollowButton
-            userId={userId}
-            params={generateParams()}
-            setFollowState={setFollowState}
-          />
-        ) : (
-          <FollowButton 
-            userId={userId}
-            params={generateParams()} 
-            setFollowState={setFollowState}
-          />
-        )}
-      </>
-    ) }
+      {currentUser.email === 'guest@example.com' ? (
+        <></>
+      ) : (
+        <>
+          {followState ? (
+            <UnFollowButton
+              userId={userId}
+              params={generateParams()}
+              setFollowState={setFollowState}
+            />
+          ) : (
+            <FollowButton
+              userId={userId}
+              params={generateParams()}
+              setFollowState={setFollowState}
+            />
+          )}
+        </>
+      )}
     </>
-  )
+  );
 });
 
 export default Relationships;

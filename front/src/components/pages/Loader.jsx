@@ -1,29 +1,28 @@
-import React from "react";
-import { makeStyles, useMediaQuery } from "@material-ui/core";
+import React from 'react';
+import { makeStyles, useMediaQuery } from '@material-ui/core';
 import { Puff } from 'react-loader-spinner';
 
 const useStyles = makeStyles((theme) => ({
   loading: {
-    margin: "0 auto",
+    margin: '0 auto',
     position: 'fixed',
-    top: "50%",
+    top: '50%',
     left: '50%',
   },
   minLoading: {
-    margin: "0 auto",
+    margin: '0 auto',
     position: 'fixed',
-    top: "50%",
+    top: '50%',
     left: '35%',
   },
 }));
 
-const Loader = () => {
+function Loader() {
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:575px)');
   return (
     <>
-    {matches ? (
-      <>
+      {matches ? (
         <div className={classes.loading}>
           <Puff
             type="Puff"
@@ -34,9 +33,7 @@ const Loader = () => {
             ariaLabel="loading"
           />
         </div>
-      </>
-    ) : (
-      <>
+      ) : (
         <div className={classes.minLoading}>
           <Puff
             type="Puff"
@@ -47,10 +44,9 @@ const Loader = () => {
             ariaLabel="loading"
           />
         </div>
-      </>
-    )}
+      )}
     </>
-  )
+  );
 }
 
 export default Loader;

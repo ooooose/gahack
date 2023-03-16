@@ -1,21 +1,28 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
-import { showPicture } from '../../lib/api/pictures';
-import { Card, Divider, CardContent, Avatar, Tooltip, IconButton, Typography } from "@material-ui/core";
+import {
+  Card,
+  Divider,
+  CardContent,
+  Avatar,
+  Tooltip,
+  IconButton,
+  Typography,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import SettingsIcon from '@material-ui/icons/Settings';
+import { ImTwitter } from 'react-icons/im';
+import { TwitterShareButton } from 'react-share';
+import { FaRegComment } from 'react-icons/fa';
+import { showPicture, deletePicture } from '../../lib/api/pictures';
 import Picture from '../atoms/picture/Picture';
-import { makeStyles } from "@material-ui/core/styles";
-import styles from "../../css/components/Frames.module.css";
+import styles from '../../css/components/Frames.module.css';
 import Loader from './Loader';
 import EditFrameModal from '../molecules/EditFrameModal';
 import { AuthContext } from '../../App';
-import SettingsIcon from '@material-ui/icons/Settings';
-import { ImTwitter } from 'react-icons/im';
-import { TwitterShareButton } from "react-share";
-import { deletePicture } from '../../lib/api/pictures';
 import DeletePicutreButton from '../atoms/buttons/DeletePictureButton';
 import Likes from '../molecules/Likes';
 import Bookmarks from '../molecules/Bookmarks';
-import { FaRegComment } from 'react-icons/fa';
 import CommentsModal from '../molecules/CommentsModal';
 import AlertMessage from '../utils/AlertMessage';
 
@@ -33,12 +40,12 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     maxWidth: '450px',
-    margin: '0 auto'
+    margin: '0 auto',
   },
   avatar: {
-    width: "60px",
+    width: '60px',
     height: '60px',
-    float: 'right'
+    float: 'right',
   },
   card: {
     margin: '20px auto',
@@ -49,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
   information: {
     padding: '15px 50px',
-    margin: '0 auto'
+    margin: '0 auto',
   },
   userInfo: {
     width: '100%',
@@ -59,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     width: '240px',
   },
   divider: {
-    margin: '10px 10px'
+    margin: '10px 10px',
   },
   profile: {
     marginTop: '30px',
@@ -68,31 +75,31 @@ const useStyles = makeStyles((theme) => ({
   cardBottom: {
     display: 'flex',
     flexDirection: 'column',
-    float: 'right'
+    float: 'right',
   },
   icons: {
     display: 'flex',
     margin: '0 auto',
   },
   setting: {
-    cursor: "pointer",
+    cursor: 'pointer',
     color: 'gray',
-    padding: '3px'
+    padding: '3px',
   },
   datePos: {
     margin: '5px 5px 10px',
-    textAlign: 'right'
+    textAlign: 'right',
   },
   length: {
     fontSize: '14px',
-    marginLeft: '2px'
+    marginLeft: '2px',
   },
   twitter: {
     color: '#1DA1F2',
-  }
+  },
 }));
 
-const ShowPicture = () => {
+function ShowPicture() {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
   const { id } = useParams();
@@ -107,23 +114,29 @@ const ShowPicture = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  const [successMessageOpen, setSuccessMessageOpen] = useState(location.state ? (location.state.successMessageOpen) : (false));
+  const [successMessageOpen, setSuccessMessageOpen] = useState(
+    location.state ? location.state.successMessageOpen : false,
+  );
 
-  const handleToDate = (date) =>{
+  const handleToDate = (date) => {
     date = new Date(date);
-    if(date.getMinutes() < 10){
-      date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":0"+date.getMinutes()
+    if (date.getMinutes() < 10) {
+      date = `${date.getFullYear()}/${
+        (date.getMonth() % 12) + 1
+      }/${date.getDate()} ${date.getHours()}:0${date.getMinutes()}`;
     } else {
-      date = date.getFullYear()+"/"+(date.getMonth()%12+1)+"/"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()
+      date = `${date.getFullYear()}/${
+        (date.getMonth() % 12) + 1
+      }/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
     }
-    setDate(date) 
-  }
+    setDate(date);
+  };
 
   const handleShowPicture = async () => {
     try {
       const res = await showPicture(id);
       if (res.status === 200) {
-        const data = res.data;
+        const { data } = res;
         setPicture(data);
         setUser(data.user);
         setComments(data.comments);
@@ -134,15 +147,17 @@ const ShowPicture = () => {
       console.log(e);
     }
     setLoading(false);
-    setTimeout(() => { setIsOpen(true) }, 200)
+    setTimeout(() => {
+      setIsOpen(true);
+    }, 200);
   };
 
   const handleDeletePicture = useCallback(async () => {
-    if (window.confirm('削除しますか？')){
+    if (window.confirm('削除しますか？')) {
       try {
         const res = await deletePicture(id);
         if (res.status === 200) {
-          navigate(`/themes/${theme.id}`)
+          navigate(`/themes/${theme.id}`);
         }
       } catch (e) {
         console.log(e);
@@ -156,7 +171,7 @@ const ShowPicture = () => {
 
   useEffect(() => {
     handleShowPicture();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -164,143 +179,151 @@ const ShowPicture = () => {
       {!loading ? (
         <>
           <div className={isOpen ? classes.animation : classes.before}>
-              <div className={classes.container}>
-                <div className={`${styles.ShowPictureParent}`}>
-                  <Picture 
-                    picture={picture} 
-                    theme={theme} 
-                    image={picture.image}
-                    />
-                </div>
-                <Card className={classes.card}>
-                  <CardContent>
-                    <div className={classes.userInfo}>
-                      <div className={classes.pictureTheme}>
-                        <Typography sx={{ fontSize: 14 }} gutterBottom>
-                          作品のテーマ
-                        </Typography>
-                          { theme.title.length > 10 ? (
-                            <>
-                              <Tooltip title={theme.title}>
-                                <Typography className={classes.pictureTitle} variant="h6" component="div">
-                                  {theme.title.substring(0, 10) + '...'}
-                                </Typography>
-                              </Tooltip>
-                            </>
-                          ) : (
-                            <>
-                              <Typography className={classes.pictureTitle} variant="h6" component="div">
-                                {theme.title}
-                              </Typography>
-                            </>
-                          )}
-                      </div>
-                      { user.name === "ゲストユーザー" ? (
-                        <>
-                          <Tooltip title={`${user.name}`}>
-                            <Avatar
-                              sx={{ bgcolor: 'red' }}
-                              alt="avatar"
-                              src={user.image.url}
-                              className={classes.avatar}
-                              />
-                          </Tooltip>  
-                        </>
-                      ) : (
-                        <>
-                          <Link to={{
-                            pathname: "/users/" + user.id,
-                            state: {id: user.id}
-                          }}
-                          id={picture.id}
-                          className = {classes.link}
+            <div className={classes.container}>
+              <div className={`${styles.ShowPictureParent}`}>
+                <Picture
+                  picture={picture}
+                  theme={theme}
+                  image={picture.image}
+                />
+              </div>
+              <Card className={classes.card}>
+                <CardContent>
+                  <div className={classes.userInfo}>
+                    <div className={classes.pictureTheme}>
+                      <Typography sx={{ fontSize: 14 }} gutterBottom>
+                        作品のテーマ
+                      </Typography>
+                      {theme.title.length > 10 ? (
+                        <Tooltip title={theme.title}>
+                          <Typography
+                            className={classes.pictureTitle}
+                            variant="h6"
+                            component="div"
                           >
-                            <Tooltip title={`${user.name}`}>
-                              <Avatar
-                                sx={{ bgcolor: 'red' }}
-                                alt="avatar"
-                                src={user.image.url}
-                                className={classes.avatar}
-                                />
-                            </Tooltip>
-                          </Link>
-                        </>
+                            {`${theme.title.substring(0, 10)}...`}
+                          </Typography>
+                        </Tooltip>
+                      ) : (
+                        <Typography
+                          className={classes.pictureTitle}
+                          variant="h6"
+                          component="div"
+                        >
+                          {theme.title}
+                        </Typography>
                       )}
                     </div>
-                    <Divider className={classes.divider} />
-                    <div className={classes.cardBottom}>
-                      <div className={classes.icons}>
-                        <Likes
-                          picture={picture}
-                          pictureId={picture.id} />
-                        <Bookmarks
-                          picture={picture}
-                          pictureId={picture.id} />
-                        <Tooltip title="コメント" className={classes.comment}>
-                          <IconButton aria-label="setting" onClick={() => setCommentOpen(true)}>
-                            <FaRegComment />
-                            <span className={classes.length}>{comments.length}</span>
-                          </IconButton>
+                    {user.name === 'ゲストユーザー' ? (
+                      <Tooltip title={`${user.name}`}>
+                        <Avatar
+                          sx={{ bgcolor: 'red' }}
+                          alt="avatar"
+                          src={user.image.url}
+                          className={classes.avatar}
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Link
+                        to={{
+                          pathname: `/users/${user.id}`,
+                          state: { id: user.id },
+                        }}
+                        id={picture.id}
+                        className={classes.link}
+                      >
+                        <Tooltip title={`${user.name}`}>
+                          <Avatar
+                            sx={{ bgcolor: 'red' }}
+                            alt="avatar"
+                            src={user.image.url}
+                            className={classes.avatar}
+                          />
                         </Tooltip>
-                        <CommentsModal 
-                          commentOpen={commentOpen} 
-                          setCommentOpen={setCommentOpen} 
-                          pictureId={picture.id} 
-                          comments={comments}
-                          setComments={setComments}
-                          /> 
-                        { currentUser.id === user.id && user.name !== "ゲストユーザー" ? (
-                          <>
-                            <Tooltip title="フレーム変更">
-                              <IconButton aria-label="setting" onClick={handleOpen}>
-                                <SettingsIcon
-                                  className={classes.setting} />
-                              </IconButton>
-                            </Tooltip>
-                            <DeletePicutreButton handleDeletePicture={handleDeletePicture}/>
-                            <Tooltip title="Twitterシェア">
-                              <IconButton aria-label="twitter">
-                                <TwitterShareButton
+                      </Link>
+                    )}
+                  </div>
+                  <Divider className={classes.divider} />
+                  <div className={classes.cardBottom}>
+                    <div className={classes.icons}>
+                      <Likes picture={picture} pictureId={picture.id} />
+                      <Bookmarks picture={picture} pictureId={picture.id} />
+                      <Tooltip title="コメント" className={classes.comment}>
+                        <IconButton
+                          aria-label="setting"
+                          onClick={() => setCommentOpen(true)}
+                        >
+                          <FaRegComment />
+                          <span className={classes.length}>
+                            {comments.length}
+                          </span>
+                        </IconButton>
+                      </Tooltip>
+                      <CommentsModal
+                        commentOpen={commentOpen}
+                        setCommentOpen={setCommentOpen}
+                        pictureId={picture.id}
+                        comments={comments}
+                        setComments={setComments}
+                      />
+                      {currentUser.id === user.id &&
+                      user.name !== 'ゲストユーザー' ? (
+                        <>
+                          <Tooltip title="フレーム変更">
+                            <IconButton
+                              aria-label="setting"
+                              onClick={handleOpen}
+                            >
+                              <SettingsIcon className={classes.setting} />
+                            </IconButton>
+                          </Tooltip>
+                          <DeletePicutreButton
+                            handleDeletePicture={handleDeletePicture}
+                          />
+                          <Tooltip title="Twitterシェア">
+                            <IconButton aria-label="twitter">
+                              <TwitterShareButton
                                 title="画伯が現れました！絵を覗いてみましょう！"
                                 url={`https://gahack.net/pictures/${picture.id}/twitter`}
-                                hashtags={["画HACK"]}
-                                >
-                                  <ImTwitter className={classes.twitter} />
-                                </TwitterShareButton>
-                              </IconButton>
-                            </Tooltip>
-                          </>
-                        ) : (
-                          <></>
-                        ) }
-                        <EditFrameModal 
-                          open={open} 
-                          setOpen={setOpen} 
-                          picture={picture} 
-                          setPicture={setPicture} 
-                          image={picture.image}
-                          setTheme={setTheme} /> 
-                      </div>
-                      <Typography className={classes.datePos} variant="body2">
-                        {date}
-                      </Typography>
+                                hashtags={['画HACK']}
+                              >
+                                <ImTwitter className={classes.twitter} />
+                              </TwitterShareButton>
+                            </IconButton>
+                          </Tooltip>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                      <EditFrameModal
+                        open={open}
+                        setOpen={setOpen}
+                        picture={picture}
+                        setPicture={setPicture}
+                        image={picture.image}
+                        setTheme={setTheme}
+                      />
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
+                    <Typography className={classes.datePos} variant="body2">
+                      {date}
+                    </Typography>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
           <AlertMessage
-          open={successMessageOpen}
-          setOpen={setSuccessMessageOpen}
-          severity="success"
-          message="絵を作成しました"
-        />
-      </>
+            open={successMessageOpen}
+            setOpen={setSuccessMessageOpen}
+            severity="success"
+            message="絵を作成しました"
+          />
+        </>
       ) : (
         <Loader />
       )}
     </>
-  )
-};
+  );
+}
 
 export default ShowPicture;
