@@ -5,7 +5,7 @@ import { makeStyles, IconButton, Tooltip } from '@material-ui/core';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { createLike } from '../../../lib/api/likes';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   likeButton: {
     cursor: 'pointer',
     float: 'right',

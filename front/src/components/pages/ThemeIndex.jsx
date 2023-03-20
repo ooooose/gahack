@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Grid, Typography, useMediaQuery } from '@material-ui/core';
+import { Grid, Typography, useMediaQuery, makeStyles } from '@material-ui/core';
 
-import { makeStyles } from '@material-ui/styles';
 import { Pagination } from '@material-ui/lab';
 import { getThemes } from '../../lib/api/themes';
 import ThemeCard from '../atoms/cards/ThemeCard';
 import Loader from './Loader';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   link: {
     textDecoration: 'none',
   },
@@ -75,13 +74,12 @@ function ThemeIndex() {
 
   useEffect(() => {
     handleGetThemes();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <>
+    <div>
       {!loading ? (
-        <>
+        <div>
           {matches ? (
             <>
               <div className={isOpen ? classes.animation : classes.before}>
@@ -124,7 +122,7 @@ function ThemeIndex() {
                   <Pagination
                     count={Math.ceil(themes.length / 6)}
                     page={page}
-                    onChange={(e, page) => setPage(page)}
+                    onChange={(e, p) => setPage(p)}
                     color="primary"
                     className={classes.pagination}
                   />
@@ -174,8 +172,8 @@ function ThemeIndex() {
                   <Pagination
                     count={Math.ceil(themes.length / 6)}
                     page={page}
-                    onChange={(e, page) => {
-                      setPage(page);
+                    onChange={(e, p) => {
+                      setPage(p);
                     }}
                     color="primary"
                     className={classes.pagination}
@@ -184,11 +182,11 @@ function ThemeIndex() {
               </div>
             </>
           )}
-        </>
+        </div>
       ) : (
         <Loader />
       )}
-    </>
+    </div>
   );
 }
 

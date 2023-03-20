@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Comment from './Comment';
 import { createComment } from '../../lib/api/comments';
-import { AuthContext } from '../../App';
+import AuthContext from '../../context';
 import { signOut } from '../../lib/api/auth';
 
 const useStyles = makeStyles((theme) => ({
@@ -90,7 +90,7 @@ const CommentsModal = memo(
       return createCommentParams;
     };
 
-    const handleCommentSubmit = async (e) => {
+    const handleCommentSubmit = async () => {
       const params = generateCommentParams();
       try {
         const res = await createComment(params, pictureId);
@@ -101,7 +101,7 @@ const CommentsModal = memo(
       }
     };
 
-    const handleSignOut = async (e) => {
+    const handleSignOut = async () => {
       try {
         const res = await signOut();
 
@@ -117,8 +117,8 @@ const CommentsModal = memo(
         } else {
           console.log('Failed in sign out');
         }
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        console.log(err);
       }
     };
 
@@ -135,14 +135,14 @@ const CommentsModal = memo(
             <div>
               {comments.length > 0 ? (
                 <div className={classes.commentsBox}>
-                  {comments.map((comment) => (
-                    <div key={comment.id}>
+                  {comments.map((c) => (
+                    <div key={c.id}>
                       <Comment
                         comments={comments}
-                        comment={comment}
-                        commentId={comment.id}
-                        user={comment.user}
-                        picture={comment.picture}
+                        comment={c}
+                        commentId={c.id}
+                        user={c.user}
+                        picture={c.picture}
                         setComments={setComments}
                       />
                     </div>
@@ -219,14 +219,14 @@ const CommentsModal = memo(
             <div>
               {comments.length > 0 ? (
                 <div className={classes.commentsBox}>
-                  {comments.map((comment) => (
-                    <div key={comment.id}>
+                  {comments.map((c) => (
+                    <div key={c.id}>
                       <Comment
                         comments={comments}
-                        comment={comment}
-                        commentId={comment.id}
-                        user={comment.user}
-                        picture={comment.picture}
+                        comment={c}
+                        commentId={c.id}
+                        user={c.user}
+                        picture={c.picture}
                         setComments={setComments}
                       />
                     </div>

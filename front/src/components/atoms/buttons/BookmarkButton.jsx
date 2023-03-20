@@ -4,7 +4,7 @@ import { makeStyles, IconButton, Tooltip } from '@material-ui/core';
 import { AiOutlineStar } from 'react-icons/ai';
 import { createBookmark } from '../../../lib/api/bookmarks';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   bookmarkButton: {
     cursor: 'pointer',
     float: 'right',

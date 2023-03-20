@@ -56,11 +56,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EditFrameModal = memo(
-  ({ open, setOpen, picture, setPicture, image, setTheme }) => {
+  ({ open, setOpen, picture, setPicture, setTheme }) => {
     const classes = useStyles();
     const matches = useMediaQuery('(min-width:575px)');
     const [frame, setFrame] = useState(1);
-    const image_src = `data:image/png;base64,${image}`;
     const handleClose = () => {
       setOpen(false);
     };
@@ -77,11 +76,11 @@ const EditFrameModal = memo(
       const { id } = picture;
       try {
         const res = await editPicture(id, params);
-        const new_picture = res.data;
+        const newPicture = res.data;
         console.log(res.data);
-        const new_theme = res.data.theme;
-        setPicture(new_picture);
-        setTheme(new_theme);
+        const newTheme = res.data.theme;
+        setPicture(newPicture);
+        setTheme(newTheme);
         setOpen(false);
       } catch (e) {
         console.log(e);
@@ -89,7 +88,7 @@ const EditFrameModal = memo(
     };
 
     const handleFrameChange = (newFrame) => {
-      setFrame((prev) => newFrame);
+      setFrame(newFrame);
     };
 
     const body = (
@@ -102,7 +101,7 @@ const EditFrameModal = memo(
                 className={frame === 2 ? `${styles.second}` : `${styles.first}`}
               >
                 <img
-                  src={image_src}
+                  src={picture.twitterCard.url}
                   alt={picture.theme}
                   className={classes.imageScales}
                 />
@@ -154,7 +153,7 @@ const EditFrameModal = memo(
                 className={frame === 2 ? `${styles.second}` : `${styles.first}`}
               >
                 <img
-                  src={image_src}
+                  src={picture.twitterCard.url}
                   alt={picture.theme}
                   className={classes.imageScales}
                 />

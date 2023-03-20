@@ -4,7 +4,7 @@ import { IconButton, makeStyles } from '@material-ui/core';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import LikeButton from '../atoms/buttons/LikeButton';
 import UnLikeButton from '../atoms/buttons/UnlikeButton';
-import { AuthContext } from '../../App';
+import AuthContext from '../../context';
 import GuestsAlert from '../utils/GuestsAlert';
 
 const useStyles = makeStyles(() => ({
@@ -42,7 +42,7 @@ const Likes = memo(({ picture, pictureId }) => {
   }, []);
 
   return (
-    <>
+    <div>
       {currentUser.name === 'ゲストユーザー' ? (
         <>
           <div className={classes.container}>
@@ -54,7 +54,7 @@ const Likes = memo(({ picture, pictureId }) => {
           <GuestsAlert open={openAlert} setOpen={setOpenAlert} />
         </>
       ) : (
-        <>
+        <div>
           {likeState ? (
             <UnLikeButton
               params={generateParams()}
@@ -71,9 +71,9 @@ const Likes = memo(({ picture, pictureId }) => {
               setLikes={setLikes}
             />
           )}
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 });
 

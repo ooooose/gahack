@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Relationships from './Relationships';
-import { AuthContext } from '../../App';
+import AuthContext from '../../context';
 
 const useStyles = makeStyles((theme) => ({
   inline: {

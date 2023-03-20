@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SignUpButton = memo((props) => {
+const SignUpButton = memo((props) => {
   const classes = useStyles();
   return (
     <Button
@@ -35,3 +35,5 @@ export const SignUpButton = memo((props) => {
     </Button>
   );
 });
+
+export default SignUpButton;

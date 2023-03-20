@@ -4,7 +4,7 @@ import { makeStyles, IconButton, Tooltip } from '@material-ui/core';
 import { AiFillStar } from 'react-icons/ai';
 import { deleteBookmark } from '../../../lib/api/bookmarks';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   bookmarkButton: {
     float: 'right',
     color: 'black',

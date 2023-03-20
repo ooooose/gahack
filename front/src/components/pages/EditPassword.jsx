@@ -9,7 +9,7 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Form } from '../atoms/forms/Form';
+import Form from '../atoms/forms/Form';
 import { editPassword } from '../../lib/api/auth';
 import AlertMessage from '../utils/AlertMessage';
 
@@ -71,8 +71,8 @@ function EditPassword() {
           navigation('/signin');
           setSuccessMessageOpen(true);
         }
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        console.log(err);
         setAlertMessageOpen(true);
       }
     },

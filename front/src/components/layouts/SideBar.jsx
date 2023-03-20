@@ -22,7 +22,7 @@ import Person from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { IoDocumentText } from 'react-icons/io5';
-import { AuthContext } from '../../App';
+import AuthContext from '../../context';
 import { signOut } from '../../lib/api/auth';
 
 const drawerWidth = 250;
@@ -73,7 +73,7 @@ const SideBar = memo(({ open, handleDrawerClose }) => {
   const { isSignedIn, setIsSignedIn, currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleSignOut = useCallback(
-    async (e) => {
+    async () => {
       if (window.confirm('ログアウトしますか？') === true) {
         try {
           const res = await signOut();
@@ -86,8 +86,6 @@ const SideBar = memo(({ open, handleDrawerClose }) => {
             setIsSignedIn(false);
             navigate('/', { state: { successMessageOpen: true } });
             handleDrawerClose();
-
-            console.log('Succeeded in sign out');
           } else {
             console.log('Failed in sign out');
           }
@@ -204,7 +202,7 @@ const SideBar = memo(({ open, handleDrawerClose }) => {
               <ListItemText primary="プライバシーポリシー" />
             </ListItem>
           </Link>
-          <Link onClick={handleSignOut} className={classes.link}>
+          <Link to="/" onClick={handleSignOut} className={classes.link}>
             <ListItem button>
               <Tooltip title="ログアウト">
                 <ListItemIcon>

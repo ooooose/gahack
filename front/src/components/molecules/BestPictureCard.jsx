@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import Picture from '../atoms/picture/Picture';
 import styles from '../../css/components/Frames.module.css';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   avatar: {
     width: '60px',
     height: '60px',
@@ -43,23 +43,23 @@ const BestPictureCard = memo(({ picture, user, index }) => {
   const classes = useStyles();
   const [date, setDate] = useState([]);
   const matches = useMediaQuery('(min-width:575px)');
-  const handleToDate = (date) => {
-    date = new Date(date);
-    if (date.getMinutes() < 10) {
-      date = `${date.getFullYear()}/${
-        (date.getMonth() % 12) + 1
-      }/${date.getDate()} ${date.getHours()}:0${date.getMinutes()}`;
+  const handleToDate = (d) => {
+    const target = new Date(d);
+    let PostDate;
+    if (target.getMinutes() < 10) {
+      PostDate = `${target.getFullYear()}/${
+        (target.getMonth() % 12) + 1
+      }/${target.getDate()} ${target.getHours()}:0${target.getMinutes()}`;
     } else {
-      date = `${date.getFullYear()}/${
-        (date.getMonth() % 12) + 1
-      }/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+      PostDate = `${target.getFullYear()}/${
+        (target.getMonth() % 12) + 1
+      }/${target.getDate()} ${target.getHours()}:${target.getMinutes()}`;
     }
-    setDate(date);
+    setDate(PostDate);
   };
 
   useEffect(() => {
     handleToDate(picture.createdAt);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const shortTitle =
@@ -73,7 +73,7 @@ const BestPictureCard = memo(({ picture, user, index }) => {
       <CardHeader
         align="left"
         avatar={
-          <>
+          <div>
             {user.name !== 'ゲストユーザー' ? (
               <Link
                 to={{
@@ -98,7 +98,7 @@ const BestPictureCard = memo(({ picture, user, index }) => {
                 className={classes.avatar}
               />
             )}
-          </>
+          </div>
         }
         action={<IconButton aria-label="settings" />}
         title={user.name}

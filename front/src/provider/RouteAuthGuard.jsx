@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthContext } from '../App';
+import AuthContext from '../context';
 
-function RouteAuthGuard(props) {
+function RouteAuthGuard({redirect, component}) {
   const { loading, isSignedIn } = useContext(AuthContext);
 
   if (!loading) {
     if (!isSignedIn) {
-      return <Navigate to={props.redirect} replace={false} />;
+      return <Navigate to={redirect} replace={false} />;
     }
-    return <>{props.component}</>;
+    return <>{component}</>;
   }
 }
 

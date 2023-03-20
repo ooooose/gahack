@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CommonLayout = memo((props) => {
+const CommonLayout = memo(({children}) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -38,7 +38,7 @@ const CommonLayout = memo((props) => {
       <SideBar open={open} handleDrawerClose={handleDrawerClose} />
       <main className={classes.main}>
         <Grid>
-          <Grid item>{props.children}</Grid>
+          <Grid item>{children}</Grid>
         </Grid>
       </main>
     </div>

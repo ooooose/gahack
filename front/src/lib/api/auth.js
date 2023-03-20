@@ -8,7 +8,7 @@ export const signUp = (params) => client.post('/auth', params);
 export const signIn = (params) => client.post('/auth/sign_in', params);
 
 // ゲストログイン
-export const guestSignIn = (params) => client.post('/auth/guest_sign_in');
+export const guestSignIn = () => client.post('/auth/guest_sign_in');
 
 // サインアウト
 export const signOut = () =>

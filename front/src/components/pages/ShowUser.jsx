@@ -19,7 +19,7 @@ import { showUser } from '../../lib/api/users';
 import Picture from '../atoms/picture/Picture';
 import PictureCard from '../atoms/cards/PictureCard';
 import styles from '../../css/components/Frames.module.css';
-import { AuthContext } from '../../App';
+import AuthContext from '../../context';
 import EditUserModal from '../molecules/EditUserModal';
 import Relationships from '../molecules/Relationships';
 import Loader from './Loader';
@@ -146,7 +146,7 @@ function TabPanel(props) {
 }
 
 TabPanel.propTypes = {
-  children: PropTypes.node,
+  // children: PropTypes.node,
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };
@@ -228,11 +228,11 @@ function ShowUser() {
   }, [pageOpen]);
 
   return (
-    <>
+    <div>
       {!loading ? (
-        <>
+        <div>
           {matches ? (
-            <>
+            <div>
               <div className={isOpen ? classes.animation : classes.before}>
                 <div className={classes.topContent}>
                   <Avatar
@@ -245,7 +245,7 @@ function ShowUser() {
                       {user.name}
                     </Typography>
                     {currentUser.name !== 'ゲストユーザー' ? (
-                      <>
+                      <div>
                         {currentUser.id !== user.id ? (
                           <Relationships user={user} userId={user.id} />
                         ) : (
@@ -258,7 +258,7 @@ function ShowUser() {
                             プロフィール編集
                           </Button>
                         )}
-                      </>
+                      </div>
                     ) : (
                       <></>
                     )}
@@ -335,8 +335,8 @@ function ShowUser() {
                         <Pagination
                           count={Math.ceil(pictures.length / 6)}
                           page={page}
-                          onChange={(e, page) => {
-                            setPage(page);
+                          onChange={(e, p) => {
+                            setPage(p);
                             setPageOpen(false);
                           }}
                           color="primary"
@@ -383,8 +383,8 @@ function ShowUser() {
                         <Pagination
                           count={Math.ceil(bookmarkPictures.length / 6)}
                           page={likesPage}
-                          onChange={(e, likesPage) => {
-                            setLikesPage(likesPage);
+                          onChange={(e, p) => {
+                            setLikesPage(p);
                             setPageOpen(false);
                           }}
                           color="primary"
@@ -421,8 +421,8 @@ function ShowUser() {
                         <Pagination
                           count={Math.ceil(followings.length / 6)}
                           page={followingsPage}
-                          onChange={(e, followingsPage) => {
-                            setFollowingsPage(followingsPage);
+                          onChange={(e, p) => {
+                            setFollowingsPage(p);
                             setPageOpen(false);
                           }}
                           color="primary"
@@ -459,8 +459,8 @@ function ShowUser() {
                         <Pagination
                           count={Math.ceil(followings.length / 6)}
                           page={followersPage}
-                          onChange={(e, followersPage) => {
-                            setFollowersPage(followersPage);
+                          onChange={(e, p) => {
+                            setFollowersPage(p);
                             setPageOpen(false);
                           }}
                           color="primary"
@@ -477,7 +477,7 @@ function ShowUser() {
                 severity="success"
                 message="ログインに成功しました"
               />
-            </>
+            </div>
           ) : (
             <>
               <div
@@ -494,7 +494,7 @@ function ShowUser() {
                       {user.name}
                     </Typography>
                     {currentUser.name !== 'ゲストユーザー' ? (
-                      <>
+                      <div>
                         {currentUser.id !== user.id ? (
                           <Relationships user={user} userId={user.id} />
                         ) : (
@@ -507,7 +507,7 @@ function ShowUser() {
                             プロフィール編集
                           </Button>
                         )}
-                      </>
+                      </div>
                     ) : (
                       <></>
                     )}
@@ -601,8 +601,8 @@ function ShowUser() {
                         <Pagination
                           count={Math.ceil(pictures.length / 6)}
                           page={page}
-                          onChange={(e, page) => {
-                            setPage(page);
+                          onChange={(e, p) => {
+                            setPage(p);
                             setPageOpen(false);
                           }}
                           color="primary"
@@ -649,8 +649,8 @@ function ShowUser() {
                         <Pagination
                           count={Math.ceil(bookmarkPictures.length / 6)}
                           page={likesPage}
-                          onChange={(e, likesPage) => {
-                            setLikesPage(likesPage);
+                          onChange={(e, p) => {
+                            setLikesPage(p);
                             setPageOpen(false);
                           }}
                           color="primary"
@@ -689,8 +689,8 @@ function ShowUser() {
                         <Pagination
                           count={Math.ceil(followings.length / 6)}
                           page={followingsPage}
-                          onChange={(e, followingsPage) => {
-                            setFollowingsPage(followingsPage);
+                          onChange={(e, p) => {
+                            setFollowingsPage(p);
                             setPageOpen(false);
                           }}
                           color="primary"
@@ -729,8 +729,8 @@ function ShowUser() {
                         <Pagination
                           count={Math.ceil(followings.length / 6)}
                           page={followersPage}
-                          onChange={(e, followersPage) => {
-                            setFollowersPage(followersPage);
+                          onChange={(e, p) => {
+                            setFollowersPage(p);
                             setPageOpen(false);
                           }}
                           color="primary"
@@ -749,11 +749,11 @@ function ShowUser() {
               />
             </>
           )}
-        </>
+        </div>
       ) : (
         <Loader />
       )}
-    </>
+    </div>
   );
 }
 

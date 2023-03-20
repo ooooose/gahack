@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Card, CardContent, Avatar, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   avatar: {
     width: '60px',
     height: '60px',

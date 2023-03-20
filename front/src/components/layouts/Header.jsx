@@ -12,7 +12,7 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { AuthContext } from '../../App';
+import AuthContext from '../../context';
 import TopLogo from '../../assets/img/TopLogo.png';
 
 const drawerWidth = 250;
@@ -69,7 +69,7 @@ const Header = memo(({ open, handleDrawerOpen }) => {
   const matches = useMediaQuery('(min-width:575px)');
 
   return (
-    <>
+    <div>
       {matches ? (
         <AppBar
           className={clsx(classes.appBar, open && classes.appBarShift)}
@@ -149,7 +149,7 @@ const Header = memo(({ open, handleDrawerOpen }) => {
           </Toolbar>
         </AppBar>
       )}
-    </>
+    </div>
   );
 });
 

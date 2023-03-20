@@ -1,19 +1,13 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
-
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography, useMediaQuery } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Box from '@material-ui/core/Box';
+import { Typography, useMediaQuery, Card, CardContent, CardHeader, Box, makeStyles } from '@material-ui/core';
 
 import { signIn } from '../../lib/api/auth';
-import { AuthContext } from '../../App';
+import AuthContext from '../../context';
 import AlertMessage from '../utils/AlertMessage';
-import { LoginButton } from '../atoms/buttons/LoginButton';
-import { Form } from '../atoms/forms/Form';
+import LoginButton from '../atoms/buttons/LoginButton';
+import Form from '../atoms/forms/Form';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -43,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function SignIn() {
+function SignIn() {
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
@@ -79,7 +73,6 @@ export function SignIn() {
       try {
         const res = await signIn(params);
         if (res.status === 200) {
-          console.log(res);
           Cookies.set('_access_token', res.headers['access-token']);
           Cookies.set('_client', res.headers.client);
           Cookies.set('_uid', res.headers.uid);
@@ -90,13 +83,11 @@ export function SignIn() {
           navigate(`/users/${res.data.data.id}`, {
             state: { successMessageOpen: true },
           });
-          console.log('Signed in successfully!');
         }
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        console.log(err);
         setAlertMessageOpen(true);
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [generateParams],
   );

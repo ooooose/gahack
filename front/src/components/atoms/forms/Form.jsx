@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 
 import TextField from '@material-ui/core/TextField';
 
-export const Form = memo((props) => (
+const Form = memo((props) => (
   <TextField
     variant="outlined"
     required
@@ -17,3 +17,5 @@ export const Form = memo((props) => (
     onChange={props.onChange}
   />
 ));
+
+export default Form;

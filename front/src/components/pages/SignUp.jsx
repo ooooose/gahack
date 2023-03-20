@@ -10,8 +10,8 @@ import Box from '@material-ui/core/Box';
 
 import { signUp } from '../../lib/api/auth';
 import AlertMessage from '../utils/AlertMessage';
-import { SignUpButton } from '../atoms/buttons/SignUpButton';
-import { Form } from '../atoms/forms/Form';
+import SignUpButton from '../atoms/buttons/SignUpButton';
+import Form from '../atoms/forms/Form';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -88,8 +88,8 @@ function SignUp() {
         console.log(res);
 
         navigate('/signin', { state: { successMessageOpen: true } });
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        console.log(err);
         setAlertMessageOpen(true);
       }
     },

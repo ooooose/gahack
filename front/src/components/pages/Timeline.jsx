@@ -7,7 +7,7 @@ import AlertMessage from '../utils/AlertMessage';
 import Loader from './Loader';
 import TimelineCard from '../molecules/TimelineCard';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   link: {
     textDecoration: 'none',
   },
@@ -124,8 +124,8 @@ function Timeline() {
                   <Pagination
                     count={Math.ceil(pictures.length / 6)}
                     page={page}
-                    onChange={(e, page) => {
-                      setPage(page);
+                    onChange={(e, p) => {
+                      setPage(p);
                     }}
                     color="primary"
                     className={classes.pagination}
@@ -176,8 +176,8 @@ function Timeline() {
                   <Pagination
                     count={Math.ceil(pictures.length / 6)}
                     page={page}
-                    onChange={(e, page) => {
-                      setPage(page);
+                    onChange={(e, p) => {
+                      setPage(p);
                     }}
                     color="primary"
                     className={classes.pagination}

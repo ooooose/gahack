@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { FormControl, Select, InputLabel, MenuItem } from '@material-ui/core';
 
-export const SelectBox = memo(({ placeholder, option, options, setOption }) => {
+const SelectBox = memo(({ placeholder, option, options, setOption }) => {
   const onChange = (e) => {
     setOption(e.target.value);
   };
@@ -19,3 +19,5 @@ export const SelectBox = memo(({ placeholder, option, options, setOption }) => {
     </FormControl>
   );
 });
+
+export default SelectBox;

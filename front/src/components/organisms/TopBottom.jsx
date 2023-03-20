@@ -7,7 +7,7 @@ import { Typography, Button, Divider, Box } from '@material-ui/core';
 import GuestLoginButton from '../atoms/buttons/GuestLoginButton';
 import styles from '../../css/organisms/TopBottom.module.css';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     paddingTop: '30px',
     paddingBottom: '20px',

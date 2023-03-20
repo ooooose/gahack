@@ -13,4 +13,18 @@ parserOptions:
   sourceType: module
 plugins:
   - react
-rules: {}
+rules: {
+    'react/prop-types': 'off',
+    'no-console': 'off',
+    'no-alert': 'off',
+    'no-plusplus': 'off',
+    'no-param-reassign': 'off',
+    'no-use-before-define': 'off',
+    'consistent-return': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/jsx-no-useless-fragment': 'off',
+    'react/jsx-filename-extension': [
+      'error',
+      {extensions: ['.js','.jsx']},
+    ],
+  }

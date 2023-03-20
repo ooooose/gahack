@@ -16,10 +16,10 @@ import {
   CardContent,
   useMediaQuery,
 } from '@material-ui/core';
-import { ResetButton } from '../atoms/buttons/ResetButton';
+import ResetButton from '../atoms/buttons/ResetButton';
 import { createPicture } from '../../lib/api/pictures';
-import { UploadButton } from '../atoms/buttons/UploadButton';
-import { SelectBox } from '../atoms/selectBoxes/SelectBox';
+import UploadButton from '../atoms/buttons/UploadButton';
+import SelectBox from '../atoms/selectBoxes/SelectBox';
 import { getThemes } from '../../lib/api/themes';
 import styles from '../../css/pages/Canvas.module.css';
 
@@ -120,7 +120,7 @@ function Canvas() {
   const minMatches = useMediaQuery('(min-width:575px)');
 
   const bgColor = 'rgb(255,255,255)';
-  const line_color = document.getElementById('line_color');
+  const lineColor = document.getElementById('line_color');
   let canvas;
   let ctx;
   const temp = [];
@@ -194,7 +194,7 @@ function Canvas() {
     }
   };
 
-  const endPoint = (e) => {
+  const endPoint = () => {
     if (drawFlag === 0) {
       ctx.lineTo(Xpoint - 1, Ypoint - 1);
       ctx.lineCap = 'round';
@@ -290,7 +290,7 @@ function Canvas() {
   const draw = (src) => {
     const img = new Image();
     img.src = src;
-    img.onload = function () {
+    img.onload = () => {
       ctx.drawImage(img, 0, 0);
     };
   };
@@ -308,7 +308,7 @@ function Canvas() {
   };
 
   const changeColor = () => {
-    setColor((prev) => line_color.value);
+    setColor(lineColor.value);
     if (eraser) {
       ctx.globalCompositeOperation = 'destination-out';
     } else {
@@ -317,7 +317,7 @@ function Canvas() {
   };
 
   const handleLineWidth = (e, newVal) => {
-    setLineWidth((prev) => newVal);
+    setLineWidth(newVal);
   };
 
   const handleGetThemes = async () => {
@@ -341,7 +341,7 @@ function Canvas() {
       canvas.toBlob((blob) => {
         const reader = new FileReader();
         reader.readAsDataURL(blob);
-        reader.onload = async (e) => {
+        reader.onload = async () => {
           const dataUrlBase64 = reader.result;
           const base64 = dataUrlBase64.replace(/data:.*\/.*;base64,/, '');
           const params = generateParams(base64, dataUrlBase64);
@@ -352,8 +352,8 @@ function Canvas() {
                 state: { successMessageOpen: true },
               });
             }
-          } catch (e) {
-            console.log(e);
+          } catch (err) {
+            console.log(err);
           }
         };
       }, 'image/png');
