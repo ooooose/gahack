@@ -8,7 +8,7 @@ import TopImage from '../../assets/img/TopImage.png';
 import styles from '../../css/organisms/TopMain.module.css';
 import GuestLoginButton from '../atoms/buttons/GuestLoginButton';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     backgroundImage: `url(${TopBackImage})`,
     backgroundRepeat: 'no-repeat',

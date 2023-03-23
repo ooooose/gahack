@@ -7,7 +7,7 @@ import {
   makeStyles,
   useMediaQuery,
 } from '@material-ui/core';
-import { Form } from '../atoms/forms/Form';
+import Form from '../atoms/forms/Form';
 import AlertMessage from '../utils/AlertMessage';
 import { passwordReset } from '../../lib/api/auth';
 
@@ -47,7 +47,7 @@ function PasswordReset() {
   const generateParams = useCallback(() => {
     const passwordResetParams = {
       email,
-      redirectUrl: 'https://gahack.net/password/reset',
+      redirectUrl: `${process.env.REACT_APP_FRONT}password/reset`,
     };
     return passwordResetParams;
   }, [email]);
@@ -62,8 +62,8 @@ function PasswordReset() {
           setEmail('');
           setSuccessMessageOpen(true);
         }
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        console.log(err);
         setAlertMessageOpen(true);
       }
     },

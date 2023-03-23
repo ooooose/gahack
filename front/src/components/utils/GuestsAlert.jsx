@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Modal, Button, makeStyles, useMediaQuery } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { AuthContext } from '../../App';
+import AuthContext from '../../context';
 import { signOut } from '../../lib/api/auth';
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +48,7 @@ function GuestsAlert({ open, setOpen }) {
   const matches = useMediaQuery('(min-width:575px)');
   const { setIsSignedIn } = useContext(AuthContext);
 
-  const handleSignOut = async (e) => {
+  const handleSignOut = async () => {
     try {
       const res = await signOut();
 
@@ -59,8 +59,6 @@ function GuestsAlert({ open, setOpen }) {
 
         setIsSignedIn(false);
         navigate('/signup');
-
-        console.log('Succeeded in sign out');
       } else {
         console.log('Failed in sign out');
       }

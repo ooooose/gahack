@@ -6,7 +6,7 @@ import Loader from './Loader';
 import BestPictureCard from '../molecules/BestPictureCard';
 import BestUserCard from '../molecules/BestUserCard';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   link: {
     textDecoration: 'none',
   },
@@ -91,7 +91,6 @@ function Ranking() {
   useEffect(() => {
     handleGetPictures();
     handleGetUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -110,7 +109,7 @@ function Ranking() {
                 <div className={classes.usersContent}>
                   <Grid container spacing={3}>
                     {bestUsers.map((user, index) => (
-                      <Grid item xs={12} sm={6} md={4} key={index}>
+                      <Grid item xs={12} sm={6} md={4} key={user.id}>
                         <BestUserCard user={user} index={index} />
                       </Grid>
                     ))}
@@ -146,7 +145,7 @@ function Ranking() {
                 <div className={classes.usersContent}>
                   <Grid container spacing={3}>
                     {bestUsers.map((user, index) => (
-                      <Grid item xs={12} sm={6} md={4} key={index}>
+                      <Grid item xs={12} sm={6} md={4} key={user.id}>
                         <BestUserCard user={user} index={index} />
                       </Grid>
                     ))}

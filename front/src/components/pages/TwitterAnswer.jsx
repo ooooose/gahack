@@ -7,7 +7,7 @@ import Picture from '../atoms/picture/Picture';
 import Loader from './Loader';
 import TwitterAnswerModal from '../molecules/TwitterAnswerModal';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     margin: '0 auto',
     width: '100%',
@@ -75,11 +75,10 @@ function TwitterAnswer() {
 
   useEffect(() => {
     handleShowPicture();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <>
+    <div>
       {!loading ? (
         <>
           <Helmet
@@ -159,7 +158,7 @@ function TwitterAnswer() {
       ) : (
         <Loader />
       )}
-    </>
+    </div>
   );
 }
 

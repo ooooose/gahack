@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const UploadButton = memo((props) => {
+const UploadButton = memo((props) => {
   const classes = useStyles();
 
   return (
@@ -28,3 +28,5 @@ export const UploadButton = memo((props) => {
     </Button>
   );
 });
+
+export default UploadButton;

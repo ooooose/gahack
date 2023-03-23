@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button, makeStyles } from '@material-ui/core';
 import Cookies from 'js-cookie';
 import { guestSignIn } from '../../../lib/api/auth';
-import { AuthContext } from '../../../App';
+import AuthContext from '../../../context';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   button: {
     fontSize: '14px',
     padding: '5px 16px',
@@ -30,8 +30,8 @@ function GuestLoginButton() {
         setCurrentUser(res.data.data);
         navigate('/', { state: { successMessageOpen: true } });
       }
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
     }
   };
 

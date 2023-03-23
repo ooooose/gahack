@@ -8,7 +8,7 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     marginLeft: '100px',
     marginBottom: '30px',
@@ -61,7 +61,7 @@ function TermsOfService() {
   }, []);
 
   return (
-    <>
+    <div>
       {matches ? (
         <div className={classes.container}>
           <Typography variant="h4" className={classes.header}>
@@ -969,7 +969,7 @@ function TermsOfService() {
           </Box>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

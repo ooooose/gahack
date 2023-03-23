@@ -9,7 +9,7 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     marginLeft: '80px',
     marginBottom: '30px',

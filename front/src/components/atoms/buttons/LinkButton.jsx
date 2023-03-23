@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
-export const LinkButton = memo((props) => (
+const LinkButton = memo((props) => (
   <Button
     sytle={{ textTransform: 'none' }}
     component={Link}
@@ -14,3 +14,5 @@ export const LinkButton = memo((props) => (
     {props.children}
   </Button>
 ));
+
+export default LinkButton;

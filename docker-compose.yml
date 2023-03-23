@@ -5,13 +5,13 @@ volumes:
 services:
   api:
     build:
-      context: .
+      context: ./api/
       dockerfile: Dockerfile
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     image: rails:dev
     volumes:
-      - '../api:/myapp'
-      - '../api/vendor/bundle:/myapp/vendor/bundle'
+      - './api:/myapp'
+      - './api/vendor/bundle:/myapp/vendor/bundle'
     ports:
       - '3000:3000'
     tty: true
@@ -30,10 +30,10 @@ services:
       - '3306:3306'
   front:
     build:
-      context: ../front/
+      context: ./front/
       dockerfile: Dockerfile
     volumes:
-      - '../front:/user/src/app'
+      - './front:/user/src/app'
     environment:
       - WDS_SOCKET_PORT=0
     command: sh -c "yarn start"

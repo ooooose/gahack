@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, useMediaQuery } from '@material-ui/core';
 import { Puff } from 'react-loader-spinner';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   loading: {
     margin: '0 auto',
     position: 'fixed',

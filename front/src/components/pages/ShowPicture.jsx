@@ -19,14 +19,14 @@ import Picture from '../atoms/picture/Picture';
 import styles from '../../css/components/Frames.module.css';
 import Loader from './Loader';
 import EditFrameModal from '../molecules/EditFrameModal';
-import { AuthContext } from '../../App';
+import AuthContext from '../../context';
 import DeletePicutreButton from '../atoms/buttons/DeletePictureButton';
 import Likes from '../molecules/Likes';
 import Bookmarks from '../molecules/Bookmarks';
 import CommentsModal from '../molecules/CommentsModal';
 import AlertMessage from '../utils/AlertMessage';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   animation: {
     transition: '1s',
     opacity: '1',
@@ -118,18 +118,19 @@ function ShowPicture() {
     location.state ? location.state.successMessageOpen : false,
   );
 
-  const handleToDate = (date) => {
-    date = new Date(date);
-    if (date.getMinutes() < 10) {
-      date = `${date.getFullYear()}/${
-        (date.getMonth() % 12) + 1
-      }/${date.getDate()} ${date.getHours()}:0${date.getMinutes()}`;
+  const handleToDate = (d) => {
+    const target = new Date(d);
+    let PostDate;
+    if (target.getMinutes() < 10) {
+      PostDate = `${target.getFullYear()}/${
+        (target.getMonth() % 12) + 1
+      }/${target.getDate()} ${target.getHours()}:0${target.getMinutes()}`;
     } else {
-      date = `${date.getFullYear()}/${
-        (date.getMonth() % 12) + 1
-      }/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+      PostDate = `${target.getFullYear()}/${
+        (target.getMonth() % 12) + 1
+      }/${target.getDate()} ${target.getHours()}:${target.getMinutes()}`;
     }
-    setDate(date);
+    setDate(PostDate);
   };
 
   const handleShowPicture = async () => {
@@ -171,7 +172,6 @@ function ShowPicture() {
 
   useEffect(() => {
     handleShowPicture();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

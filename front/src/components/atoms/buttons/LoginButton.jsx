@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const LoginButton = memo((props) => {
+const LoginButton = memo((props) => {
   const classes = useStyles();
   return (
     <Button
@@ -28,3 +28,5 @@ export const LoginButton = memo((props) => {
     </Button>
   );
 });
+
+export default LoginButton;

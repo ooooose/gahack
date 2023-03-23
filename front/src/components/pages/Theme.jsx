@@ -9,7 +9,7 @@ import { showTheme } from '../../lib/api/themes';
 import styles from '../../css/components/Frames.module.css';
 import Loader from './Loader';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   animation: {
     transition: '1s',
     opacity: '1',
@@ -90,7 +90,6 @@ function Theme() {
 
   useEffect(() => {
     handleShowTheme();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   useEffect(() => {
@@ -135,8 +134,8 @@ function Theme() {
                     count={Math.ceil(pictures.length / 6)}
                     color="primary"
                     page={page}
-                    onChange={(e, page) => {
-                      setPage(page);
+                    onChange={(e, p) => {
+                      setPage(p);
                       setIsOpen(false);
                     }}
                   />
@@ -177,8 +176,8 @@ function Theme() {
                     count={Math.ceil(pictures.length / 6)}
                     color="primary"
                     page={page}
-                    onChange={(e, page) => {
-                      setPage(page);
+                    onChange={(e, p) => {
+                      setPage(p);
                       setIsOpen(false);
                     }}
                   />

@@ -1,8 +1,8 @@
 import React, { useState, useContext, memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Modal, Button, useMediaQuery } from '@material-ui/core';
-import { Form } from '../atoms/forms/Form';
-import { AuthContext } from '../../App';
+import Form from '../atoms/forms/Form';
+import AuthContext from '../../context';
 import { editUser } from '../../lib/api/users';
 
 const useStyles = makeStyles((theme) => ({
@@ -71,12 +71,12 @@ const EditUserModal = memo(({ open, setOpen, user, setUser, setAvatar }) => {
     try {
       const res = await editUser(id, params);
       setOpen(false);
-      const new_user = res.data.user;
-      const new_avatar = res.data.user.image;
-      setUser(new_user);
-      setAvatar(new_avatar);
-    } catch (e) {
-      console.log(e);
+      const newUser = res.data.user;
+      const newAvatar = res.data.user.image;
+      setUser(newUser);
+      setAvatar(newAvatar);
+    } catch (err) {
+      console.log(err);
     }
   };
 

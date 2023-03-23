@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import { AuthContext } from '../../App';
+import AuthContext from '../../context';
 import { deleteComment } from '../../lib/api/comments';
 import DeleteCommentButton from '../atoms/buttons/DeleteCommentButton';
 
@@ -29,7 +29,7 @@ const Comment = memo(
           const res = await deleteComment(picture.id, commentId);
           if (res.status === 200) {
             const newComments = comments.filter(
-              (comment) => comment.id !== commentId,
+              (c) => c.id !== commentId,
             );
             setComments(newComments);
           }

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ResetButton = memo((props) => {
+const ResetButton = memo((props) => {
   const classes = useStyles();
 
   return (
@@ -27,3 +27,5 @@ export const ResetButton = memo((props) => {
     </Tooltip>
   );
 });
+
+export default ResetButton;

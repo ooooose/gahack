@@ -1,14 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core';
-import { AuthContext } from '../../App';
+import AuthContext from '../../context';
 import TopMain from '../organisms/TopMain';
 import TopDescription from '../organisms/TopDescription';
 import TopBottom from '../organisms/TopBottom';
 import Timeline from './Timeline';
 import AlertMessage from '../utils/AlertMessage';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   animation: {
     transition: '1s',
     opacity: '1',

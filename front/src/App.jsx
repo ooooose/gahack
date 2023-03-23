@@ -1,6 +1,7 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { getCurrentUser } from './lib/api/auth';
+import AuthContext from './context';
 
 import CommonLayout from './components/layouts/CommonLayout';
 import TopPage from './components/pages/TopPage';
@@ -21,8 +22,6 @@ import Ranking from './components/pages/Ranking';
 import PrivacyPolicy from './components/pages/PrivacyPolicy';
 import TermsOfService from './components/pages/TermsOfService';
 
-export const AuthContext = createContext();
-
 function App() {
   const [loading, setLoading] = useState(true);
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -35,7 +34,6 @@ function App() {
       if (res?.data.isLogin === true) {
         setIsSignedIn(true);
         setCurrentUser(res?.data.data);
-        console.log(res?.data.data);
       } else {
         console.log('no current user');
       }
@@ -49,16 +47,13 @@ function App() {
     handleGetCurrentUser();
   }, [setCurrentUser]);
 
+  const AuthContextValue = useMemo(() => ({ 
+      loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser 
+    }), [loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser]);
+
   return (
     <AuthContext.Provider
-      value={{
-        loading,
-        setLoading,
-        isSignedIn,
-        setIsSignedIn,
-        currentUser,
-        setCurrentUser,
-      }}
+    value={AuthContextValue}
     >
       <Router>
         <CommonLayout>
