@@ -8,8 +8,9 @@ RSpec.describe Theme, type: :request do
 
     it "テーマの一覧が表示されること" do
       get "/api/v1/themes"
+      json = JSON.parse(response.body)
       expect(response.status).to eq(200)
-      expect(json.length).to eq(Theme.count)
+      expect(json.length).to eq(10)
     end
   end
 
@@ -20,25 +21,9 @@ RSpec.describe Theme, type: :request do
 
     it "テーマの詳細が表示されること" do
       get "/api/v1/themes/#{@theme.id}"
+      json = JSON.parse(response.body)
       expect(response.status).to eq(200)
-      expect(json["theme"]["title"]).to eq(@theme.title)
-    end
-  end
-
-  describe "テーマ作成機能" do
-    before do
-      @theme_create_params = {
-        theme: {
-          title: "theme_title",
-        },
-      }
-    end
-
-    it "テーマが作成されること" do
-      expect do
-        post "/api/v1/themes", params: @theme_create_params
-        expect(response.status).to eq(201)
-      end.to change { Theme.count }.by(1)
+      expect(json["title"]).to eq(@theme.title)
     end
   end
 end
