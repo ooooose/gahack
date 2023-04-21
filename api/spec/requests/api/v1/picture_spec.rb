@@ -20,15 +20,17 @@ RSpec.describe Picture, type: :request do
     end
 
     # うまく作成できないので、一旦保留
-    xit '絵の作成に成功' do
-      sign_in @user
+    xit "絵の作成に成功" do
       theme = FactoryBot.create(:theme)
-      picture_attributes = FactoryBot.attributes_for(:picture)
+      get "/api/v1/pictures", params: {
+        email: @user.email,
+        password: @user.password,
+      }
 
       expect {
-        post '/api/v1/pictures', params: {
+        post "/api/v1/pictures", params: {
           user_id: @user.id,
-          theme_id: theme.id
+          theme_id: theme.id,
         }
       }.to change(@user.pictures, :count).by(1)
 

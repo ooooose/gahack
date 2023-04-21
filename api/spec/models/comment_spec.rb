@@ -5,39 +5,39 @@ RSpec.describe Comment, type: :model do
     @user = create(:user)
     @picture = create(:picture)
   end
-  
-  it 'ユーザーが絵に対してコメントを入力できること' do
+
+  it "ユーザーが絵に対してコメントを入力できること" do
     comment = Comment.new(
-      body: 'comment',
+      body: "comment",
       user: @user,
-      picture: @picture
+      picture: @picture,
     )
     expect(comment).to be_valid
   end
 
-  it 'ユーザー情報がない場合、コメントが作成できないこと' do
+  it "ユーザー情報がない場合、コメントが作成できないこと" do
     comment = Comment.new(
-      body: 'comment',
+      body: "comment",
       user: nil,
-      picture: @picture
+      picture: @picture,
     )
     expect(comment).not_to be_valid
   end
 
-  it '絵の情報がない場合、コメントが作成できないこと' do
+  it "絵の情報がない場合、コメントが作成できないこと" do
     comment = Comment.new(
-      body: 'comment',
+      body: "comment",
       user: @user,
-      picture: nil, 
+      picture: nil,
     )
     expect(comment).not_to be_valid
   end
 
-  it 'コメント内容がない場合、コメントの作成ができないこと' do
+  it "コメント内容がない場合、コメントの作成ができないこと" do
     comment = Comment.new(
       body: nil,
       user: @user,
-      picture: @picture
+      picture: @picture,
     )
     expect(comment).not_to be_valid
   end
