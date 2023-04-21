@@ -200,6 +200,10 @@ Style/CollectionMethods:
 Style/Documentation:
   Enabled: false
 
+# よくないが、解決策が見出せないので一旦除外する。
+Style/RedundantSort:
+  Enabled: false
+
 # !! のイディオムは積極的に使う
 Style/DoubleNegation:
   Enabled: false
@@ -388,3 +392,4 @@ Style/WordArray:
 # 中身を入れ替えて否定外しても良いんだけど、どちらが例外的な処理なのかが分かりづらくなる。
 Style/ZeroLengthPredicate:
   Enabled: false
+
