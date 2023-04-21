@@ -7,6 +7,9 @@ Rails/ActiveRecordCallbacksOrder:
 Rails/Delegate:
   Enabled: false
 
+Rails/ApplicationController:
+  Enabled: false
+
 Rails/Exit:
   Enabled: false
 

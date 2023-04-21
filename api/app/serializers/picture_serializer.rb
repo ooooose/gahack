@@ -47,5 +47,4 @@ class PictureSerializer < ActiveModel::Serializer
   attribute :user do
     object.user
   end
-
 end

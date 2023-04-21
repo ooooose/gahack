@@ -3,17 +3,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
   mount_uploader :image, AvatarUploader
-  has_many :pictures, -> { order(created_at: :desc) }, dependent: :destroy
-  has_many :likes, dependent: :destroy
+  has_many :pictures, -> { order(created_at: :desc) }, inverse_of: :user, dependent: :destroy
+  has_many :likes, inverse_of: :user, dependent: :destroy
   has_many :liked_pictures, through: :likes, source: :picture
-  has_many :comments, -> { order(created_at: :desc) }, dependent: :destroy
+  has_many :comments, -> { order(created_at: :desc) }, inverse_of: :user, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_pictures, through: :bookmarks, source: :picture
 
   # フォロー、リフォロー
   has_many :relationships, dependent: :destroy
   has_many :followings, through: :relationships, source: :follow
-  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "follow_id", dependent: :destroy
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "follow_id", inverse_of: :user, dependent: :destroy
   has_many :followers, through: :reverse_of_relationships, source: :user
 
   scope :without_guests, -> { where.not(name: "ゲストユーザー") }

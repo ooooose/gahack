@@ -6,18 +6,18 @@ RSpec.describe Theme, type: :model do
     expect(@theme).to be_valid
   end
 
-  it '重複したタイトルのテーマは作成できない' do
+  it "重複したタイトルのテーマは作成できない" do
     Theme.create(
-      title: 'サザエさん',
+      title: "サザエさん",
     )
     theme = Theme.new(
-      title: 'サザエさん',
+      title: "サザエさん",
     )
     theme.valid?
     expect(theme).not_to be_valid
   end
 
-  it 'タイトルがないとテーマとして成立しない' do
+  it "タイトルがないとテーマとして成立しない" do
     theme = Theme.new(
       title: nil,
     )

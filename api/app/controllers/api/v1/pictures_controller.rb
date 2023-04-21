@@ -15,7 +15,7 @@ class Api::V1::PicturesController < ApiController
 
   def show
     @picture = Picture.includes({ user: [:likes, :liked_pictures, :comments, :bookmarks, :bookmark_pictures, :followings, :followers] },
-                                 :theme, { likes: :picture }, :liked_users, { comments: :picture }, { bookmarks: :picture }).find(params[:id])
+                                :theme, { likes: :picture }, :liked_users, { comments: :picture }, { bookmarks: :picture }).find(params[:id])
     render_json = ActiveModelSerializers::SerializableResource.new(
       @picture,
       serializer: PictureSerializer,
@@ -50,7 +50,7 @@ class Api::V1::PicturesController < ApiController
   # TOP5の絵をランキング形式で表示
   def best_pictures
     @pictures = Picture.includes({ user: [:likes, :liked_pictures, :comments, :bookmarks, :bookmark_pictures, :followings, :followers] },
-                                  :theme, :liked_users, {likes: :picture }, {comments: :picture }, {bookmarks: :picture }).recent.best_pictures
+                                 :theme, :liked_users, { likes: :picture }, { comments: :picture }, { bookmarks: :picture }).recent.best_pictures
     render_json = ActiveModelSerializers::SerializableResource.new(
       @pictures,
       each_serializer: PictureSerializer,
