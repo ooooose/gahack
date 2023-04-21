@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_17_231441) do
+ActiveRecord::Schema.define(version: 2023_04_21_212423) do
 
   create_table "active_admin_comments", charset: "utf8mb4", force: :cascade do |t|
     t.string "namespace"
@@ -58,12 +58,19 @@ ActiveRecord::Schema.define(version: 2023_02_17_231441) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "frames", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "likes", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "picture_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["picture_id"], name: "index_likes_on_picture_id"
+    t.index ["user_id", "picture_id"], name: "index_likes_on_user_id_and_picture_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
@@ -93,6 +100,7 @@ ActiveRecord::Schema.define(version: 2023_02_17_231441) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["title"], name: "index_themes_on_title", unique: true
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
